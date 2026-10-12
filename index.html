@@ -271,10 +271,10 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 .set-row .tt{font-size:14.5px;font-weight:800}
 .set-row .dd{font-size:12px;color:var(--ink2);margin-top:2px}
 .set-row .chev2{color:#b6bbd0;font-size:14px;flex:none}
-.theme-dots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:6px 0 4px}
+.theme-dots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:4px 0 2px}
 .theme-dot{border:none;cursor:pointer;text-align:center;background:none;padding:0}
-.theme-dot .c{width:100%;aspect-ratio:1/1;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px;box-shadow:var(--shadow)}
-.theme-dot .n{font-size:11px;font-weight:700;color:var(--ink2);margin-top:5px}
+.theme-dot .c{width:38px;height:38px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;box-shadow:var(--shadow)}
+.theme-dot .n{font-size:10.5px;font-weight:700;color:var(--ink2);margin-top:4px}
 .theme-dot.on .c{outline:3px solid var(--pri);outline-offset:2px}
 
 /* 정보 노트 카드 (알아둘 정보) */
@@ -329,13 +329,21 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 .h-ic{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.3);display:inline-flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;color:var(--hInk)}
 .h-ic:active{transform:scale(.9)}
 /* 큰 4박스 대시보드 */
-.dash{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
-.tile{border:none;font-family:inherit;text-align:center;border-radius:22px;padding:26px 10px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;cursor:pointer;width:100%}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:0}
+.tile{border:none;font-family:inherit;text-align:left;border-radius:18px;padding:14px 14px 13px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:4px;cursor:pointer;width:100%;min-height:118px}
 .tile:active{transform:scale(.98)}
-.tile .bx{width:60px;height:60px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.3);font-size:27px;font-weight:900}
-.tile .tt{font-size:17px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
-.tile .dd{font-size:11.5px;opacity:.88;margin-top:2px;line-height:1.35}
-.tile .arr{display:none}
+.tile .lab{font-size:12px;font-weight:800;opacity:.92}
+.tile .val{font-size:15px;font-weight:800;line-height:1.32;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tile .sub{font-size:11px;opacity:.85;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .pbar{height:6px;width:100%;background:rgba(255,255,255,.4);border-radius:99px;overflow:hidden;margin-top:3px}
+.tile .pbar>i{display:block;height:100%;border-radius:99px;background:#fff}
+.t-pack .pbar{background:rgba(74,50,0,.18)}
+.t-pack .pbar>i{background:#4a3200}
+.hello{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:15px 16px;margin:2px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-left:5px solid var(--pri)}
+.hello .hg{min-width:0}
+.hello .t1{font-size:16.5px;font-weight:800;letter-spacing:-.2px;line-height:1.3}
+.hello .t2{font-size:12px;color:var(--ink2);margin-top:4px;line-height:1.4}
+.hello .hd{flex:none;font-size:20px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;padding-left:8px;white-space:nowrap}
 .t-air{background:linear-gradient(135deg,#38bdf8 0%,#6366f1 100%);color:#fff}
 .t-sch{background:linear-gradient(135deg,#a78bfa 0%,#7c3aed 100%);color:#fff}
 .t-trf{background:linear-gradient(135deg,#34d399 0%,#059669 100%);color:#fff}
@@ -366,7 +374,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v1.5';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v1.6';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -608,8 +616,9 @@ function applySettings(){
 }
 function renderTabbar(){ $('#tabbar').innerHTML = ''; }
 
-/* ---------------- 렌더: 홈 (큰 4박스 대시보드) ---------------- */
+/* ---------------- 렌더: 홈 (인사 스트립 + 정보 카드 2×2) ---------------- */
 function renderHome(){
+  const trip = state.trip;
   const evCount = state.schedule.reduce((n, d) => n + d.events.length, 0);
   let pkDone = 0;
   try {
@@ -618,19 +627,52 @@ function renderHome(){
       if (k && k.indexOf('travel_v4_') === 0 && k !== 'travel_v4_memos' && localStorage.getItem(k) === '1') pkDone++;
     }
   } catch (e) {}
-  const airDesc = state.airports.length ? state.airports.length + '개 공항 저장됨' : '공항 정보를 저장해 보세요';
-  const schDesc = state.schedule.length ? state.schedule.length + '일 · ' + evCount + '개 일정' : '스캔 · 불러오기 · 직접 입력';
-  const trDesc = state.transfers.length ? state.transfers.length + '개 교통편 저장됨' : '공항에서 호텔 가는 법';
-  return '<div class="dash">' +
-    tileBtn('t-air',  '공', '공항 정보',   airDesc, 'nav', 'airports') +
-    tileBtn('t-pack', '준', '준비물 체크', pkDone + ' / 130 완료 · 아코디언 체크리스트', 'pack-go', '') +
-    tileBtn('t-sch',  '일', '일정',       schDesc, 'nav', 'schedule') +
-    tileBtn('t-trf',  '호', '공항 → 호텔', trDesc, 'nav', 'transfers') +
+  const pkPct = Math.round(pkDone / 130 * 100);
+
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const all = [];
+  state.schedule.forEach(d => d.events.forEach(ev => all.push({ date: d.date || '', label: d.label, time: ev.time || '', title: ev.title })));
+  all.sort((a, b) => ((a.date || '9999') + 'T' + (a.time || '99:99')).localeCompare((b.date || '9999') + 'T' + (b.time || '99:99')));
+  const nextEv = all.find(x => x.date && x.date >= todayISO) || all[0] || null;
+
+  const depAir = state.airports.find(a => a.type === 'dep') || state.airports[0];
+  const trFirst = state.transfers[0];
+
+  let html = '<div class="hello">';
+  if (trip.name || trip.dest || trip.start){
+    html += '<div class="hg"><div class="t1">✈️ ' + esc(trip.name || '나의 여행') + '</div>' +
+      '<div class="t2">' + esc((trip.dest || '목적지 미정') + (trip.start ? ' · ' + fmtFull(trip.start) : '') + (trip.end ? ' ~ ' + fmtFull(trip.end) : '')) + '</div></div>' +
+      (ddayText() ? '<div class="hd">' + esc(ddayText()) + '</div>' : '');
+  } else {
+    html += '<div class="hg"><div class="t1">어서 오세요! 👋</div>' +
+      '<div class="t2">⚙️ 설정에서 여행 정보를 등록하면 더 똑똑해져요</div></div>';
+  }
+  html += '</div>';
+
+  html += '<div class="dash">' +
+    miniTile('t-air', '공항 정보',
+      depAir ? esc(depAir.name.replace('예시) ', '')) : '출발 공항을 등록하세요',
+      depAir ? state.airports.length + '개 공항 · ' + (depAir.terminal ? esc(depAir.terminal) : '터미널 미입력') : '눌러서 추가 ›',
+      'nav', 'airports') +
+    '<button class="tile t-pack" data-action="pack-go">' +
+      '<div class="lab">준비물 체크</div>' +
+      '<div class="val">' + (pkDone ? pkPct + '% 챙겼어요' : '체크 시작하기') + '</div>' +
+      '<div class="sub">' + pkDone + ' / 130 완료</div>' +
+      '<div class="pbar"><i style="width:' + pkPct + '%"></i></div></button>' +
+    miniTile('t-sch', '일정',
+      nextEv ? esc((nextEv.time ? nextEv.time + ' ' : '') + nextEv.title) : '스캔 · 불러오기 · 직접 입력',
+      nextEv ? esc((nextEv.date ? fmtFull(nextEv.date) : nextEv.label) + ' · 총 ' + state.schedule.length + '일 ' + evCount + '개') : '눌러서 일정 넣기 ›',
+      'nav', 'schedule') +
+    miniTile('t-trf', '공항 → 호텔',
+      trFirst ? esc(trFirst.name.replace('예시) ', '')) : '이동 방법을 등록하세요',
+      trFirst ? esc(trFirst.mode + (trFirst.duration ? ' · ' + trFirst.duration : '')) : '눌러서 추가 ›',
+      'nav', 'transfers') +
   '</div>';
+  return html;
 }
-function tileBtn(cls, ch, tt, dd, action, id){
+function miniTile(cls, lab, val, sub, action, id){
   return '<button class="tile ' + cls + '" data-action="' + action + '"' + (id ? ' data-id="' + id + '"' : '') + '>' +
-    '<div class="bx">' + ch + '</div><div class="tt">' + esc(tt) + '</div><div class="dd">' + esc(dd) + '</div></button>';
+    '<div class="lab">' + esc(lab) + '</div><div class="val">' + val + '</div><div class="sub">' + sub + '</div></button>';
 }
 
 /* ---------------- 렌더: 공항 정보 ---------------- */
@@ -744,11 +786,11 @@ function renderSchedule(){
     '<div class="dd">세 가지 방법 중 편한 걸로 넣으세요. 스캔·불러오기는 아래 텍스트로 자동 변환되고, 오타는 직접 고칠 수 있어요.</div></div></div>' +
     '<div class="ocr-btns btns3">' +
       '<button class="ocr-btn" data-action="sch-photo"><div class="e">📷</div><div class="t">스캔</div><div class="d">사진 촬영</div></button>' +
-      '<button class="ocr-btn" data-action="sch-album"><div class="e">🖼️</div><div class="t">불러오기</div><div class="d">앨범 이미지</div></button>' +
+      '<button class="ocr-btn" data-action="sch-album"><div class="e">🖼️</div><div class="t">불러오기</div><div class="d">여러 장 가능</div></button>' +
       '<button class="ocr-btn" data-action="sch-type"><div class="e">⌨️</div><div class="t">직접 입력</div><div class="d">글자로 치기</div></button>' +
     '</div>' +
 '<input type="file" id="camInput" accept="image/*" capture="environment" style="display:none">' +
-    '<input type="file" id="imgInput" accept="image/*" style="display:none">' +
+    '<input type="file" id="imgInput" accept="image/*" multiple style="display:none">' +
     '<div class="ocr-prog" id="ocrProg"><div class="st"><span id="ocrStatus">준비 중…</span><span id="ocrPct"></span></div>' +
       '<div class="bar"><i id="ocrBar" style="width:0%"></i></div></div>' +
     '<div class="ocr-preview" id="ocrPreview"></div>' +
@@ -923,29 +965,40 @@ function ocrUi(show, status, pct){
   if (status) $('#ocrStatus').textContent = status;
   if (pct != null){ $('#ocrBar').style.width = Math.round(pct * 100) + '%'; $('#ocrPct').textContent = Math.round(pct * 100) + '%'; }
 }
-async function runOCR(file){
+async function runOCR(file, tag){
+  const T = s => tag ? tag + ' ' + s : s;
   const prev = $('#ocrPreview');
   if (prev){ prev.style.display = 'block'; prev.innerHTML = '<img alt="스캔 이미지" src="' + URL.createObjectURL(file) + '">'; }
-  ocrUi(true, 'OCR 엔진 준비 중…', 0);
+  ocrUi(true, T('OCR 엔진 준비 중…'), 0);
   if (typeof Tesseract === 'undefined'){
-    ocrUi(true, '⚠️ 지금은 OCR을 쓸 수 없어요 (네트워크 필요). 아래 칸에 텍스트를 직접 붙여넣어 주세요.', 0);
+    ocrUi(true, T('⚠️ 지금은 OCR을 쓸 수 없어요 (네트워크 필요). 아래 칸에 텍스트를 직접 붙여넣어 주세요.'), 0);
     return;
   }
   try {
     const worker = await Tesseract.createWorker('kor+eng', 1, {
       logger: m => {
-        if (m.status === 'recognizing text') { ocrUi(true, OCR_STATUS[m.status]); ocrUi(true, null, m.progress); }
-        else if (OCR_STATUS[m.status]) ocrUi(true, OCR_STATUS[m.status]);
+        if (m.status === 'recognizing text') { ocrUi(true, T(OCR_STATUS[m.status])); ocrUi(true, null, m.progress); }
+        else if (OCR_STATUS[m.status]) ocrUi(true, T(OCR_STATUS[m.status]));
       }
     });
     const ret = await worker.recognize(file);
     await worker.terminate();
     const text = ret.data.text.trim();
-    ocrUi(true, '✅ 인식 완료! 아래 텍스트를 확인해 주세요.', 1);
+    ocrUi(true, T('✅ 인식 완료! 아래 텍스트를 확인해 주세요.'), 1);
     const ta = $('#ocrText');
     if (ta){ ta.value = ta.value.trim() ? ta.value.trim() + '\n' + text : text; toast('글자 인식 완료! 수정 후 변환을 눌러 주세요 ✨'); }
   } catch (err) {
-    ocrUi(true, '⚠️ 인식에 실패했어요. 더 선명한 사진으로 다시 시도하거나 텍스트를 직접 넣어 주세요.', 0);
+    ocrUi(true, T('⚠️ 인식에 실패했어요. 더 선명한 사진으로 다시 시도하거나 텍스트를 직접 넣어 주세요.'), 0);
+  }
+}
+
+async function runOCRBatch(files){
+  if (files.length <= 1){ if (files[0]) runOCR(files[0]); return; }
+  for (let i = 0; i < files.length; i++){
+    await runOCR(files[i], '(' + (i + 1) + ' / ' + files.length + '장)');
+  }
+  if (typeof Tesseract !== 'undefined'){
+    ocrUi(true, '✅ ' + files.length + '장 인식 완료! 텍스트가 아래에 차례로 이어 붙었어요.', 1);
   }
 }
 
@@ -1329,9 +1382,14 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('change', e => {
   const id = e.target.id;
-  if (id === 'camInput' || id === 'imgInput'){
+  if (id === 'camInput'){
     const f = e.target.files[0];
     if (f) runOCR(f);
+    e.target.value = '';
+  }
+  if (id === 'imgInput'){
+    const fs = Array.from(e.target.files || []);
+    if (fs.length) runOCRBatch(fs);
     e.target.value = '';
   }
   if (id === 'importFile'){
