@@ -316,9 +316,9 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 .tab.on{color:var(--pri)}
 .tab.on .ic{filter:none;transform:translateY(-2px)}
 /* ===== v1.4 새 레이아웃: 얇은 상단바 + 큰 4박스 + 얇은 하단바 + 큰 글자(20pt 기준) ===== */
-#main{zoom:1.8}
-.sheet{zoom:1.8}
-#toast{zoom:1.8}
+#main{zoom:1.15}
+.sheet{zoom:1.15}
+#toast{zoom:1.15}
 #header{padding:calc(env(safe-area-inset-top,0px) + 4px) 10px 7px;border-radius:0;box-shadow:0 2px 12px rgba(20,20,50,.18)}
 .h-slim{display:flex;align-items:center;justify-content:space-between;gap:8px;height:42px}
 .h-brand{display:flex;align-items:center;gap:9px;min-width:0}
@@ -329,24 +329,22 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 .h-ic{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.3);display:inline-flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;color:var(--hInk)}
 .h-ic:active{transform:scale(.9)}
 /* 큰 4박스 대시보드 */
-.dash{display:flex;flex-direction:column;gap:13px;margin-top:8px}
-.tile{border:none;font-family:inherit;text-align:left;border-radius:22px;padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;cursor:pointer;width:100%}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.tile{border:none;font-family:inherit;text-align:center;border-radius:22px;padding:26px 10px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;cursor:pointer;width:100%}
 .tile:active{transform:scale(.98)}
-.tile .bx{width:58px;height:58px;border-radius:17px;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.3);font-size:26px;font-weight:900}
-.tile .grow{flex:1;min-width:0}
-.tile .tt{font-size:19px;font-weight:800;letter-spacing:-.2px}
-.tile .dd{font-size:12.5px;opacity:.88;margin-top:4px}
-.tile .arr{font-size:34px;font-weight:300;opacity:.7;flex:none;line-height:1}
+.tile .bx{width:60px;height:60px;border-radius:18px;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.3);font-size:27px;font-weight:900}
+.tile .tt{font-size:17px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
+.tile .dd{font-size:11.5px;opacity:.88;margin-top:2px;line-height:1.35}
+.tile .arr{display:none}
 .t-air{background:linear-gradient(135deg,#38bdf8 0%,#6366f1 100%);color:#fff}
 .t-sch{background:linear-gradient(135deg,#a78bfa 0%,#7c3aed 100%);color:#fff}
 .t-trf{background:linear-gradient(135deg,#34d399 0%,#059669 100%);color:#fff}
 .t-pack{background:linear-gradient(135deg,#FFCB05 0%,#f5a623 100%);color:#4a3200}
 .t-pack .bx{background:rgba(255,255,255,.45)}
 /* 하단 얇은 바: 내보내기/불러오기 — 글자는 아래 패치에서 교정 */
-#tabbar{padding:0;justify-content:stretch}
-.bb{flex:1;border:none;background:none;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;font-size:16.5px;font-weight:800;color:var(--ink);padding:15px 0 calc(env(safe-area-inset-bottom,0px) + 13px);cursor:pointer}
-.bb+.bb{border-left:1px solid var(--line)}
-.bb:active{background:#eef1fb}
+#tabbar{display:none}
+#bbImport{display:none}
+#main{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 30px)}
 /* 일정 입력 3버튼 */
 .ocr-btns.btns3{grid-template-columns:1fr 1fr 1fr}
 @media(max-width:380px){.ocr-btn .d{display:none}}
@@ -358,6 +356,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
   <header id="header"></header>
   <main id="main"></main>
   <nav id="tabbar"></nav>
+  <input type="file" id="importFile" accept="application/json" style="display:none">
 </div>
 <div id="sheetWrap"></div>
 <div id="toast"></div>
@@ -367,7 +366,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v1.4';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v1.5';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -559,11 +558,9 @@ function packFindGroup(id){
 }
 const BAG_SVG = '<svg width="30" height="30" viewBox="0 0 100 100" style="flex:none;border-radius:8px">' +
   '<rect x="0" y="0" width="100" height="100" rx="22" fill="#FFCB05"/>' +
-  '<rect x="18" y="38" width="8" height="34" rx="4" fill="#3a4163"/>' +
-  '<rect x="74" y="38" width="8" height="34" rx="4" fill="#3a4163"/>' +
   '<rect x="42" y="23" width="16" height="11" rx="5" fill="#262a3d"/>' +
   '<rect x="46" y="26.5" width="8" height="6" rx="3" fill="#FFCB05"/>' +
-  '<rect x="28" y="34" width="44" height="46" rx="10" fill="#262a3d"/>' +
+  '<rect x="26" y="34" width="48" height="46" rx="10" fill="#262a3d"/>' +
   '<rect x="38" y="50" width="24" height="24" rx="7" fill="#3a4163"/>' +
   '<rect x="38" y="54.5" width="24" height="3" fill="#FFCB05"/>' +
   '<circle cx="50" cy="56" r="2.2" fill="#FFCB05"/></svg>';
@@ -609,12 +606,7 @@ function applySettings(){
   r.setProperty('--hInk', th.hInk);
   r.setProperty('--btnInk', th.btnInk);
 }
-function renderTabbar(){
-  $('#tabbar').innerHTML =
-    '<button class="bb" data-action="export">⬇️ 내보내기</button>' +
-    '<button class="bb" data-action="import">⬆️ 불러오기</button>' +
-    '<input type="file" id="importFile" accept="application/json" style="display:none">';
-}
+function renderTabbar(){ $('#tabbar').innerHTML = ''; }
 
 /* ---------------- 렌더: 홈 (큰 4박스 대시보드) ---------------- */
 function renderHome(){
@@ -638,8 +630,7 @@ function renderHome(){
 }
 function tileBtn(cls, ch, tt, dd, action, id){
   return '<button class="tile ' + cls + '" data-action="' + action + '"' + (id ? ' data-id="' + id + '"' : '') + '>' +
-    '<div class="bx">' + ch + '</div><div class="grow"><div class="tt">' + esc(tt) + '</div><div class="dd">' + esc(dd) + '</div></div>' +
-    '<div class="arr">›</div></button>';
+    '<div class="bx">' + ch + '</div><div class="tt">' + esc(tt) + '</div><div class="dd">' + esc(dd) + '</div></button>';
 }
 
 /* ---------------- 렌더: 공항 정보 ---------------- */
