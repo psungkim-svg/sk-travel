@@ -293,6 +293,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
+const APP_VERSION = 'v1.1';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -487,10 +488,11 @@ function renderHome(){
     quickCard('transfers', '🚌', '공항→호텔', state.transfers.length + '개 교통편') +
   '</div>';
   html += '<div class="card"><div class="card-title" style="margin-bottom:10px">💾 데이터 백업</div>' +
-    '<div style="font-size:12.5px;color:var(--ink2);margin-bottom:12px;line-height:1.6">모든 내용은 이 기기에 자동 저장돼요. JSON으로 날보거나 불러올 수도 있어요.</div>' +
+    '<div style="font-size:12.5px;color:var(--ink2);margin-bottom:12px;line-height:1.6">모든 내용은 이 기기에 자동 저장돼요. JSON으로 내보내거나 불러올 수도 있어요.</div>' +
     '<div class="row"><button class="btn btn-soft" style="flex:1" data-action="export">⬇️ 내보내기</button>' +
     '<button class="btn btn-ghost" style="flex:1" data-action="import">⬆️ 불러오기</button></div>' +
-    '<input type="file" id="importFile" accept="application/json" style="display:none"></div>';
+    '<input type="file" id="importFile" accept="application/json" style="display:none">' +
+    '<div style="text-align:center;font-size:11px;color:#b8bdd4;margin-top:12px">SK-여행 ' + APP_VERSION + '</div></div>';
   return html;
 }
 function quickCard(tab, e, t, d){
