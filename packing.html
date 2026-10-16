@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>
+/* 설정에서 HTML 코드를 붙여넣었다면, 이 화면을 그 코드로 통째로 교체 */
+try{(function(){var c=localStorage.getItem('sk_pack_html');if(c){document.open();document.write(c);document.close();}})();}catch(e){}
+</script>
 <title>여행 체크리스트</title>
 <style>
 * { box-sizing: border-box; }
@@ -460,6 +464,70 @@ saveMemos([]);
 renderMemos();
 }
 renderMemos();
+
+ // ----- 사용자 추가 항목 (섹션 1~5) -----
+ const EX_KEY = 'travel_v4_extras';
+ function getEx(){ try { return JSON.parse(localStorage.getItem(EX_KEY)) || {}; } catch(e){ return {}; } }
+ function saveEx(o){ localStorage.setItem(EX_KEY, JSON.stringify(o)); }
+ function renderExtras(){
+  document.querySelectorAll('details').forEach((d, idx) => {
+   if (idx > 4) return;
+   const content = d.querySelector('.content'); if (!content) return;
+   const old = content.querySelector('.extras'); if (old) old.remove();
+   const wrap = document.createElement('div');
+   wrap.className = 'extras group';
+   const list = getEx()[String(idx)] || [];
+   if (list.length){
+    const grid = document.createElement('div');
+    grid.className = 'check-grid';
+    list.forEach((it, i) => {
+     const lb = document.createElement('label');
+     lb.className = 'item span-2';
+     const cb = document.createElement('input');
+     cb.type = 'checkbox'; cb.dataset.id = it.id;
+     cb.checked = localStorage.getItem('travel_v4_' + it.id) === '1';
+     cb.addEventListener('change', () => { localStorage.setItem('travel_v4_' + it.id, cb.checked ? '1' : '0'); });
+     lb.appendChild(cb);
+     const sp = document.createElement('span'); sp.textContent = it.text;
+     lb.appendChild(sp);
+     const del = document.createElement('button');
+     del.type = 'button'; del.textContent = '✕'; del.title = '삭제';
+     del.style.cssText = 'margin-left:auto;background:none;border:none;color:#aab3c5;font-size:12px;padding:2px 2px 2px 6px;cursor:pointer;flex:none;font-weight:bold';
+     del.onclick = e => { e.preventDefault();
+      const o = getEx(); o[String(idx)].splice(i, 1); saveEx(o); renderExtras(); };
+     lb.appendChild(del);
+     grid.appendChild(lb);
+    });
+    wrap.appendChild(grid);
+   }
+   const btn = document.createElement('button');
+   btn.type = 'button'; btn.textContent = '＋ 항목 추가';
+   btn.style.cssText = 'width:100%;margin-top:8px;background:#fff;color:#1f6feb;border:1.5px dashed #9cc0ff;padding:9px;font-size:14px';
+   const form = document.createElement('div');
+   form.style.cssText = 'display:none;margin-top:8px;gap:6px';
+   const input = document.createElement('input');
+   input.type = 'text'; input.placeholder = '추가할 준비물 이름';
+   input.style.cssText = 'flex:1;border:1px solid #cce0ff;border-radius:8px;padding:9px;font-size:14px';
+   const sv = document.createElement('button');
+   sv.type = 'button'; sv.textContent = '저장'; sv.className = 'small';
+   sv.onclick = () => {
+    const txt = input.value.trim(); if (!txt) return;
+    const o = getEx(); const k = String(idx);
+    (o[k] = o[k] || []).push({ id: 'x' + idx + '_' + Date.now(), text: txt });
+    saveEx(o); renderExtras();
+   };
+   input.addEventListener('keydown', e => { if (e.key === 'Enter') sv.click(); });
+   btn.onclick = () => {
+    const open = form.style.display === 'flex';
+    form.style.display = open ? 'none' : 'flex';
+    if (!open) input.focus();
+   };
+   form.appendChild(input); form.appendChild(sv);
+   wrap.appendChild(btn); wrap.appendChild(form);
+   content.appendChild(wrap);
+  });
+ }
+ renderExtras();
 
  function startVoice() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;

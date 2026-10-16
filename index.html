@@ -389,6 +389,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 .upd-btn.no{background:#eef1f8;color:#9aa0b8}
 .theme-dots,.theme-dot{display:none}
 
+.htmlView{width:100%;border:none;height:74vh;border-radius:16px;background:#fff;box-shadow:var(--shadow);display:block}
 /* 일정 입력 3버튼 */
 .ocr-btns.btns3{grid-template-columns:1fr 1fr 1fr}
 @media(max-width:380px){.ocr-btn .d{display:none}}
@@ -410,7 +411,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v1.7';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v1.8';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -870,6 +871,14 @@ function renderMemoBox(){
 
 /* ---------------- 렌더: 일정 (스캔+아코디언) ---------------- */
 function renderSchedule(){
+  let customHtml = '';
+  try { customHtml = localStorage.getItem('sk_sched_html') || ''; } catch (e) {}
+  if (customHtml){
+    return '<div class="sec-title">📆 일정 (내 코드 화면)</div>' +
+      '<div class="sec-desc" style="display:flex;justify-content:space-between;align-items:center">직접 만든 화면 적용 중 ✓' +
+      '<button class="btn btn-ghost btn-sm" data-action="html-sched" style="flex:none">🧩 코드 바꾸기 / 원래대로</button></div>' +
+      '<iframe class="htmlView" sandbox="allow-scripts allow-same-origin" srcdoc="' + esc(customHtml) + '"></iframe>';
+  }
   let html = '<div class="sec-title">📆 일정 스캔 & 아코디언</div>' +
     '<div class="sec-desc">항공권·숙소 바우처·여행 일정표를 <b>사진으로 스캔</b>하거나 텍스트를 붙여넣으면, 날짜별로 보기 좋게 정리해 드려요.</div>';
 
@@ -1031,6 +1040,13 @@ function renderSettings(){
     '<div class="row"><button class="btn btn-soft btn-sm" style="flex:1" data-action="export">⬇️ 내보내기</button>' +
     '<button class="btn btn-ghost btn-sm" style="flex:1" data-action="import">⬆️ 불러오기</button></div>' +
     '<div style="margin-top:10px"><button class="btn btn-danger btn-sm btn-block" data-action="data-reset">🗑️ 모든 데이터 초기화</button></div></div>';
+  html += '<div class="card"><div class="card-title" style="margin-bottom:6px">🧩 코드로 화면 바꾸기</div>' +
+    '<div style="font-size:11.5px;color:var(--ink2);margin-bottom:10px;line-height:1.6">클로드 같은 AI가 만들어 준 HTML 코드를 통째로 붙여넣으면, 그 화면이 코드 그대로 바뀝니다.</div>' +
+    '<div class="set-row" data-action="html-sched"><div class="ic">📆</div><div class="grow">' +
+      '<div class="tt">일정 화면 바꾸기</div><div class="dd">' + (hasHtml('sk_sched_html') ? '내 코드 적용 중 ✓' : '기본 화면 사용 중') + '</div></div><span class="chev2">❯</span></div>' +
+    '<div class="set-row" data-action="html-pack"><div class="ic">🎒</div><div class="grow">' +
+      '<div class="tt">체크리스트 화면 바꾸기</div><div class="dd">' + (hasHtml('sk_pack_html') ? '내 코드 적용 중 ✓' : '기본 화면 사용 중') + '</div></div><span class="chev2">❯</span></div>' +
+  '</div>';
   html += '<div style="text-align:center;padding:14px 0 4px;color:#9aa0b8;font-size:12px;line-height:1.8">SK-여행<br>' +
     '<span style="font-size:22px;font-weight:800;color:var(--pri)">' + esc(APP_VERSION) + '</span></div>' +
     (ui.updateReady
@@ -1088,6 +1104,16 @@ async function runOCRBatch(files){
   if (typeof Tesseract !== 'undefined'){
     ocrUi(true, '✅ ' + files.length + '장 인식 완료! 텍스트가 아래에 차례로 이어 붙었어요.', 1);
   }
+}
+
+async function ocrToText(file, statusCb){
+  if (typeof Tesseract === 'undefined') throw new Error('no-tess');
+  const worker = await Tesseract.createWorker('kor+eng', 1, {
+    logger: m => { if (statusCb && OCR_STATUS[m.status]) statusCb(OCR_STATUS[m.status]); }
+  });
+  const ret = await worker.recognize(file);
+  await worker.terminate();
+  return (ret.data.text || '').trim();
 }
 
 /* ---------------- 텍스트 → 일정 파서 ---------------- */
@@ -1160,20 +1186,37 @@ function renderMain(){
 function renderAll(){ renderHeader(); renderMain(); renderTabbar(); }
 
 const actions = {
-  'nav'(id){ if (id === 'packing'){ location.href = 'packing.html'; return; } ui.tab = id; renderHeader(); renderMain(); renderTabbar(); window.scrollTo(0, 0); },
+  'nav'(id){ if (id === 'packing'){ location.href = 'packing.html'; return; } ui.tab = id; renderHeader(); renderMain(); renderTabbar(); pushTab(id); window.scrollTo(0, 0); },
   'pack-go'(){ location.href = 'packing.html'; },
   'sheet-close'(){ closeSheet(); },
 
   /* ----- 홈 ----- */
-  'trip-edit'(){
-    const t = state.trip;
-    openSheet('✈️ 여행 정보',
-      fField('여행 이름', 'name', t.name, 'text', '예: 가족 오사카 여행') +
-      fField('목적지', 'dest', t.dest, 'text', '예: 일본 오사카') +
-      '<div class="f-2"><div>' + fField('출발일', 'start', t.start, 'date') + '</div>' +
-      '<div>' + fField('도착/귀국일', 'end', t.end, 'date') + '</div></div>',
-      v => { state.trip = { name: v.name, dest: v.dest, start: v.start, end: v.end };
-             save(); renderAll(); toast('여행 정보가 저장됐어요 🎉'); });
+  'trip-edit'(){ openTripSheet(); },
+  'trip-paste'(){
+    openSheet('📋 서류 텍스트로 채우기',
+      '<div style="font-size:12px;color:var(--ink2);margin-bottom:8px;line-height:1.6">여행사 확인 메일·종이 서류 글자를 전체 복사해서 붙여넣으면, 목적지와 날짜를 알아서 추려냅니다.</div>' +
+      fArea('서류 텍스트', 'raw', '', '여기에 길게 붙여넣으세요.'),
+      v => {
+        const pre = parseTripInfo(v.raw || '');
+        if (!pre.start && !pre.dest){ toast('날짜나 도시를 못 찾았어요. 직접 입력해 주세요'); openTripSheet(); return; }
+        openTripSheet(pre, '✅ 자동으로 채웠어요! 맞는지 확인하고 저장을 눌러 주세요');
+      }, '자동 채우기');
+  },
+  'trip-scan'(){
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*'; inp.capture = 'environment';
+    inp.onchange = async () => {
+      const f = inp.files[0]; if (!f) return;
+      toast('서류에서 글자를 읽는 중… ⏳ (처음엔 데이터 다운로드로 오래 걸릴 수 있어요)');
+      try {
+        const txt = await ocrToText(f);
+        const pre = parseTripInfo(txt);
+        closeSheet();
+        if (!pre.start && !pre.dest){ toast('날짜·도시를 못 찾았어요. 텍스트로 채우기를 이용해 보세요'); openTripSheet(); return; }
+        openTripSheet(pre, '📷 스캔 내용을 반영했어요! 맞는지 확인하고 저장하세요');
+      } catch (e) { toast('스캔에 실패했어요. 텍스트로 채우기를 이용해 주세요'); }
+    };
+    inp.click();
   },
   'export'(){
     const bundle = { app: 'SK-여행', version: APP_VERSION, savedAt: new Date().toISOString(), state: state, travel_v4: {} };
@@ -1357,11 +1400,13 @@ const actions = {
     t.rec = !t.rec; save(); keepScroll(renderMain);
   },
   /* ----- 설정 ----- */
-  'nav-gear'(){ ui.tab = 'settings'; renderHeader(); renderMain(); renderTabbar(); window.scrollTo(0, 0); },
+  'nav-gear'(){ ui.tab = 'settings'; renderHeader(); renderMain(); renderTabbar(); pushTab('settings'); window.scrollTo(0, 0); },
   'nav-install'(){
     if (deferredInstall){ deferredInstall.prompt(); deferredInstall = null; }
     else toast("크롬 ⋮ 메뉴 → '앱 설치'를 이용하세요 (이미 설치됐을 수도 있어요)");
   },
+  'html-sched'(){ openHtmlPaste('sk_sched_html', '일정'); },
+  'html-pack'(){ openHtmlPaste('sk_pack_html', '체크리스트'); },
   'do-update'(){
     if (regWaiting){ toast('업데이트 중… 잠깐만요! ⏳'); regWaiting.postMessage('SKIP_WAITING'); }
     else toast('지금 최신 버전이에요 ✓');
@@ -1392,6 +1437,69 @@ const actions = {
     save(); applyFont(); renderAll(); toast('초기화 완료! 새로 시작해요 🌱');
   },
 };
+
+function hasHtml(key){ try { return !!localStorage.getItem(key); } catch (e) { return false; } }
+function openHtmlPaste(key, label){
+  const cur = hasHtml(key);
+  openSheet('🧩 ' + label + ' 화면 HTML 코드',
+    '<div style="font-size:12px;color:var(--ink2);margin-bottom:8px;line-height:1.6">전체 HTML 코드(&lt;!DOCTYPE html&gt;부터 끝까지)를 통째로 붙여넣으세요. ' +
+    '비우고 저장하면 원래 화면으로 돌아갑니다.' + (cur ? '<br><b style="color:var(--mint)">지금 내 코드가 적용 중이에요 ✓</b>' : '') + '</div>' +
+    fArea(label + ' HTML 코드', 'code', '', '코드를 여기에 통째로 붙여넣기...'),
+    v => {
+      const code = (v.code || '').trim();
+      try {
+        if (!code){ localStorage.removeItem(key); toast('원래 화면으로 돌아갔어요 ↺'); }
+        else {
+          if (code.indexOf('<') === -1 || code.length > 900000){ toast('전체 HTML 코드가 맞는지 확인해 주세요'); return; }
+          localStorage.setItem(key, code); toast(label + ' 화면이 내 코드로 바뀌었어요! 🎉');
+        }
+      } catch (e) { toast('저장에 실패했어요. 코드가 너무 큰가?'); }
+      save(); renderMain();
+    }, '적용하기');
+}
+/* ----- 여행 정보 시트 (반자동 채우기 지원) ----- */
+function openTripSheet(pre, notice){
+  const t0 = state.trip;
+  pre = pre || {};
+  openSheet('여행 정보',
+    (notice ? '<div style="font-size:12px;font-weight:700;color:var(--mint);margin-bottom:10px;line-height:1.5">' + esc(notice) + '</div>' : '') +
+    '<div class="row" style="margin-bottom:14px">' +
+      '<button type="button" class="btn btn-soft btn-sm" style="flex:1" data-action="trip-scan">📷 서류 스캔 채우기</button>' +
+      '<button type="button" class="btn btn-ghost btn-sm" style="flex:1" data-action="trip-paste">📋 텍스트로 채우기</button>' +
+    '</div>' +
+    fField('여행 이름', 'name', pre.name || t0.name, 'text', '예: 제주도 가족여행') +
+    fField('목적지', 'dest', pre.dest || t0.dest, 'text', '예: 제주') +
+    '<div class="f-2"><div>' + fField('출발일', 'start', pre.start || t0.start, 'date') + '</div>' +
+    '<div>' + fField('돌아오는 날', 'end', pre.end || t0.end, 'date') + '</div></div>',
+    v => { state.trip = v; save(); renderHeader(); renderMain(); toast('저장했어요 🎉'); });
+}
+function parseTripInfo(raw){
+  const out = { name: '', dest: '', start: '', end: '' };
+  if (!raw) return out;
+  const dates = [];
+  const push = (y, m, d) => { if (y < 100) y += 2000;
+    if (m >= 1 && m <= 12 && d >= 1 && d <= 31) dates.push(String(y) + '-' + pad2(m) + '-' + pad2(d)); };
+  let m;
+  const r1 = /(20\d{2})\s*[년.\-\/]\s*(\d{1,2})\s*[월.\-\/]\s*(\d{1,2})\s*일?/g;
+  while ((m = r1.exec(raw))) push(+m[1], +m[2], +m[3]);
+  const baseY = new Date().getFullYear();
+  const r2 = /(\d{1,2})\s*월\s*(\d{1,2})\s*일/g;
+  while ((m = r2.exec(raw))) push(baseY, +m[1], +m[2]);
+  const uniq = Array.from(new Set(dates)).sort();
+  if (uniq.length){ out.start = uniq[0]; out.end = uniq[uniq.length - 1]; }
+  const lines = raw.split(/\n+/).map(s => s.trim()).filter(Boolean);
+  const lab = lines.find(l => /(목적지|여행지|행선지|destination)/i.test(l));
+  if (lab){
+    const parts = lab.split(/[:：]/);
+    out.dest = (parts[1] || parts[0]).replace(/(목적지|여행지|행선지)/g, '').trim().slice(0, 20);
+  }
+  if (!out.dest){
+    const cl = lines.find(l => /(공항|투어|패키지|리조트|호텔)/.test(l) && l.length <= 44);
+    if (cl) out.dest = cl.replace(/[()\[\]]/g, ' ').trim().slice(0, 20);
+  }
+  if (out.dest) out.name = out.dest.split(/[\s·,]/)[0] + ' 여행';
+  return out;
+}
 
 /* ----- 공항 폼 ----- */
 function airportForm(a){
@@ -1564,6 +1672,15 @@ if (ui.tab === 'packing'){ location.replace('packing.html'); }
 applyFont();
 renderAll();
 loadChecklist();
+/* 뒤로가기 버튼: 앱이 꺼지지 않고 이전 화면으로 */
+function pushTab(id){ try { history.pushState({ tab: id }, ''); } catch (e) {} }
+try { history.replaceState({ tab: ui.tab }, ''); } catch (e) {}
+window.addEventListener('popstate', e => {
+  const s = e.state;
+  if (s && s.tab && s.tab !== ui.tab){
+    ui.tab = s.tab; renderHeader(); renderMain(); renderTabbar(); window.scrollTo(0, 0);
+  }
+});
 if (justUpgradedSeed) setTimeout(() => toast('🎒 체크리스트가 내 여행 스타일로 업데이트됐어요! (체크 초기화됨)'), 600);
 </script>
 </body>
