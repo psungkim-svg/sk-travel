@@ -429,7 +429,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v2.0';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v2.1';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -748,8 +748,8 @@ function renderHome(){
       (fly ? '<div class="fly">' + esc(fly) + '</div>' : '') + '</div>' +
       (badge ? '<div class="hd">' + esc(badge) + '</div>' : '') + '</div>';
   } else {
-    html += '<div class="home-hero"><div class="hg"><div class="t1">어서 오세요! 👋</div>' +
-      '<div class="t2">여행 정보를 등록하면 D-day와 오늘 할 일을 알려드려요</div></div>' +
+    html += '<div class="home-hero"><div class="hg"><div class="t1">지금 나는 무엇을 해야 하나? 🤔</div>' +
+      '<div class="t2">여행 정보를 등록하면, D-day와 지금 해야 할 일이 앱을 켤 때마다 자동으로 떠요</div></div>' +
       '<button class="btn btn-pri btn-sm" style="flex:none" data-action="set-trip">여행 등록</button></div>';
   }
 
@@ -792,7 +792,7 @@ function renderTodoCard(todayISO){
     if (!undone.length) listHtml = '<div style="font-size:13px;font-weight:800;color:var(--mint);padding:6px 2px">이 단계는 전부 끝냈어요! 🎉</div>';
     sub += ' · ' + sec.items.length + '개 중 ' + undone.length + '개 남음';
   }
-  return '<div class="todo-card"><div class="tt">☀️ 지금 할 일' + (secTitle ? ' · ' + esc(secTitle) : '') + '</div>' +
+  return '<div class="todo-card"><div class="tt">☀️ 지금 나는 무엇을 해야 하나?' + (secTitle ? ' · ' + esc(secTitle) : '') + '</div>' +
     '<div class="sub">' + esc(sub) + '</div>' + listHtml +
     '<button class="btn btn-soft btn-sm todo-more" data-action="pack-go">전체 체크리스트 열기 ›</button></div>';
 }
@@ -920,14 +920,24 @@ function renderMemoBox(){
 }
 
 /* ---------------- 렌더: 일정 (스캔+아코디언) ---------------- */
+/* 텍스트를 예쁜 문서 화면으로 감싸기 (일정 텍스트 붙여넣기용) */
+function textDoc(t){
+  return '<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<style>body{margin:0;padding:20px 17px;background:#fff;color:#23284a;' +
+    "font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;font-size:16.5px;line-height:1.8;" +
+    'white-space:pre-wrap;word-break:keep-all;line-break:loose}</style></head><body>' + esc(t) + '</body></html>';
+}
 function renderSchedule(){
   let customHtml = '';
   try { customHtml = localStorage.getItem('sk_sched_html') || ''; } catch (e) {}
   if (customHtml){
-    return '<div class="sec-title">📆 일정 (내 코드 화면)</div>' +
-      '<div class="sec-desc" style="display:flex;justify-content:space-between;align-items:center">직접 만든 화면 적용 중 ✓' +
-      '<button class="btn btn-ghost btn-sm" data-action="html-sched" style="flex:none">🧩 코드 바꾸기 / 원래대로</button></div>' +
-      '<iframe class="htmlView" sandbox="allow-scripts allow-same-origin" srcdoc="' + esc(customHtml) + '"></iframe>';
+    const isHtml = customHtml.indexOf('<') !== -1;
+    const docHtml = isHtml ? customHtml : textDoc(customHtml);
+    return '<div class="sec-title">📆 일정 (내 화면 적용 중)</div>' +
+      '<div class="sec-desc" style="display:flex;justify-content:space-between;align-items:center">직접 넣은 내용 적용 중 ✓ (' + (isHtml ? 'HTML 코드' : '텍스트') + ')' +
+      '<button class="btn btn-ghost btn-sm" data-action="html-sched" style="flex:none">🧩 바꾸기 / 원래대로</button></div>' +
+      '<iframe class="htmlView" sandbox="allow-scripts allow-same-origin" srcdoc="' + esc(docHtml) + '"></iframe>';
   }
   let html = '<div class="sec-title">📆 일정 스캔 & 아코디언</div>' +
     '<div class="sec-desc">항공권·숙소 바우처·여행 일정표를 <b>사진으로 스캔</b>하거나 텍스트를 붙여넣으면, 날짜별로 보기 좋게 정리해 드려요.</div>';
@@ -1457,7 +1467,7 @@ const actions = {
     if (deferredInstall){ deferredInstall.prompt(); deferredInstall = null; }
     else toast("크롬 ⋮ 메뉴 → '앱 설치'를 이용하세요 (이미 설치됐을 수도 있어요)");
   },
-  'html-sched'(){ openHtmlPaste('sk_sched_html', '일정'); },
+  'html-sched'(){ openHtmlPaste('sk_sched_html', '일정', true); },
   'html-pack'(){ openHtmlPaste('sk_pack_html', '체크리스트'); },
   'html-home-chk'(){ openHtmlPaste('sk_home_chk_html', '홈 체크리스트 박스'); },
   'do-update'(){
@@ -1502,19 +1512,22 @@ const actions = {
 };
 
 function hasHtml(key){ try { return !!localStorage.getItem(key); } catch (e) { return false; } }
-function openHtmlPaste(key, label){
+function openHtmlPaste(key, label, allowText){
   const cur = hasHtml(key);
-  openSheet('🧩 ' + label + ' 화면 HTML 코드',
-    '<div style="font-size:12px;color:var(--ink2);margin-bottom:8px;line-height:1.6">전체 HTML 코드(&lt;!DOCTYPE html&gt;부터 끝까지)를 통째로 붙여넣으세요. ' +
-    '비우고 저장하면 원래 화면으로 돌아갑니다.' + (cur ? '<br><b style="color:var(--mint)">지금 내 코드가 적용 중이에요 ✓</b>' : '') + '</div>' +
-    fArea(label + ' HTML 코드', 'code', '', '코드를 여기에 통째로 붙여넣기...'),
+  openSheet('🧩 ' + label + ' 화면 ' + (allowText ? '(HTML 코드 또는 텍스트)' : 'HTML 코드'),
+    '<div style="font-size:12px;color:var(--ink2);margin-bottom:8px;line-height:1.6">' +
+    (allowText
+      ? '전체 HTML 코드를 붙여넣어도 되고, 그냥 텍스트로 쓴 일정을 통째로 붙여넣어도 됩니다. '
+      : '전체 HTML 코드(&lt;!DOCTYPE html&gt;부터 끝까지)를 통째로 붙여넣으세요. ') +
+    '비우고 저장하면 원래 화면으로 돌아갑니다.' + (cur ? '<br><b style="color:var(--mint)">지금 넣은 내용이 적용 중이에요 ✓</b>' : '') + '</div>' +
+    fArea(label + (allowText ? ' 코드 또는 텍스트' : ' HTML 코드'), 'code', '', '코드나 텍스트를 여기에 통째로 붙여넣기...'),
     v => {
       const code = (v.code || '').trim();
       try {
         if (!code){ localStorage.removeItem(key); toast('원래 화면으로 돌아갔어요 ↺'); }
         else {
-          if (code.indexOf('<') === -1 || code.length > 900000){ toast('전체 HTML 코드가 맞는지 확인해 주세요'); return; }
-          localStorage.setItem(key, code); toast(label + ' 화면이 내 코드로 바뀌었어요! 🎉');
+          if ((!allowText && code.indexOf('<') === -1) || code.length > 900000){ toast(allowText ? '내용이 너무 길어요 (900KB 이하)' : '전체 HTML 코드가 맞는지 확인해 주세요'); return; }
+          localStorage.setItem(key, code); toast(label + ' 화면이 내 ' + (code.indexOf('<') === -1 ? '텍스트' : '코드') + '로 바뀌었어요! 🎉');
         }
       } catch (e) { toast('저장에 실패했어요. 코드가 너무 큰가?'); }
       save(); renderMain();
