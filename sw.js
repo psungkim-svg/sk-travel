@@ -1,41 +1,64 @@
-// SK-여행-v1.1 Service Worker
-// 앱 화면 파일을 휴대폰에 저장해서 인터넷이 없어도 열리게 합니다.
-// 앱 파일을 수정한 뒤에는 아래 CACHE 이름의 v번호를 올려 주세요 (예: v2).
-const CACHE = 'sk-travel-v1-1-v1';
-const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+/* 서비스 워커: 앱을 오프라인에서도 열리게 해주는 캐시 담당 */
+const CACHE_NAME = 'sk-travel-v9';
+const APP_ASSETS = [
+  './',
+  './index.html',
+  './packing.html',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/apple-touch-icon.png',
+  './icons/favicon-32.png'
+];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+/* 사용자가 설정의 업데이트 버튼을 누률 때만 새 버전으로 교체 */
+self.addEventListener('message', e => {
+  if (e.data === 'SKIP_WAITING') self.skipWaiting();
+});
+
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(c => c.addAll(APP_ASSETS))
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
+self.addEventListener('activate', e => {
+  e.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
 
-// 같은 사이트 파일만 처리합니다. 구글 지도 등 외부 주소는 그대로 인터넷으로 연결합니다.
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
+self.addEventListener('fetch', e => {
+  const req = e.request;
   if (req.method !== 'GET') return;
-  if (new URL(req.url).origin !== self.location.origin) return;
 
-  event.respondWith(
-    caches.match(req).then((cached) => {
-      const network = fetch(req)
-        .then((res) => {
-          if (res && res.ok) {
-            const copy = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy));
-          }
+  /* 페이지 이동: 인터넷 우선, 실패하면 캐시된 앱 열기 */
+  if (req.mode === 'navigate') {
+    e.respondWith(
+      fetch(req)
+        .then(res => {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(req, copy));
           return res;
         })
-        .catch(() => cached || caches.match('./index.html'));
-      return cached || network;
+        .catch(() => caches.match(req).then(hit => hit || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  /* 나머지(아이콘, OCR 엔진 CDN 등): 캐시 우선 + 없으면 인터넷에서 받아 캐시에 저장 */
+  e.respondWith(
+    caches.match(req).then(hit => {
+      if (hit) return hit;
+      return fetch(req).then(res => {
+        if (res.ok && (req.url.startsWith(self.location.origin) || req.url.includes('cdn.jsdelivr.net'))) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(req, copy));
+        }
+        return res;
+      });
     })
   );
 });
