@@ -387,6 +387,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 .upd-btn{width:100%;border:none;border-radius:14px;padding:13px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;margin-top:6px}
 .upd-btn.has{background:#FFCB05;color:#4a3200;box-shadow:0 4px 14px rgba(255,203,5,.45)}
 .upd-btn.no{background:#eef1f8;color:#9aa0b8}
+.updBanner{margin:0 0 10px;padding:13px 15px;border-radius:16px;background:#FFCB05;color:#4a3200;font-size:13.5px;font-weight:700;line-height:1.5;cursor:pointer;box-shadow:0 4px 14px rgba(255,203,5,.45)}
 .theme-dots,.theme-dot{display:none}
 
 .htmlView{width:100%;border:none;height:74vh;border-radius:16px;background:#fff;box-shadow:var(--shadow);display:block}
@@ -411,7 +412,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v1.8';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v1.9';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -684,6 +685,9 @@ function renderHome(){
   const todayISO = new Date().toISOString().slice(0, 10);
   let html = '';
 
+  /* 새 버전 배너 */
+  if (ui.updateReady) html += '<div class="updBanner" data-action="do-update">🆕 새 버전이 준비됐어요! <u>여기를 누르면 바로 업데이트</u>돼요</div>';
+
   /* 여행 카드 */
   if (trip.name || trip.dest || trip.start){
     const dayIdx = tripDayIdx();
@@ -716,6 +720,7 @@ function renderHome(){
     '<button class="qb" data-action="nav" data-id="schedule"><div class="dot" style="background:#818cf8"></div><div class="t">일정</div><div class="d">' + (state.schedule.length ? state.schedule.length + '일치 있음' : '넣기') + '</div></button>' +
     '<button class="qb" data-action="nav" data-id="transfers"><div class="dot" style="background:#2dd4bf"></div><div class="t">공항→호텔</div><div class="d">' + state.transfers.length + '개 저장</div></button>' +
   '</div>';
+  html += '<div style="text-align:center;color:#a8b0c4;font-size:10.5px;padding:18px 0 2px">SK-여행 ' + esc(APP_VERSION) + '</div>';
   return html;
 }
 function renderTodoCard(todayISO){
@@ -1048,10 +1053,10 @@ function renderSettings(){
       '<div class="tt">체크리스트 화면 바꾸기</div><div class="dd">' + (hasHtml('sk_pack_html') ? '내 코드 적용 중 ✓' : '기본 화면 사용 중') + '</div></div><span class="chev2">❯</span></div>' +
   '</div>';
   html += '<div style="text-align:center;padding:14px 0 4px;color:#9aa0b8;font-size:12px;line-height:1.8">SK-여행<br>' +
-    '<span style="font-size:22px;font-weight:800;color:var(--pri)">' + esc(APP_VERSION) + '</span></div>' +
+    '<span style="font-size:22px;font-weight:800;color:var(--pri)">' + esc(APP_VERSION) + '</span><br><span style="font-size:11px;color:#9aa0b8">지금 설치된 버전</span></div>' +
     (ui.updateReady
       ? '<button class="upd-btn has" data-action="do-update">🆕 새 버전이 있어요! 눌러서 업데이트</button>'
-      : '<button class="upd-btn no" data-action="do-update">✓ 최신 버전이에요 (업데이트 확인됨)</button>');
+      : '<button class="upd-btn no" data-action="do-update">🔄 최신 버전인지 확인하기</button>');
   return html;
 }
 
@@ -1409,6 +1414,16 @@ const actions = {
   'html-pack'(){ openHtmlPaste('sk_pack_html', '체크리스트'); },
   'do-update'(){
     if (regWaiting){ toast('업데이트 중… 잠깐만요! ⏳'); regWaiting.postMessage('SKIP_WAITING'); }
+    else if (swReg){
+      toast('최신 버전인지 확인하는 중… 🔍');
+      swReg.update().then(() => {
+        setTimeout(() => {
+          if (ui.updateReady || regWaiting) return;
+          if (swReg && (swReg.installing || swReg.waiting)) return;
+          toast('지금 버전 ' + APP_VERSION + ' — 새 버전이 없어요 ✓');
+        }, 2500);
+      }).catch(() => toast('인터넷 연결을 확인해 주세요 📶'));
+    }
     else toast('지금 최신 버전이에요 ✓');
   },
   'set-trip'(){ actions['trip-edit'](); },
@@ -1630,15 +1645,18 @@ document.addEventListener('input', e => {
 
 /* ---------------- PWA: 서비스 워커 등록 (수동 업데이트) ---------------- */
 let regWaiting = null;
+let swReg = null;
 if ('serviceWorker' in navigator){
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').then(reg => {
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => {
+      swReg = reg;
       const showUpd = () => {
+        if (ui.updateReady) return;
         regWaiting = reg.waiting;
         ui.updateReady = true;
-        if (ui.tab === 'settings') keepScroll(renderMain);
+        keepScroll(renderMain);
         if (!ui.updToasted){ ui.updToasted = true;
-          setTimeout(() => toast('🆕 새 버전이 준비됐어요! ⚙️ 설정 맨 아래에서 업데이트하세요'), 900); }
+          setTimeout(() => toast('🆕 새 버전 준비됨! 노란색 배너를 누르면 업데이트돼요'), 900); }
       };
       if (reg.waiting && navigator.serviceWorker.controller) showUpd();
       reg.addEventListener('updatefound', () => {
@@ -1648,10 +1666,14 @@ if ('serviceWorker' in navigator){
           if (nw.state === 'installed' && navigator.serviceWorker.controller) showUpd();
         });
       });
+      try { reg.update(); } catch (e) {}
+      setInterval(() => { try { reg.update(); } catch (e) {} }, 3600000);
     }).catch(() => {});
     let reloading = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (reloading) return; reloading = true; location.reload();
+      if (reloading) return; reloading = true;
+      try { localStorage.setItem('sk_upd_from', APP_VERSION); } catch (e) {}
+      location.reload();
     });
   });
 }
@@ -1672,6 +1694,11 @@ if (ui.tab === 'packing'){ location.replace('packing.html'); }
 applyFont();
 renderAll();
 loadChecklist();
+try {
+  const updFrom = localStorage.getItem('sk_upd_from');
+  if (updFrom){ localStorage.removeItem('sk_upd_from');
+    setTimeout(() => toast('✅ 업데이트 완료! ' + updFrom + ' → ' + APP_VERSION), 1500); }
+} catch (e) {}
 /* 뒤로가기 버튼: 앱이 꺼지지 않고 이전 화면으로 */
 function pushTab(id){ try { history.pushState({ tab: id }, ''); } catch (e) {} }
 try { history.replaceState({ tab: ui.tab }, ''); } catch (e) {}
