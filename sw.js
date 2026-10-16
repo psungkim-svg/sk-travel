@@ -1,5 +1,5 @@
 /* 서비스 워커: 앱을 오프라인에서도 열리게 해주는 캐시 담당 */
-const CACHE_NAME = 'sk-travel-v11';
+const CACHE_NAME = 'sk-travel-v12';
 const APP_ASSETS = [
   './',
   './index.html',
