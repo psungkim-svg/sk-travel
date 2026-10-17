@@ -429,7 +429,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v2.4';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v2.5';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -543,6 +543,67 @@ if (!state.seedVersion || state.seedVersion < SEED_VERSION){
 const ui = { tab: 'home', openDays: new Set(), openAir: new Set(), editingSheet: null };
 
 function save(){ store.save(state); }
+
+/* 📌 v2.5: 일정 파일에서 뽑은 실제 여행 정보 자동 채움 (비어 있거나 예시뿐일 때, 처음 한 번) */
+try {
+  if (!localStorage.getItem('sk_trip_seed')){
+    const isSample = v => String(v || '').indexOf('예시)') === 0;
+    let dirty = false;
+    if (!state.trip || !state.trip.name || isSample(state.trip.name)){
+      state.trip = { name: '스페인·포르투갈 9박 10일', dest: '스페인 · 포르투갈', start: '2026-10-22', end: '2026-10-31' };
+      dirty = true;
+    }
+    const realAir = (state.airports || []).filter(a => !isSample(a.name));
+    if (!realAir.length){
+      state.airports = [
+        { id: uid(), type: 'dep', name: '필라델피아 국제공항 (PHL, 출발)', terminal: '',
+          checkin: '16:30 개별 체크인 (10/22)', facility: '', wifi: '',
+          tips: 'AA742 19:25 뜸 (논스톱 약 7시간 40분) · 하나관광 셔틀 15:30 집결 (팁 $5/인)' },
+        { id: uid(), type: 'arr', name: '바르셀로나 공항 (BCN, 도착)', terminal: '',
+          checkin: '', facility: '', wifi: '',
+          tips: '10/23 09:05 도착 · 입국 수속 후 가이드 미팅 · 전용차량 시내 이동 30~45분' },
+        { id: uid(), type: 'dep', name: '리스본 공항 (LIS, 귀국)', terminal: '',
+          checkin: '', facility: '', wifi: '',
+          tips: 'AA259 10:55 뜸 (일정표 11:05 — 확인 필요 ⚠️) · 논스톱 약 7시간 55분' },
+        { id: uid(), type: 'arr', name: '필라델피아 국제공항 (PHL, 귀국)', terminal: '',
+          checkin: '', facility: '', wifi: '',
+          tips: '10/31 14:50 도착 · 전용차량 이동 · 17:00경 하나여행사 도착' }
+      ];
+      dirty = true;
+    }
+    const realTrf = (state.transfers || []).filter(t => !isSample(t.name));
+    if (!realTrf.length){
+      state.transfers = [
+        { id: uid(), rec: true, mode: '🚐 전용차량', name: '바르셀로나 공항 → 시내 (호텔)',
+          duration: '약 30~45분', cost: '패키지 포함', where: '입국 수속 후 가이드 미팅', interval: '', note: '10/23 도착 직후 이동' },
+        { id: uid(), rec: true, mode: '🚐 이동', name: '리스본 호텔 → 리스본 공항',
+          duration: '', cost: '', where: '조식 후 공항으로 이동', interval: '', note: 'AA259 (10:55) 체크인' },
+        { id: uid(), rec: false, mode: '🚐 전용차량', name: '필라 공항 → 하나여행사',
+          duration: '', cost: '', where: '14:50 도착 후 이동', interval: '', note: '17:00경 도착 · 해산' },
+        { id: uid(), rec: false, mode: '🚌 공항 셔틀', name: '하나관광 ↔ 필라 공항 셔틀',
+          duration: '', cost: '팁 $5/인 (편도)', where: '7827 Old York Rd, Elkins Park, PA', interval: '정시 출발 (예외 없음)', note: '10/22 15:30 공항방면 · 10/31 17:00 필라방면 도착 예정' }
+      ];
+      dirty = true;
+    }
+    if (!Array.isArray(state.schedule) || !state.schedule.length){
+      state.schedule = [
+        { id: uid(), label: '1일차', date: '2026-10-22', events: [
+          { id: uid(), time: '15:30', title: '하나관광 주차장 집결 · 셔틀로 공항 이동' },
+          { id: uid(), time: '16:30', title: '필라공항 도착 · 개별 체크인' },
+          { id: uid(), time: '19:25', title: 'AA742 바르셀로나행 출발 ✈️' } ] },
+        { id: uid(), label: '2일차', date: '2026-10-23', events: [
+          { id: uid(), time: '09:05', title: '바르셀로나 공항 도착 · 입국 수속 · 가이드 미팅' } ] },
+        { id: uid(), label: '10일차', date: '2026-10-31', events: [
+          { id: uid(), time: '10:55', title: 'AA259 필라델피아행 출발 ✈️ (일정표 11:05)' },
+          { id: uid(), time: '14:50', title: '필라델피아 도착 · 전용차량 이동' },
+          { id: uid(), time: '17:00', title: '하나여행사 도착 · 해산' } ] }
+      ];
+      dirty = true;
+    }
+    localStorage.setItem('sk_trip_seed', 'spain10');
+    if (dirty) save();
+  }
+} catch (e) {}
 
 /* ---------------- 토스트 ---------------- */
 let toastTimer = null;
