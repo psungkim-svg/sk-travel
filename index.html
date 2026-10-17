@@ -429,7 +429,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v2.1';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v2.3';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -748,7 +748,7 @@ function renderHome(){
       (fly ? '<div class="fly">' + esc(fly) + '</div>' : '') + '</div>' +
       (badge ? '<div class="hd">' + esc(badge) + '</div>' : '') + '</div>';
   } else {
-    html += '<div class="home-hero"><div class="hg"><div class="t1">지금 나는 무엇을 해야 하나? 🤔</div>' +
+    html += '<div class="home-hero"><div class="hg"><div class="t1">지금 뭐하지? 🤔</div>' +
       '<div class="t2">여행 정보를 등록하면, D-day와 지금 해야 할 일이 앱을 켤 때마다 자동으로 떠요</div></div>' +
       '<button class="btn btn-pri btn-sm" style="flex:none" data-action="set-trip">여행 등록</button></div>';
   }
@@ -792,7 +792,7 @@ function renderTodoCard(todayISO){
     if (!undone.length) listHtml = '<div style="font-size:13px;font-weight:800;color:var(--mint);padding:6px 2px">이 단계는 전부 끝냈어요! 🎉</div>';
     sub += ' · ' + sec.items.length + '개 중 ' + undone.length + '개 남음';
   }
-  return '<div class="todo-card"><div class="tt">☀️ 지금 나는 무엇을 해야 하나?' + (secTitle ? ' · ' + esc(secTitle) : '') + '</div>' +
+  return '<div class="todo-card"><div class="tt">☀️ 지금 뭐하지?' + (secTitle ? ' · ' + esc(secTitle) : '') + '</div>' +
     '<div class="sub">' + esc(sub) + '</div>' + listHtml +
     '<button class="btn btn-soft btn-sm todo-more" data-action="pack-go">전체 체크리스트 열기 ›</button></div>';
 }
@@ -920,6 +920,105 @@ function renderMemoBox(){
 }
 
 /* ---------------- 렌더: 일정 (스캔+아코디언) ---------------- */
+/* 📁 파일 선택기 (첨부 파일을 텍스트로 읽어 콜백에 전달) */
+function pickTextFile(onText){
+  const inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = '.html,.htm,.md,.markdown,.txt,text/html,text/plain,text/markdown';
+  inp.onchange = () => {
+    const f = inp.files && inp.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => onText(f.name, String(r.result || ''));
+    r.onerror = () => toast('파일을 읽지 못했어요');
+    r.readAsText(f, 'utf-8');
+  };
+  inp.click();
+}
+
+/* 마크다운 → 예쁜 HTML 조각 */
+function mdToHtml(md){
+  const lines = String(md).replace(/\r/g, '').split('\n');
+  const inline = t => {
+    let x = esc(t);
+    x = x.replace(/\\([-*_[\]().#>$!|`])/g, '$1');
+    x = x.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    x = x.replace(/`([^`]+)`/g, '<code>$1</code>');
+    x = x.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+    x = x.replace(/\*([^*\n]+)\*/g, '<i>$1</i>');
+    x = x.replace(/_([^_\n]+)_/g, '<i>$1</i>');
+    return x;
+  };
+  const out = [];
+  let i = 0;
+  while (i < lines.length){
+    const ln = lines[i];
+    if (!ln.trim()){ i++; continue; }
+    const h = ln.match(/^(#{1,4})\s+(.*)$/);
+    if (h){ out.push('<h' + h[1].length + '>' + inline(h[2]) + '</h' + h[1].length + '>'); i++; continue; }
+    if (/^(\s*)(-{3,}|\*{3,}|_{3,})\s*$/.test(ln)){ out.push('<hr>'); i++; continue; }
+    if (ln.indexOf('|') !== -1 && i + 1 < lines.length && lines[i + 1].indexOf('-') !== -1 && /^[\s|:\-]+$/.test(lines[i + 1])){
+      const hdr = ln.replace(/^\||\|$/g, '').split('|').map(c => inline(c.trim()));
+      i += 2;
+      const rows = [];
+      while (i < lines.length && lines[i].trim() && lines[i].indexOf('|') !== -1){
+        rows.push(lines[i].replace(/^\||\|$/g, '').split('|').map(c => inline(c.trim()))); i++;
+      }
+      out.push('<table><thead><tr>' + hdr.map(c => '<th>' + c + '</th>').join('') + '</tr></thead><tbody>' +
+        rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</tbody></table>');
+      continue;
+    }
+    if (/^\s*[•·]{4,}\s*$/.test(ln)){ out.push('<hr>'); i++; continue; }
+    if (/^\s*★/.test(ln)){ out.push('<h4>' + inline(ln.replace(/^\s*★\s*/, '').trim()) + '</h4>'); i++; continue; }
+    if (/^\s*([-●•]|\*(?!\*))/.test(ln)){
+      const items = [];
+      while (i < lines.length && lines[i].trim() && /^\s*([-●•]|\*(?!\*))/.test(lines[i])){
+        if (/^\s*[•·]{4,}\s*$/.test(lines[i])) break;
+        items.push(lines[i].replace(/^\s*([-●•]|\*(?!\*))\s*/, '')); i++;
+      }
+      out.push('<ul>' + items.map(x => '<li>' + inline(x) + '</li>').join('') + '</ul>'); continue;
+    }
+    if (/^\s*\d+[.)]\s+/.test(ln)){
+      const items = [];
+      while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])){ items.push(lines[i].replace(/^\s*\d+[.)]\s+/, '')); i++; }
+      out.push('<ol>' + items.map(x => '<li>' + inline(x) + '</li>').join('') + '</ol>'); continue;
+    }
+    if (/^>\s?/.test(ln)){
+      const qs = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])){ qs.push(lines[i].replace(/^>\s?/, '')); i++; }
+      out.push('<blockquote>' + qs.map(inline).join('<br>') + '</blockquote>'); continue;
+    }
+    out.push('<p>' + inline(ln.trim()) + '</p>'); i++;
+  }
+  return out.join('\n');
+}
+
+/* 마크다운 → 완성 문서 (제목·표·목록 스타일 포함) */
+function mdDoc(md){
+  return '<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<style>body{margin:0;padding:20px 16px 26px;background:#fff;color:#23284a;' +
+    "font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;font-size:16px;line-height:1.75;word-break:keep-all;line-break:loose}" +
+    'h1{font-size:22px;margin:4px 0 6px}h2{font-size:19px;margin:24px 0 8px;padding-bottom:6px;border-bottom:2px solid #e3ecff}' +
+    'h3{font-size:17px;margin:18px 0 6px;color:#2463d8}h4{font-size:15.5px;margin:14px 0 4px}' +
+    'p{margin:4px 0}ul,ol{margin:4px 0;padding-left:22px}li{margin:3px 0}' +
+    'hr{border:none;border-top:1px solid #e3e8f2;margin:16px 0}' +
+    'blockquote{margin:8px 0;padding:9px 12px;background:#f2f7ff;border-left:4px solid #86b3f2;border-radius:0 10px 10px 0;color:#44506e}' +
+    'table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}' +
+    'th,td{border:1px solid #dde4f0;padding:7px 9px;text-align:left;vertical-align:top}' +
+    'th{background:#eef4ff}a{color:#2463d8}code{background:#f2f4f8;padding:1px 6px;border-radius:6px;font-size:92%}' +
+    '</style></head><body>' + mdToHtml(md) + '</body></html>';
+}
+
+/* 파일 → 화면용 문서로 변환 (확장자별) */
+function fileToDoc(name, text){
+  const ext = ((name || '').split('.').pop() || '').toLowerCase();
+  if (text.length > 880000){ toast('파일이 너무 커요 (900KB 이하로 나눠 주세요)'); return null; }
+  if (ext === 'md' || ext === 'markdown') return { html: mdDoc(text), kind: 'md' };
+  if (ext === 'html' || ext === 'htm') return { html: text, kind: 'html' };
+  return { html: textDoc(text), kind: 'txt' };
+}
+
 /* 텍스트를 예쁜 문서 화면으로 감싸기 (일정 텍스트 붙여넣기용) */
 function textDoc(t){
   return '<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">' +
@@ -936,10 +1035,18 @@ function renderSchedule(){
     const docHtml = isHtml ? customHtml : textDoc(customHtml);
     return '<div class="sec-title">📆 일정 (내 화면 적용 중)</div>' +
       '<div class="sec-desc" style="display:flex;justify-content:space-between;align-items:center">직접 넣은 내용 적용 중 ✓ (' + (isHtml ? 'HTML 코드' : '텍스트') + ')' +
-      '<button class="btn btn-ghost btn-sm" data-action="html-sched" style="flex:none">🧩 바꾸기 / 원래대로</button></div>' +
-      '<iframe class="htmlView" sandbox="allow-scripts allow-same-origin" srcdoc="' + esc(docHtml) + '"></iframe>';
+      '<span style="flex:none;display:flex;gap:6px">' +
+      '<button class="btn btn-ghost btn-sm" data-action="html-sched">🧩 내용 바꾸기</button>' +
+      '<button class="btn btn-ghost btn-sm" data-action="html-sched-clear">↺ 원래 화면으로</button></span></div>' +
+      '<iframe class="htmlView" sandbox="allow-scripts allow-same-origin" srcdoc="' + esc(docHtml) + '"></iframe>' +
+      '<div style="font-size:11px;color:#9aa0b8;margin-top:8px;text-align:center;line-height:1.5">위 화면이 하얗게 비어 보이면 넣은 HTML 코드를 다시 확인해 주세요<br>(외부 파일이 필요하거나 코드가 잘렸을 수 있어요)</div>';
   }
-  let html = '<div class="sec-title">📆 일정 스캔 & 아코디언</div>' +
+  let html = '<div class="card" style="border:2px dashed #b9c8ff;background:#f7faff">' +
+    '<div class="card-title" style="margin-bottom:6px">📥 일정 직접 넣기</div>' +
+    '<div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:10px">클로드에서 만든 파일(<b>.html</b>·<b>.md</b>)을 통째로 올리거나, 코드·텍스트를 붙여넣으면 이 화면 전체가 그 일정으로 바뀝니다.</div>' +
+    '<button class="btn btn-pri btn-block" data-action="sched-file">📁 파일로 올리기 (.html .md .txt)</button>' +
+    '<button class="btn btn-soft btn-block" data-action="html-sched" style="margin-top:8px">📝 코드 / 텍스트 붙여넣기</button></div>' +
+    '<div class="sec-title">📆 일정 스캔 & 아코디언</div>' +
     '<div class="sec-desc">항공권·숙소 바우처·여행 일정표를 <b>사진으로 스캔</b>하거나 텍스트를 붙여넣으면, 날짜별로 보기 좋게 정리해 드려요.</div>';
 
   // STEP 1
@@ -1101,9 +1208,7 @@ function renderSettings(){
     '<button class="btn btn-ghost btn-sm" style="flex:1" data-action="import">⬆️ 불러오기</button></div>' +
     '<div style="margin-top:10px"><button class="btn btn-danger btn-sm btn-block" data-action="data-reset">🗑️ 모든 데이터 초기화</button></div></div>';
   html += '<div class="card"><div class="card-title" style="margin-bottom:6px">🧩 코드로 화면 바꾸기</div>' +
-    '<div style="font-size:11.5px;color:var(--ink2);margin-bottom:10px;line-height:1.6">클로드 같은 AI가 만들어 준 HTML 코드를 통째로 붙여넣으면, 그 화면이 코드 그대로 바뀝니다.</div>' +
-    '<div class="set-row" data-action="html-sched"><div class="ic">📆</div><div class="grow">' +
-      '<div class="tt">일정 화면 바꾸기</div><div class="dd">' + (hasHtml('sk_sched_html') ? '내 코드 적용 중 ✓' : '기본 화면 사용 중') + '</div></div><span class="chev2">❯</span></div>' +
+    '<div style="font-size:11.5px;color:var(--ink2);margin-bottom:10px;line-height:1.6">클로드 같은 AI가 만들어 준 HTML 코드를 통째로 붙여넣으면, 그 화면이 코드 그대로 바뀝니다.<br>📆 일정 화면은 <b>일정 탭 맨 위에서 바로</b> 넣을 수 있어요!</div>' +
     '<div class="set-row" data-action="html-pack"><div class="ic">🎒</div><div class="grow">' +
       '<div class="tt">체크리스트 화면 바꾸기</div><div class="dd">' + (hasHtml('sk_pack_html') ? '내 코드 적용 중 ✓' : '기본 화면 사용 중') + '</div></div><span class="chev2">❯</span></div>' +
     '<div class="set-row" data-action="html-home-chk"><div class="ic">🏠</div><div class="grow">' +
@@ -1468,6 +1573,20 @@ const actions = {
     else toast("크롬 ⋮ 메뉴 → '앱 설치'를 이용하세요 (이미 설치됐을 수도 있어요)");
   },
   'html-sched'(){ openHtmlPaste('sk_sched_html', '일정', true); },
+  'sched-file'(){
+    pickTextFile((name, text) => {
+      const r = fileToDoc(name, text);
+      if (!r) return;
+      try { localStorage.setItem('sk_sched_html', r.html); }
+      catch (e) { toast('파일이 너무 커서 저장에 실패했어요'); return; }
+      renderMain();
+      toast(r.kind === 'md' ? '마크다운을 예쁜 일정 화면으로 변환했어요! ✨' : '파일이 일정 화면에 적용됐어요! 🎉');
+    });
+  },
+  'html-sched-clear'(){
+    try { localStorage.removeItem('sk_sched_html'); } catch (e) {}
+    renderMain(); toast('원래 일정 화면으로 돌아갔어요 ↺');
+  },
   'html-pack'(){ openHtmlPaste('sk_pack_html', '체크리스트'); },
   'html-home-chk'(){ openHtmlPaste('sk_home_chk_html', '홈 체크리스트 박스'); },
   'do-update'(){
@@ -1520,6 +1639,7 @@ function openHtmlPaste(key, label, allowText){
       ? '전체 HTML 코드를 붙여넣어도 되고, 그냥 텍스트로 쓴 일정을 통째로 붙여넣어도 됩니다. '
       : '전체 HTML 코드(&lt;!DOCTYPE html&gt;부터 끝까지)를 통째로 붙여넣으세요. ') +
     '비우고 저장하면 원래 화면으로 돌아갑니다.' + (cur ? '<br><b style="color:var(--mint)">지금 넣은 내용이 적용 중이에요 ✓</b>' : '') + '</div>' +
+    '<button type="button" class="btn btn-soft btn-sm btn-block" id="pickFileBtn" style="margin-bottom:10px">📁 파일에서 가져오기 (.html .md .txt)</button>' +
     fArea(label + (allowText ? ' 코드 또는 텍스트' : ' HTML 코드'), 'code', '', '코드나 텍스트를 여기에 통째로 붙여넣기...'),
     v => {
       const code = (v.code || '').trim();
@@ -1532,6 +1652,14 @@ function openHtmlPaste(key, label, allowText){
       } catch (e) { toast('저장에 실패했어요. 코드가 너무 큰가?'); }
       save(); renderMain();
     }, '적용하기');
+  const pf = $('#pickFileBtn');
+  if (pf) pf.onclick = () => pickTextFile((name, text) => {
+    const r = fileToDoc(name, text);
+    if (!r) return;
+    const ta = $('#sheetWrap textarea[name="code"]') || $('#sheetWrap .ta');
+    if (ta){ ta.value = r.html;
+      toast(r.kind === 'md' ? '마크다운을 화면 코드로 변환해서 채웠어요! [적용하기]를 눌러 주세요 ✨' : '파일 내용을 채웠어요! [적용하기]를 눌러 주세요 📄'); }
+  });
 }
 /* ----- 여행 정보 시트 (반자동 채우기 지원) ----- */
 function openTripSheet(pre, notice){
