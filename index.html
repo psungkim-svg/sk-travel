@@ -429,7 +429,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v2.5';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v2.6';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -1106,7 +1106,9 @@ function renderSchedule(){
     '<div class="card-title" style="margin-bottom:6px">📥 일정 직접 넣기</div>' +
     '<div style="font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:10px">클로드에서 만든 파일(<b>.html</b>·<b>.md</b>)을 통째로 올리거나, 코드·텍스트를 붙여넣으면 이 화면 전체가 그 일정으로 바뀝니다.</div>' +
     '<button class="btn btn-pri btn-block" data-action="sched-file">📁 파일로 올리기 (.html .md .txt)</button>' +
-    '<button class="btn btn-soft btn-block" data-action="html-sched" style="margin-top:8px">📝 코드 / 텍스트 붙여넣기</button></div>' +
+    '<button class="btn btn-soft btn-block" data-action="html-sched" style="margin-top:8px">📝 코드 / 텍스트 붙여넣기</button>' +
+    '<button class="btn btn-ghost btn-block" data-action="newtrip" style="margin-top:8px">✈️ 새 여행 시작하기</button>' +
+    '<div style="font-size:11.5px;color:var(--ink2);margin-top:7px;line-height:1.55">지금 여행을 백업 파일로 저장한 뒤 깨끗하게 지우고, 새 여행 일정으로 바꿀 수 있어요. 백업 파일은 구글드라이브에 올려 두시면 안심이에요 ☁️</div></div>' +
     '<div class="sec-title">📆 일정 스캔 & 아코디언</div>' +
     '<div class="sec-desc">항공권·숙소 바우처·여행 일정표를 <b>사진으로 스캔</b>하거나 텍스트를 붙여넣으면, 날짜별로 보기 좋게 정리해 드려요.</div>';
 
@@ -1267,6 +1269,8 @@ function renderSettings(){
   html += '<div class="card"><div class="card-title" style="margin-bottom:8px">데이터 관리</div>' +
     '<div class="row"><button class="btn btn-soft btn-sm" style="flex:1" data-action="export">⬇️ 내보내기</button>' +
     '<button class="btn btn-ghost btn-sm" style="flex:1" data-action="import">⬆️ 불러오기</button></div>' +
+    '<div style="margin-top:10px"><button class="btn btn-pri btn-sm btn-block" data-action="newtrip">✈️ 새 여행 시작하기</button>' +
+    '<div style="font-size:11.5px;color:var(--ink2);margin-top:5px;line-height:1.5">백업 파일 저장 → 지금 여행 정리 → 새 일정 파일 올리기 순서로 안내해요</div></div>' +
     '<div style="margin-top:10px"><button class="btn btn-danger btn-sm btn-block" data-action="data-reset">🗑️ 모든 데이터 초기화</button></div></div>';
   html += '<div class="card"><div class="card-title" style="margin-bottom:6px">🧩 코드로 화면 바꾸기</div>' +
     '<div style="font-size:11.5px;color:var(--ink2);margin-bottom:10px;line-height:1.6">클로드 같은 AI가 만들어 준 HTML 코드를 통째로 붙여넣으면, 그 화면이 코드 그대로 바뀝니다.<br>📆 일정 화면은 <b>일정 탭 맨 위에서 바로</b> 넣을 수 있어요!</div>' +
@@ -1648,6 +1652,19 @@ const actions = {
     try { localStorage.removeItem('sk_sched_html'); } catch (e) {}
     renderMain(); toast('원래 일정 화면으로 돌아갔어요 ↺');
   },
+  'newtrip'(){
+    if (confirm('💾 먼저 지금 여행 내용을 백업 파일로 저장할까요?\n\n파일(SK여행_백업_날짜.json)은 다운로드 폴더에 생겨요.\n그 파일을 구글드라이브에 올려 두시면 언제든 안전하게 보관할 수 있어요.\n\n[확인] 백업 파일 저장 후 계속  ·  [취소] 백업 없이 계속')){
+      actions['export']();
+    }
+    if (!confirm('📌 지금 여행의 일정 화면 · 여행 정보 · 공항 · 이동 내용을 지우고,\n새 여행으로 깨끗하게 준비할까요?\n\n✅ 준비물 · 체크리스트 · 할 일 · 메모는 그대로 둡니다.\n[취소]를 누르면 아무것도 바뀌지 않아요.')) return;
+    try { localStorage.removeItem('sk_sched_html'); } catch (e) {}
+    const d = defaultState();
+    state.trip = d.trip; state.schedule = d.schedule;
+    state.airports = d.airports; state.transfers = d.transfers; state.hotel = d.hotel;
+    save(); ui.tab = 'schedule'; renderAll();
+    toast('✈️ 새 여행 준비 완료! 새 일정 파일을 올려 주세요 📂');
+  },
+
   'html-pack'(){ openHtmlPaste('sk_pack_html', '체크리스트'); },
   'html-home-chk'(){ openHtmlPaste('sk_home_chk_html', '홈 체크리스트 박스'); },
   'do-update'(){
