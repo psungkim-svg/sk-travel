@@ -1,5 +1,5 @@
 /* 서비스 워커: 앱을 오프라인에서도 열리게 해주는 캐시 담당 */
-const CACHE_NAME = 'sk-travel-v15';
+const CACHE_NAME = 'sk-travel-v16';
 const APP_ASSETS = [
   './',
   './index.html',
@@ -8,7 +8,8 @@ const APP_ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
-  './icons/favicon-32.png'
+  './icons/favicon-32.png',
+  './schedule-seed.html'
 ];
 
 /* 사용자가 설정의 업데이트 버튼을 누률 때만 새 버전으로 교체 */

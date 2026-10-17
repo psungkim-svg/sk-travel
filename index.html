@@ -429,7 +429,7 @@ textarea.ta:focus,input:focus,select:focus{outline:none;border-color:var(--pri);
 /* ============================================================
    SK-여행 — 공항정보 / 준비물 / 일정스캔(아코디언) / 공항→호텔
    ============================================================ */
-const APP_VERSION = 'v2.3';   // ← 업데이트할 때마다 숫자를 올려 주세요
+const APP_VERSION = 'v2.4';   // ← 업데이트할 때마다 숫자를 올려 주세요
 
 /* ---------------- 유틸 ---------------- */
 const $ = s => document.querySelector(s);
@@ -1034,7 +1034,7 @@ function renderSchedule(){
     const isHtml = customHtml.indexOf('<') !== -1;
     const docHtml = isHtml ? customHtml : textDoc(customHtml);
     return '<div class="sec-title">📆 일정 (내 화면 적용 중)</div>' +
-      '<div class="sec-desc" style="display:flex;justify-content:space-between;align-items:center">직접 넣은 내용 적용 중 ✓ (' + (isHtml ? 'HTML 코드' : '텍스트') + ')' +
+      '<div class="sec-desc" style="display:flex;justify-content:space-between;align-items:center">내 일정 화면 적용 중 ✓ (' + (isHtml ? 'HTML 코드' : '텍스트') + ')' +
       '<span style="flex:none;display:flex;gap:6px">' +
       '<button class="btn btn-ghost btn-sm" data-action="html-sched">🧩 내용 바꾸기</button>' +
       '<button class="btn btn-ghost btn-sm" data-action="html-sched-clear">↺ 원래 화면으로</button></span></div>' +
@@ -1887,6 +1887,19 @@ try {
   const updFrom = localStorage.getItem('sk_upd_from');
   if (updFrom){ localStorage.removeItem('sk_upd_from');
     setTimeout(() => toast('✅ 업데이트 완료! ' + updFrom + ' → ' + APP_VERSION), 1500); }
+} catch (e) {}
+
+/* 📌 기본 일정 박제: 내 일정이 비어 있으면 처음 한 번 자동으로 채워 줌 */
+try {
+  if (!localStorage.getItem('sk_sched_html') && !localStorage.getItem('sk_sched_seed')){
+    fetch('schedule-seed.html').then(r => r.ok ? r.text() : '').then(t => {
+      if (t && t.indexOf('<') !== -1){
+        localStorage.setItem('sk_sched_html', t);
+        localStorage.setItem('sk_sched_seed', 'spain10');
+        if (ui.tab === 'schedule') keepScroll(renderMain);
+      }
+    }).catch(() => {});
+  }
 } catch (e) {}
 /* 뒤로가기 버튼: 앱이 꺼지지 않고 이전 화면으로 */
 function pushTab(id){ try { history.pushState({ tab: id }, ''); } catch (e) {} }
