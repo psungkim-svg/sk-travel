@@ -1,64 +1,252 @@
-/* 서비스 워커: 앱을 오프라인에서도 열리게 해주는 캐시 담당 */
-const CACHE_NAME = 'sk-travel-v18';
+/* SK-여행 v3.0: 오프라인 캐시와 사용자가 누르는 수동 업데이트 */
+const CACHE_NAME = 'sk-travel-v30-pdf-qr';
+const PDF_ASSETS = [
+  "./vendor/pdf.min.mjs",
+  "./vendor/pdf.worker.min.mjs",
+  "./vendor/cmaps/78-EUC-H.bcmap",
+  "./vendor/cmaps/78-EUC-V.bcmap",
+  "./vendor/cmaps/78-H.bcmap",
+  "./vendor/cmaps/78-RKSJ-H.bcmap",
+  "./vendor/cmaps/78-RKSJ-V.bcmap",
+  "./vendor/cmaps/78-V.bcmap",
+  "./vendor/cmaps/78ms-RKSJ-H.bcmap",
+  "./vendor/cmaps/78ms-RKSJ-V.bcmap",
+  "./vendor/cmaps/83pv-RKSJ-H.bcmap",
+  "./vendor/cmaps/90ms-RKSJ-H.bcmap",
+  "./vendor/cmaps/90ms-RKSJ-V.bcmap",
+  "./vendor/cmaps/90msp-RKSJ-H.bcmap",
+  "./vendor/cmaps/90msp-RKSJ-V.bcmap",
+  "./vendor/cmaps/90pv-RKSJ-H.bcmap",
+  "./vendor/cmaps/90pv-RKSJ-V.bcmap",
+  "./vendor/cmaps/Add-H.bcmap",
+  "./vendor/cmaps/Add-RKSJ-H.bcmap",
+  "./vendor/cmaps/Add-RKSJ-V.bcmap",
+  "./vendor/cmaps/Add-V.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-0.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-1.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-2.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-3.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-4.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-5.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-6.bcmap",
+  "./vendor/cmaps/Adobe-CNS1-UCS2.bcmap",
+  "./vendor/cmaps/Adobe-GB1-0.bcmap",
+  "./vendor/cmaps/Adobe-GB1-1.bcmap",
+  "./vendor/cmaps/Adobe-GB1-2.bcmap",
+  "./vendor/cmaps/Adobe-GB1-3.bcmap",
+  "./vendor/cmaps/Adobe-GB1-4.bcmap",
+  "./vendor/cmaps/Adobe-GB1-5.bcmap",
+  "./vendor/cmaps/Adobe-GB1-UCS2.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-0.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-1.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-2.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-3.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-4.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-5.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-6.bcmap",
+  "./vendor/cmaps/Adobe-Japan1-UCS2.bcmap",
+  "./vendor/cmaps/Adobe-Korea1-0.bcmap",
+  "./vendor/cmaps/Adobe-Korea1-1.bcmap",
+  "./vendor/cmaps/Adobe-Korea1-2.bcmap",
+  "./vendor/cmaps/Adobe-Korea1-UCS2.bcmap",
+  "./vendor/cmaps/B5-H.bcmap",
+  "./vendor/cmaps/B5-V.bcmap",
+  "./vendor/cmaps/B5pc-H.bcmap",
+  "./vendor/cmaps/B5pc-V.bcmap",
+  "./vendor/cmaps/CNS-EUC-H.bcmap",
+  "./vendor/cmaps/CNS-EUC-V.bcmap",
+  "./vendor/cmaps/CNS1-H.bcmap",
+  "./vendor/cmaps/CNS1-V.bcmap",
+  "./vendor/cmaps/CNS2-H.bcmap",
+  "./vendor/cmaps/CNS2-V.bcmap",
+  "./vendor/cmaps/ETHK-B5-H.bcmap",
+  "./vendor/cmaps/ETHK-B5-V.bcmap",
+  "./vendor/cmaps/ETen-B5-H.bcmap",
+  "./vendor/cmaps/ETen-B5-V.bcmap",
+  "./vendor/cmaps/ETenms-B5-H.bcmap",
+  "./vendor/cmaps/ETenms-B5-V.bcmap",
+  "./vendor/cmaps/EUC-H.bcmap",
+  "./vendor/cmaps/EUC-V.bcmap",
+  "./vendor/cmaps/Ext-H.bcmap",
+  "./vendor/cmaps/Ext-RKSJ-H.bcmap",
+  "./vendor/cmaps/Ext-RKSJ-V.bcmap",
+  "./vendor/cmaps/Ext-V.bcmap",
+  "./vendor/cmaps/GB-EUC-H.bcmap",
+  "./vendor/cmaps/GB-EUC-V.bcmap",
+  "./vendor/cmaps/GB-H.bcmap",
+  "./vendor/cmaps/GB-V.bcmap",
+  "./vendor/cmaps/GBK-EUC-H.bcmap",
+  "./vendor/cmaps/GBK-EUC-V.bcmap",
+  "./vendor/cmaps/GBK2K-H.bcmap",
+  "./vendor/cmaps/GBK2K-V.bcmap",
+  "./vendor/cmaps/GBKp-EUC-H.bcmap",
+  "./vendor/cmaps/GBKp-EUC-V.bcmap",
+  "./vendor/cmaps/GBT-EUC-H.bcmap",
+  "./vendor/cmaps/GBT-EUC-V.bcmap",
+  "./vendor/cmaps/GBT-H.bcmap",
+  "./vendor/cmaps/GBT-V.bcmap",
+  "./vendor/cmaps/GBTpc-EUC-H.bcmap",
+  "./vendor/cmaps/GBTpc-EUC-V.bcmap",
+  "./vendor/cmaps/GBpc-EUC-H.bcmap",
+  "./vendor/cmaps/GBpc-EUC-V.bcmap",
+  "./vendor/cmaps/H.bcmap",
+  "./vendor/cmaps/HKdla-B5-H.bcmap",
+  "./vendor/cmaps/HKdla-B5-V.bcmap",
+  "./vendor/cmaps/HKdlb-B5-H.bcmap",
+  "./vendor/cmaps/HKdlb-B5-V.bcmap",
+  "./vendor/cmaps/HKgccs-B5-H.bcmap",
+  "./vendor/cmaps/HKgccs-B5-V.bcmap",
+  "./vendor/cmaps/HKm314-B5-H.bcmap",
+  "./vendor/cmaps/HKm314-B5-V.bcmap",
+  "./vendor/cmaps/HKm471-B5-H.bcmap",
+  "./vendor/cmaps/HKm471-B5-V.bcmap",
+  "./vendor/cmaps/HKscs-B5-H.bcmap",
+  "./vendor/cmaps/HKscs-B5-V.bcmap",
+  "./vendor/cmaps/Hankaku.bcmap",
+  "./vendor/cmaps/Hiragana.bcmap",
+  "./vendor/cmaps/KSC-EUC-H.bcmap",
+  "./vendor/cmaps/KSC-EUC-V.bcmap",
+  "./vendor/cmaps/KSC-H.bcmap",
+  "./vendor/cmaps/KSC-Johab-H.bcmap",
+  "./vendor/cmaps/KSC-Johab-V.bcmap",
+  "./vendor/cmaps/KSC-V.bcmap",
+  "./vendor/cmaps/KSCms-UHC-H.bcmap",
+  "./vendor/cmaps/KSCms-UHC-HW-H.bcmap",
+  "./vendor/cmaps/KSCms-UHC-HW-V.bcmap",
+  "./vendor/cmaps/KSCms-UHC-V.bcmap",
+  "./vendor/cmaps/KSCpc-EUC-H.bcmap",
+  "./vendor/cmaps/KSCpc-EUC-V.bcmap",
+  "./vendor/cmaps/Katakana.bcmap",
+  "./vendor/cmaps/NWP-H.bcmap",
+  "./vendor/cmaps/NWP-V.bcmap",
+  "./vendor/cmaps/RKSJ-H.bcmap",
+  "./vendor/cmaps/RKSJ-V.bcmap",
+  "./vendor/cmaps/Roman.bcmap",
+  "./vendor/cmaps/UniCNS-UCS2-H.bcmap",
+  "./vendor/cmaps/UniCNS-UCS2-V.bcmap",
+  "./vendor/cmaps/UniCNS-UTF16-H.bcmap",
+  "./vendor/cmaps/UniCNS-UTF16-V.bcmap",
+  "./vendor/cmaps/UniCNS-UTF32-H.bcmap",
+  "./vendor/cmaps/UniCNS-UTF32-V.bcmap",
+  "./vendor/cmaps/UniCNS-UTF8-H.bcmap",
+  "./vendor/cmaps/UniCNS-UTF8-V.bcmap",
+  "./vendor/cmaps/UniGB-UCS2-H.bcmap",
+  "./vendor/cmaps/UniGB-UCS2-V.bcmap",
+  "./vendor/cmaps/UniGB-UTF16-H.bcmap",
+  "./vendor/cmaps/UniGB-UTF16-V.bcmap",
+  "./vendor/cmaps/UniGB-UTF32-H.bcmap",
+  "./vendor/cmaps/UniGB-UTF32-V.bcmap",
+  "./vendor/cmaps/UniGB-UTF8-H.bcmap",
+  "./vendor/cmaps/UniGB-UTF8-V.bcmap",
+  "./vendor/cmaps/UniJIS-UCS2-H.bcmap",
+  "./vendor/cmaps/UniJIS-UCS2-HW-H.bcmap",
+  "./vendor/cmaps/UniJIS-UCS2-HW-V.bcmap",
+  "./vendor/cmaps/UniJIS-UCS2-V.bcmap",
+  "./vendor/cmaps/UniJIS-UTF16-H.bcmap",
+  "./vendor/cmaps/UniJIS-UTF16-V.bcmap",
+  "./vendor/cmaps/UniJIS-UTF32-H.bcmap",
+  "./vendor/cmaps/UniJIS-UTF32-V.bcmap",
+  "./vendor/cmaps/UniJIS-UTF8-H.bcmap",
+  "./vendor/cmaps/UniJIS-UTF8-V.bcmap",
+  "./vendor/cmaps/UniJIS2004-UTF16-H.bcmap",
+  "./vendor/cmaps/UniJIS2004-UTF16-V.bcmap",
+  "./vendor/cmaps/UniJIS2004-UTF32-H.bcmap",
+  "./vendor/cmaps/UniJIS2004-UTF32-V.bcmap",
+  "./vendor/cmaps/UniJIS2004-UTF8-H.bcmap",
+  "./vendor/cmaps/UniJIS2004-UTF8-V.bcmap",
+  "./vendor/cmaps/UniJISPro-UCS2-HW-V.bcmap",
+  "./vendor/cmaps/UniJISPro-UCS2-V.bcmap",
+  "./vendor/cmaps/UniJISPro-UTF8-V.bcmap",
+  "./vendor/cmaps/UniJISX0213-UTF32-H.bcmap",
+  "./vendor/cmaps/UniJISX0213-UTF32-V.bcmap",
+  "./vendor/cmaps/UniJISX02132004-UTF32-H.bcmap",
+  "./vendor/cmaps/UniJISX02132004-UTF32-V.bcmap",
+  "./vendor/cmaps/UniKS-UCS2-H.bcmap",
+  "./vendor/cmaps/UniKS-UCS2-V.bcmap",
+  "./vendor/cmaps/UniKS-UTF16-H.bcmap",
+  "./vendor/cmaps/UniKS-UTF16-V.bcmap",
+  "./vendor/cmaps/UniKS-UTF32-H.bcmap",
+  "./vendor/cmaps/UniKS-UTF32-V.bcmap",
+  "./vendor/cmaps/UniKS-UTF8-H.bcmap",
+  "./vendor/cmaps/UniKS-UTF8-V.bcmap",
+  "./vendor/cmaps/V.bcmap",
+  "./vendor/cmaps/WP-Symbol.bcmap",
+  "./vendor/standard_fonts/FoxitDingbats.pfb",
+  "./vendor/standard_fonts/FoxitFixed.pfb",
+  "./vendor/standard_fonts/FoxitFixedBold.pfb",
+  "./vendor/standard_fonts/FoxitFixedBoldItalic.pfb",
+  "./vendor/standard_fonts/FoxitFixedItalic.pfb",
+  "./vendor/standard_fonts/FoxitSerif.pfb",
+  "./vendor/standard_fonts/FoxitSerifBold.pfb",
+  "./vendor/standard_fonts/FoxitSerifBoldItalic.pfb",
+  "./vendor/standard_fonts/FoxitSerifItalic.pfb",
+  "./vendor/standard_fonts/FoxitSymbol.pfb",
+  "./vendor/standard_fonts/LiberationSans-Bold.ttf",
+  "./vendor/standard_fonts/LiberationSans-BoldItalic.ttf",
+  "./vendor/standard_fonts/LiberationSans-Italic.ttf",
+  "./vendor/standard_fonts/LiberationSans-Regular.ttf"
+];
+const QR_ASSETS = ['./vendor/jsQR.js'];
 const APP_ASSETS = [
   './',
   './index.html',
-  './packing.html',
+  './checklist.json',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png',
   './icons/favicon-32.png',
-  './schedule-seed.html'
+  ...PDF_ASSETS,
+  ...QR_ASSETS
 ];
 
-/* 사용자가 설정의 업데이트 버튼을 누률 때만 새 버전으로 교체 */
-self.addEventListener('message', e => {
-  if (e.data === 'SKIP_WAITING') self.skipWaiting();
+self.addEventListener('message', event => {
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(c => c.addAll(APP_ASSETS))
-  );
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_ASSETS)));
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(
+self.addEventListener('activate', event => {
+  event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys
+        .filter(key => key.startsWith('sk-travel-') && key !== CACHE_NAME)
+        .map(key => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', e => {
-  const req = e.request;
-  if (req.method !== 'GET') return;
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
 
-  /* 페이지 이동: 인터넷 우선, 실패하면 캐시된 앱 열기 */
-  if (req.mode === 'navigate') {
-    e.respondWith(
-      fetch(req)
-        .then(res => {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(req, copy));
-          return res;
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          }
+          return response;
         })
-        .catch(() => caches.match(req).then(hit => hit || caches.match('./index.html')))
+        .catch(async () => (await caches.match(request)) || (await caches.match('./index.html')))
     );
     return;
   }
 
-  /* 나머지(아이콘, OCR 엔진 CDN 등): 캐시 우선 + 없으면 인터넷에서 받아 캐시에 저장 */
-  e.respondWith(
-    caches.match(req).then(hit => {
+  event.respondWith(
+    caches.match(request).then(hit => {
       if (hit) return hit;
-      return fetch(req).then(res => {
-        if (res.ok && (req.url.startsWith(self.location.origin) || req.url.includes('cdn.jsdelivr.net'))) {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(req, copy));
+      return fetch(request).then(response => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
         }
-        return res;
+        return response;
       });
     })
   );
