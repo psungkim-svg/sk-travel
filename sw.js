@@ -1,5 +1,5 @@
-/* SK-여행 v3.2: 핵심 오프라인 캐시 + 필요할 때 받는 한국어 PDF 자산 */
-const CACHE_NAME = 'sk-travel-v32-optimized-5';
+/* SK-여행 v3.4: 핵심 오프라인 캐시 + 필요할 때 받는 한국어 PDF 자산 */
+const CACHE_NAME = 'sk-travel-v34-optimized-1';
 const PACKED_PDF_ASSETS = {"vendor/cmaps/Adobe-Korea1-0.bcmap":[0,241],"vendor/cmaps/Adobe-Korea1-1.bcmap":[241,386],"vendor/cmaps/Adobe-Korea1-2.bcmap":[627,391],"vendor/cmaps/Adobe-Korea1-UCS2.bcmap":[1018,23293],"vendor/cmaps/KSC-EUC-H.bcmap":[24311,1848],"vendor/cmaps/KSC-EUC-V.bcmap":[26159,164],"vendor/cmaps/KSC-H.bcmap":[26323,1831],"vendor/cmaps/KSC-Johab-H.bcmap":[28154,16791],"vendor/cmaps/KSC-Johab-V.bcmap":[44945,166],"vendor/cmaps/KSC-V.bcmap":[45111,160],"vendor/cmaps/KSCms-UHC-H.bcmap":[45271,2787],"vendor/cmaps/KSCms-UHC-HW-H.bcmap":[48058,2789],"vendor/cmaps/KSCms-UHC-HW-V.bcmap":[50847,169],"vendor/cmaps/KSCms-UHC-V.bcmap":[51016,166],"vendor/cmaps/KSCpc-EUC-H.bcmap":[51182,2024],"vendor/cmaps/KSCpc-EUC-V.bcmap":[53206,166],"vendor/cmaps/UniKS-UCS2-H.bcmap":[53372,25783],"vendor/cmaps/UniKS-UCS2-V.bcmap":[79155,178],"vendor/cmaps/UniKS-UTF16-H.bcmap":[79333,26327],"vendor/cmaps/UniKS-UTF16-V.bcmap":[105660,164],"vendor/cmaps/UniKS-UTF32-H.bcmap":[105824,26451],"vendor/cmaps/UniKS-UTF32-V.bcmap":[132275,168],"vendor/cmaps/UniKS-UTF8-H.bcmap":[132443,27790],"vendor/cmaps/UniKS-UTF8-V.bcmap":[160233,169],"vendor/standard_fonts/FoxitDingbats.pfb":[160402,29513],"vendor/standard_fonts/FoxitSymbol.pfb":[189915,16729]};
 // Core-only install keeps first launch light. PDF/QR assets are cached on first use.
 const APP_ASSETS = [
