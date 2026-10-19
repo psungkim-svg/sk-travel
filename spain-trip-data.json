@@ -1,0 +1,1149 @@
+{
+  "format": "sk-travel-trip",
+  "version": 1,
+  "trip": {
+    "name": "스페인·포르투갈 9박 10일",
+    "destSummary": "스페인 · 포르투갈",
+    "start": "2026-10-22",
+    "end": "2026-10-31",
+    "flights": [
+      {
+        "airline": "American Airlines",
+        "flightNo": "AA742",
+        "from": "PHL",
+        "to": "BCN",
+        "departAt": "2026-10-22T19:25:00-04:00",
+        "arriveAt": "2026-10-23T09:05:00+02:00"
+      },
+      {
+        "airline": "American Airlines",
+        "flightNo": "AA259",
+        "from": "LIS",
+        "to": "PHL",
+        "departAt": "2026-10-31T10:55:00+00:00",
+        "arriveAt": "2026-10-31T14:50:00-04:00",
+        "note": "종이 일정표에는 11:05로 적혀 있어 확인 필요"
+      }
+    ],
+    "departureSteps": [
+      {
+        "date": "2026-10-22",
+        "time": "15:30",
+        "label": "필라하나관광 주차장 집결 · 셔틀 출발"
+      },
+      {
+        "date": "2026-10-22",
+        "time": "16:30",
+        "label": "필라델피아 공항 도착 · 개별 체크인"
+      },
+      {
+        "date": "2026-10-22",
+        "time": "19:25",
+        "label": "AA742 바르셀로나행 출발"
+      }
+    ],
+    "preTripActions": [
+      {
+        "due": "2026-10-21",
+        "title": "항공사 체크인 가능 여부 확인",
+        "detail": "단체·여행사 예약은 온라인 체크인이 제한될 수 있으니 예약 정보로 확인하세요."
+      },
+      {
+        "due": "2026-10-22",
+        "title": "15:30 셔틀 출발 장소 확인",
+        "detail": "필라하나관광 주차장 집결. 셔틀은 정시 출발 안내입니다."
+      },
+      {
+        "due": "2026-10-22",
+        "title": "e-티켓과 여권 오프라인 확인",
+        "detail": "중요 정보 탭과 종이 안내문을 함께 확인하세요."
+      }
+    ]
+  },
+  "destinations": [
+    {
+      "city": "바르셀로나",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "from": "2026-10-22",
+      "to": "2026-10-25"
+    },
+    {
+      "city": "마드리드",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 40.4168,
+      "lon": -3.7038,
+      "from": "2026-10-25",
+      "to": "2026-10-26"
+    },
+    {
+      "city": "톨레도",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "from": "2026-10-26",
+      "to": "2026-10-27"
+    },
+    {
+      "city": "그라나다",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 37.1773,
+      "lon": -3.5986,
+      "from": "2026-10-27",
+      "to": "2026-10-28"
+    },
+    {
+      "city": "세비야",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 37.3891,
+      "lon": -5.9845,
+      "from": "2026-10-28",
+      "to": "2026-10-29"
+    },
+    {
+      "city": "리스본",
+      "country": "포르투갈",
+      "tz": "Europe/Lisbon",
+      "currency": "EUR",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "from": "2026-10-29",
+      "to": "2026-10-31"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-10-22",
+      "label": "1일차 · 필라델피아 / 필라공항",
+      "city": "바르셀로나",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "events": [
+        {
+          "time": "15:30",
+          "title": "필라델피아 하나관광 주차장 집결 후 필라공항으로 출발",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "16:30",
+          "title": "공항도착 후 개별체크인",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "19:25",
+          "title": "아메리칸 에어라인 742편으로 바르셀로나 향발",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "석: 기내식"
+      ],
+      "hotel": null,
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 출발 19:40 (종이 안내문·항공권은 19:25 / 7:25PM)",
+        "웹사이트에만 있거나 다른 내용: 전용 셔틀버스로 필라델피아 공항(PHL) 이동"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-23",
+      "label": "2일차 · 바르셀로나",
+      "city": "바르셀로나",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "events": [
+        {
+          "time": "09:05",
+          "title": "바르셀로나 공항 도착, 입국 수속 후 현지 가이드 미팅 후 전용차량으로 시내 이동 (약 30~45분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "몬주익 언덕(Montjuïc) — 항구와 바르셀로나 시가지를 조망할 수 있는 전망 명소입니다",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식후 시내관광",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "구시가지(Gothic Quarter): 중세 골목과 광장에 바르셀로나의 오랜 역사가 남아 있습니다",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "람블라스 거리(La Rambla): 구시가지 중심을 가로지르는 활기찬 보행 거리입니다",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "람블라스 거리 자유시간 1시간: 추천방문지 카사 바트요(Casa Batlló) — 물결치는 외관과 화려한 모자이크로 가우디의 상상력을 보여주는 바르셀로나의 건축 명소입니다. 시간상 외관관람을 추천합니다",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "석식 후 호텔 이동 및 체크인",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "중: 현지식",
+        "석: 한식"
+      ],
+      "hotel": {
+        "name": "HOTEL CATALONIA BARCELONA PLAZA",
+        "phone": "+934262600",
+        "address": ""
+      },
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 공항 도착 09:00 (종이 안내문·항공권은 09:05 / 9:05A)",
+        "웹사이트에만 있거나 다른 내용: 식사에 조식(기내식) 표기"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-24",
+      "label": "3일차 · 바르셀로나 / 몬세라트 / 바르셀로나",
+      "city": "바르셀로나",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식 후 몬세라트 출발 (약 1시간~1시간 15분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "몬세라트 수도원 (Montserrat Monastery)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "카탈루냐의 대표적인 순례지로, 검은 성모상을 모신 곳입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "몬세라트 도착, 편도 케이블카 탑승, 기암절벽과 산악 풍경을 감상하며 수도원으로 올라갑니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식후 바르셀로나 귀환 (약 1시간~1시간 15분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "성가족 성당 (Sagrada Família): 가우디의 독창적인 건축 세계를 보여주는 바르셀로나의 상징입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "구엘 공원 (Park Güell·입장): 곡선 건축과 화려한 모자이크가 어우러진 가우디의 공원입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "석식 후 호텔 귀환",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 현지식"
+      ],
+      "hotel": {
+        "name": "HOTEL CATALONIA BARCELONA PLAZA",
+        "phone": "+934262600",
+        "address": ""
+      },
+      "notes": [],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-25",
+      "label": "4일차 · 바르셀로나 / 마드리드",
+      "city": "마드리드",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 40.4168,
+      "lon": -3.7038,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식 및 체크아웃후 바르셀로나 열차역으로 이동",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "09:00~12:17",
+          "title": "고속열차 AVE 03092 탑승, 마드리드 이동 (3시간 17분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "현지 도착하여 중식. 이후 마드리드시내 관광",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "그랑비아 거리(Gran Vía): 화려한 건축물과 극장이 이어지는 마드리드의 중심 거리입니다",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "마요르 광장(Plaza Mayor): 아케이드 건물로 둘러싸인 마드리드의 역사적인 광장입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "프라도 미술관(Museo del Prado·외관): 스페인을 대표하는 미술관의 외관을 둘러봅니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "스페인 광장(Plaza de España): 세르반테스 기념물이 자리한 도심 광장입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "석식 후 호텔귀환",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 한식"
+      ],
+      "hotel": {
+        "name": "HOTEL CHAMARTÍN THE ONE",
+        "phone": "+913344900",
+        "address": ""
+      },
+      "notes": [],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-26",
+      "label": "5일차 · 마드리드 / 톨레도",
+      "city": "톨레도",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "events": [
+        {
+          "time": "",
+          "title": "조식 후 오전 마드리드 시내 관광, 톨레도로 이동",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식후 톨레도 시내관광",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "톨레도 구시가지(Toledo Old Town): 기독교·이슬람·유대 문화의 흔적이 함께 남은 옛 도심입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "톨레도 대성당(Toledo Cathedral): 화려한 내부 장식과 성화로 이름난 스페인 고딕 성당입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "산토 토메 교회(Iglesia de Santo Tomé): 엘 그레코의 작품 오르가스 백작의 매장을 볼 수 있는 곳입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "호텔 체크인 및 석식",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 호텔식"
+      ],
+      "hotel": {
+        "name": "HOTEL CIGARRAL EL BOSQUE",
+        "phone": "+925285640",
+        "address": ""
+      },
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 8:00 호텔 조식 후 체크아웃",
+        "웹사이트에만 있거나 다른 내용: 오전 마드리드 시내 관광: 전날 방문지 주변의 도심 풍경을 여유롭게 둘러봄",
+        "웹사이트에만 있거나 다른 내용: 10:30 톨레도 출발"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-27",
+      "label": "6일차 · 톨레도 / 코르도바 / 그라나다",
+      "city": "그라나다",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 37.1773,
+      "lon": -3.5986,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식 후 코르도바 이동 (약 3시간 30분~4시간)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식 후 코르도바 시내관광",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "메스키타·대성당(Mezquita-Catedral de Córdoba): 이슬람 사원의 아치 숲과 후대의 가톨릭 대성당이 한 건물에 공존합니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "유대인 거리(Judería): 흰 벽과 좁은 골목이 이어지는 코르도바의 옛 지구입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "그라나다로 이동 (약 2시간 15분~2시간 45분), 도착후 호텔 체크인 및 석식",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 호텔식"
+      ],
+      "hotel": {
+        "name": "GRAN HOTEL LUNA DE GRANADA",
+        "phone": "+958430538",
+        "address": ""
+      },
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 07:00 호텔 조식 및 체크아웃 후 08:00 코르도바 출발",
+        "웹사이트에만 있거나 다른 내용: 코르도바 이동 중간 정차 별도"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-28",
+      "label": "7일차 · 그라나다 / 론다 / 세비야",
+      "city": "세비야",
+      "country": "스페인",
+      "tz": "Europe/Madrid",
+      "currency": "EUR",
+      "lat": 37.3891,
+      "lon": -5.9845,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식 후 알함브라로 이동",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "알함브라 궁전(Alhambra): 나스르 왕조의 궁정 건축과 정교한 장식이 남아 있는 유적입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "헤네랄리페 정원(Generalife): 왕실의 여름 별궁과 물길이 어우러진 정원입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "알카사바(Alcazaba): 알함브라에서 가장 오래된 요새 구역으로, 그라나다 시내를 내려다볼 수 있습니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식후 론다로 이동 (약 2시간 15분~3시간)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "론다 도착: 깊은 협곡 위에 자리한 안달루시아의 산악 도시입니다",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "누에보 다리(Puente Nuevo) 주변: 구시가지와 신시가지를 잇는 다리와 협곡을 조망합니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "세비야로 이동 (약 1시간 45분~2시간 15분), 도착후 석식 및 호텔 체크인",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 한식"
+      ],
+      "hotel": {
+        "name": "HOTEL EUROSTARS AL-ANDALUS PALACE",
+        "phone": "+954230600",
+        "address": ""
+      },
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 론다 이동 약 2시간 30분~3시간 (종이 안내문은 2시간 15분~3시간)",
+        "웹사이트에만 있거나 다른 내용: 석식: 호텔식 (종이 안내문은 한식)"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-29",
+      "label": "8일차 · 세비야 / 리스본",
+      "city": "리스본",
+      "country": "포르투갈",
+      "tz": "Europe/Lisbon",
+      "currency": "EUR",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식 후 세비야 시내관광",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "세비야 대성당(Seville Cathedral): 도시의 번영과 종교 역사가 담긴 거대한 고딕 성당입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "세비야 구시가지 산책: 대성당 주변의 광장과 골목을 둘러봅니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식후 리스본으로 이동 (약 4시간 30분 ~ 5시간 30분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "리스본 도착후 석식 및 호텔 체크인",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 현지식"
+      ],
+      "hotel": {
+        "name": "HOTEL MERCURE LISBOA ALMADA",
+        "phone": "+351212761401",
+        "address": ""
+      },
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 호텔 조식 및 체크아웃 후 세비야 중심부 이동 약 20~30분",
+        "웹사이트에만 있거나 다른 내용: 리스본 이동 중간 정차 별도"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-30",
+      "label": "9일차 · 리스본 / 신트라 / 리스본",
+      "city": "리스본",
+      "country": "포르투갈",
+      "tz": "Europe/Lisbon",
+      "currency": "EUR",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식후 신트라 출발 (약 45분~1시간 15분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "신트라(Sintra): 숲이 우거진 언덕과 왕궁·성곽으로 알려진 휴양 도시입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "신트라 성 입장: 예약된 입장 시설을 관람합니다. 원안의 '신트라 성'이 어느 성 또는 궁전을 뜻하는지 입장권 명칭 확인이 필요합니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "중식후 리스본으로 이동 (약 45분 ~ 1시간 15분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "에두아르도 7세 공원(Parque Eduardo VII): 리스본 중심가와 테주강 방향을 조망할 수 있는 공원입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "퐁발 후작 광장(Marquês de Pombal): 리스본의 주요 대로가 만나는 중심 광장입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "로시우 광장(Praça do Rossio): 물결무늬 바닥과 분수로 친숙한 구도심 광장입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "벨렘 지구 이동 (약 20~30분)",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "제로니모스 수도원(Mosteiro dos Jerónimos·외관): 대항해 시대 포르투갈의 역사를 보여주는 수도원입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "벨렘탑(Torre de Belém·외관): 테주강 변을 지키던 역사적인 탑입니다.",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "",
+          "title": "석식 후 호텔 체크인",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 현지식",
+        "석: 현지식"
+      ],
+      "hotel": {
+        "name": "HOTEL MERCURE LISBOA ALMADA",
+        "phone": "+351212761401",
+        "address": ""
+      },
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 08:00 호텔 조식 후 신트라 출발",
+        "웹사이트에만 있거나 다른 내용: 리스본 귀환 후 현지투어",
+        "웹사이트에만 있거나 다른 내용: 석식 후 호텔 귀환 약 20~35분"
+      ],
+      "alerts": []
+    },
+    {
+      "date": "2026-10-31",
+      "label": "10일차 · 리스본 / 필라델피아",
+      "city": "리스본",
+      "country": "포르투갈",
+      "tz": "Europe/Lisbon",
+      "currency": "EUR",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "events": [
+        {
+          "time": "",
+          "title": "호텔 조식후 공항으로 이동 및 체크인",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "11:05",
+          "title": "아메리칸 에어라인 259편으로 필라델피아 향발",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "14:50",
+          "title": "필라델피아 도착후 전용차량으로 이동",
+          "place": "",
+          "note": ""
+        },
+        {
+          "time": "17:00",
+          "title": "필라 하나여행사 도착후 해산",
+          "place": "",
+          "note": ""
+        }
+      ],
+      "meals": [
+        "조: 호텔식",
+        "중: 기내식"
+      ],
+      "hotel": null,
+      "notes": [
+        "웹사이트에만 있거나 다른 내용: 필라델피아 도착 15:20 후 입국 수속, 여행사 도착 16:30",
+        "웹사이트에만 있거나 다른 내용: 식사는 조식(호텔식)만 표기"
+      ],
+      "alerts": [
+        "종이 안내문 안에서도 항공권은 리스본 10:55A 출발, 일정표는 11:05 출발로 다릅니다. 항공사나 여행사에 확인하세요."
+      ]
+    }
+  ],
+  "tips": [
+    {
+      "date": "2026-10-23",
+      "city": "바르셀로나",
+      "place": "구시가지·람블라스 거리",
+      "category": "화장실",
+      "icon": "🚻",
+      "priority": 10,
+      "title": "화장실은 카페·시설 이용을 대안으로",
+      "issue": "거리의 공중화장실은 찾기 쉽지 않고 실제 운영 여부가 바뀔 수 있습니다. 카페 화장실은 손님만 허용하는 경우도 있습니다.",
+      "action": "자유시간 전에 카페·박물관·큰 상점·역 시설을 이용할 때 미리 화장실을 확인하세요.",
+      "alternative": "카페에서 음료를 주문한 뒤 이용하거나 큰 상점·문화시설 화장실을 찾으세요.",
+      "costHours": "시설마다 다름 · 카페는 주문이 필요할 수 있음",
+      "mapQuery": "public toilets Gothic Quarter Barcelona",
+      "sourceName": "바르셀로나 시 공개데이터",
+      "sourceUrl": "https://opendata-ajuntament.barcelona.cat/data/en/dataset/lavabos-publics/resource/d4333031-e42c-4d1a-9ad6-6254359b8f37",
+      "sources": [
+        {
+          "name": "바르셀로나 시 공개데이터",
+          "url": "https://opendata-ajuntament.barcelona.cat/data/en/dataset/lavabos-publics/resource/d4333031-e42c-4d1a-9ad6-6254359b8f37"
+        },
+        {
+          "name": "Rick Steves 여행자 포럼",
+          "url": "https://community.ricksteves.com/travel-forum/spain/public-wcs-in-barcelona"
+        }
+      ],
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "date": "2026-10-23",
+      "city": "바르셀로나",
+      "place": "람블라스 거리",
+      "category": "소지품",
+      "icon": "📱",
+      "priority": 20,
+      "title": "혼잡한 거리에서 가방·휴대폰 관리",
+      "issue": "붐비는 거리와 야외 카페에서는 휴대폰을 테이블에 두거나 가방을 의자에 걸어두면 위험할 수 있습니다.",
+      "action": "가방은 앞으로 메고, 휴대폰은 사용 후 바로 주머니나 가방에 넣으세요.",
+      "alternative": "사진을 찍을 때는 벽 쪽에 서서 주변을 한 번 본 뒤 사용하세요.",
+      "costHours": "",
+      "mapQuery": "La Rambla Barcelona",
+      "sourceName": "Rick Steves 여행자 포럼",
+      "sourceUrl": "https://community.ricksteves.com/travel-forum/spain/smartphones-in-barcelona-theft-6fc08be1-837a-4622-9394-49efcc0d1fd9",
+      "sources": [
+        {
+          "name": "Rick Steves 여행자 포럼",
+          "url": "https://community.ricksteves.com/travel-forum/spain/smartphones-in-barcelona-theft-6fc08be1-837a-4622-9394-49efcc0d1fd9"
+        }
+      ],
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "date": "2026-10-23",
+      "city": "바르셀로나",
+      "place": "바르셀로나 공항 지하철",
+      "category": "교통권",
+      "icon": "🚇",
+      "priority": 15,
+      "onlyIf": [
+        "공항 지하철",
+        "지하철",
+        "메트로",
+        "metro",
+        "TMB",
+        "공항역"
+      ],
+      "title": "공항 지하철은 모든 교통권이 통하지 않을 수 있어요",
+      "issue": "바르셀로나 공항역에서는 일부 일반 교통권이 유효하지 않을 수 있습니다.",
+      "action": "타기 전에 공항역에서 쓸 수 있는 표인지 TMB 안내로 확인하세요.",
+      "alternative": "전용차량·공항버스·택시 중 그날 일정에 맞는 방법을 이용하세요.",
+      "costHours": "표 종류마다 다름",
+      "mapQuery": "Barcelona Airport metro station",
+      "sourceName": "TMB 공식 안내",
+      "sourceUrl": "https://www.tmb.cat/en/visit-barcelona/public-transport/metro-airport",
+      "sources": [
+        {
+          "name": "TMB 공식 안내",
+          "url": "https://www.tmb.cat/en/visit-barcelona/public-transport/metro-airport"
+        }
+      ],
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "date": "2026-10-30",
+      "city": "리스본",
+      "place": "로시우·벨렘·프라사 두 코메르시우",
+      "category": "화장실",
+      "icon": "🚻",
+      "priority": 10,
+      "title": "리스본 공중화장실은 유료·휴무를 대비하세요",
+      "issue": "공중화장실이 유료이거나 닫혀 있었던 여행자 경험이 있습니다.",
+      "action": "관광지를 이동하기 전에 박물관·쇼핑센터·카페 화장실을 미리 이용하고, 동전이나 결제 수단을 준비하세요.",
+      "alternative": "프라사 두 코메르시우 근처 박물관을 이용한 경험이 있지만 운영일과 시간은 지도에서 다시 확인하세요.",
+      "costHours": "장소마다 다름 · 운영 여부 확인 필요",
+      "mapQuery": "public toilets Praca do Comercio Lisbon",
+      "sourceName": "리스본 여행자 경험담",
+      "sourceUrl": "https://www.reddit.com/r/LisbonPortugalTravel/comments/1qsw432/public_washroom_use/",
+      "sources": [
+        {
+          "name": "리스본 여행자 경험담",
+          "url": "https://www.reddit.com/r/LisbonPortugalTravel/comments/1qsw432/public_washroom_use/"
+        },
+        {
+          "name": "Rick Steves 리스본 실용 팁",
+          "url": "https://community.ricksteves.com/travel-forum/portugal/practical-tips-learned-from-our-5-day-stay-in-lisbon-part-1"
+        }
+      ],
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "date": "2026-10-30",
+      "city": "리스본",
+      "place": "리스본 구시가지·신트라",
+      "category": "걷기",
+      "icon": "👣",
+      "priority": 20,
+      "title": "언덕과 젖은 돌길에서는 천천히",
+      "issue": "지도상 가까워도 언덕·계단·돌길이 많아 체력 소모가 크고 비가 오면 미끄러울 수 있습니다.",
+      "action": "미끄럽지 않은 신발을 신고, 오르막에서는 무리하지 말고 쉬어 가세요.",
+      "alternative": "짐이 있거나 비가 오면 가까운 거리도 차량 이동을 가이드와 상의하세요.",
+      "costHours": "",
+      "mapQuery": "Lisbon old town",
+      "sourceName": "Rick Steves 여행자 포럼",
+      "sourceUrl": "https://community.ricksteves.com/travel-forum/portugal/practical-tips-learned-from-our-5-day-stay-in-lisbon-part-1",
+      "sources": [
+        {
+          "name": "Rick Steves 여행자 포럼",
+          "url": "https://community.ricksteves.com/travel-forum/portugal/practical-tips-learned-from-our-5-day-stay-in-lisbon-part-1"
+        },
+        {
+          "name": "Business Insider 리스본 팁",
+          "url": "https://www.businessinsider.com/lisbon-first-time-mistakes-best-travel-tips-portugal-2025-10"
+        }
+      ],
+      "verifiedAt": "2026-10-19"
+    },
+    {
+      "date": "2026-10-30",
+      "city": "리스본",
+      "place": "리스본 식당",
+      "category": "식당 비용",
+      "icon": "💶",
+      "priority": 30,
+      "title": "식당 빵·올리브는 무료라고 단정하지 않기",
+      "issue": "포르투갈 식당에서 먼저 나오는 쿠베르(couvert)는 먹으면 계산서에 포함될 수 있습니다.",
+      "action": "원하지 않으면 손대기 전에 “Não, obrigado/a”라고 말하고 계산서를 확인하세요.",
+      "alternative": "이미 먹었다면 계산서 항목과 금액만 확인하면 됩니다.",
+      "costHours": "식당마다 다름",
+      "mapQuery": "Lisbon restaurants",
+      "sourceName": "Lonely Planet",
+      "sourceUrl": "https://www.lonelyplanet.com/articles/18-things-to-know-before-traveling-to-portugal",
+      "sources": [
+        {
+          "name": "Lonely Planet",
+          "url": "https://www.lonelyplanet.com/articles/18-things-to-know-before-traveling-to-portugal"
+        },
+        {
+          "name": "포르투갈 여행자 게시판",
+          "url": "https://www.reddit.com/r/portugal/comments/1izh1jt/do_you_actively_have_to_refuse_the_couvert/"
+        }
+      ],
+      "verifiedAt": "2026-10-19"
+    }
+  ],
+  "airports": [
+    {
+      "type": "dep",
+      "name": "필라델피아 국제공항 (PHL)",
+      "terminal": "",
+      "checkin": "10/22 16:30 개별 체크인 안내",
+      "facility": "",
+      "wifi": "",
+      "tips": "AA742 19:25 출발 안내. 필라하나관광 셔틀 15:30 집결, 팁 편도 $5/인 안내."
+    },
+    {
+      "type": "arr",
+      "name": "바르셀로나 공항 (BCN)",
+      "terminal": "",
+      "checkin": "10/23 09:05 도착 안내",
+      "facility": "",
+      "wifi": "",
+      "tips": "입국 수속 후 현지 가이드 미팅, 전용차량으로 시내 이동 약 30~45분."
+    },
+    {
+      "type": "dep",
+      "name": "리스본 공항 (LIS)",
+      "terminal": "",
+      "checkin": "10/31 조식 후 공항 이동·체크인",
+      "facility": "",
+      "wifi": "",
+      "tips": "AA259 항공권 10:55 / 종이 일정표 11:05로 달라 확인이 필요합니다."
+    },
+    {
+      "type": "arr",
+      "name": "필라델피아 국제공항 (PHL, 귀국)",
+      "terminal": "",
+      "checkin": "10/31 14:50 도착 안내",
+      "facility": "",
+      "wifi": "",
+      "tips": "전용차량 이동 후 17:00경 필라하나여행사 도착 예정."
+    }
+  ],
+  "transfers": [
+    {
+      "rec": true,
+      "mode": "🚐 전용차량",
+      "name": "바르셀로나 공항 → 시내·호텔",
+      "duration": "약 30~45분",
+      "cost": "패키지 포함",
+      "where": "입국 수속 후 가이드 미팅",
+      "interval": "",
+      "note": "10/23 도착 직후"
+    },
+    {
+      "rec": true,
+      "mode": "🚐 전용차량",
+      "name": "리스본 호텔 → 리스본 공항",
+      "duration": "",
+      "cost": "패키지 포함",
+      "where": "호텔 조식 후",
+      "interval": "",
+      "note": "10/31 AA259 체크인"
+    },
+    {
+      "rec": false,
+      "mode": "🚌 여행사 셔틀",
+      "name": "필라하나관광 ↔ 필라델피아 공항",
+      "duration": "",
+      "cost": "팁 $5/인 (편도)",
+      "where": "7827 Old York Rd, Elkins Park, PA",
+      "interval": "정시 출발",
+      "note": "10/22 15:30 공항 방면 · 10/31 17:00 도착 예정"
+    }
+  ],
+  "hotels": [
+    {
+      "name": "HOTEL CATALONIA BARCELONA PLAZA",
+      "phone": "+934262600",
+      "address": "",
+      "checkin": "2026-10-23",
+      "checkout": "2026-10-25",
+      "note": ""
+    },
+    {
+      "name": "HOTEL CHAMARTÍN THE ONE",
+      "phone": "+913344900",
+      "address": "",
+      "checkin": "2026-10-25",
+      "checkout": "2026-10-26",
+      "note": ""
+    },
+    {
+      "name": "HOTEL CIGARRAL EL BOSQUE",
+      "phone": "+925285640",
+      "address": "",
+      "checkin": "2026-10-26",
+      "checkout": "2026-10-27",
+      "note": ""
+    },
+    {
+      "name": "GRAN HOTEL LUNA DE GRANADA",
+      "phone": "+958430538",
+      "address": "",
+      "checkin": "2026-10-27",
+      "checkout": "2026-10-28",
+      "note": ""
+    },
+    {
+      "name": "HOTEL EUROSTARS AL-ANDALUS PALACE",
+      "phone": "+954230600",
+      "address": "",
+      "checkin": "2026-10-28",
+      "checkout": "2026-10-29",
+      "note": ""
+    },
+    {
+      "name": "HOTEL MERCURE LISBOA ALMADA",
+      "phone": "+351212761401",
+      "address": "",
+      "checkin": "2026-10-29",
+      "checkout": "2026-10-31",
+      "note": ""
+    }
+  ],
+  "guides": [
+    {
+      "title": "인사말·여행 개요",
+      "html": "<p>김성원선생님 내외분께 드립니다. 안녕하세요,</p><p>저희 필라하나관광을 통하여 「가우디의 도시에서 안달루시아의 낭만까지, 스페인·포르투갈 여행」에 함께해 주셔서 진심으로 감사드립니다.</p><p>이번 여행은 유럽 남서부의 매력을 대표하는 스페인과 포르투갈의 아름다운 풍경과 깊은 역사, 그리고 각 도시만의 독특한 분위기를 만나보는 특별한 여행입니다. 강렬한 햇살 아래 펼쳐지는 스페인의 화려한 건축과 예술, 오랜 역사 속에 다양한 문화가 어우러진 도시의 풍경, 그리고 여유롭고 따뜻한 정취가 느껴지는 포르투갈까지, 두 나라가 지닌 서로 다른 매력을 함께 경험하실 수 있습니다.</p><p>때로는 활기찬 거리에서 현지의 생생한 분위기를 느끼고, 때로는 오랜 세월을 간직한 골목과 아름다운 풍경을 바라보며 여유로운 시간을 보내시기 바랍니다.</p><p>여행을 떠나시기 전 본 안내문을 꼼꼼히 확인해 주시고, 일정과 준비사항을 미리 숙지해 주시기 바랍니다.</p><p>열정과 낭만이 가득한 스페인, 그리고 여유와 정취가 아름다운 포르투갈에서 오래도록 기억에 남을 특별한 추억을 만들어 가시길 바라며, 다시 한번 저희와 함께해 주심에 감사드립니다. 여행당일에 건강한 모습으로 뵙겠습니다.</p><p>필라 하나관광 담당 최용정 드림</p><p>여행 순서(지도): ①바르셀로나 ②몬세라트 ③마드리드 ④톨레도 ⑤코르도바 ⑥세비야 ⑦론다 ⑧그라나다 ⑨신트라 ⑩리스본</p><p>필라하나관광: 7827 Old York Road, Elkins Park PA 19027 · www.PhilaHana.com · 215-935-2500</p>"
+    },
+    {
+      "title": "공항셔틀 안내",
+      "html": "<div class='sc'><table class='tbl'><tr><td>10/22(목)<br>필라 공항방면<br>(7827 Old York Rd, Elkins Park, PA 19027)</td><td><b>3:30pm 출발</b></td></tr><tr><td>10/31(토)<br>필라방면</td><td>5:00pm 도착예정</td></tr></table></div><ul><li>셔틀은 안내드린 시간에 어떠한 예외없이 정시 출발합니다.</li><li>혹시 셔틀을 안타시게 될경우 미리 저희 여행사로 연락 부탁드립니다.</li><li>당일 셔틀을 운행하며 수고하시는 분게 소정의 팁(편도 $5/인)을 주시면 감사하겠습니다.</li></ul>"
+    },
+    {
+      "title": "항공권 (American Airlines E-Ticket)",
+      "html": "<ul><li>탑승자: Kim, Sung Won / Kim, Soon Ae</li><li>예약번호(Reservation No): QTMETJ (두 분 공통)</li><li>(여행하시는 분의 인적사항을 확인후, 여권과 대조하시고 오류가 있을시 즉시 알려주십시오)</li></ul><p><b>22 OCT 26 - THURSDAY</b><br>AMERICAN 742 ECONOMY / EQUIP-788<br>LV: PHILADELPHIA 725P · NONSTOP · MILES-3914 · CONFIRMED<br>AR: BARCELONA 905A · ELAPSED TIME-7:40 · ARVL DATE-23 OCT</p><p><b>31 OCT 26 - SATURDAY</b><br>AMERICAN 259 ECONOMY / EQUIP-789<br>LV: LISBON 1055A · NONSTOP · MILES-3450 · CONFIRMED<br>AR: PHILADELPHIA 250P · ELAPSED TIME-7:55</p>"
+    },
+    {
+      "title": "1) 날씨",
+      "html": "<p>스페인/포르투칼은 지역에 따라 날씨 차이가 있으며, 일정 중 바르셀로나·마드리드·세비야·그라나다 등 여러 지역을 이동하게 되므로 일교차와 지역별 기온 차이에 대비하시는 것이 좋습니다. 현지날씨 예상기온을 안내드립니다. 출발전에 인터넷을 통하여 보다 정확한 날씨를 확인하여 주십시요.</p><div class='sc'><table class='tbl'><tr><td>바르셀로나</td><td>71° / 57°</td></tr><tr><td>마드리드</td><td>64° / 49°</td></tr><tr><td>톨레도</td><td>69° / 48°</td></tr><tr><td>코르도바</td><td>70° / 46°</td></tr><tr><td>그라나다</td><td>69° / 46°</td></tr><tr><td>세비야</td><td>74° / 54°</td></tr><tr><td>리스본</td><td>68° / 55°</td></tr></table></div>"
+    },
+    {
+      "title": "2) 여권",
+      "html": "<p>다시한번 여권을 확인하시고 출발일로부터 <b>6개월이상 유효</b>한지 확인하십시오. 여권은 전일정 본인소지입니다.</p><p><b>미국 시민권자는 여권, 영주권자는 여권/영주권을 필히 가져오셔야 합니다.</b></p>"
+    },
+    {
+      "title": "3) 항공권·좌석·기내 반입·수하물",
+      "html": "<p>이번여행은 전일정 전자티켓방식의 항공권입니다. 따라서 특별이 소지할것은 없습니다. 또한, 항공기 좌석배정은 그룹예약 규정상 항공사에 의해 지정되었습니다. 모든분의 preference 를 맞출수 없는점 양해부탁드리며 공항에서 재확인바랍니다.</p><p>기내에는 Carry-on 가방 1개(최대 22×35×56cm / 9×14×22인치)와 개인 소지품 1개를 무료로 반입할 수 있습니다. 기내 수하물에는 100ml를 초과하는 액체류, 뾰족한 물품 및 폭발성 물품은 반입할 수 없으며, 액체류는 투명한 지퍼백에 별도로 보관해 주시기 바랍니다.</p><p><b>위탁수하물은 1인당 1개까지 무료</b>입니다.</p>"
+    },
+    {
+      "title": "4) 짐꾸리기",
+      "html": "<p>매일 다른 지역으로 이동하는 일정이므로 짐은 가능한 한 최소화하여 준비해 주시기 바랍니다. 낮에는 비교적 따뜻하고 햇볕이 강할 수 있지만, 아침저녁에는 기온이 내려가 쌀쌀하게 느껴질 수 있습니다. 가볍고 얇은 옷을 여러 겹 겹쳐 입을 수 있도록 준비하시고, 긴팔 셔츠, 얇은 니트 또는 가벼운 외투와 함께 일교차와 갑작스러운 날씨 변화에 대비할 수 있는 방수·바람막이 재킷을 준비해 주세요. 신발은 운동화나 하이킹화를 권장합니다.</p>"
+    },
+    {
+      "title": "5) 간단한 세면도구 준비",
+      "html": "<p>호텔에 따라 준비해 두는 경우도 있지만 일반적으로 치약, 칫솔, 면도기 등은 구비되어 있지 않습니다. 개인적으로 준비해주시고 실내슬리퍼도 준비해주세요.</p>"
+    },
+    {
+      "title": "6) 상비약 준비",
+      "html": "<p>평소에 복용하는 약은 그대로 준비하는 것이 좋습니다. 그 외에 다음과 같은 비상약을 준비하면 유용하게 사용할 수 있습니다.</p><p>예) 지사제, 소화제, 신경안정제, 진통제, 멀미약, 감기약, 피로회복제, 1회용 밴드 등</p>"
+    },
+    {
+      "title": "7) 전압·어댑터",
+      "html": "<p>이번 방문지 전압은 <b>220 볼트</b>입니다. 전압기는 불필요합니다만 <b>어댑터는 최소 2개 이상</b> 준비하십시요. 여분의 어댑터가 없거나, 구입이 어려운 경우 저희 여행사에서 <b>$5/each</b> 구입하실수 있으니 미리 요청해 주십시요.</p>"
+    },
+    {
+      "title": "8) 환전·카드",
+      "html": "<p>스페인은 <b>유로</b>를 사용합니다. 현지에서 사용할 비용은 여행중 음료수,기념품등외는 없습니다만 약간의 현금은 여행중 필요할수 있습니다. 통상 <b>$200/인</b> 정도의 환전을 추천드리며 환전액수중 약 <b>20 유로정도는 동전</b>으로 요청하십시요. 화장실/객실팁/ 커피/등 사용에 매우 용이합니다. 대부분의 호텔, 식당 및 관광지에서는 신용카드 사용이 가능합니다. 출국 전 카드사에 해외여행 및 해외 사용 예정 사실을 미리 알리고, 해외 결제가 가능하도록 설정을 확인해 주세요</p>"
+    },
+    {
+      "title": "9) 공동경비·개별 부담",
+      "html": "<p><b>공동경비($200.00)</b>는 전문가이드/식당팁/버스기사의 팁으로 사용됩니다. 출발당일 현금으로 준비해주시기 바랍니다.</p><p>호텔객실팁(1 박 1 유로/인), 생수, 음료수, 유료화장실 비용등을 개별부담입니다.</p>"
+    },
+    {
+      "title": "10) 여행자보험",
+      "html": "<p>여행 중 발생할 수 있는 예상치 못한 사고와 응급치료 등에 대비하여 여행자보험 가입을 권장합니다. 보험 미가입으로 발생하는 해외 의료비 등 개인적인 비용은 필라하나관광에서 보상해 드릴 수 없으므로, 현재 가입하신 건강보험의 해외 보장 여부도 미리 확인해 주세요. 추천 상품은 Travel Guard의 Pack-N-Go 플랜이며, 보험료는 연령에 따라 달라집니다. 출발 3일 전까지 가입 가능하며, 가입하신 분께는 출발 당일 보험증과 약관을 전달해 드립니다.</p>"
+    },
+    {
+      "title": "11) 개인수신기·건전지",
+      "html": "<p>저희 필라하나관광은 관광의 재미를 한층 더 해드릴수 있도록 투어중 개인수신기를 사용합니다. <b>'AA' 사이즈 건전지를 한분당 2개씩</b> 준비해 주십시요. 수신기는 한대당 교체비용이 <b>$85불</b>이니 분실/파손되지 않도록 해주십시요.</p>"
+    },
+    {
+      "title": "웹사이트 예약·변경 규정",
+      "html": "<ul><li>출발 14일 전(10/8) 이후로는 아무 변경을 하실 수가 없습니다.</li><li>부득이 취소 시 환불은 불가하며, 대처하실 분이 있으면 수수료 $350~$650를 내고 바꿀 수 있습니다. 항공사/랜드사의 유가인상이나 세금은 추가 부담입니다.</li><li>출발 60일 전까지 여행자보험비 및 잔여금 완불.</li><li>여행자보험 가입 시한은 종이 안내문(출발 3일 전까지)과 웹사이트(60일 전 완불)가 달라 보이니 여행사에 확인하세요.</li></ul>"
+    }
+  ],
+  "important": [
+    {
+      "category": "항공 예약",
+      "label": "American Airlines 예약번호",
+      "value": "QTMETJ",
+      "note": "탑승자: Kim, Sung Won / Kim, Soon Ae",
+      "secret": true
+    },
+    {
+      "category": "e-티켓",
+      "label": "가는 편 AA742",
+      "value": "2026-10-22 19:25 PHL → 2026-10-23 09:05 BCN",
+      "note": "항공권 기준. 웹사이트 시간과 달라 출발 전 확인 필요.",
+      "secret": false
+    },
+    {
+      "category": "e-티켓",
+      "label": "오는 편 AA259",
+      "value": "2026-10-31 10:55 LIS → 14:50 PHL",
+      "note": "종이 일정표에는 11:05로 적혀 있어 확인 필요.",
+      "secret": false
+    },
+    {
+      "category": "비상 연락처",
+      "label": "필라하나관광",
+      "value": "215-935-2500",
+      "note": "7827 Old York Road, Elkins Park PA 19027",
+      "secret": false
+    }
+  ]
+}

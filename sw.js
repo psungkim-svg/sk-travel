@@ -1,9 +1,11 @@
 /* SK-여행 v3 서비스 워커 — 앱 셸만 캐시하고, 여행 개인정보/외부 API 응답은 캐시하지 않습니다. */
-const CACHE_NAME = 'sk-travel-v3-1';
+const CACHE_NAME = 'sk-travel-v3-2';
 const APP_ASSETS = [
   './',
   './index.html',
   './packing.html',
+  './schedule-seed.html',
+  './spain-trip-data.json',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
