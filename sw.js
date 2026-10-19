@@ -1,203 +1,44 @@
-/* SK-여행 v3.0: 오프라인 캐시와 사용자가 누르는 수동 업데이트 */
-const CACHE_NAME = 'sk-travel-v30-pdf-qr';
-const PDF_ASSETS = [
-  "./vendor/pdf.min.mjs",
-  "./vendor/pdf.worker.min.mjs",
-  "./vendor/cmaps/78-EUC-H.bcmap",
-  "./vendor/cmaps/78-EUC-V.bcmap",
-  "./vendor/cmaps/78-H.bcmap",
-  "./vendor/cmaps/78-RKSJ-H.bcmap",
-  "./vendor/cmaps/78-RKSJ-V.bcmap",
-  "./vendor/cmaps/78-V.bcmap",
-  "./vendor/cmaps/78ms-RKSJ-H.bcmap",
-  "./vendor/cmaps/78ms-RKSJ-V.bcmap",
-  "./vendor/cmaps/83pv-RKSJ-H.bcmap",
-  "./vendor/cmaps/90ms-RKSJ-H.bcmap",
-  "./vendor/cmaps/90ms-RKSJ-V.bcmap",
-  "./vendor/cmaps/90msp-RKSJ-H.bcmap",
-  "./vendor/cmaps/90msp-RKSJ-V.bcmap",
-  "./vendor/cmaps/90pv-RKSJ-H.bcmap",
-  "./vendor/cmaps/90pv-RKSJ-V.bcmap",
-  "./vendor/cmaps/Add-H.bcmap",
-  "./vendor/cmaps/Add-RKSJ-H.bcmap",
-  "./vendor/cmaps/Add-RKSJ-V.bcmap",
-  "./vendor/cmaps/Add-V.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-0.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-1.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-2.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-3.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-4.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-5.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-6.bcmap",
-  "./vendor/cmaps/Adobe-CNS1-UCS2.bcmap",
-  "./vendor/cmaps/Adobe-GB1-0.bcmap",
-  "./vendor/cmaps/Adobe-GB1-1.bcmap",
-  "./vendor/cmaps/Adobe-GB1-2.bcmap",
-  "./vendor/cmaps/Adobe-GB1-3.bcmap",
-  "./vendor/cmaps/Adobe-GB1-4.bcmap",
-  "./vendor/cmaps/Adobe-GB1-5.bcmap",
-  "./vendor/cmaps/Adobe-GB1-UCS2.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-0.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-1.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-2.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-3.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-4.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-5.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-6.bcmap",
-  "./vendor/cmaps/Adobe-Japan1-UCS2.bcmap",
-  "./vendor/cmaps/Adobe-Korea1-0.bcmap",
-  "./vendor/cmaps/Adobe-Korea1-1.bcmap",
-  "./vendor/cmaps/Adobe-Korea1-2.bcmap",
-  "./vendor/cmaps/Adobe-Korea1-UCS2.bcmap",
-  "./vendor/cmaps/B5-H.bcmap",
-  "./vendor/cmaps/B5-V.bcmap",
-  "./vendor/cmaps/B5pc-H.bcmap",
-  "./vendor/cmaps/B5pc-V.bcmap",
-  "./vendor/cmaps/CNS-EUC-H.bcmap",
-  "./vendor/cmaps/CNS-EUC-V.bcmap",
-  "./vendor/cmaps/CNS1-H.bcmap",
-  "./vendor/cmaps/CNS1-V.bcmap",
-  "./vendor/cmaps/CNS2-H.bcmap",
-  "./vendor/cmaps/CNS2-V.bcmap",
-  "./vendor/cmaps/ETHK-B5-H.bcmap",
-  "./vendor/cmaps/ETHK-B5-V.bcmap",
-  "./vendor/cmaps/ETen-B5-H.bcmap",
-  "./vendor/cmaps/ETen-B5-V.bcmap",
-  "./vendor/cmaps/ETenms-B5-H.bcmap",
-  "./vendor/cmaps/ETenms-B5-V.bcmap",
-  "./vendor/cmaps/EUC-H.bcmap",
-  "./vendor/cmaps/EUC-V.bcmap",
-  "./vendor/cmaps/Ext-H.bcmap",
-  "./vendor/cmaps/Ext-RKSJ-H.bcmap",
-  "./vendor/cmaps/Ext-RKSJ-V.bcmap",
-  "./vendor/cmaps/Ext-V.bcmap",
-  "./vendor/cmaps/GB-EUC-H.bcmap",
-  "./vendor/cmaps/GB-EUC-V.bcmap",
-  "./vendor/cmaps/GB-H.bcmap",
-  "./vendor/cmaps/GB-V.bcmap",
-  "./vendor/cmaps/GBK-EUC-H.bcmap",
-  "./vendor/cmaps/GBK-EUC-V.bcmap",
-  "./vendor/cmaps/GBK2K-H.bcmap",
-  "./vendor/cmaps/GBK2K-V.bcmap",
-  "./vendor/cmaps/GBKp-EUC-H.bcmap",
-  "./vendor/cmaps/GBKp-EUC-V.bcmap",
-  "./vendor/cmaps/GBT-EUC-H.bcmap",
-  "./vendor/cmaps/GBT-EUC-V.bcmap",
-  "./vendor/cmaps/GBT-H.bcmap",
-  "./vendor/cmaps/GBT-V.bcmap",
-  "./vendor/cmaps/GBTpc-EUC-H.bcmap",
-  "./vendor/cmaps/GBTpc-EUC-V.bcmap",
-  "./vendor/cmaps/GBpc-EUC-H.bcmap",
-  "./vendor/cmaps/GBpc-EUC-V.bcmap",
-  "./vendor/cmaps/H.bcmap",
-  "./vendor/cmaps/HKdla-B5-H.bcmap",
-  "./vendor/cmaps/HKdla-B5-V.bcmap",
-  "./vendor/cmaps/HKdlb-B5-H.bcmap",
-  "./vendor/cmaps/HKdlb-B5-V.bcmap",
-  "./vendor/cmaps/HKgccs-B5-H.bcmap",
-  "./vendor/cmaps/HKgccs-B5-V.bcmap",
-  "./vendor/cmaps/HKm314-B5-H.bcmap",
-  "./vendor/cmaps/HKm314-B5-V.bcmap",
-  "./vendor/cmaps/HKm471-B5-H.bcmap",
-  "./vendor/cmaps/HKm471-B5-V.bcmap",
-  "./vendor/cmaps/HKscs-B5-H.bcmap",
-  "./vendor/cmaps/HKscs-B5-V.bcmap",
-  "./vendor/cmaps/Hankaku.bcmap",
-  "./vendor/cmaps/Hiragana.bcmap",
-  "./vendor/cmaps/KSC-EUC-H.bcmap",
-  "./vendor/cmaps/KSC-EUC-V.bcmap",
-  "./vendor/cmaps/KSC-H.bcmap",
-  "./vendor/cmaps/KSC-Johab-H.bcmap",
-  "./vendor/cmaps/KSC-Johab-V.bcmap",
-  "./vendor/cmaps/KSC-V.bcmap",
-  "./vendor/cmaps/KSCms-UHC-H.bcmap",
-  "./vendor/cmaps/KSCms-UHC-HW-H.bcmap",
-  "./vendor/cmaps/KSCms-UHC-HW-V.bcmap",
-  "./vendor/cmaps/KSCms-UHC-V.bcmap",
-  "./vendor/cmaps/KSCpc-EUC-H.bcmap",
-  "./vendor/cmaps/KSCpc-EUC-V.bcmap",
-  "./vendor/cmaps/Katakana.bcmap",
-  "./vendor/cmaps/NWP-H.bcmap",
-  "./vendor/cmaps/NWP-V.bcmap",
-  "./vendor/cmaps/RKSJ-H.bcmap",
-  "./vendor/cmaps/RKSJ-V.bcmap",
-  "./vendor/cmaps/Roman.bcmap",
-  "./vendor/cmaps/UniCNS-UCS2-H.bcmap",
-  "./vendor/cmaps/UniCNS-UCS2-V.bcmap",
-  "./vendor/cmaps/UniCNS-UTF16-H.bcmap",
-  "./vendor/cmaps/UniCNS-UTF16-V.bcmap",
-  "./vendor/cmaps/UniCNS-UTF32-H.bcmap",
-  "./vendor/cmaps/UniCNS-UTF32-V.bcmap",
-  "./vendor/cmaps/UniCNS-UTF8-H.bcmap",
-  "./vendor/cmaps/UniCNS-UTF8-V.bcmap",
-  "./vendor/cmaps/UniGB-UCS2-H.bcmap",
-  "./vendor/cmaps/UniGB-UCS2-V.bcmap",
-  "./vendor/cmaps/UniGB-UTF16-H.bcmap",
-  "./vendor/cmaps/UniGB-UTF16-V.bcmap",
-  "./vendor/cmaps/UniGB-UTF32-H.bcmap",
-  "./vendor/cmaps/UniGB-UTF32-V.bcmap",
-  "./vendor/cmaps/UniGB-UTF8-H.bcmap",
-  "./vendor/cmaps/UniGB-UTF8-V.bcmap",
-  "./vendor/cmaps/UniJIS-UCS2-H.bcmap",
-  "./vendor/cmaps/UniJIS-UCS2-HW-H.bcmap",
-  "./vendor/cmaps/UniJIS-UCS2-HW-V.bcmap",
-  "./vendor/cmaps/UniJIS-UCS2-V.bcmap",
-  "./vendor/cmaps/UniJIS-UTF16-H.bcmap",
-  "./vendor/cmaps/UniJIS-UTF16-V.bcmap",
-  "./vendor/cmaps/UniJIS-UTF32-H.bcmap",
-  "./vendor/cmaps/UniJIS-UTF32-V.bcmap",
-  "./vendor/cmaps/UniJIS-UTF8-H.bcmap",
-  "./vendor/cmaps/UniJIS-UTF8-V.bcmap",
-  "./vendor/cmaps/UniJIS2004-UTF16-H.bcmap",
-  "./vendor/cmaps/UniJIS2004-UTF16-V.bcmap",
-  "./vendor/cmaps/UniJIS2004-UTF32-H.bcmap",
-  "./vendor/cmaps/UniJIS2004-UTF32-V.bcmap",
-  "./vendor/cmaps/UniJIS2004-UTF8-H.bcmap",
-  "./vendor/cmaps/UniJIS2004-UTF8-V.bcmap",
-  "./vendor/cmaps/UniJISPro-UCS2-HW-V.bcmap",
-  "./vendor/cmaps/UniJISPro-UCS2-V.bcmap",
-  "./vendor/cmaps/UniJISPro-UTF8-V.bcmap",
-  "./vendor/cmaps/UniJISX0213-UTF32-H.bcmap",
-  "./vendor/cmaps/UniJISX0213-UTF32-V.bcmap",
-  "./vendor/cmaps/UniJISX02132004-UTF32-H.bcmap",
-  "./vendor/cmaps/UniJISX02132004-UTF32-V.bcmap",
-  "./vendor/cmaps/UniKS-UCS2-H.bcmap",
-  "./vendor/cmaps/UniKS-UCS2-V.bcmap",
-  "./vendor/cmaps/UniKS-UTF16-H.bcmap",
-  "./vendor/cmaps/UniKS-UTF16-V.bcmap",
-  "./vendor/cmaps/UniKS-UTF32-H.bcmap",
-  "./vendor/cmaps/UniKS-UTF32-V.bcmap",
-  "./vendor/cmaps/UniKS-UTF8-H.bcmap",
-  "./vendor/cmaps/UniKS-UTF8-V.bcmap",
-  "./vendor/cmaps/V.bcmap",
-  "./vendor/cmaps/WP-Symbol.bcmap",
-  "./vendor/standard_fonts/FoxitDingbats.pfb",
-  "./vendor/standard_fonts/FoxitFixed.pfb",
-  "./vendor/standard_fonts/FoxitFixedBold.pfb",
-  "./vendor/standard_fonts/FoxitFixedBoldItalic.pfb",
-  "./vendor/standard_fonts/FoxitFixedItalic.pfb",
-  "./vendor/standard_fonts/FoxitSerif.pfb",
-  "./vendor/standard_fonts/FoxitSerifBold.pfb",
-  "./vendor/standard_fonts/FoxitSerifBoldItalic.pfb",
-  "./vendor/standard_fonts/FoxitSerifItalic.pfb",
-  "./vendor/standard_fonts/FoxitSymbol.pfb",
-  "./vendor/standard_fonts/LiberationSans-Bold.ttf",
-  "./vendor/standard_fonts/LiberationSans-BoldItalic.ttf",
-  "./vendor/standard_fonts/LiberationSans-Italic.ttf",
-  "./vendor/standard_fonts/LiberationSans-Regular.ttf"
-];
-const QR_ASSETS = ['./vendor/jsQR.js'];
+/* SK-여행 v3.2: 핵심 오프라인 캐시 + 필요할 때 받는 한국어 PDF 자산 */
+const CACHE_NAME = 'sk-travel-v32-optimized-5';
+const PACKED_PDF_ASSETS = {"vendor/cmaps/Adobe-Korea1-0.bcmap":[0,241],"vendor/cmaps/Adobe-Korea1-1.bcmap":[241,386],"vendor/cmaps/Adobe-Korea1-2.bcmap":[627,391],"vendor/cmaps/Adobe-Korea1-UCS2.bcmap":[1018,23293],"vendor/cmaps/KSC-EUC-H.bcmap":[24311,1848],"vendor/cmaps/KSC-EUC-V.bcmap":[26159,164],"vendor/cmaps/KSC-H.bcmap":[26323,1831],"vendor/cmaps/KSC-Johab-H.bcmap":[28154,16791],"vendor/cmaps/KSC-Johab-V.bcmap":[44945,166],"vendor/cmaps/KSC-V.bcmap":[45111,160],"vendor/cmaps/KSCms-UHC-H.bcmap":[45271,2787],"vendor/cmaps/KSCms-UHC-HW-H.bcmap":[48058,2789],"vendor/cmaps/KSCms-UHC-HW-V.bcmap":[50847,169],"vendor/cmaps/KSCms-UHC-V.bcmap":[51016,166],"vendor/cmaps/KSCpc-EUC-H.bcmap":[51182,2024],"vendor/cmaps/KSCpc-EUC-V.bcmap":[53206,166],"vendor/cmaps/UniKS-UCS2-H.bcmap":[53372,25783],"vendor/cmaps/UniKS-UCS2-V.bcmap":[79155,178],"vendor/cmaps/UniKS-UTF16-H.bcmap":[79333,26327],"vendor/cmaps/UniKS-UTF16-V.bcmap":[105660,164],"vendor/cmaps/UniKS-UTF32-H.bcmap":[105824,26451],"vendor/cmaps/UniKS-UTF32-V.bcmap":[132275,168],"vendor/cmaps/UniKS-UTF8-H.bcmap":[132443,27790],"vendor/cmaps/UniKS-UTF8-V.bcmap":[160233,169],"vendor/standard_fonts/FoxitDingbats.pfb":[160402,29513],"vendor/standard_fonts/FoxitSymbol.pfb":[189915,16729]};
+// Core-only install keeps first launch light. PDF/QR assets are cached on first use.
 const APP_ASSETS = [
-  './',
   './index.html',
-  './checklist.json',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/favicon-32.png',
-  ...PDF_ASSETS,
-  ...QR_ASSETS
+  './icons/favicon-32.png'
 ];
+let packedPdfAssetBuffer = null;
+
+async function getPackedAssetResponse(relativePath) {
+  const range = PACKED_PDF_ASSETS[relativePath];
+  if (!range) return new Response('Not found', { status: 404 });
+  if (!packedPdfAssetBuffer) {
+    const cache = await caches.open(CACHE_NAME);
+    const packUrl = new URL('./vendor/pdf-assets.pack', self.location.href).href;
+    let response = await cache.match(packUrl);
+    if (!response) {
+      try {
+        const networkResponse = await fetch(packUrl);
+        if (!networkResponse.ok) return new Response('PDF asset pack is unavailable', { status: 503 });
+        await cache.put(packUrl, networkResponse.clone());
+        response = networkResponse;
+      } catch (_) {
+        return new Response('PDF asset pack is not available offline', { status: 503 });
+      }
+    }
+    packedPdfAssetBuffer = await response.arrayBuffer();
+  }
+  const [offset, length] = range;
+  if (offset < 0 || length < 0 || offset + length > packedPdfAssetBuffer.byteLength) {
+    return new Response('Invalid packed PDF asset range', { status: 500 });
+  }
+  return new Response(packedPdfAssetBuffer.slice(offset, offset + length), {
+    status: 200,
+    headers: { 'Content-Type': 'application/octet-stream' }
+  });
+}
 
 self.addEventListener('message', event => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
@@ -223,17 +64,21 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
+  const scopePath = new URL(self.registration.scope).pathname;
+  if (url.pathname.startsWith(scopePath)) {
+    let relativePath = '';
+    try { relativePath = decodeURIComponent(url.pathname.slice(scopePath.length)); } catch (_) { relativePath = ''; }
+    if (Object.prototype.hasOwnProperty.call(PACKED_PDF_ASSETS, relativePath)) {
+      event.respondWith(getPackedAssetResponse(relativePath));
+      return;
+    }
+  }
+
   if (request.mode === 'navigate') {
+    const appShellUrl = new URL('./index.html', self.location.href).href;
     event.respondWith(
       fetch(request)
-        .then(response => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(async () => (await caches.match(request)) || (await caches.match('./index.html')))
+        .catch(async () => (await caches.match(request)) || (await caches.match(appShellUrl)))
     );
     return;
   }
