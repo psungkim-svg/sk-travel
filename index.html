@@ -66,6 +66,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .top-cell.wx:active{transform:scale(.98)}
 .top-label{font-size:12px;font-weight:950;line-height:1.2;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
 .top-value{font-size:17px;font-weight:950;line-height:1.18;margin-top:2px;letter-spacing:-.35px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-cell.fx .top-label{font-size:11px;letter-spacing:-.55px}
 .top-cell.fx .top-value{font-size:15.5px}
 .top-cell.wx .top-value{font-size:15.5px}
 .top-sub{font-size:11.5px;font-weight:750;line-height:1.25;margin-top:1px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
@@ -210,13 +211,15 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.0.5';
+const APP_VERSION = 'v3.0.6';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
 const LS_OLD = 'travelapp.v1';
 const BUNDLED_SEED_OPT_OUT = 'sk-bundled-trip-seed-optout-v1';
 const HOME = { label:'필라델피아', tz:'America/New_York', currency:'USD' };
+const FX_REFRESH_MS = 4*60*60*1000;
+const HOME_ROTATION_MS = 10000;
 const TABS = [
   {id:'home',ic:'🏠',lb:'홈'},
   {id:'schedule',ic:'📆',lb:'일정'},
@@ -489,7 +492,8 @@ async function refreshLiveData(force){
   sortedDays().forEach(d=>{if(d.currency)currencies.add(d.currency.toUpperCase());});
   currencies.forEach(code=>{
     if(code==='USD')return; const c=fxCache(code);
-    if(!force&&c&&now-new Date(c.fetchedAt).getTime()<12*3600e3)return;
+    const fxAge=c?now-new Date(c.fetchedAt).getTime():Infinity;
+    if(c&&fxAge>=0&&fxAge<FX_REFRESH_MS)return;
     jobs.push(fetchJson('https://api.frankfurter.dev/v1/latest?base=USD&symbols='+encodeURIComponent(code)).then(j=>{
       if(j&&j.rates&&j.rates[code]){ cacheStore.fx[code]={rate:j.rates[code],date:j.date||'',fetchedAt:new Date().toISOString()}; changed=true; }
     }).catch(()=>{}));
@@ -523,6 +527,7 @@ function fmtFx(dest){
   return '$1 ≈ '+(symbols[code]||'')+txt+' '+code;
 }
 function fmtMonthDay(iso){ const m=String(iso||'').slice(0,10).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/); return m?((+m[2])+'/'+(+m[3])):''; }
+function fmtUsDate(iso){ const m=String(iso||'').slice(0,10).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/); return m?(pad2(+m[2])+'/'+pad2(+m[3])+'/'+m[1]):''; }
 function fmtFetched(iso){ if(!iso)return''; const d=new Date(iso); return fmtTzDate(d,HOME.tz)+' '+timeInTz(d,HOME.tz)+' 갱신'; }
 function findRainImpact(){
   const ph=tripPhase(); const homeToday=dateInTz(new Date(),HOME.tz);
@@ -606,22 +611,27 @@ function weatherText(dest,iso){
   return icon+' '+label+' '+fmtTempRange(hit.day)+(hit.day.pop!=null?' · 강수확률 '+Math.round(hit.day.pop)+'%':'');
 }
 function homeTopData(requestedIndex){
-  const now=new Date(); const list=homeDestinations();
+  const now=new Date(); const list=homeDestinations(); const phase=tripPhase();
   let idx=0; let dest=null;
   if(list.length){
     idx=((requestedIndex==null?ui.homeDestIndex:requestedIndex)%list.length+list.length)%list.length;
     dest=list[idx];
   } else {
-    dest=tripPhase().dest||null;
+    dest=phase.dest||null;
   }
   const destName=dest?(dest.city||'여행지'):'여행지';
   const destTz=(dest&&dest.tz)||HOME.tz;
-  const fx=dest?fmtFx(dest):'';
-  const fxCacheHit=dest&&dest.currency?fxCache(dest.currency.toUpperCase()):null;
+  const fxDest=phase.dest||list[0]||dest;
+  const fx=fxDest?fmtFx(fxDest):'';
+  const fxCode=fxDest&&fxDest.currency?String(fxDest.currency).toUpperCase():'';
+  const fxCacheHit=fxCode?fxCache(fxCode):null;
+  let fxDate='';
+  if(fxCacheHit) fxDate=fmtUsDate(fxCacheHit.date||dateInTz(new Date(fxCacheHit.fetchedAt),HOME.tz));
+  else if(fxCode==='USD') fxDate=fmtUsDate(dateInTz(now,HOME.tz));
+  const fxLabel='💱 $1/환율'+(fxDate?' ('+fxDate+')':'');
   let fxSub='';
-  if(fxCacheHit) fxSub=fmtMonthDay(fxCacheHit.date||dateInTz(new Date(fxCacheHit.fetchedAt),HOME.tz));
-  else if(dest&&String(dest.currency||'').toUpperCase()==='USD') fxSub=fmtMonthDay(dateInTz(now,HOME.tz));
-  else fxSub=dest?(navigator.onLine?'확인 중':'오프라인'):'등록 필요';
+  if(!fxDest||!fxCode) fxSub='등록 필요';
+  else if(!fxCacheHit&&fxCode!=='USD') fxSub=navigator.onLine?'확인 중':'오프라인';
   const wxHit=dest?weatherForDestDate(dest,dateInTz(now,destTz)):{cache:null,day:null};
   let wxValue='날씨 확인 중', wxSub=navigator.onLine?'눌러서 7일 보기':'오프라인 · 저장된 날씨 보기';
   if(wxHit.day){
@@ -636,6 +646,7 @@ function homeTopData(requestedIndex){
     destTimeLabel:'📍 '+destName+' 시간',
     destTime:dest?fmtClock(now,destTz):'등록 필요',
     destDate:(dest?fmtDate(dateInTz(now,destTz)):'여행을 등록해 주세요')+(list.length>1?' · '+(idx+1)+'/'+list.length:''),
+    fxLabel,
     fxValue:fx||'등록 필요',
     fxSub,
     wxLabel:'🌤️ '+destName+' 날씨',
@@ -648,8 +659,8 @@ function renderHomeTopBoard(){
   const d=homeTopData();
   return '<section id="homeTopBoard" class="home-top-board" aria-label="시간 환율 날씨">'
     +'<div class="top-cell home"><div class="top-label">🏠 필라델피아 시간</div><div class="top-value" data-top="homeTime">'+esc(d.homeTime)+'</div><div class="top-sub" data-top="homeDate">'+esc(d.homeDate)+'</div></div>'
+    +'<div class="top-cell fx"><div class="top-label" data-top="fxLabel">'+esc(d.fxLabel)+'</div><div class="top-value" data-top="fxValue">'+esc(d.fxValue)+'</div><div class="top-sub" data-top="fxSub">'+esc(d.fxSub)+'</div></div>'
     +'<div class="top-cell dest"><div class="top-swap"><div class="top-label" data-top="destTimeLabel">'+esc(d.destTimeLabel)+'</div><div class="top-value" data-top="destTime">'+esc(d.destTime)+'</div><div class="top-sub" data-top="destDate">'+esc(d.destDate)+'</div></div></div>'
-    +'<div class="top-cell fx"><div class="top-swap"><div class="top-label">💱 1달러당 환율</div><div class="top-value" data-top="fxValue">'+esc(d.fxValue)+'</div><div class="top-sub" data-top="fxSub">'+esc(d.fxSub)+'</div></div></div>'
     +'<button class="top-cell wx" data-action="weekly-weather" data-id="'+d.idx+'" aria-label="'+esc(d.wxAria)+'"><div class="top-swap"><div class="top-label" data-top="wxLabel">'+esc(d.wxLabel)+'</div><div class="top-value" data-top="wxValue">'+esc(d.wxValue)+'</div><div class="top-sub" data-top="wxSub">'+esc(d.wxSub)+'</div></div></button>'
     +'</section>';
 }
@@ -657,7 +668,7 @@ function setHomeTopText(el,d){
   const set=(name,value)=>{const n=el.querySelector('[data-top="'+name+'"]'); if(n)n.textContent=value;};
   set('homeTime',d.homeTime); set('homeDate',d.homeDate);
   set('destTimeLabel',d.destTimeLabel); set('destTime',d.destTime); set('destDate',d.destDate);
-  set('fxValue',d.fxValue); set('fxSub',d.fxSub);
+  set('fxLabel',d.fxLabel); set('fxValue',d.fxValue); set('fxSub',d.fxSub);
   set('wxLabel',d.wxLabel); set('wxValue',d.wxValue); set('wxSub',d.wxSub);
   const wx=el.querySelector('[data-action="weekly-weather"]');
   if(wx){ wx.dataset.id=String(d.idx); wx.setAttribute('aria-label',d.wxAria); }
@@ -694,7 +705,7 @@ function startHomeRotation(){
     const list=homeDestinations(); if(list.length<=1)return;
     const el=$('#homeTopBoard'); if(el&&el.dataset.switching==='1')return;
     updateHomeTopBoard(true,(ui.homeDestIndex+1)%list.length);
-  },2000);
+  },HOME_ROTATION_MS);
 }
 function renderWeeklyWeatherBody(dest){
   if(!dest)return '<div id="weatherSheetBody"><div class="notice">여행지가 아직 등록되지 않았습니다.</div></div>';
