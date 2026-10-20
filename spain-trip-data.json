@@ -70,9 +70,24 @@
     ],
     "preTripActions": [
       {
+        "due": "2026-10-20",
+        "title": "EU ETIAS 시작 여부와 EES 입국 절차 최종 확인",
+        "detail": "공식 EU 사이트에서 ETIAS 신청이 실제로 열렸는지만 확인하세요. 바르셀로나 첫 입국 때는 EES 얼굴·지문 등록으로 시간이 더 걸릴 수 있습니다."
+      },
+      {
+        "due": "2026-10-20",
+        "title": "공동경비·유로 동전·AA건전지·어댑터 챙기기",
+        "detail": "출발 당일 공동경비는 현금으로 준비하고, 화장실·객실 팁에 쓸 유로 동전, 수신기용 AA건전지, 220V 어댑터를 작은 가방에 넣으세요."
+      },
+      {
         "due": "2026-10-21",
         "title": "항공사 체크인 가능 여부 확인",
         "detail": "단체·여행사 예약은 온라인 체크인이 제한될 수 있으니 예약 정보로 확인하세요."
+      },
+      {
+        "due": "2026-10-21",
+        "title": "여권 유효기간과 항공권 이름 대조",
+        "detail": "여권이 출발일부터 6개월 이상 유효한지 보고, 항공권 영문 이름이 여권과 같은지 확인하세요."
       },
       {
         "due": "2026-10-22",
@@ -819,7 +834,7 @@
       "place": "구시가지·람블라스 거리",
       "category": "화장실",
       "icon": "🚻",
-      "priority": 10,
+      "priority": 15,
       "title": "화장실은 카페·시설 이용을 대안으로",
       "issue": "거리의 공중화장실은 찾기 쉽지 않고 실제 운영 여부가 바뀔 수 있습니다. 카페 화장실은 손님만 허용하는 경우도 있습니다.",
       "action": "자유시간 전에 카페·박물관·큰 상점·역 시설을 이용할 때 미리 화장실을 확인하세요.",
@@ -846,7 +861,7 @@
       "place": "람블라스 거리",
       "category": "소지품",
       "icon": "📱",
-      "priority": 20,
+      "priority": 10,
       "title": "혼잡한 거리에서 가방·휴대폰 관리",
       "issue": "붐비는 거리와 야외 카페에서는 휴대폰을 테이블에 두거나 가방을 의자에 걸어두면 위험할 수 있습니다.",
       "action": "가방은 앞으로 메고, 휴대폰은 사용 후 바로 주머니나 가방에 넣으세요.",
@@ -974,6 +989,400 @@
         }
       ],
       "verifiedAt": "2026-10-19"
+    },
+    {
+      "date": "2026-10-22",
+      "city": "바르셀로나",
+      "place": "바르셀로나 공항 입국심사",
+      "category": "입국",
+      "icon": "🛂",
+      "priority": 1,
+      "title": "유럽 첫 입국에서 얼굴·지문 등록(EES)에 시간 여유를 두세요",
+      "issue": "EU의 출입국시스템(EES)이 전면 운영돼 비EU 단기 방문자는 처음 입국할 때 얼굴 사진과 지문이 등록될 수 있고, 여권 도장을 전자 기록으로 대신합니다.",
+      "action": "비행기에서 내린 뒤 여권을 꺼내기 쉬운 곳에 두고 가이드 안내에 따라 입국심사 줄로 먼저 이동하세요.",
+      "alternative": "ETIAS는 공식 EU 사이트에서 시작일과 신청 가능 여부만 확인하고, 비공식 대행 사이트 결제는 피하세요.",
+      "costHours": "첫 등록은 이후 확인보다 시간이 더 걸릴 수 있음",
+      "mapQuery": "Barcelona El Prat Airport passport control",
+      "sourceName": "EU EES 공식 안내",
+      "sourceUrl": "https://travel-europe.europa.eu/en/ees/faq",
+      "sources": [
+        {
+          "name": "EU EES 공식 안내",
+          "url": "https://travel-europe.europa.eu/en/ees/faq"
+        },
+        {
+          "name": "EU ETIAS 공식 FAQ",
+          "url": "https://travel-europe.europa.eu/etias/faq"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-23",
+      "city": "바르셀로나",
+      "place": "카사 바트요·람블라스 자유시간",
+      "category": "자유시간",
+      "icon": "🕐",
+      "priority": 5,
+      "title": "자유시간 1시간에는 카사 바트요 내부보다 외관이 안전합니다",
+      "issue": "카사 바트요 내부 관람만도 약 1시간으로 안내돼 대기까지 있으면 단체 집합에 늦을 수 있습니다. 일정도 외관 관람을 추천합니다.",
+      "action": "먼저 집합 장소와 시간을 사진으로 남기고, 외관을 본 뒤 집합 10분 전에 돌아오세요.",
+      "alternative": "이미 예약된 입장권이 있을 때만 가이드에게 집합 가능 시간을 확인한 뒤 들어가세요.",
+      "costHours": "내부 관람 약 1시간 · 운영시간은 당일 확인",
+      "mapQuery": "Casa Batlló Barcelona",
+      "sourceName": "Barcelona Turisme 카사 바트요 안내",
+      "sourceUrl": "https://bcnshop.barcelonaturisme.com/shopv3/en/product/18555/casa-batllo-gaudi-barcelona.html",
+      "sources": [
+        {
+          "name": "Barcelona Turisme 카사 바트요 안내",
+          "url": "https://bcnshop.barcelonaturisme.com/shopv3/en/product/18555/casa-batllo-gaudi-barcelona.html"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-24",
+      "city": "바르셀로나",
+      "place": "몬세라트 수도원·Aeri 케이블카",
+      "category": "케이블카·수도원",
+      "icon": "🚠",
+      "priority": 1,
+      "title": "몬세라트는 예약 시간과 케이블카 대기를 함께 봐야 합니다",
+      "issue": "몬세라트 성소는 인원 관리와 예약 시간으로 운영되고, 바실리카는 기도 공간입니다. Aeri 케이블카는 약 5분이지만 15분 간격 운행이라 대기 시간이 생길 수 있습니다.",
+      "action": "단체 예약 시간에 맞춰 함께 이동하고, 성당 안에서는 낮은 목소리를 유지하세요. 검은 성모상 참배가 포함됐는지는 가이드에게 확인하세요.",
+      "alternative": "산 위는 바람이 강할 수 있으니 겉옷을 버스에 두지 말고 들고 내리세요.",
+      "costHours": "Aeri 약 5분 · 15분 간격(당일 운행 확인)",
+      "mapQuery": "Montserrat Monastery Barcelona",
+      "sourceName": "Montserrat 공식 케이블카 안내",
+      "sourceUrl": "https://www.montserratvisita.com/en/how-to-get-there/cable-car",
+      "sources": [
+        {
+          "name": "Montserrat 공식 케이블카 안내",
+          "url": "https://www.montserratvisita.com/en/how-to-get-there/cable-car"
+        },
+        {
+          "name": "Montserrat 공식 입장 안내",
+          "url": "https://tickets.montserratvisita.com/en"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-24",
+      "city": "바르셀로나",
+      "place": "구엘 공원",
+      "category": "입장 시간",
+      "icon": "🎟️",
+      "priority": 5,
+      "title": "구엘 공원은 단체 전원이 예약 시작 후 30분 안에 함께 들어가야 합니다",
+      "issue": "단체 예약은 바우처에 적힌 전원이 같은 시간에 입장해야 하고, 예약 시작 후 30분이 지나면 입장 권리를 잃을 수 있습니다. 한 번 나가면 재입장도 되지 않습니다.",
+      "action": "화장실이나 사진 때문에 단체에서 떨어지지 말고, 가이드가 안내한 입구에서 전원이 모인 뒤 들어가세요.",
+      "alternative": "일행과 떨어지면 혼자 다른 입구로 들어가지 말고 가이드에게 먼저 연락하세요.",
+      "costHours": "예약 시작 후 최대 30분 안에 입장",
+      "mapQuery": "Park Güell Barcelona entrance",
+      "sourceName": "Park Güell 공식 단체 예약 안내",
+      "sourceUrl": "https://parkguell.barcelona/en/planning-your-visit/organized-groups?q=en%2Fplanning-your-visit%2Forganized-groups",
+      "sources": [
+        {
+          "name": "Park Güell 공식 단체 예약 안내",
+          "url": "https://parkguell.barcelona/en/planning-your-visit/organized-groups?q=en%2Fplanning-your-visit%2Forganized-groups"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-24",
+      "city": "바르셀로나",
+      "place": "성가족 성당",
+      "category": "입장·복장",
+      "icon": "⛪",
+      "priority": 10,
+      "title": "성가족 성당 내부 입장이 있으면 시간·신분증·복장을 먼저 확인하세요",
+      "issue": "입장권은 지정 시간에만 유효하고 늦으면 들어갈 수 없으며, 본인 확인을 위한 신분증/여권과 보안검색이 있습니다. 어깨를 가리고 바지·치마는 허벅지 중간까지 내려와야 합니다.",
+      "action": "가이드에게 내부 입장 포함 여부와 예약 시간을 확인하세요. 포함돼 있으면 여권 원본을 챙기고 큰 가방은 줄이세요.",
+      "alternative": "외관 관람만이면 집합 장소를 확인하고 주변 혼잡 구간에서 휴대폰을 몸 가까이 두세요.",
+      "costHours": "지정 시간 입장 · 보안검색 있음",
+      "mapQuery": "Sagrada Família Barcelona",
+      "sourceName": "Sagrada Família 공식 규칙",
+      "sourceUrl": "https://sagradafamilia.org/en/rules-and-regulations",
+      "sources": [
+        {
+          "name": "Sagrada Família 공식 규칙",
+          "url": "https://sagradafamilia.org/en/rules-and-regulations"
+        },
+        {
+          "name": "Sagrada Família 공식 FAQ",
+          "url": "https://sagradafamilia.org/en/faqs"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-25",
+      "city": "마드리드",
+      "place": "바르셀로나 산츠역 AVE",
+      "category": "고속열차",
+      "icon": "🚄",
+      "priority": 1,
+      "title": "AVE 단체표는 보안검색부터 전원이 함께 움직여야 합니다",
+      "issue": "Renfe 단체 여행자는 하나의 단체표로 탑승 통제를 함께 통과해야 하며, 큰 역에서는 짐 X-ray 검사가 있습니다. 단체는 출발 30~45분 전 도착이 권장됩니다.",
+      "action": "역에서는 가이드와 떨어져 간식이나 화장실에 먼저 가지 말고, 큰 짐은 직접 객차 보관 공간에 넣을 준비를 하세요.",
+      "alternative": "표와 신분증을 요구받을 수 있어 여권은 작은 가방에 두세요.",
+      "costHours": "수하물 최대 3개·합계 25kg 안내",
+      "mapQuery": "Barcelona Sants station AVE departures",
+      "sourceName": "Renfe 공식 단체 안내",
+      "sourceUrl": "https://www.renfe.com/es/en/ayuda/faqs/grupos",
+      "sources": [
+        {
+          "name": "Renfe 공식 단체 안내",
+          "url": "https://www.renfe.com/es/en/ayuda/faqs/grupos"
+        },
+        {
+          "name": "Renfe 공식 수하물 안내",
+          "url": "https://www.renfe.com/es/en/travel/informacion-util/luggage/politica-de-equipajes"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-25",
+      "city": "마드리드",
+      "place": "그랑비아·마요르 광장",
+      "category": "소지품",
+      "icon": "📱",
+      "priority": 10,
+      "title": "마드리드 중심가에서는 여권과 휴대폰을 바깥 주머니에 두지 마세요",
+      "issue": "관광지와 교통 거점에서는 주의를 끄는 사이 가방이나 여권을 노리는 절도가 흔하다는 공식 여행 주의 안내가 있습니다.",
+      "action": "가방은 앞으로 메고 휴대폰은 테이블이나 의자에 두지 마세요. 사진 촬영 후 바로 가방에 넣으세요.",
+      "alternative": "여권 사본은 휴대폰에 따로 저장하되, 원본은 몸 가까이 지퍼가 있는 곳에 두세요.",
+      "costHours": "",
+      "mapQuery": "Gran Vía Plaza Mayor Madrid",
+      "sourceName": "미국 국무부 스페인 여행 주의",
+      "sourceUrl": "https://travel.state.gov/en/international-travel/travel-advisories/spain.html",
+      "sources": [
+        {
+          "name": "미국 국무부 스페인 여행 주의",
+          "url": "https://travel.state.gov/en/international-travel/travel-advisories/spain.html"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-26",
+      "city": "톨레도",
+      "place": "톨레도 대성당",
+      "category": "성당·혼잡",
+      "icon": "⛪",
+      "priority": 5,
+      "title": "톨레도 대성당 희년 시작 직후라 순례객과 행사 변동을 감안하세요",
+      "issue": "톨레도 대성당의 첫 희년은 2026년 10월 25일 성문 개방으로 시작됩니다. 다음 날 방문은 순례객이 많거나 종교 행사로 동선이 바뀔 수 있고, 단정한 복장만 입장이 허용됩니다.",
+      "action": "어깨와 무릎을 가리는 단정한 옷을 입고, 미사·행사 구역에서는 가이드와 성당 직원의 안내를 따르세요.",
+      "alternative": "성당 관광 입구는 폐장 30분 전에 닫히므로 자유시간보다 단체 입장 시간을 먼저 맞추세요.",
+      "costHours": "월~토 10:00~18:30 · 입장 마감 30분 전",
+      "mapQuery": "Toledo Cathedral",
+      "sourceName": "톨레도 대성당 공식 입장 안내",
+      "sourceUrl": "https://www.catedralprimada.es/en/cultural-visit/tickets-toledo-cathedral/",
+      "sources": [
+        {
+          "name": "톨레도 대성당 공식 입장 안내",
+          "url": "https://www.catedralprimada.es/en/cultural-visit/tickets-toledo-cathedral/"
+        },
+        {
+          "name": "톨레도 대성당 공식 희년 안내",
+          "url": "https://www.catedralprimada.es/en/eighth-centenary/jubilee-year/"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-27",
+      "city": "그라나다",
+      "place": "톨레도→코르도바→그라나다 장거리 이동",
+      "category": "장거리 이동",
+      "icon": "🚌",
+      "priority": 5,
+      "title": "가장 긴 이동 날에는 필요한 것을 작은 가방에 따로 챙기세요",
+      "issue": "톨레도에서 코르도바까지 약 3시간 30분~4시간, 다시 그라나다까지 약 2시간 15분~2시간 45분 이동합니다. 큰 캐리어는 중간에 꺼내기 어렵습니다.",
+      "action": "전날 밤 물, 상비약, 멀미약, 간식, 충전기, 겉옷을 작은 가방에 넣고 휴게 정차 때 화장실을 먼저 이용하세요.",
+      "alternative": "버스 안에서 오래 앉아 있으면 정차 때 가볍게 걷고 다리를 움직이세요.",
+      "costHours": "총 이동 약 6~7시간(관광·정차 제외)",
+      "mapQuery": "Córdoba Spain",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": [],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-27",
+      "city": "그라나다",
+      "place": "코르도바 메스키타·대성당",
+      "category": "성당 규칙",
+      "icon": "🕌",
+      "priority": 10,
+      "title": "메스키타 안에서는 모자를 벗고 큰 가방은 들고 들어가지 마세요",
+      "issue": "메스키타·대성당은 가톨릭 예배 공간으로, 단정한 옷차림과 정숙이 요구되고 모자 착용과 큰 짐 반입이 제한됩니다. 10명 넘는 가이드 단체는 수신기 사용이 의무입니다.",
+      "action": "들어가기 전에 모자는 가방에 넣고 수신기와 이어폰이 잘 들리는지 확인하세요.",
+      "alternative": "예배 중에는 사진보다 조용히 이동하는 것을 우선하세요.",
+      "costHours": "마지막 입장은 폐장 30분 전",
+      "mapQuery": "Mosque-Cathedral of Córdoba",
+      "sourceName": "메스키타 공식 방문 규칙",
+      "sourceUrl": "https://mezquita-catedraldecordoba.es/en/organiza-la-visita/normativa/",
+      "sources": [
+        {
+          "name": "메스키타 공식 방문 규칙",
+          "url": "https://mezquita-catedraldecordoba.es/en/organiza-la-visita/normativa/"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-28",
+      "city": "세비야",
+      "place": "알함브라 궁전",
+      "category": "여권·입장시간",
+      "icon": "🪪",
+      "priority": 1,
+      "title": "알함브라는 여권 원본과 나스르 궁전 입장 시간이 가장 중요합니다",
+      "issue": "알함브라 입장권은 본인 이름으로 발행되며 입구에서 원본 신분증이나 여권을 제시해야 합니다. 나스르 궁전은 표에 적힌 시간에만 들어갈 수 있고 늦으면 입장이 불가능합니다. 40×40cm보다 큰 배낭도 제한됩니다.",
+      "action": "아침에 여권 원본이 작은 가방에 있는지 확인하고, 가이드가 알려준 궁전 입장 시간보다 먼저 집합하세요.",
+      "alternative": "큰 배낭 대신 작은 가방을 쓰고 입장권 QR은 관람이 끝날 때까지 버리지 마세요.",
+      "costHours": "표 수령이 필요하면 궁전 시간 최소 1시간 전",
+      "mapQuery": "Alhambra Granada Nasrid Palaces entrance",
+      "sourceName": "알함브라 공식 입장 안내",
+      "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+      "sources": [
+        {
+          "name": "알함브라 공식 입장 안내",
+          "url": "https://tickets.alhambra-patronato.es/en/"
+        },
+        {
+          "name": "알함브라 공식 FAQ",
+          "url": "https://www.alhambra-patronato.es/en/visit/faq"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-28",
+      "city": "세비야",
+      "place": "론다 누에보 다리",
+      "category": "전망대 안전",
+      "icon": "🌉",
+      "priority": 15,
+      "title": "론다 협곡 전망에서는 난간 안쪽에서만 사진을 찍으세요",
+      "issue": "누에보 다리는 약 98m 협곡 위에 있고, 아래 전망대로 내려가는 길은 가파른 자갈·돌길 구간이 있어 단체 일정에 포함되지 않았다면 시간이 많이 걸릴 수 있습니다.",
+      "action": "바람이 불면 모자와 휴대폰을 꼭 잡고, 가이드가 안내한 전망 구역 안에서만 사진을 찍으세요.",
+      "alternative": "협곡 아래 길은 가이드 일정에 있을 때만 내려가고, 무릎이 불편하면 위 전망대에서 관람하세요.",
+      "costHours": "다리 관람은 무료 · 아래 길은 별도 시간 필요",
+      "mapQuery": "Puente Nuevo Ronda viewpoint",
+      "sourceName": "Ronda Today 누에보 다리·협곡 안내",
+      "sourceUrl": "https://rondatoday.com/puente-nuevo-and-el-tajo-gorge/",
+      "sources": [
+        {
+          "name": "Ronda Today 누에보 다리·협곡 안내",
+          "url": "https://rondatoday.com/puente-nuevo-and-el-tajo-gorge/"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-29",
+      "city": "리스본",
+      "place": "세비야 대성당·히랄다 탑",
+      "category": "복장·탑",
+      "icon": "⛪",
+      "priority": 5,
+      "title": "세비야 대성당은 어깨를 가려야 하고 히랄다 탑은 체력을 보고 결정하세요",
+      "issue": "대성당은 어깨가 드러나는 옷과 지나치게 짧은 하의를 제한합니다. 히랄다 탑은 약 80m 높이까지 34개의 경사로와 17개 계단을 올라가며 현기증·심장/호흡 문제가 있으면 권하지 않습니다.",
+      "action": "표에 적힌 입장 시간 10분 전에 해당 문에 도착하고, 탑 관람은 무릎과 호흡 상태를 보고 가이드와 상의하세요.",
+      "alternative": "탑을 오르지 않아도 대성당 내부는 관람할 수 있으니 무리하지 마세요.",
+      "costHours": "표의 시간이 입장 시간 · 재입장 불가",
+      "mapQuery": "Seville Cathedral Giralda entrance",
+      "sourceName": "세비야 대성당 공식 관람 안내",
+      "sourceUrl": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/",
+      "sources": [
+        {
+          "name": "세비야 대성당 공식 관람 안내",
+          "url": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/"
+        },
+        {
+          "name": "세비야 대성당 공식 규칙",
+          "url": "https://www.catedraldesevilla.es/en/cultural-visit/standards/"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-29",
+      "city": "리스본",
+      "place": "세비야→리스본 장거리 이동",
+      "category": "장거리 이동",
+      "icon": "🚌",
+      "priority": 15,
+      "title": "리스본까지 5시간 안팎 이동 전에 작은 가방을 다시 챙기세요",
+      "issue": "점심 뒤 국경을 넘어 리스본까지 약 4시간 30분~5시간 30분 이동합니다. 스페인과 포르투갈은 시차가 1시간이라 휴대폰 시계가 바뀔 수 있습니다.",
+      "action": "여권, 약, 물, 충전기는 작은 가방에 두고 도착 뒤 휴대폰 시간이 Europe/Lisbon으로 바뀌었는지 확인하세요.",
+      "alternative": "정차 때 화장실을 먼저 이용하고 버스 출발 시간을 사진으로 남기세요.",
+      "costHours": "리스본은 스페인보다 1시간 늦음",
+      "mapQuery": "Lisbon Portugal",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": [],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-30",
+      "city": "리스본",
+      "place": "신트라 입장 시설",
+      "category": "입장 시간·언덕",
+      "icon": "🏰",
+      "priority": 5,
+      "title": "신트라 “성”의 정확한 시설명과 입장 시간을 전날 꼭 확인하세요",
+      "issue": "일정의 “신트라 성”이 페나 궁전인지 무어성인지에 따라 규칙이 다릅니다. 페나 궁전은 표 시간이 공원 입장이 아니라 궁전 내부 입장 시간이며, 공원 문에서 궁전까지 약 30분이 걸리고 지각 허용이 없습니다. 무어성도 가파른 언덕길입니다.",
+      "action": "전날 가이드에게 정확한 시설명, 입장 시간, 집합 장소를 확인하고 미끄럽지 않은 신발과 겉옷을 준비하세요.",
+      "alternative": "오르막이 힘들면 페나 공원의 이동 서비스 이용 가능 여부를 가이드에게 먼저 물어보세요.",
+      "costHours": "페나: 공원 입구→궁전 약 30분",
+      "mapQuery": "Sintra Pena Palace Moorish Castle",
+      "sourceName": "Parques de Sintra 페나 궁전 공식 안내",
+      "sourceUrl": "https://www.parquesdesintra.pt/en/plan-your-visit/tickets-palace-of-pena/",
+      "sources": [
+        {
+          "name": "Parques de Sintra 페나 궁전 공식 안내",
+          "url": "https://www.parquesdesintra.pt/en/plan-your-visit/tickets-palace-of-pena/"
+        },
+        {
+          "name": "Parques de Sintra 무어성 접근성",
+          "url": "https://www.parquesdesintra.pt/en/plan-your-visit/accessibility/moorish-castle/"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-31",
+      "city": "리스본",
+      "place": "리스본 공항 귀국편",
+      "category": "공항·출국심사",
+      "icon": "🛂",
+      "priority": 1,
+      "title": "귀국편은 출발 시각 차이와 출국심사 시간을 전날 확정하세요",
+      "issue": "안내문 안에서도 항공권 출발 10:55와 일정표 11:05가 다릅니다. 리스본발 American Airlines 체크인/수하물 마감은 출발 75분 전으로 안내되고, 보안검색 뒤 미국행 출국심사를 또 거쳐야 합니다.",
+      "action": "전날 항공사 앱이나 여행사로 최종 출발 시각을 확정하고, 호텔 출발 시각을 다시 확인하세요. 면세 쇼핑보다 출국심사를 먼저 지나세요.",
+      "alternative": "공항 공식 안내도 비솅겐행은 여권심사 대기 시간을 감안해 일찍 도착하라고 권합니다.",
+      "costHours": "AA 리스본 체크인 마감 75분 전 · 미국 외 공항 3시간 전 도착 권장",
+      "mapQuery": "Lisbon Airport Terminal 1 departures",
+      "sourceName": "American Airlines 체크인·도착 시간",
+      "sourceUrl": "https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html",
+      "sources": [
+        {
+          "name": "American Airlines 체크인·도착 시간",
+          "url": "https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html"
+        },
+        {
+          "name": "ANA 리스본 공항 여행 준비 안내",
+          "url": "https://www.ana.pt/en/content-topic/plan-your-trip?page=5"
+        }
+      ],
+      "verifiedAt": "2026-10-20"
     }
   ],
   "airports": [
