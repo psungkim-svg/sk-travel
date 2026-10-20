@@ -57,23 +57,33 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .schedule-mode button{flex:1;border:0;border-radius:999px;padding:11px;background:#fff;box-shadow:var(--shadow);font-weight:900;font-size:14.5px;color:#526077}
 .schedule-mode button.on{background:var(--dark);color:var(--yellow)}
 .schedule-original-frame{flex:1;width:100%;min-height:0;border:0;display:block;background:#f2f5f7}
-.home-top-board{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px;animation:homeTopFade .25s ease}
-@keyframes homeTopFade{from{opacity:.55}to{opacity:1}}
-.top-cell{border:1px solid #dbe7f6;background:#fff;border-radius:17px;padding:13px 13px 11px;min-width:0;min-height:98px;box-shadow:var(--shadow);text-align:left;color:var(--ink);width:100%}
+.home-top-board{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.top-swap{transition:opacity .22s ease,transform .22s ease;will-change:opacity,transform}.home-top-board.is-switching .top-swap{opacity:.22;transform:translateY(3px)}@media (prefers-reduced-motion: reduce){.top-swap{transition:none}.home-top-board.is-switching .top-swap{opacity:1;transform:none}}
+.top-cell{border:1px solid #dbe7f6;background:#fff;border-radius:14px;padding:7px 9px 6px;min-width:0;height:67px;overflow:hidden;box-shadow:0 3px 10px rgba(22,34,66,.08);text-align:left;color:var(--ink);width:100%}
 .top-cell.home{background:var(--dark);color:#fff;border-color:var(--dark)}
 .top-cell.dest{background:#e9f6ff}
 .top-cell.wx{background:#fff8d6;border-color:#ffe58a;cursor:pointer}
 .top-cell.wx:active{transform:scale(.98)}
-.top-label{font-size:13.5px;font-weight:950;line-height:1.35;opacity:.88;word-break:keep-all}
-.top-value{font-size:21px;font-weight:950;line-height:1.3;margin-top:5px;letter-spacing:-.4px;word-break:keep-all;overflow-wrap:anywhere}
-.top-cell.fx .top-value{font-size:18.5px}
-.top-sub{font-size:13px;font-weight:750;line-height:1.5;margin-top:4px;opacity:.78;word-break:keep-all;overflow-wrap:anywhere}
+.top-label{font-size:12px;font-weight:950;line-height:1.2;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
+.top-value{font-size:17px;font-weight:950;line-height:1.18;margin-top:2px;letter-spacing:-.35px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-cell.fx .top-value{font-size:15.5px}
+.top-cell.wx .top-value{font-size:15.5px}
+.top-sub{font-size:11.5px;font-weight:750;line-height:1.25;margin-top:1px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
 .stack-item{padding:11px 0;border-bottom:1px dashed var(--line)}
 .stack-item:last-child{border-bottom:0}
 .stack-k{font-size:14px;font-weight:950;color:var(--skyDark);margin-bottom:4px;line-height:1.45}
 .stack-v{font-size:16px;font-weight:750;line-height:1.65;color:var(--ink);white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere}
 .now-context{font-size:13.5px;font-weight:900;color:var(--skyDark);margin:-3px 0 8px}
-.wx-list .stack-v{font-size:16.5px}
+.wx7{border:1px solid #dbeafe;border-radius:16px;overflow:hidden;background:#fff}
+.wx7-head{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#eff6ff;color:var(--skyDark);font-size:12.5px;font-weight:950;line-height:1.35;padding:8px 10px;white-space:nowrap}
+.wx7-row{display:grid;grid-template-columns:62px 32px minmax(0,1fr) auto;gap:7px;align-items:center;padding:8px 10px;border-top:1px solid #e5edf7;background:#fff;min-height:44px}
+.wx7-row.today{background:#fff8d6}
+.wx7-date{font-size:13.5px;font-weight:950;line-height:1.25;white-space:nowrap}
+.wx7-icon{font-size:25px;line-height:1;text-align:center}
+.wx7-main{font-size:14.5px;font-weight:850;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.wx7-pop{font-size:12.5px;font-weight:900;color:#2775a6;margin-left:4px;white-space:nowrap}
+.wx7-temp{font-size:14.5px;font-weight:950;line-height:1.25;white-space:nowrap;text-align:right;letter-spacing:-.3px}
+.wx7-temp .lo{color:#2563eb}.wx7-temp .hi{color:#dc2626}.wx7-temp .sep{color:#9aa6bb;margin:0 2px}
 .home-tips-card{background:#fff;border:1px solid #ffe58a;border-radius:19px;padding:15px;margin-bottom:13px;box-shadow:var(--shadow)}
 .home-tips-head{margin-bottom:7px}
 .home-tips-label{font-size:16px;font-weight:950;color:#6b4d00}
@@ -200,11 +210,12 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.0.4';
+const APP_VERSION = 'v3.0.5';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
 const LS_OLD = 'travelapp.v1';
+const BUNDLED_SEED_OPT_OUT = 'sk-bundled-trip-seed-optout-v1';
 const HOME = { label:'필라델피아', tz:'America/New_York', currency:'USD' };
 const TABS = [
   {id:'home',ic:'🏠',lb:'홈'},
@@ -464,6 +475,10 @@ function wxInfo(code){
   if([61,63,65,66,67,80,81,82].includes(code))return['🌧️','비']; if([71,73,75,77,85,86].includes(code))return['🌨️','눈'];
   if([95,96,99].includes(code))return['⛈️','천둥번개']; return['🌡️','날씨'];
 }
+function tempF(v){ const n=Number(v); return Number.isFinite(n)?Math.round(n*9/5+32):null; }
+function fmtTempF(v){ const f=tempF(v); return f==null?'':f+'°F'; }
+function fmtTempRange(day){ if(!day)return ''; const lo=tempF(day.min),hi=tempF(day.max); return (lo==null||hi==null)?'':lo+'~'+hi+'°F'; }
+function shortWxLabel(label){ return label==='대체로 맑음'?'맑음':label; }
 function isRainWx(d){ return d&&([51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99].includes(Number(d.code))||Number(d.pop||0)>=50||Number(d.sum||0)>=1); }
 async function refreshLiveData(force){
   if(liveBusy||!navigator.onLine) return; const ph=tripPhase(); if(ph.phase==='none') return;
@@ -505,8 +520,9 @@ function fmtFx(dest){
   const c=fxCache(code); if(!c) return '$1 → '+code+' · 온라인에서 환율 확인';
   const symbols={EUR:'€',KRW:'₩',JPY:'¥',GBP:'£',CNY:'¥',CAD:'$',AUD:'$'};
   const rate=Number(c.rate); const txt=rate>=100?Math.round(rate).toLocaleString('ko-KR'):rate>=10?rate.toFixed(2):rate.toFixed(3).replace(/0$/,'');
-  return '$1 ≈ '+(symbols[code]||'')+txt+' '+code+(c.date?' · '+c.date+' 기준':'');
+  return '$1 ≈ '+(symbols[code]||'')+txt+' '+code;
 }
+function fmtMonthDay(iso){ const m=String(iso||'').slice(0,10).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/); return m?((+m[2])+'/'+(+m[3])):''; }
 function fmtFetched(iso){ if(!iso)return''; const d=new Date(iso); return fmtTzDate(d,HOME.tz)+' '+timeInTz(d,HOME.tz)+' 갱신'; }
 function findRainImpact(){
   const ph=tripPhase(); const homeToday=dateInTz(new Date(),HOME.tz);
@@ -587,31 +603,85 @@ function weatherForDestDate(dest,iso){
 function weatherText(dest,iso){
   const hit=weatherForDestDate(dest,iso); if(!hit.day)return '';
   const [icon,label]=wxInfo(hit.day.code);
-  return icon+' '+label+' '+Math.round(hit.day.min)+'°~'+Math.round(hit.day.max)+'°'+(hit.day.pop!=null?' · 강수확률 '+Math.round(hit.day.pop)+'%':'');
+  return icon+' '+label+' '+fmtTempRange(hit.day)+(hit.day.pop!=null?' · 강수확률 '+Math.round(hit.day.pop)+'%':'');
 }
-function renderHomeTopBoard(){
-  const now=new Date(); const list=homeDestinations(); const dest=activeHomeDestination();
-  const idx=list.length?ui.homeDestIndex:0;
+function homeTopData(requestedIndex){
+  const now=new Date(); const list=homeDestinations();
+  let idx=0; let dest=null;
+  if(list.length){
+    idx=((requestedIndex==null?ui.homeDestIndex:requestedIndex)%list.length+list.length)%list.length;
+    dest=list[idx];
+  } else {
+    dest=tripPhase().dest||null;
+  }
   const destName=dest?(dest.city||'여행지'):'여행지';
   const destTz=(dest&&dest.tz)||HOME.tz;
   const fx=dest?fmtFx(dest):'';
   const fxCacheHit=dest&&dest.currency?fxCache(dest.currency.toUpperCase()):null;
+  let fxSub='';
+  if(fxCacheHit) fxSub=fmtMonthDay(fxCacheHit.date||dateInTz(new Date(fxCacheHit.fetchedAt),HOME.tz));
+  else if(dest&&String(dest.currency||'').toUpperCase()==='USD') fxSub=fmtMonthDay(dateInTz(now,HOME.tz));
+  else fxSub=dest?(navigator.onLine?'확인 중':'오프라인'):'등록 필요';
   const wxHit=dest?weatherForDestDate(dest,dateInTz(now,destTz)):{cache:null,day:null};
-  let wxValue='날씨 확인 중', wxSub=navigator.onLine?'눌러서 7일 날씨 보기':'오프라인 · 눌러서 저장된 날씨 보기';
+  let wxValue='날씨 확인 중', wxSub=navigator.onLine?'눌러서 7일 보기':'오프라인 · 저장된 날씨 보기';
   if(wxHit.day){
     const [icon,label]=wxInfo(wxHit.day.code);
-    wxValue=icon+' '+label+' '+Math.round(wxHit.day.min)+'°~'+Math.round(wxHit.day.max)+'°';
-    wxSub=(wxHit.day.pop!=null?'강수확률 '+Math.round(wxHit.day.pop)+'% · ':'')+'눌러서 7일 날씨 보기';
+    wxValue=icon+' '+shortWxLabel(label)+' '+fmtTempRange(wxHit.day);
+    wxSub=(wxHit.day.pop!=null?'💧'+Math.round(wxHit.day.pop)+'% · ':'')+'눌러서 7일 보기';
   } else if(!dest){ wxValue='등록 필요'; wxSub='여행을 등록하면 표시됩니다'; }
+  return {
+    idx,
+    homeTime:fmtClock(now,HOME.tz),
+    homeDate:fmtDate(dateInTz(now,HOME.tz)),
+    destTimeLabel:'📍 '+destName+' 시간',
+    destTime:dest?fmtClock(now,destTz):'등록 필요',
+    destDate:(dest?fmtDate(dateInTz(now,destTz)):'여행을 등록해 주세요')+(list.length>1?' · '+(idx+1)+'/'+list.length:''),
+    fxValue:fx||'등록 필요',
+    fxSub,
+    wxLabel:'🌤️ '+destName+' 날씨',
+    wxValue,
+    wxSub,
+    wxAria:destName+' 7일 날씨'
+  };
+}
+function renderHomeTopBoard(){
+  const d=homeTopData();
   return '<section id="homeTopBoard" class="home-top-board" aria-label="시간 환율 날씨">'
-    +'<div class="top-cell home"><div class="top-label">🏠 필라델피아 시간</div><div class="top-value">'+esc(fmtClock(now,HOME.tz))+'</div><div class="top-sub">'+esc(fmtTzDate(now,HOME.tz))+'</div></div>'
-    +'<div class="top-cell dest"><div class="top-label">📍 '+esc(destName)+' 시간</div><div class="top-value">'+esc(dest?fmtClock(now,destTz):'등록 필요')+'</div><div class="top-sub">'+esc(dest?fmtTzDate(now,destTz):'여행을 등록해 주세요')+(list.length>1?' · '+(idx+1)+'/'+list.length:'')+'</div></div>'
-    +'<div class="top-cell fx"><div class="top-label">💱 1달러당 환율</div><div class="top-value">'+esc(fx||'등록 필요')+'</div><div class="top-sub">'+esc(fxCacheHit?fmtFetched(fxCacheHit.fetchedAt):(dest?(navigator.onLine?'환율 확인 중':'오프라인'):'여행지를 등록해 주세요'))+'</div></div>'
-    +'<button class="top-cell wx" data-action="weekly-weather" data-id="'+idx+'" aria-label="'+esc(destName)+' 7일 날씨"><div class="top-label">🌤️ '+esc(destName)+' 날씨</div><div class="top-value">'+esc(wxValue)+'</div><div class="top-sub">'+esc(wxSub)+'</div></button>'
+    +'<div class="top-cell home"><div class="top-label">🏠 필라델피아 시간</div><div class="top-value" data-top="homeTime">'+esc(d.homeTime)+'</div><div class="top-sub" data-top="homeDate">'+esc(d.homeDate)+'</div></div>'
+    +'<div class="top-cell dest"><div class="top-swap"><div class="top-label" data-top="destTimeLabel">'+esc(d.destTimeLabel)+'</div><div class="top-value" data-top="destTime">'+esc(d.destTime)+'</div><div class="top-sub" data-top="destDate">'+esc(d.destDate)+'</div></div></div>'
+    +'<div class="top-cell fx"><div class="top-swap"><div class="top-label">💱 1달러당 환율</div><div class="top-value" data-top="fxValue">'+esc(d.fxValue)+'</div><div class="top-sub" data-top="fxSub">'+esc(d.fxSub)+'</div></div></div>'
+    +'<button class="top-cell wx" data-action="weekly-weather" data-id="'+d.idx+'" aria-label="'+esc(d.wxAria)+'"><div class="top-swap"><div class="top-label" data-top="wxLabel">'+esc(d.wxLabel)+'</div><div class="top-value" data-top="wxValue">'+esc(d.wxValue)+'</div><div class="top-sub" data-top="wxSub">'+esc(d.wxSub)+'</div></div></button>'
     +'</section>';
 }
-function updateHomeTopBoard(){
-  const el=$('#homeTopBoard'); if(el)el.outerHTML=renderHomeTopBoard();
+function setHomeTopText(el,d){
+  const set=(name,value)=>{const n=el.querySelector('[data-top="'+name+'"]'); if(n)n.textContent=value;};
+  set('homeTime',d.homeTime); set('homeDate',d.homeDate);
+  set('destTimeLabel',d.destTimeLabel); set('destTime',d.destTime); set('destDate',d.destDate);
+  set('fxValue',d.fxValue); set('fxSub',d.fxSub);
+  set('wxLabel',d.wxLabel); set('wxValue',d.wxValue); set('wxSub',d.wxSub);
+  const wx=el.querySelector('[data-action="weekly-weather"]');
+  if(wx){ wx.dataset.id=String(d.idx); wx.setAttribute('aria-label',d.wxAria); }
+  ui.homeDestIndex=d.idx;
+}
+function updateHomeTopBoard(animate,requestedIndex){
+  const el=$('#homeTopBoard'); if(!el)return;
+  const d=homeTopData(requestedIndex);
+  const homeTime=el.querySelector('[data-top="homeTime"]'); if(homeTime)homeTime.textContent=d.homeTime;
+  const homeDate=el.querySelector('[data-top="homeDate"]'); if(homeDate)homeDate.textContent=d.homeDate;
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!animate||reduce){ setHomeTopText(el,d); return; }
+  if(el.dataset.switching==='1')return;
+  el.dataset.switching='1';
+  el.classList.add('is-switching');
+  setTimeout(()=>{
+    if(!el.isConnected)return;
+    setHomeTopText(el,d);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      if(!el.isConnected)return;
+      el.classList.remove('is-switching');
+      setTimeout(()=>{ if(el.isConnected)delete el.dataset.switching; },240);
+    }));
+  },200);
 }
 function stopHomeRotation(){
   if(ui.homeDestTimer){clearInterval(ui.homeDestTimer);ui.homeDestTimer=null;}
@@ -622,19 +692,29 @@ function startHomeRotation(){
   ui.homeDestTimer=setInterval(()=>{
     if(ui.tab!=='home'||document.hidden||$('#sheetWrap').classList.contains('show'))return;
     const list=homeDestinations(); if(list.length<=1)return;
-    ui.homeDestIndex=(ui.homeDestIndex+1)%list.length;
-    updateHomeTopBoard();
+    const el=$('#homeTopBoard'); if(el&&el.dataset.switching==='1')return;
+    updateHomeTopBoard(true,(ui.homeDestIndex+1)%list.length);
   },2000);
 }
 function renderWeeklyWeatherBody(dest){
   if(!dest)return '<div id="weatherSheetBody"><div class="notice">여행지가 아직 등록되지 않았습니다.</div></div>';
   const wc=weatherCache(dest);
-  let h='<div id="weatherSheetBody" class="wx-list">'+stackItem('도시',(dest.city||'여행지')+(dest.country?' · '+dest.country:''))+stackItem('마지막 갱신',wc?fmtFetched(wc.fetchedAt):(navigator.onLine?'불러오는 중입니다':'오프라인이라 저장된 날씨가 없습니다'));
-  if(wc&&wc.daily.length){
-    h+=wc.daily.slice(0,7).map(d=>{const [icon,label]=wxInfo(d.code);return stackItem(fmtFull(d.date),icon+' '+label+'\n최저 '+Math.round(d.min)+'° · 최고 '+Math.round(d.max)+'°'+(d.pop!=null?'\n강수확률 '+Math.round(d.pop)+'%':'')+(d.sum!=null&&Number(d.sum)>0?'\n예상 강수 '+Number(d.sum).toFixed(1)+'mm':''));}).join('');
-  } else {
-    h+='<div class="notice">'+(navigator.onLine?'날씨를 불러오는 중입니다. 잠시만 기다려 주세요.':'인터넷에 연결되면 7일 날씨를 볼 수 있습니다.')+'</div>';
+  if(!wc||!wc.daily.length){
+    return '<div id="weatherSheetBody"><div class="notice">'+(navigator.onLine?'날씨를 불러오는 중입니다. 잠시만 기다려 주세요.':'인터넷에 연결되면 7일 날씨를 볼 수 있습니다.')+'</div></div>';
   }
+  const days=wc.daily.slice(0,7);
+  const range=fmtMonthDay(days[0].date)+(days.length>1?'~'+fmtMonthDay(days[days.length-1].date):'');
+  const today=dateInTz(new Date(),dest.tz||HOME.tz);
+  let h='<div id="weatherSheetBody" class="wx7"><div class="wx7-head"><span>'+esc(range)+'</span><span>화씨(°F) · 최저~최고</span></div>';
+  h+=days.map(d=>{
+    const [icon,label]=wxInfo(d.code); const lo=tempF(d.min),hi=tempF(d.max);
+    return '<div class="wx7-row'+(d.date===today?' today':'')+'">'
+      +'<div class="wx7-date">'+esc(fmtDate(d.date))+'</div>'
+      +'<div class="wx7-icon" aria-hidden="true">'+icon+'</div>'
+      +'<div class="wx7-main"><span>'+esc(shortWxLabel(label))+'</span>'+(d.pop!=null?'<span class="wx7-pop">💧'+Math.round(d.pop)+'%</span>':'')+'</div>'
+      +'<div class="wx7-temp"><span class="lo">'+(lo==null?'-':lo+'°')+'</span><span class="sep">~</span><span class="hi">'+(hi==null?'-':hi+'°')+'</span></div>'
+      +'</div>';
+  }).join('');
   return h+'</div>';
 }
 async function openWeeklyWeather(idx,refreshed){
@@ -645,7 +725,7 @@ async function openWeeklyWeather(idx,refreshed){
   const stale=!wc||(Date.now()-new Date(wc.fetchedAt).getTime()>3*3600e3);
   if(!stale)return;
   await refreshLiveData(true);
-  if($('#weatherSheetBody'))openWeeklyWeather(idx,true);
+  const sheetBody=$('#weatherSheetBody'); if(sheetBody)sheetBody.outerHTML=renderWeeklyWeatherBody(dest);
 }
 function zonedTimeToUtcMs(iso,time,tz){
   if(!iso||!time)return null;
@@ -767,7 +847,7 @@ function nowCardData(){
     if(prep&&!prep.done)return {context:'여행 전 · '+ddayText(ph),title:'다음 준비는 '+prep.item.text+'입니다',body:prep.section+' 항목입니다. 준비물 탭에서 체크하세요.',details:[{k:'출발일',v:fmtFull(ph.start)}],actions:[{label:'준비물에서 체크',action:'nav',id:'packing',kind:'btn-pri'}],dest:ph.dest,ph,hidePrep:true};
   }
   const dest=ph.dest; const wc=dest?weatherCache(dest):null; const todayWx=wc?wc.daily.find(x=>x.date===dateInTz(now,dest.tz||HOME.tz)):null;
-  if(dest&&todayWx){ const [icon,label]=wxInfo(todayWx.code); return {context:ph.phase==='before'?('여행 전 · '+ddayText(ph)):'지금 확인',title:(dest.city||'여행지')+'는 지금 '+label+' '+icon,body:'오늘 '+Math.round(todayWx.min)+'° ~ '+Math.round(todayWx.max)+'°'+(todayWx.pop!=null?' · 강수확률 '+Math.round(todayWx.pop)+'%':'')+'. 위 정보판에서 시간과 환율을 확인하세요.',dest,ph}; }
+  if(dest&&todayWx){ const [icon,label]=wxInfo(todayWx.code); return {context:ph.phase==='before'?('여행 전 · '+ddayText(ph)):'지금 확인',title:(dest.city||'여행지')+'는 지금 '+label+' '+icon,body:'오늘 '+fmtTempRange(todayWx)+(todayWx.pop!=null?' · 강수확률 '+Math.round(todayWx.pop)+'%':'')+'. 위 정보판에서 시간과 환율을 확인하세요.',dest,ph}; }
   return {context:ph.phase==='before'?('여행 전 · '+ddayText(ph)):'지금 확인',title:(state.trip&&state.trip.name)||'여행 준비를 시작해요',body:'일정에 닿는 날씨나 꼭 해야 할 준비가 있으면 이곳에 먼저 알려드릴게요.',dest,ph};
 }
 function nowActionButtons(actions){
@@ -1385,11 +1465,12 @@ function applyPendingImport(importantMode){
   if(importantMode==='replace') state.important=f.important||[];
   else if(importantMode==='merge') state.important=[...oldImportant,...(f.important||[])];
   else state.important=oldImportant;
+  if(p.kind==='package'){ if(isSpainDateRange(state.trip))lsRemove(BUNDLED_SEED_OPT_OUT); else lsSet(BUNDLED_SEED_OPT_OUT,'replaced'); }
   ui.openDays.clear(); ui.scheduleMode=isBundledSpainTrip()?'original':'edit'; pendingImport=null; save(); goTab('home'); refreshLiveData(true);
 }
 const SPAIN_FULL_SEED_FLAG='sk-spain-full-seed-v3-home-v304';
 async function ensureBundledSpainTrip(){
-  if(lsGet(SPAIN_FULL_SEED_FLAG)) return;
+  if(lsGet(BUNDLED_SEED_OPT_OUT)||lsGet(SPAIN_FULL_SEED_FLAG)) return;
   const hasTrip=!!(state.trip&&(state.trip.start||state.trip.name));
   if(hasTrip&&!isSpainDateRange(state.trip)){ lsSet(SPAIN_FULL_SEED_FLAG,'skipped-other-trip'); return; }
   try{
@@ -1478,6 +1559,7 @@ function applyBackupObject(bundle){
   if(!confirm('현재 내용을 이 백업으로 바꿀까요? 바꾸기 전에 지금 상태를 폰 안에 한 번 더 보관합니다.'))return false;
   lsSet('sk-travel.v3.beforeRestore',JSON.stringify(buildBackup(true)));
   state=normalizeState(rawState);
+  if(isSpainDateRange(state.trip))lsRemove(BUNDLED_SEED_OPT_OUT); else if(state.trip)lsSet(BUNDLED_SEED_OPT_OUT,'restored-other-trip');
   if(travel&&typeof travel==='object'){
     try{ const rm=[]; for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); if(k&&k.indexOf('travel_v4_')===0)rm.push(k);} rm.forEach(k=>localStorage.removeItem(k)); Object.keys(travel).forEach(k=>{if(k.indexOf('travel_v4_')===0)localStorage.setItem(k,travel[k]);}); }catch(e){}
     CKL=CKL; // 체크 상태만 바뀌므로 목록 캐시는 유지
@@ -1627,10 +1709,10 @@ const actions={
   'drive-restore'(){ openDriveRestore(); },
   'set-start'(){ openSheet('앱 시작 화면',fSelect('앱을 켰을 때 처음 보일 탭','tab',state.settings.startTab||'home',TABS.map(t=>({v:t.id,t:t.ic+' '+t.lb}))),v=>{state.settings.startTab=v.tab;save();keepScroll(renderMain);toast('저장했어요');}); },
   'set-install'(){ installApp(); },
-  'clear-trip'(){ if(!confirm('현재 여행(일정·공항·숙소·팁)만 지울까요?\n체크리스트와 중요 정보는 유지됩니다.'))return; state.trip=null;state.destinations=[];state.days=[];state.tips=[];state.airports=[];state.transfers=[];state.hotels=[];state.documents=[];state.guides=[]; ui.scheduleMode='edit'; save(); goTab('home'); toast('현재 여행을 지웠어요'); },
+  'clear-trip'(){ if(!confirm('현재 여행(일정·공항·숙소·팁)만 지울까요?\n체크리스트와 중요 정보는 유지됩니다.'))return; lsSet(BUNDLED_SEED_OPT_OUT,'cleared'); state.trip=null;state.destinations=[];state.days=[];state.tips=[];state.airports=[];state.transfers=[];state.hotels=[];state.documents=[];state.guides=[]; ui.scheduleMode='edit'; save(); goTab('home'); toast('현재 여행을 지웠어요'); },
   'data-reset'(){
     openSheet('앱 데이터 전체 초기화','<div class="notice">여행·일정·중요 정보·설정이 초기화됩니다. 먼저 백업하는 것을 권합니다.</div>'+fCheck('준비물 체크리스트 기록도 함께 지우기','clearPacking',false,'체크리스트 화면은 그대로지만 체크/추가항목/메모 기록이 사라집니다.'),v=>{
-      state=emptyState(); lsRemove(LS_OLD); lsRemove('sk_sched_html'); lsRemove('sk_sched_seed'); lsRemove('sk_trip_seed'); lsRemove('sk_pack_html'); lsRemove('sk_home_chk_html'); lsRemove('sk_upd_from');
+      state=emptyState(); lsSet(BUNDLED_SEED_OPT_OUT,'reset'); lsRemove(LS_OLD); lsRemove('sk_sched_html'); lsRemove('sk_sched_seed'); lsRemove('sk_trip_seed'); lsRemove('sk_pack_html'); lsRemove('sk_home_chk_html'); lsRemove('sk_upd_from');
       if(v.clearPacking){ try{const rm=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.indexOf('travel_v4_')===0)rm.push(k);}rm.forEach(k=>localStorage.removeItem(k));}catch(e){} }
       cacheStore={fx:{},weather:{}}; saveCache(); save(); applyFont(); ui.tab='home'; renderAll(); toast('초기화했어요');
     },'초기화하기');
@@ -1807,7 +1889,7 @@ document.addEventListener('visibilitychange',()=>{ if(!document.hidden)checkForU
 /* ---------- 시작 ---------- */
 applyFont(); save(); renderAll(); loadChecklist(); refreshLiveData(false); ensureBundledSpainTrip();
 try{history.replaceState({tab:ui.tab},'');}catch(e){}
-setInterval(()=>{ if(ui.tab==='home'&&!$('#sheetWrap').classList.contains('show'))keepScroll(renderMain); },30000);
+setInterval(()=>{ if(ui.tab==='home'&&!document.hidden&&!$('#sheetWrap').classList.contains('show'))updateHomeTopBoard(false); },30000);
 setTimeout(()=>checkForUpdate(false),1800);
 try{ const from=lsGet('sk_upd_from'); if(from){lsRemove('sk_upd_from'); if(from!==APP_VERSION)setTimeout(()=>toast('✅ 업데이트 완료! 지금 버전은 '+APP_VERSION+'입니다.'),900);} }catch(e){}
 </script>
