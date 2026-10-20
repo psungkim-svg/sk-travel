@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script>
-/* 설정에서 HTML 코드를 붙여넣었다면, 이 화면을 그 코드로 통째로 교체 */
-try{(function(){var c=localStorage.getItem('sk_pack_html');if(c){document.open();document.write(c);document.close();}})();}catch(e){}
+/* 설정에서 HTML 코드를 붙여넣었다면, 이 화면을 그 코드로 통째로 교체 (v3.0.7 파일 우선) */
+try{(function(){var c=localStorage.getItem('sk_pack_html');if(c&&c.indexOf('SK_PACKING_V307')!==-1){document.open();document.write(c);document.close();}})();}catch(e){}
 </script>
 <title>여행 체크리스트</title>
 <style>
@@ -27,8 +27,8 @@ button.small.danger { background: #d9534f; }
 details { background: white; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
 summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 800; font-size: 20px; position: relative; background: #fff; color: #0b1a3d; }
 summary::-webkit-details-marker { display: none; }
-summary::after { content: "▾"; position: absolute; right: 16px; top: 14px; color: #666; transition: transform .2s ease; }
-details[open] summary::after { transform: rotate(180deg); }
+summary::after { content: "▾"; position: absolute; right: 16px; top: 14px; color: #666; transform: rotate(-90deg); transform-origin: center; transition: transform .2s ease; }
+details[open] summary::after { transform: rotate(0deg); }
 .content { padding: 0 12px 14px; border-top: 1px solid #eee; }
 .group { padding-top: 14px; margin-top: 12px; border-top: 2px dashed #f0f4f8; }
 .group:first-child { border-top: none; margin-top: 0; padding-top: 8px; }
@@ -41,6 +41,7 @@ padding: 6px 6px; font-size: 17px; font-weight: 700;
 line-height: 1.25; min-height: 36px; word-break: keep-all;
 }
 .item input[type="checkbox"] { margin-top: 1px; flex-shrink: 0; transform: scale(1.3); accent-color: #1f6feb; }
+.item.tight { padding: 6px 3px; gap: 3px; }
 .span-1 { grid-column: span 1; }
 .span-2 { grid-column: span 2; }
 .span-3 { grid-column: span 3; }
@@ -104,6 +105,7 @@ flex-shrink: 0; margin-left: 8px;
 <div class="group">
 <h3>🚗 우편 / 차량</h3>
 <div class="check-grid">
+<label class="item span-4"><input type="checkbox" data-id="d23">e-Sim</label>
 <label class="item span-2"><input type="checkbox" data-id="d1">USPS Hold Mail 신청</label>
 <label class="item span-2"><input type="checkbox" data-id="d2">차 타이어 점검</label>
 <label class="item span-2"><input type="checkbox" data-id="d3">차에 Air 넣기</label>
@@ -125,17 +127,19 @@ flex-shrink: 0; margin-left: 8px;
 <h3>💊 상비약 재고 확인</h3>
 <div class="check-grid">
 <label class="item span-4"><input type="checkbox" data-id="d11">Pepto-Bismol (여행용 3.4 fl oz)</label>
-<label class="item span-1"><input type="checkbox" data-id="d12">영양제</label>
-<label class="item span-1"><input type="checkbox" data-id="d13">감기약</label>
-<label class="item span-1"><input type="checkbox" data-id="d14">애드빌</label>
+<label class="item span-1 tight"><input type="checkbox" data-id="d12">영양제</label>
+<label class="item span-1 tight"><input type="checkbox" data-id="d13">감기약</label>
+<label class="item span-1 tight"><input type="checkbox" data-id="d14">애드빌</label>
+<label class="item span-1 tight"><input type="checkbox" data-id="d24">Aleve</label>
 <label class="item span-1"><input type="checkbox" data-id="d15">파스</label>
 <label class="item span-2"><input type="checkbox" data-id="d16">네오스포린</label>
 <label class="item span-2"><input type="checkbox" data-id="d17">가려움(Itch) 연고</label>
 <label class="item span-1"><input type="checkbox" data-id="d18">멀미약</label>
 <label class="item span-1"><input type="checkbox" data-id="d19">안약</label>
-<label class="item span-2"><input type="checkbox" data-id="d20">거즈 / 밴드</label>
+<label class="item span-2"><input type="checkbox" data-id="d25">일회용 밴드</label>
 <label class="item span-2"><input type="checkbox" data-id="d21">물파스 / 물린디</label>
 <label class="item span-2"><input type="checkbox" data-id="d22">압박붕대</label>
+<label class="item span-1"><input type="checkbox" data-id="d20">거즈</label>
 </div>
 </div>
 </div>
@@ -192,6 +196,8 @@ flex-shrink: 0; margin-left: 8px;
 <label class="item span-4"><input type="checkbox" data-id="h32">여행용 3단 주머니</label>
 <label class="item span-4"><input type="checkbox" data-id="h33">안경케이스 / 안경 흘러내림 방지 고무</label>
 <label class="item span-1"><input type="checkbox" data-id="h34">마스크</label>
+<label class="item span-1"><input type="checkbox" data-id="h34a">iPad</label>
+<label class="item span-2"><input type="checkbox" data-id="h34b">sk-모자</label>
 </div>
 </div>
 <div class="group">
@@ -216,6 +222,7 @@ flex-shrink: 0; margin-left: 8px;
 <label class="item span-2"><input type="checkbox" data-id="h51">여행용 저울</label>
 <label class="item span-4"><input type="checkbox" data-id="h52">비닐백 (쓰레기봉투용)</label>
 <label class="item span-4"><input type="checkbox" data-id="h53">매직펜 (빨래 / 새것 표시용)</label>
+<label class="item span-2"><input type="checkbox" data-id="h53a">일회용 비닐 장갑</label>
 </div>
 </div>
 <div class="group">

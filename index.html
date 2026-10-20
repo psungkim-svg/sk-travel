@@ -66,8 +66,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .top-cell.wx:active{transform:scale(.98)}
 .top-label{font-size:12px;font-weight:950;line-height:1.2;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
 .top-value{font-size:17px;font-weight:950;line-height:1.18;margin-top:2px;letter-spacing:-.35px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.top-cell.fx .top-label{font-size:11px;letter-spacing:-.55px}
-.top-cell.fx .top-value{font-size:15.5px}
+.top-cell.fx .top-label{font-size:12px;font-weight:950;letter-spacing:-.55px}
+.top-cell.fx .top-value{font-size:17px;font-weight:950;letter-spacing:-.65px}
 .top-cell.wx .top-value{font-size:15.5px}
 .top-sub{font-size:11.5px;font-weight:750;line-height:1.25;margin-top:1px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
 .stack-item{padding:11px 0;border-bottom:1px dashed var(--line)}
@@ -211,7 +211,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.0.6';
+const APP_VERSION = 'v3.0.7';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -619,7 +619,8 @@ function homeTopData(requestedIndex){
   } else {
     dest=phase.dest||null;
   }
-  const destName=dest?(dest.city||'여행지'):'여행지';
+  const destCity=dest?(dest.city||'여행지'):'여행지';
+  const destName=dest?(dest.country||dest.city||'여행지'):'여행지';
   const destTz=(dest&&dest.tz)||HOME.tz;
   const fxDest=phase.dest||list[0]||dest;
   const fx=fxDest?fmtFx(fxDest):'';
@@ -652,7 +653,7 @@ function homeTopData(requestedIndex){
     wxLabel:'🌤️ '+destName+' 날씨',
     wxValue,
     wxSub,
-    wxAria:destName+' 7일 날씨'
+    wxAria:destCity+' 7일 날씨'
   };
 }
 function renderHomeTopBoard(){
