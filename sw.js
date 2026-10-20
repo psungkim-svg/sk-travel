@@ -1,5 +1,5 @@
 /* SK-여행 v3 서비스 워커 — 앱 셸만 캐시하고, 여행 개인정보/외부 API 응답은 캐시하지 않습니다. */
-const CACHE_NAME = 'sk-travel-v3-2';
+const CACHE_NAME = 'sk-travel-v3-4';
 const APP_ASSETS = [
   './',
   './index.html',
@@ -51,6 +51,12 @@ self.addEventListener('fetch', e => {
         }))
       );
     }
+    return;
+  }
+
+  // 버전 확인 파일은 절대 캐시하지 않고 항상 서버에서 새로 확인합니다.
+  if (url.pathname.endsWith('/version.json')) {
+    e.respondWith(fetch(req.url, { cache: 'no-store' }));
     return;
   }
 
