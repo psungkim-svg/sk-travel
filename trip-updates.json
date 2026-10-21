@@ -2,6 +2,9 @@
   "format": "sk-travel-update",
   "version": 1,
   "generatedAt": "2026-10-21T00:00:00-04:00",
-  "_note": "항공 지연, 관광지 휴무, 파업, 교통 통제, 가이드 공지를 조사한 결과를 items에 넣으면 앱이 자동으로 확인합니다. 확정되지 않은 내용은 넣지 마세요.",
-  "items": []
+  "_note": "항공 지연·휴무·파업·교통·가이드 공지는 items, 전문가 카드는 expertInfo, 현장 장소는 contextPlaces, 게이트·탑승·수하물 벨트 변경은 flightUpdates에 넣으면 앱이 확인합니다. 확정되지 않은 내용은 넣지 마세요.",
+  "items": [],
+  "expertInfo": [],
+  "contextPlaces": [],
+  "flightUpdates": []
 }

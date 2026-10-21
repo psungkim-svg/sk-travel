@@ -1540,7 +1540,9 @@
       "checkin": "2026-10-23",
       "checkout": "2026-10-25",
       "note": "Plaça Espanya 바로 앞 · Aerobús 정류장과 가까움",
-      "city": "바르셀로나"
+      "city": "바르셀로나",
+      "lat": 41.3754168,
+      "lon": 2.1482785
     },
     {
       "name": "HOTEL CHAMARTÍN THE ONE",
@@ -1549,7 +1551,9 @@
       "checkin": "2026-10-25",
       "checkout": "2026-10-26",
       "note": "Madrid-Chamartín 역과 연결된 위치",
-      "city": "마드리드"
+      "city": "마드리드",
+      "lat": 40.4724161,
+      "lon": -3.6832469
     },
     {
       "name": "HOTEL CIGARRAL EL BOSQUE",
@@ -1558,7 +1562,9 @@
       "checkin": "2026-10-26",
       "checkout": "2026-10-27",
       "note": "Cigarrales 지역",
-      "city": "톨레도"
+      "city": "톨레도",
+      "lat": 39.8596082,
+      "lon": -4.0428477
     },
     {
       "name": "GRAN HOTEL LUNA DE GRANADA",
@@ -1567,7 +1573,9 @@
       "checkin": "2026-10-27",
       "checkout": "2026-10-28",
       "note": "",
-      "city": "그라나다"
+      "city": "그라나다",
+      "lat": 37.1765798,
+      "lon": -3.6122392
     },
     {
       "name": "HOTEL EUROSTARS AL-ANDALUS PALACE",
@@ -1576,7 +1584,9 @@
       "checkin": "2026-10-28",
       "checkout": "2026-10-29",
       "note": "",
-      "city": "세비야"
+      "city": "세비야",
+      "lat": 37.3538508,
+      "lon": -5.9800628
     },
     {
       "name": "HOTEL MERCURE LISBOA ALMADA",
@@ -1585,7 +1595,9 @@
       "checkin": "2026-10-29",
       "checkout": "2026-10-31",
       "note": "리스본 중심이 아니라 테주강 건너 Almada입니다. 공항 이동 시 대교 정체 여유를 두세요.",
-      "city": "리스본(Almada)"
+      "city": "리스본(Almada)",
+      "lat": 38.6704468,
+      "lon": -9.1707882
     }
   ],
   "guides": [
@@ -1712,6 +1724,1843 @@
       "category": "flight",
       "city": "리스본",
       "url": "https://www.ana.pt/en/lis/home"
+    }
+  ],
+  "expertInfo": [
+    {
+      "id": "exp-1022-shuttle",
+      "version": 1,
+      "date": "2026-10-22",
+      "trigger": "출발 전",
+      "category": "공항 이동",
+      "icon": "🚌",
+      "place": "필라하나관광 셔틀",
+      "title": "15:30 셔틀은 기다려주지 않습니다",
+      "body": "안내문 기준 셔틀은 예외 없이 정시 출발합니다. 공항 일정보다 먼저 놓치면 안 되는 첫 관문입니다.",
+      "action": "15:30 전에 탑승 준비를 끝내세요.",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "secretItem": "여권·공동경비 $200·AA건전지 2개",
+      "secretWhy": "공동경비는 출발 당일 현금으로 내고, AA건전지는 투어 수신기에 바로 쓰기 때문입니다.",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1022-phl-entry",
+      "version": 1,
+      "date": "2026-10-22",
+      "trigger": "공항 도착",
+      "category": "공항 모드",
+      "icon": "🛫",
+      "place": "PHL Terminal A-West",
+      "title": "PHL에서는 A-West로 바로 가세요",
+      "body": "AA742 국제선 출발 안내 기준은 Terminal A-West입니다. 다른 터미널로 들어가면 이동 시간이 늘어납니다.",
+      "action": "Departures 도로에서 A-West 표지를 보고 내린 뒤 American Airlines 카운터·키오스크로 가세요.",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "routeTitle": "공항 안에서 이 순서로 움직이세요",
+      "routeSteps": [
+        {
+          "time": "1",
+          "text": "A-West 티켓팅 로비에서 여권 확인과 위탁수하물 맡기기"
+        },
+        {
+          "time": "2",
+          "text": "TSA/security 표지를 따라 보안검색 통과"
+        },
+        {
+          "time": "3",
+          "text": "전광판에서 AA742 게이트 확인"
+        },
+        {
+          "time": "4",
+          "text": "A14~A26 방향 표지를 따라 게이트로 이동"
+        }
+      ],
+      "navAirSection": "airports",
+      "sourceName": "PHL 공항 항공사 안내",
+      "sourceUrl": "https://www.phl.org/flights/airline-information",
+      "sources": [
+        {
+          "name": "PHL 공항 항공사 안내",
+          "url": "https://www.phl.org/flights/airline-information"
+        }
+      ]
+    },
+    {
+      "id": "exp-1022-passport-check",
+      "version": 1,
+      "date": "2026-10-22",
+      "trigger": "체크인",
+      "category": "숨은 조건",
+      "icon": "🛂",
+      "place": "PHL 체크인",
+      "title": "온라인 체크인돼도 여권 확인이 또 있을 수 있습니다",
+      "body": "국제선은 수하물을 맡길 때 카운터나 키오스크에서 여권 확인이 필요할 수 있습니다. 단체·여행사 예약은 온라인 체크인이 막힐 수도 있습니다.",
+      "action": "여권은 큰 가방이 아니라 손가방 앞칸에 두고, 탑승권과 수하물 태그를 받은 뒤 Bag Drop으로 가세요.",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "navAirSection": "flights",
+      "sourceName": "여행 안내문·공항 안내",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1022-security-water",
+      "version": 1,
+      "date": "2026-10-22",
+      "trigger": "보안검색 전",
+      "category": "화장실·물",
+      "icon": "💧",
+      "place": "PHL 보안검색",
+      "title": "물은 보안검색 뒤에 사세요",
+      "body": "기내 가방에는 100ml를 넘는 액체를 넣을 수 없습니다. 보안검색 전에 산 음료는 버려야 할 수 있습니다.",
+      "action": "액체는 투명 지퍼백에 따로 넣고, 마실 물은 보안검색 뒤 게이트를 확인한 다음 사세요. 화장실도 게이트 근처에서 먼저 다녀오세요.",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1022-sleep",
+      "version": 1,
+      "date": "2026-10-22",
+      "trigger": "탑승 후",
+      "category": "몸 관리",
+      "icon": "🌙",
+      "place": "AA742 기내",
+      "title": "이륙하면 바르셀로나 밤으로 바꾸세요",
+      "body": "도착 시각은 현지 오전 09:05이고, 내리자마자 몬주익과 시내 관광이 이어집니다. 첫날 체력은 기내 수면에서 갈립니다.",
+      "action": "기내식 뒤에는 영화보다 수면을 우선하세요. 상비약과 수면 용품은 위탁수하물이 아닌 작은 가방에 두세요.",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "priority": 5,
+      "stars": 4,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1023-clothing",
+      "version": 1,
+      "date": "2026-10-23",
+      "trigger": "전날 밤·내리기 전",
+      "category": "옷·신발 처방",
+      "icon": "👕",
+      "place": "바르셀로나",
+      "title": "겉옷은 큰 짐에 넣지 마세요",
+      "body": "아침 몬주익과 저녁 이동은 서늘하게 느껴질 수 있고 오후에는 고딕지구를 오래 걷습니다.",
+      "action": "긴팔에 지퍼 겉옷, 가장 익숙한 운동화를 신으세요.",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "secretItem": "50센트 동전 1개",
+      "secretWhy": "보케리아 시장 화장실은 구매 영수증이 있으면 무료지만, 영수증이 없으면 €0.50을 내야 하기 때문입니다.",
+      "sourceName": "Open-Meteo·BBC Weather",
+      "sourceUrl": "https://www.bbc.com/weather/3128760",
+      "sources": [
+        {
+          "name": "Open-Meteo·BBC Weather",
+          "url": "https://www.bbc.com/weather/3128760"
+        }
+      ],
+      "weatherFallback": "10월 21일 조사 당시 예보는 맑음 56~71°F였습니다. 온라인에서 최신 예보를 받으면 이 카드는 현재 예보 기준으로 바뀝니다."
+    },
+    {
+      "id": "exp-1023-ees",
+      "version": 1,
+      "date": "2026-10-23",
+      "trigger": "착륙 직전",
+      "category": "숨은 조건",
+      "icon": "🛂",
+      "place": "BCN 입국심사",
+      "title": "여권에 도장이 없어도 정상입니다",
+      "body": "유럽 EES 첫 입국에서는 얼굴 사진과 지문 4개를 전자 등록하고, 여권 도장을 전자 기록이 대신합니다. 사전 신청이나 등록 비용은 없습니다.",
+      "action": "내리기 전 여권은 손가방 앞칸에 두세요. 입국심사가 끝나면 바로 몸쪽 지퍼 안으로 넣으세요.",
+      "lat": 41.2974,
+      "lon": 2.0833,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "navAirSection": "airports",
+      "sourceName": "EU EES 공식 FAQ·GOV.UK",
+      "sourceUrl": "https://travel-europe.europa.eu/en/ees/faq",
+      "sources": [
+        {
+          "name": "EU EES 공식 FAQ·GOV.UK",
+          "url": "https://travel-europe.europa.eu/en/ees/faq"
+        }
+      ]
+    },
+    {
+      "id": "exp-1023-water",
+      "version": 1,
+      "date": "2026-10-23",
+      "trigger": "중식 자리",
+      "category": "돈·현지 주문",
+      "icon": "💧",
+      "place": "바르셀로나 식당",
+      "title": "생수병부터 시키지 마세요",
+      "body": "스페인 식당과 바는 손님에게 병에 넣지 않은 무료 물을 제공할 수 있게 해야 합니다. 단체식 음료가 포함되지 않았을 때 병입수를 시키기 전에 이 문장을 쓰세요.",
+      "action": "아래 한마디로 주문하세요.",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "phrase": {
+        "text": "Una jarra de agua del grifo, por favor.",
+        "pronunciation": "우-나 하-라 데 아-구아 델 그리-포, 뽀르 파-보르",
+        "meaning": "수돗물 한 주전자 주세요."
+      },
+      "sourceName": "스페인 Ley 7/2022 공식 관보 BOE",
+      "sourceUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-5809",
+      "sources": [
+        {
+          "name": "스페인 Ley 7/2022 공식 관보 BOE",
+          "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-5809"
+        }
+      ]
+    },
+    {
+      "id": "exp-1023-boqueria-toilet",
+      "version": 1,
+      "date": "2026-10-23",
+      "trigger": "람블라 도착 직후",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "보케리아 시장",
+      "title": "보케리아 영수증은 화장실 무료표입니다",
+      "body": "시장 사무동 지하 1층 화장실은 시장 구매 영수증이 있으면 무료이고, 영수증이 없으면 €0.50입니다. 시장은 월~토요일 08:00~20:30 운영합니다.",
+      "action": "작은 간식이나 물을 사면 영수증을 버리지 마세요. 석식·차량 이동 전에 여기서 해결하는 것이 가장 확실합니다.",
+      "lat": 41.3814,
+      "lon": 2.173,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Mercat de la Boqueria 공식 서비스 안내",
+      "sourceUrl": "https://www.boqueria.barcelona/services",
+      "sources": [
+        {
+          "name": "Mercat de la Boqueria 공식 서비스 안내",
+          "url": "https://www.boqueria.barcelona/services"
+        }
+      ]
+    },
+    {
+      "id": "exp-1023-free-route",
+      "version": 1,
+      "date": "2026-10-23",
+      "trigger": "자유시간 시작",
+      "category": "자유시간 황금동선",
+      "icon": "🧭",
+      "place": "람블라·카사 바트요",
+      "title": "카사 바트요 표는 사지 마세요",
+      "body": "공식 관람 시간은 표 종류에 따라 약 1시간~1시간 15분입니다. 자유시간 1시간으로는 이동과 대기를 넣는 순간 늦고, 현장 매표소는 온라인보다 €4~€15 더 비쌀 수 있습니다. 오늘은 외관만 보세요.",
+      "action": "가이드가 정한 해산 위치에 맞는 코스 하나만 따라가세요.",
+      "lat": 41.3917,
+      "lon": 2.165,
+      "priority": 5,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "routeTitle": "A코스 · 카탈루냐 광장에서 풀릴 때",
+      "routeSteps": [
+        {
+          "time": "0~12분",
+          "text": "카탈루냐 광장 → 카사 바트요까지 걷기"
+        },
+        {
+          "time": "12~20분",
+          "text": "카사 바트요와 바로 옆 카사 아마트예르 외관만 보기"
+        },
+        {
+          "time": "20~30분",
+          "text": "카사 아마트예르 초콜릿 가게. 줄이 5분을 넘으면 포기"
+        },
+        {
+          "time": "30~50분",
+          "text": "람블라 데 카탈루냐 쪽으로 복귀. 화장실이 필요하면 카탈루냐 광장 엘 코르테 잉글레스 이용"
+        },
+        {
+          "time": "50분",
+          "text": "집합장소 도착. 남은 10분은 여유 시간"
+        }
+      ],
+      "routeTitleB": "B코스 · 리세우·보케리아 남쪽에서 풀릴 때",
+      "routeStepsB": [
+        {
+          "time": "판단",
+          "text": "카사 바트요는 포기하세요. 왕복 걷기만으로 자유시간 대부분이 사라집니다."
+        },
+        {
+          "time": "0~15분",
+          "text": "보케리아 안쪽으로 들어가기. 입구 첫 가게에서 바로 사지 말고 과일은 손대지 말고 가리키세요"
+        },
+        {
+          "time": "15~23분",
+          "text": "구매 영수증으로 지하 1층 화장실 이용"
+        },
+        {
+          "time": "23~38분",
+          "text": "레알 광장에서 앉아 쉬기. 카페콘레체가 €3를 넘으면 테라스·관광지 가격으로 보고 패스"
+        },
+        {
+          "time": "38~50분",
+          "text": "고딕지구 가장자리를 짧게 돌아 집합장소로 복귀"
+        }
+      ],
+      "fallback": "람블라에서는 청원서 서명, 옷에 묻은 것을 닦아주기, 가짜 경찰이 지갑을 보여달라는 접근에 멈춰 서지 마세요. 먼저 가방을 잡고 계속 걸으세요.",
+      "sourceName": "Casa Batlló 공식 안내·FAQ",
+      "sourceUrl": "https://www.casabatllo.es/en/visit/faqs/",
+      "sources": [
+        {
+          "name": "Casa Batlló 공식 안내·FAQ",
+          "url": "https://www.casabatllo.es/en/visit/faqs/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1024-montserrat-clothing",
+      "version": 1,
+      "date": "2026-10-24",
+      "trigger": "호텔 출발 전",
+      "category": "옷·신발 처방",
+      "icon": "🧥",
+      "place": "몬세라트",
+      "title": "몬세라트 겉옷은 버스에 두지 마세요",
+      "body": "산 위는 바람이 강하고 체감온도가 시내보다 낮아질 수 있습니다. 오후에는 성당 복장도 맞춰야 합니다.",
+      "action": "지퍼 겉옷을 들고 내리고, 어깨를 가릴 수 있는 얇은 겉옷이나 스카프를 작은 가방에 넣으세요.",
+      "lat": 41.593,
+      "lon": 1.837,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "sourceName": "Montserrat 공식 안내·여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1024-aeri",
+      "version": 1,
+      "date": "2026-10-24",
+      "trigger": "몬세라트 도착",
+      "category": "줄 패스",
+      "icon": "🚠",
+      "place": "Aeri 케이블카",
+      "title": "케이블카 5분보다 대기가 변수입니다",
+      "body": "Aeri 케이블카 이동은 약 5분이지만 약 15분 간격으로 운행해 단체 예약 시간과 어긋나면 기다려야 합니다.",
+      "action": "화장실이나 사진 때문에 단체에서 떨어지지 말고, 가이드가 정한 탑승 줄에서 전원과 함께 움직이세요.",
+      "lat": 41.593,
+      "lon": 1.837,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Montserrat 공식 케이블카 안내",
+      "sourceUrl": "https://www.montserratvisita.com/en/how-to-get-there/cable-car",
+      "sources": [
+        {
+          "name": "Montserrat 공식 케이블카 안내",
+          "url": "https://www.montserratvisita.com/en/how-to-get-there/cable-car"
+        }
+      ]
+    },
+    {
+      "id": "exp-1024-sagrada-tower",
+      "version": 1,
+      "date": "2026-10-24",
+      "trigger": "성가족성당 도착 전",
+      "category": "숨은 조건",
+      "icon": "🗼",
+      "place": "성가족성당",
+      "title": "타워는 올라갈 때만 엘리베이터입니다",
+      "body": "공식 안내상 타워는 엘리베이터로 올라가지만 내려올 때는 걸어서 내려와야 하며, 이동이 불편한 사람은 이용할 수 없습니다. 내부 입장이 포함되면 지정 시간·신분증·보안검색과 어깨를 가리는 복장도 중요합니다.",
+      "action": "무릎이 불편하거나 폐소감이 싫으면 타워 표를 사지 마세요. 내부 입장이면 여권 원본을 챙기고 큰 가방은 줄이세요.",
+      "lat": 41.4036,
+      "lon": 2.1744,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Sagrada Família 공식 타워·규칙 안내",
+      "sourceUrl": "https://sagradafamilia.org/en/sagrada-familia-and-tower",
+      "sources": [
+        {
+          "name": "Sagrada Família 공식 타워·규칙 안내",
+          "url": "https://sagradafamilia.org/en/sagrada-familia-and-tower"
+        }
+      ]
+    },
+    {
+      "id": "exp-1024-guell",
+      "version": 1,
+      "date": "2026-10-24",
+      "trigger": "구엘공원 도착 전",
+      "category": "손해방지",
+      "icon": "⏱️",
+      "place": "구엘공원",
+      "title": "구엘공원은 늦게 따로 들어갈 수 없습니다",
+      "body": "단체 예약은 전원이 같은 시간에 들어가야 하고 예약 시작 후 30분이 지나면 입장 권리를 잃을 수 있습니다. 한 번 나가면 재입장도 되지 않습니다.",
+      "action": "가이드가 안내한 입구에서 전원이 모인 뒤 들어가세요. 일행과 떨어지면 다른 입구로 혼자 들어가지 마세요.",
+      "lat": 41.4145,
+      "lon": 2.1527,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Park Güell 공식 단체 예약 안내",
+      "sourceUrl": "https://parkguell.barcelona/en/planning-your-visit/organized-groups?q=en%2Fplanning-your-visit%2Forganized-groups",
+      "sources": [
+        {
+          "name": "Park Güell 공식 단체 예약 안내",
+          "url": "https://parkguell.barcelona/en/planning-your-visit/organized-groups?q=en%2Fplanning-your-visit%2Forganized-groups"
+        }
+      ]
+    },
+    {
+      "id": "exp-1024-toilet-phrase",
+      "version": 1,
+      "date": "2026-10-24",
+      "trigger": "관광 중",
+      "category": "현지어 한마디",
+      "icon": "🚻",
+      "place": "바르셀로나 관광지",
+      "title": "화장실은 이 한마디로 물어보세요",
+      "body": "몬세라트와 관광지에서는 단체가 움직이기 전에 화장실 위치를 묻는 것이 가장 빠릅니다.",
+      "action": "직원에게 아래 문장을 보여주거나 읽어보세요.",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "priority": 5,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "phrase": {
+        "text": "¿Dónde están los servicios?",
+        "pronunciation": "돈-데 에스-딴 로스 세르-비-시-오스?",
+        "meaning": "화장실이 어디예요?"
+      },
+      "sourceName": "현지어 표현",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1025-dst",
+      "version": 1,
+      "date": "2026-10-25",
+      "trigger": "기상 직후",
+      "category": "시간 함정",
+      "icon": "🕐",
+      "place": "바르셀로나 호텔",
+      "title": "오늘 새벽 시계가 1시간 뒤로 갔습니다",
+      "body": "스페인은 10월 25일 새벽 서머타임이 끝나 현지 시각이 1시간 늦어집니다. 휴대폰 자동 시간대가 꺼져 있으면 열차 시간을 잘못 볼 수 있습니다.",
+      "action": "휴대폰 날짜·시간·시간대 자동 설정을 켜고 손목시계와 같은지 확인하세요.",
+      "lat": 41.3874,
+      "lon": 2.1686,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "유럽 서머타임 종료 안내",
+      "sourceUrl": "https://www.timeanddate.com/news/time/europe-dst-end-2026.html",
+      "sources": [
+        {
+          "name": "유럽 서머타임 종료 안내",
+          "url": "https://www.timeanddate.com/news/time/europe-dst-end-2026.html"
+        }
+      ]
+    },
+    {
+      "id": "exp-1025-ave-group",
+      "version": 1,
+      "date": "2026-10-25",
+      "trigger": "열차역 도착",
+      "category": "줄 패스",
+      "icon": "🚄",
+      "place": "바르셀로나 산츠역",
+      "title": "AVE 단체표는 보안검색부터 함께 통과하세요",
+      "body": "Renfe 단체 여행자는 하나의 단체표로 탑승 통제를 함께 통과해야 하고 큰 역에서는 짐 X-ray 검사가 있습니다. 단체는 출발 30~45분 전 도착이 권장됩니다.",
+      "action": "역에서 간식이나 화장실 때문에 먼저 떨어지지 마세요. 큰 짐은 직접 객차 보관공간에 넣을 준비를 하세요.",
+      "lat": 41.379,
+      "lon": 2.14,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Renfe 공식 단체 안내",
+      "sourceUrl": "https://www.renfe.com/es/en/ayuda/faqs/grupos",
+      "sources": [
+        {
+          "name": "Renfe 공식 단체 안내",
+          "url": "https://www.renfe.com/es/en/ayuda/faqs/grupos"
+        }
+      ]
+    },
+    {
+      "id": "exp-1025-train-golden",
+      "version": 1,
+      "date": "2026-10-25",
+      "trigger": "체크아웃 전",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "호텔·산츠역",
+      "title": "화장실은 호텔에서 먼저 다녀오세요",
+      "body": "역에서는 단체 보안검색과 탑승 통제가 이어져 따로 움직일 여유가 적습니다.",
+      "action": "체크아웃 전에 객실 화장실을 이용하고, 여권과 귀중품은 큰 캐리어가 아닌 작은 가방에 두세요.",
+      "lat": 41.379,
+      "lon": 2.14,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 일정·Renfe 안내",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1025-madrid-safety",
+      "version": 1,
+      "date": "2026-10-25",
+      "trigger": "마드리드 도착",
+      "category": "돈·안전",
+      "icon": "📱",
+      "place": "그랑비아·마요르 광장",
+      "title": "마드리드 중심가에서는 바깥 주머니를 비우세요",
+      "body": "관광지와 교통 거점에서는 주의를 끄는 사이 가방이나 여권을 노리는 절도에 주의해야 합니다.",
+      "action": "여권과 휴대폰은 바깥 주머니에 두지 말고, 가방은 앞으로 메세요. 사진을 찍은 뒤 바로 가방에 넣으세요.",
+      "lat": 40.4168,
+      "lon": -3.7038,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "미국 국무부 스페인 여행 주의",
+      "sourceUrl": "https://travel.state.gov/en/international-travel/travel-advisories/spain.html",
+      "sources": [
+        {
+          "name": "미국 국무부 스페인 여행 주의",
+          "url": "https://travel.state.gov/en/international-travel/travel-advisories/spain.html"
+        }
+      ]
+    },
+    {
+      "id": "exp-1025-madrid-clothing",
+      "version": 1,
+      "date": "2026-10-25",
+      "trigger": "마드리드 도착 전",
+      "category": "옷·신발 처방",
+      "icon": "👟",
+      "place": "마드리드",
+      "title": "오늘은 열차보다 도착 뒤 걷기가 더 깁니다",
+      "body": "기차에서 3시간 넘게 앉은 뒤 그랑비아와 광장을 걷습니다. 마드리드는 바르셀로나보다 아침·저녁이 서늘하게 느껴질 수 있습니다.",
+      "action": "가장 익숙한 운동화와 지퍼 겉옷을 입고, 기차에서 내리기 전에 다리를 가볍게 움직이세요.",
+      "lat": 40.4168,
+      "lon": -3.7038,
+      "priority": 5,
+      "stars": 4,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "sourceName": "여행 일정·날씨 예보",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1026-cathedral",
+      "version": 1,
+      "date": "2026-10-26",
+      "trigger": "톨레도 도착 전",
+      "category": "숨은 조건",
+      "icon": "⛪",
+      "place": "톨레도 대성당",
+      "title": "대성당은 복장과 입장 마감이 먼저입니다",
+      "body": "톨레도 대성당 희년이 시작된 직후라 순례객과 종교 행사로 동선이 바뀔 수 있고, 단정한 복장만 허용됩니다. 관광 입구는 폐장 30분 전에 닫힙니다.",
+      "action": "어깨와 무릎을 가리는 옷을 입고 단체 입장 시간을 자유시간보다 먼저 맞추세요.",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "톨레도 대성당 공식 입장 안내",
+      "sourceUrl": "https://www.catedralprimada.es/en/cultural-visit/tickets-toledo-cathedral/",
+      "sources": [
+        {
+          "name": "톨레도 대성당 공식 입장 안내",
+          "url": "https://www.catedralprimada.es/en/cultural-visit/tickets-toledo-cathedral/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1026-scarf",
+      "version": 1,
+      "date": "2026-10-26",
+      "trigger": "호텔 출발 전",
+      "category": "비밀무기",
+      "icon": "🧣",
+      "place": "톨레도 대성당",
+      "title": "오늘의 비밀무기는 얇은 스카프입니다",
+      "body": "스카프 하나면 성당에서 어깨를 가리고, 실내가 서늘할 때 목을 덮을 수 있습니다. 큰 겉옷보다 가방에 넣기 쉽습니다.",
+      "action": "스카프를 작은 가방 맨 위에 넣으세요.",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "secretItem": "얇은 스카프",
+      "secretWhy": "대성당 복장 규정과 실내 서늘함을 한 번에 해결하기 때문입니다.",
+      "sourceName": "톨레도 대성당 공식 안내",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1026-shoes",
+      "version": 1,
+      "date": "2026-10-26",
+      "trigger": "톨레도 도착 전",
+      "category": "옷·신발 처방",
+      "icon": "👟",
+      "place": "톨레도 구시가지",
+      "title": "톨레도는 거리보다 오르막이 문제입니다",
+      "body": "구시가지는 좁은 골목과 경사가 많아 지도에서 가까워 보여도 체력 소모가 큽니다.",
+      "action": "새 신발이 아니라 가장 익숙한 운동화를 신으세요. 오르막에서는 가이드 바로 뒤를 따라가려 무리하지 말고 일정한 속도를 유지하세요.",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "sourceName": "여행 일정·날씨 예보",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1026-receiver",
+      "version": 1,
+      "date": "2026-10-26",
+      "trigger": "관광 시작 전",
+      "category": "손해방지",
+      "icon": "🎧",
+      "place": "톨레도 단체관광",
+      "title": "수신기는 잃어버리면 $85입니다",
+      "body": "여행사 안내문 기준 개인수신기 교체비용은 한 대에 $85입니다. 식당 테이블이나 성당 좌석에 두고 일어나기 쉽습니다.",
+      "action": "수신기는 목에 걸거나 가방 안쪽 고리에 연결하고, 자리에서 일어날 때 한 번 만져 확인하세요.",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1026-sword",
+      "version": 1,
+      "date": "2026-10-26",
+      "trigger": "쇼핑할 때",
+      "category": "기념품 판단",
+      "icon": "⚔️",
+      "place": "톨레도 기념품점",
+      "title": "칼 기념품은 기내가방에 넣지 마세요",
+      "body": "톨레도에서는 칼과 검 모양 기념품을 많이 팝니다. 장식용이라도 비행기 기내 반입은 안 됩니다.",
+      "action": "살 거면 가격을 보기 전에 위탁수하물 포장과 배송 가능 여부부터 물어보세요.",
+      "lat": 39.8628,
+      "lon": -4.0273,
+      "priority": 5,
+      "stars": 4,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "항공 보안 일반 원칙",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1027-smallbag",
+      "version": 1,
+      "date": "2026-10-27",
+      "trigger": "전날 밤",
+      "category": "비밀무기",
+      "icon": "🎒",
+      "place": "톨레도→그라나다",
+      "title": "내일은 작은 가방 하나가 하루를 살립니다",
+      "body": "톨레도에서 코르도바까지 약 3시간 30분~4시간, 다시 그라나다까지 약 2시간 15분~2시간 45분 이동합니다. 큰 캐리어는 중간에 꺼내기 어렵습니다.",
+      "action": "전날 밤 물, 상비약, 멀미약, 간식, 충전기, 겉옷을 작은 가방에 따로 넣으세요.",
+      "lat": 37.879,
+      "lon": -4.779,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1027-reststop",
+      "version": 1,
+      "date": "2026-10-27",
+      "trigger": "휴게 정차",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "장거리 버스",
+      "title": "휴게소에서는 커피보다 화장실 먼저입니다",
+      "body": "단체가 한꺼번에 내리면 커피 줄보다 화장실 줄이 먼저 길어집니다. 다음 정차까지 시간이 길 수 있습니다.",
+      "action": "버스가 서면 화장실부터 다녀오고, 그다음에 물과 간식을 사세요. 버스 출발 시간을 사진으로 남기세요.",
+      "lat": 37.879,
+      "lon": -4.779,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1027-mezquita",
+      "version": 1,
+      "date": "2026-10-27",
+      "trigger": "메스키타 입장 전",
+      "category": "숨은 조건",
+      "icon": "🕌",
+      "place": "메스키타·대성당",
+      "title": "메스키타에서는 모자를 먼저 벗으세요",
+      "body": "가톨릭 예배 공간이라 단정한 옷차림과 정숙이 요구되고, 모자 착용과 큰 짐 반입이 제한됩니다. 10명이 넘는 가이드 단체는 수신기 사용이 의무입니다.",
+      "action": "들어가기 전에 모자는 가방에 넣고 수신기와 이어폰이 잘 들리는지 확인하세요.",
+      "lat": 37.879,
+      "lon": -4.779,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "메스키타 공식 방문 규칙",
+      "sourceUrl": "https://mezquita-catedraldecordoba.es/en/organiza-la-visita/normativa/",
+      "sources": [
+        {
+          "name": "메스키타 공식 방문 규칙",
+          "url": "https://mezquita-catedraldecordoba.es/en/organiza-la-visita/normativa/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1027-coffee-phrase",
+      "version": 1,
+      "date": "2026-10-27",
+      "trigger": "휴게 정차",
+      "category": "현지어 한마디",
+      "icon": "☕",
+      "place": "휴게소 카페",
+      "title": "테이크아웃 커피는 이 한마디로 주문하세요",
+      "body": "정차 시간이 짧을 때는 메뉴를 오래 고르지 않는 것이 중요합니다. 화장실을 먼저 다녀온 뒤에만 주문하세요.",
+      "action": "아래 문장을 읽어보세요.",
+      "lat": 37.879,
+      "lon": -4.779,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "phrase": {
+        "text": "Un café con leche para llevar, por favor.",
+        "pronunciation": "운 까-페 콘 레-체 빠-라 예-바르, 뽀르 파-보르",
+        "meaning": "테이크아웃으로 카페콘레체 한 잔 주세요."
+      },
+      "sourceName": "현지어 표현",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1027-clothing",
+      "version": 1,
+      "date": "2026-10-27",
+      "trigger": "호텔 출발 전",
+      "category": "옷·신발 처방",
+      "icon": "🧥",
+      "place": "코르도바·그라나다",
+      "title": "오늘은 앉는 시간과 걷는 시간이 번갈아 옵니다",
+      "body": "장거리 버스에서는 에어컨 때문에 서늘하고, 코르도바에서는 오래 걷습니다. 한 벌로 버티기보다 벗고 입기 쉬운 옷이 좋습니다.",
+      "action": "지퍼 겉옷을 작은 가방에 넣고, 정차 때마다 다리를 움직이세요.",
+      "lat": 37.1773,
+      "lon": -3.5986,
+      "priority": 5,
+      "stars": 4,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "sourceName": "여행 일정·날씨 예보",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1028-alhambra-passport",
+      "version": 1,
+      "date": "2026-10-28",
+      "trigger": "호텔 출발 전",
+      "category": "손해방지",
+      "icon": "🛂",
+      "place": "알함브라",
+      "title": "알함브라는 여권 원본이 없으면 못 들어갈 수 있습니다",
+      "body": "입장권은 본인 이름으로 발행되며 입구에서 원본 신분증이나 여권을 제시해야 합니다. 나스르 궁전은 표에 적힌 시간에만 들어갈 수 있고 늦으면 입장이 불가능합니다.",
+      "action": "아침에 여권 원본이 작은 가방에 있는지 확인하고, 가이드가 알려준 궁전 시간보다 먼저 집합하세요.",
+      "lat": 37.176,
+      "lon": -3.588,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "알함브라 공식 입장 안내",
+      "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+      "sources": [
+        {
+          "name": "알함브라 공식 입장 안내",
+          "url": "https://tickets.alhambra-patronato.es/en/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1028-backpack",
+      "version": 1,
+      "date": "2026-10-28",
+      "trigger": "알함브라 입장 전",
+      "category": "숨은 조건",
+      "icon": "🎒",
+      "place": "알함브라 입구",
+      "title": "40×40cm보다 큰 배낭은 가져가지 마세요",
+      "body": "공식 안내상 40×40cm를 넘는 배낭은 반입이 제한됩니다. 입장권 QR도 관람이 끝날 때까지 필요합니다.",
+      "action": "작은 가방만 들고 들어가고 입장권 QR은 휴대폰이나 종이로 끝까지 보관하세요.",
+      "lat": 37.176,
+      "lon": -3.588,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "알함브라 공식 입장 안내",
+      "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+      "sources": [
+        {
+          "name": "알함브라 공식 입장 안내",
+          "url": "https://tickets.alhambra-patronato.es/en/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1028-ticket-time",
+      "version": 1,
+      "date": "2026-10-28",
+      "trigger": "알함브라 도착",
+      "category": "시간 함정",
+      "icon": "⏱️",
+      "place": "나스르 궁전",
+      "title": "표 수령이 있으면 궁전 시간 1시간 전이 기준입니다",
+      "body": "나스르 궁전 표를 현장에서 사거나 찾아야 하면, 궁전 입장 시간 최소 1시간 전에 절차를 마쳐야 합니다. 알함브라 전체 입구 도착과 궁전 문 앞 도착은 다릅니다.",
+      "action": "단체에서 떨어져 기념품점이나 화장실에 먼저 가지 말고 가이드의 집합 순서를 따르세요.",
+      "lat": 37.176,
+      "lon": -3.588,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "알함브라 공식 입장 안내",
+      "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+      "sources": [
+        {
+          "name": "알함브라 공식 입장 안내",
+          "url": "https://tickets.alhambra-patronato.es/en/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1028-Ronda",
+      "version": 1,
+      "date": "2026-10-28",
+      "trigger": "론다 도착",
+      "category": "안전",
+      "icon": "🌉",
+      "place": "누에보 다리",
+      "title": "협곡 아래 길은 일정에 있을 때만 내려가세요",
+      "body": "누에보 다리는 약 98m 협곡 위에 있고 아래 전망대로 내려가는 길은 가파른 자갈·돌길 구간이 있어 시간이 많이 걸릴 수 있습니다.",
+      "action": "난간 안쪽에서만 사진을 찍고, 바람이 불면 모자와 휴대폰을 꼭 잡으세요. 무릎이 불편하면 위 전망대에서 보세요.",
+      "lat": 36.746,
+      "lon": -5.161,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Ronda Today 누에보 다리 안내",
+      "sourceUrl": "https://rondatoday.com/puente-nuevo-and-el-tajo-gorge/",
+      "sources": [
+        {
+          "name": "Ronda Today 누에보 다리 안내",
+          "url": "https://rondatoday.com/puente-nuevo-and-el-tajo-gorge/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1028-transfer-toilet",
+      "version": 1,
+      "date": "2026-10-28",
+      "trigger": "론다 출발 전",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "론다→세비야",
+      "title": "세비야 이동 전에 화장실부터 다녀오세요",
+      "body": "론다에서 세비야까지 약 1시간 45분~2시간 15분 이동합니다. 협곡 사진을 더 찍는 것보다 출발 전 화장실이 중요합니다.",
+      "action": "버스에 타기 전에 화장실을 이용하고 물과 겉옷을 작은 가방에 두세요.",
+      "lat": 37.386,
+      "lon": -5.993,
+      "priority": 5,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "sourceName": "여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1029-seville-dress",
+      "version": 1,
+      "date": "2026-10-29",
+      "trigger": "호텔 출발 전",
+      "category": "숨은 조건",
+      "icon": "⛪",
+      "place": "세비야 대성당",
+      "title": "어깨가 드러나면 대성당 입장이 막힐 수 있습니다",
+      "body": "세비야 대성당은 어깨가 드러나는 옷과 지나치게 짧은 하의를 제한하고, 표에 적힌 시간에 맞춰 입장하며 재입장이 되지 않습니다.",
+      "action": "어깨를 가릴 겉옷을 들고 표 시간 10분 전에 해당 문 앞에 도착하세요.",
+      "lat": 37.386,
+      "lon": -5.993,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "세비야 대성당 공식 관람 안내",
+      "sourceUrl": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/",
+      "sources": [
+        {
+          "name": "세비야 대성당 공식 관람 안내",
+          "url": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1029-giralda",
+      "version": 1,
+      "date": "2026-10-29",
+      "trigger": "대성당 내부",
+      "category": "몸 관리",
+      "icon": "🗼",
+      "place": "히랄다 탑",
+      "title": "히랄다 탑은 계단보다 길이가 문제입니다",
+      "body": "탑은 약 80m 높이까지 34개의 경사로와 17개 계단을 올라갑니다. 현기증이나 심장·호흡 문제가 있으면 권하지 않습니다.",
+      "action": "무릎과 호흡 상태를 보고 결정하세요. 탑을 오르지 않아도 대성당 내부는 볼 수 있습니다.",
+      "lat": 37.386,
+      "lon": -5.993,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "세비야 대성당 공식 관람 안내",
+      "sourceUrl": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/",
+      "sources": [
+        {
+          "name": "세비야 대성당 공식 관람 안내",
+          "url": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1029-bus-timezone",
+      "version": 1,
+      "date": "2026-10-29",
+      "trigger": "중식 후",
+      "category": "시간 함정",
+      "icon": "🕐",
+      "place": "세비야→리스본",
+      "title": "리스본에 도착하면 시계가 1시간 뒤로 갑니다",
+      "body": "점심 뒤 리스본까지 약 4시간 30분~5시간 30분 이동합니다. 포르투갈은 스페인보다 1시간 늦어 휴대폰 시간이 바뀔 수 있습니다.",
+      "action": "여권, 약, 물, 충전기는 작은 가방에 두고 도착 뒤 휴대폰 시간이 Europe/Lisbon으로 바뀌었는지 확인하세요.",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1029-before-bus",
+      "version": 1,
+      "date": "2026-10-29",
+      "trigger": "버스 탑승 전",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "세비야 식당",
+      "title": "국경을 넘는 버스 전에는 식당 화장실이 마지막 확실한 기회입니다",
+      "body": "다음 휴게 정차까지 시간이 길어질 수 있습니다. 식당에서 계산을 기다리는 시간에 먼저 다녀오는 편이 안전합니다.",
+      "action": "버스가 오기 전에 화장실을 이용하고 버스 출발 시간을 사진으로 남기세요.",
+      "lat": 37.386,
+      "lon": -5.993,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1029-couvert",
+      "version": 1,
+      "date": "2026-10-29",
+      "trigger": "리스본 석식",
+      "category": "돈·현지 주문",
+      "icon": "🍞",
+      "place": "리스본 식당",
+      "title": "빵·올리브는 손대면 요금이 붙을 수 있습니다",
+      "body": "포르투갈 식당에서 먼저 나오는 쿠베르(couvert)는 무료 서비스가 아닐 수 있습니다. 규정상 주문하지 않았고 손대지 않은 것은 청구할 수 없지만, 한 조각이라도 먹으면 메뉴 가격을 내야 할 수 있습니다.",
+      "action": "필요 없으면 손대지 말고 아래 한마디로 말하세요.",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "priority": 5,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "phrase": {
+        "text": "Não, obrigado.",
+        "pronunciation": "나웅, 오브리가두",
+        "meaning": "괜찮습니다. 사양하겠습니다. (여성은 obrigada: 오브리가다)"
+      },
+      "sourceName": "Montepio 소비자 규칙 안내",
+      "sourceUrl": "https://www.montepio.org/ei/pessoal/tem-de-pagar-o-couvert-gelo-ou-copos-de-agua-no-restaurante-conheca-as-regras/",
+      "sources": [
+        {
+          "name": "Montepio 소비자 규칙 안내",
+          "url": "https://www.montepio.org/ei/pessoal/tem-de-pagar-o-couvert-gelo-ou-copos-de-agua-no-restaurante-conheca-as-regras/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1030-sintra-time",
+      "version": 1,
+      "date": "2026-10-30",
+      "trigger": "전날 밤·아침",
+      "category": "시간 함정",
+      "icon": "🏰",
+      "place": "신트라 입장 시설",
+      "title": "신트라 표 시간은 공원 입구가 아닐 수 있습니다",
+      "body": "페나 궁전이라면 표 시간은 궁전 내부 입장 시간이고, 공원 입구에서 궁전까지 약 30분이 걸립니다. 늦으면 다음 시간으로 바꿔주지 않습니다. 시설이 무어성이어도 가파른 언덕길이 변수입니다.",
+      "action": "전날 밤 시설명과 입장 시간을 앱 가이드 공지에 남기고, 아침에는 미끄럽지 않은 신발과 겉옷을 준비하세요.",
+      "lat": 38.787,
+      "lon": -9.391,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "Parques de Sintra 공식 페나 궁전 안내",
+      "sourceUrl": "https://www.parquesdesintra.pt/en/plan-your-visit/tickets-palace-of-pena/",
+      "sources": [
+        {
+          "name": "Parques de Sintra 공식 페나 궁전 안내",
+          "url": "https://www.parquesdesintra.pt/en/plan-your-visit/tickets-palace-of-pena/"
+        }
+      ]
+    },
+    {
+      "id": "exp-1030-shoes",
+      "version": 1,
+      "date": "2026-10-30",
+      "trigger": "호텔 출발 전",
+      "category": "옷·신발 처방",
+      "icon": "👟",
+      "place": "신트라·리스본",
+      "title": "오늘은 밑창이 깊은 신발이 정답입니다",
+      "body": "신트라 언덕과 리스본 물결무늬 돌바닥은 젖으면 미끄럽고, 지도에서 가까워 보여도 경사 때문에 시간이 오래 걸립니다.",
+      "action": "밑창 패턴이 있는 가장 익숙한 운동화를 신으세요. 비가 오면 우산보다 방수 겉옷이 걷기 편합니다.",
+      "lat": 38.787,
+      "lon": -9.391,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "weatherMode": "clothing",
+      "sourceName": "리스본 여행자 경험·날씨 예보",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1030-toilets",
+      "version": 1,
+      "date": "2026-10-30",
+      "trigger": "관광지 이동 전",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "로시우·벨렘",
+      "title": "리스본 화장실은 동전과 카드 둘 다 준비하세요",
+      "body": "공중화장실이 유료이거나 닫혀 있을 수 있어, 관광지를 옮기기 전 박물관·쇼핑센터·카페 화장실을 먼저 이용하는 편이 안전합니다.",
+      "action": "작은 동전과 카드를 모두 꺼내기 쉬운 곳에 두고, 버스에 타기 전에 한 번 다녀오세요.",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "secretItem": "작은 유로 동전",
+      "secretWhy": "유료 화장실에서 카드가 안 되거나 잔돈이 없을 때 바로 쓰기 때문입니다.",
+      "sourceName": "리스본 여행자 경험담",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1030-nata",
+      "version": 1,
+      "date": "2026-10-30",
+      "trigger": "벨렘 자유시간",
+      "category": "먹거리·현지 주문",
+      "icon": "🥧",
+      "place": "벨렘",
+      "title": "나타는 따뜻한 것으로 달라고 해보세요",
+      "body": "벨렘에서 파스텔 드 나타를 사게 되면, 갓 나온 따뜻한 것이 겉은 바삭하고 속은 부드럽습니다. 계피와 슈가파우더는 취향껏 조금만 뿌리세요.",
+      "action": "아래 한마디로 주문하세요.",
+      "lat": 38.697,
+      "lon": -9.206,
+      "priority": 4,
+      "stars": 4,
+      "verifiedAt": "2026-10-21",
+      "phrase": {
+        "text": "Um pastel de nata quentinho, por favor.",
+        "pronunciation": "웅 빠스-뗄 드 나타 낀-띠-뉴, 뽀르 파-보르",
+        "meaning": "따뜻한 파스텔 드 나타 한 개 주세요."
+      },
+      "sourceName": "현지어 표현",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1030-free-radius",
+      "version": 1,
+      "date": "2026-10-30",
+      "trigger": "자유시간 시작",
+      "category": "자유시간 황금동선",
+      "icon": "🧭",
+      "place": "로시우·벨렘",
+      "title": "리스본 자유시간은 반경을 절반으로 잡으세요",
+      "body": "언덕과 돌길 때문에 지도상 10분 거리가 실제로는 더 걸릴 수 있습니다. 멀리 한 곳을 더 보는 것보다 집합장소 가까이에서 화장실·간식·휴식을 끝내는 편이 안전합니다.",
+      "action": "30분이 생기면 이동 10분, 화장실·간식 10분, 복귀·여유 10분으로 나누세요.",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "priority": 5,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "routeTitle": "30분 자유시간 기본형",
+      "routeSteps": [
+        {
+          "time": "0~5분",
+          "text": "집합장소와 가장 큰 건물·간판을 사진으로 남기기"
+        },
+        {
+          "time": "5~15분",
+          "text": "가장 가까운 카페나 시설에서 화장실과 물 해결"
+        },
+        {
+          "time": "15~22분",
+          "text": "간식 한 가지만 사고 앉아서 쉬기"
+        },
+        {
+          "time": "22분",
+          "text": "복귀 시작. 남은 8분은 신호·언덕·혼잡 여유"
+        }
+      ],
+      "sourceName": "여행 일정",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1031-flight-time",
+      "version": 1,
+      "date": "2026-10-31",
+      "trigger": "전날 밤",
+      "category": "손해방지",
+      "icon": "✈️",
+      "place": "AA259",
+      "title": "귀국편은 출발 시각 차이를 전날 끝내세요",
+      "body": "안내문 안에서도 항공권 10:55와 일정표 11:05가 다릅니다. 리스본 American Airlines 체크인·수하물 마감은 출발 75분 전으로 안내됩니다.",
+      "action": "전날 항공사 앱이나 여행사로 최종 출발 시각을 확정하고 호텔 출발 시각을 알람으로 맞추세요.",
+      "lat": 38.7742,
+      "lon": -9.1342,
+      "priority": 1,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "navAirSection": "flights",
+      "sourceName": "American Airlines 체크인 안내",
+      "sourceUrl": "https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html",
+      "sources": [
+        {
+          "name": "American Airlines 체크인 안내",
+          "url": "https://www.aa.com/web/i18n/travel-info/check-in-and-arrival.html"
+        }
+      ]
+    },
+    {
+      "id": "exp-1031-hotel-before",
+      "version": 1,
+      "date": "2026-10-31",
+      "trigger": "호텔 출발 전",
+      "category": "화장실 골든타임",
+      "icon": "🚻",
+      "place": "리스본 호텔",
+      "title": "공항 가기 전 호텔 화장실이 가장 편합니다",
+      "body": "Mercure Lisboa Almada에서 공항까지는 25 de Abril 대교 정체 변수가 있어 버스 안에서 오래 기다릴 수 있습니다.",
+      "action": "조식 뒤 객실 화장실을 이용하고 여권, 약, 충전기를 작은 가방에 넣으세요.",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "priority": 2,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "secretItem": "여권과 상비약",
+      "secretWhy": "공항 체크인과 장거리 비행 중 큰 캐리어에서 꺼낼 수 없기 때문입니다.",
+      "sourceName": "여행 일정·공항 안내",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1031-lis-airport",
+      "version": 1,
+      "date": "2026-10-31",
+      "trigger": "공항 도착",
+      "category": "공항 모드",
+      "icon": "🛫",
+      "place": "LIS Terminal 1",
+      "title": "면세점보다 출국심사를 먼저 지나세요",
+      "body": "리스본 공항은 보안검색 뒤에도 미국행 비솅겐 출국 여권심사가 한 번 더 있습니다. 여기서 줄이 길어지면 게이트까지 시간이 부족해집니다.",
+      "action": "Terminal 1 Departures에서 AA259 카운터를 확인한 뒤 체크인 → 보안검색 → 출국심사 → 게이트 순서로 움직이세요.",
+      "lat": 38.7742,
+      "lon": -9.1342,
+      "priority": 3,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "routeTitle": "공항 안에서 이 순서로 움직이세요",
+      "routeSteps": [
+        {
+          "time": "1",
+          "text": "전광판에서 AA259 Area C 카운터 번호 확인"
+        },
+        {
+          "time": "2",
+          "text": "여권 확인과 위탁수하물 맡기기"
+        },
+        {
+          "time": "3",
+          "text": "보안검색 통과"
+        },
+        {
+          "time": "4",
+          "text": "쇼핑보다 비솅겐 출국심사 먼저 통과"
+        },
+        {
+          "time": "5",
+          "text": "게이트를 확인한 뒤 남은 시간에 화장실과 물 준비"
+        }
+      ],
+      "navAirSection": "airports",
+      "sourceName": "American Airlines 리스본 공항 안내",
+      "sourceUrl": "https://www.aa.com/i18n/travelInformation/destinationInformation/lis-airport.html",
+      "sources": [
+        {
+          "name": "American Airlines 리스본 공항 안내",
+          "url": "https://www.aa.com/i18n/travelInformation/destinationInformation/lis-airport.html"
+        }
+      ]
+    },
+    {
+      "id": "exp-1031-cabin-bag",
+      "version": 1,
+      "date": "2026-10-31",
+      "trigger": "탑승 전",
+      "category": "비밀무기",
+      "icon": "🎒",
+      "place": "AA259 기내",
+      "title": "귀국 비행 작은 가방에는 이 다섯 가지만 따로 두세요",
+      "body": "장거리 비행과 미국 입국 절차에서는 큰 캐리어를 다시 열 수 없습니다. 필요한 것을 좌석 아래 가방에 모아두면 통로에서 헤매지 않습니다.",
+      "action": "여권·영주권(해당 시), 상비약, 충전기, 물티슈, 가벼운 겉옷을 작은 가방에 넣으세요.",
+      "lat": 38.7742,
+      "lon": -9.1342,
+      "priority": 4,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "sourceName": "여행 안내문",
+      "sourceUrl": "",
+      "sources": []
+    },
+    {
+      "id": "exp-1031-phl-arrival",
+      "version": 1,
+      "date": "2026-10-31",
+      "trigger": "필라델피아 도착",
+      "category": "공항 모드",
+      "icon": "🛬",
+      "place": "PHL Terminal A-West",
+      "title": "필라델피아에서는 입국심사 뒤에 짐을 찾으세요",
+      "body": "국제선 도착은 CBP 입국심사, 수하물 수령, 세관 순서입니다. 짐이 늦게 나오면 도착 로비로 나가는 시간도 늦어집니다.",
+      "action": "U.S. Customs/Immigration 표지를 따라가 심사 → 수하물 → 세관 → International Arrivals Hall 순서로 이동하세요.",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "priority": 5,
+      "stars": 5,
+      "verifiedAt": "2026-10-21",
+      "routeTitle": "귀국 도착 순서",
+      "routeSteps": [
+        {
+          "time": "1",
+          "text": "CBP 입국심사에서 여권과 영주권(해당 시) 제시"
+        },
+        {
+          "time": "2",
+          "text": "국제선 수하물 구역에서 위탁수하물 찾기"
+        },
+        {
+          "time": "3",
+          "text": "세관을 지나 International Arrivals Hall로 나가기"
+        },
+        {
+          "time": "4",
+          "text": "엘리베이터로 지상층 Arrivals 도로 쪽에서 여행사 차량 만나기"
+        }
+      ],
+      "navAirSection": "airports",
+      "sourceName": "PHL 공항 항공사 안내",
+      "sourceUrl": "https://www.phl.org/flights/airline-information",
+      "sources": [
+        {
+          "name": "PHL 공항 항공사 안내",
+          "url": "https://www.phl.org/flights/airline-information"
+        }
+      ]
+    }
+  ],
+  "contextPlaces": [
+    {
+      "id": "place-phl-departure",
+      "version": 1,
+      "type": "airport",
+      "name": "필라델피아 국제공항 Terminal A-West",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "radiusM": 3000,
+      "nowBody": "AA742 출발 공항입니다.",
+      "doNow": [
+        "전광판에서 AA742 터미널과 게이트를 다시 확인하세요.",
+        "여권은 손가방 앞칸에 두세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-22",
+      "airportCode": "PHL",
+      "mode": "departure",
+      "terminal": "Terminal A-West",
+      "stageGuide": {
+        "outside": "Departures 도로에서 Terminal A-West 표지를 보고 내리세요. 안으로 들어가면 American Airlines 카운터와 키오스크가 있는 티켓팅 로비가 기준입니다.",
+        "kiosk": "여권이나 예약번호로 탑승권과 수하물 태그를 출력하세요. 단체·여행사 예약으로 막히면 키오스크에서 헤매지 말고 American Airlines 카운터로 가세요.",
+        "bagdrop": "수하물 태그를 붙이고 Bag Drop에 맡긴 뒤 TSA/security 표지를 따라가세요. 여권과 탑승권은 다시 손가방 앞칸으로 넣으세요.",
+        "security": "탑승권과 여권을 준비하고, 100ml가 넘는 액체는 기내 가방에서 빼세요. 벨트·노트북 분리는 검사대 표지와 직원 안내를 따르세요.",
+        "airside": "보안검색이 끝나면 먼저 전광판에서 AA742 게이트를 확인한 뒤 A14~A26 방향 표지를 따라가세요. 물과 화장실은 게이트 근처에서 해결하세요.",
+        "gate": "게이트 화면에서 탑승구와 출발 상태가 바뀌지 않았는지 확인하세요. 탑승권의 Group/Zone을 보고 자기 그룹을 부를 때까지 앉아서 기다리세요.",
+        "boarding": "여권과 탑승권을 꺼내세요. 큰 기내 가방은 머리 위 선반, 약과 귀중품이 든 작은 가방은 앞좌석 아래에 두세요."
+      },
+      "sourceName": "PHL 공항 항공사 안내",
+      "sourceUrl": "https://www.phl.org/flights/airline-information"
+    },
+    {
+      "id": "place-bcn-arrival",
+      "version": 1,
+      "type": "airport",
+      "name": "바르셀로나 엘프라트 공항 Terminal 1",
+      "lat": 41.2974,
+      "lon": 2.0833,
+      "radiusM": 3000,
+      "nowBody": "AA742 도착 공항입니다.",
+      "doNow": [
+        "Arrivals와 Passport Control 표지를 따라가세요.",
+        "여권은 손가방 앞칸에 두세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-23",
+      "airportCode": "BCN",
+      "mode": "arrival",
+      "terminal": "Terminal 1",
+      "stageGuide": {
+        "landed": "비행기에서 내리면 Arrivals와 Passport Control 표지를 따라가세요. 화장실이 급하지 않으면 입국심사 줄이 길어지기 전에 먼저 이동하세요.",
+        "passport": "유럽 EES 첫 입국 등록으로 얼굴 사진과 지문 확인이 있을 수 있습니다. 여권에 도장이 없어도 전자 기록으로 처리될 수 있으니 놀라지 마세요.",
+        "baggage": "전광판에서 AA742 수하물 벨트 번호를 확인하세요. 비슷한 가방이 많아 이름표와 수하물 태그 번호를 꼭 대조하세요.",
+        "customs": "세관 구역을 지나 도착 로비 방향으로 나가세요. 짐이 나오지 않았으면 로비로 먼저 나가지 말고 수하물 안내 직원에게 태그를 보여주세요.",
+        "meeting": "도착 로비에서 가이드와 여행사 피켓을 찾으세요. 보이지 않으면 공항 밖으로 혼자 나가지 말고 로비에서 여행사·가이드 연락처로 전화하세요."
+      },
+      "sourceName": "Aena 바르셀로나 공항 안내",
+      "sourceUrl": "https://www.aena.es/en/josep-tarradellas-barcelona-el-prat/airlines/american-airlines.html"
+    },
+    {
+      "id": "place-lis-departure",
+      "version": 1,
+      "type": "airport",
+      "name": "리스본 공항 Terminal 1",
+      "lat": 38.7742,
+      "lon": -9.1342,
+      "radiusM": 3000,
+      "nowBody": "AA259 귀국편 출발 공항입니다.",
+      "doNow": [
+        "전광판에서 AA259 Area C와 카운터 번호를 먼저 확인하세요.",
+        "면세점보다 출국심사를 먼저 지나가세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-31",
+      "airportCode": "LIS",
+      "mode": "departure",
+      "terminal": "Terminal 1",
+      "stageGuide": {
+        "outside": "Terminal 1 Departures로 들어가 전광판에서 AA259 체크인 구역과 카운터 번호를 먼저 확인하세요.",
+        "kiosk": "American Airlines 카운터나 키오스크에서 여권 확인을 하세요. 리스본 출발은 체크인과 수하물 마감이 출발 75분 전으로 안내됩니다.",
+        "bagdrop": "수하물을 맡긴 뒤 보안검색으로 바로 이동하세요. 여권, 약, 충전기는 위탁수하물이 아닌 작은 가방에 있어야 합니다.",
+        "security": "탑승권과 여권을 준비하고 액체·전자기기 분리는 검사대 표지를 따르세요.",
+        "airside": "보안검색 뒤에도 미국행 비솅겐 출국 여권심사가 한 번 더 있습니다. 면세점에서 오래 머물지 말고 여권심사장을 먼저 지나가세요.",
+        "gate": "게이트 화면과 항공사 안내를 확인하세요. 추가 보안 확인이 있으면 여권과 탑승권을 다시 보여줄 수 있게 준비하세요.",
+        "boarding": "여권과 탑승권을 꺼내세요. 탑승권의 Group/Zone을 부르면 그때 줄을 서세요."
+      },
+      "sourceName": "American Airlines 리스본 공항 안내",
+      "sourceUrl": "https://www.aa.com/i18n/travelInformation/destinationInformation/lis-airport.html"
+    },
+    {
+      "id": "place-phl-arrival",
+      "version": 1,
+      "type": "airport",
+      "name": "필라델피아 국제공항 국제선 도착",
+      "lat": 39.8744,
+      "lon": -75.2424,
+      "radiusM": 3000,
+      "nowBody": "AA259 도착 공항입니다.",
+      "doNow": [
+        "U.S. Customs와 Immigration 표지를 따라가세요.",
+        "여권과 영주권(해당 시)을 준비하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-31",
+      "airportCode": "PHL",
+      "mode": "arrival",
+      "terminal": "Terminal A-West",
+      "stageGuide": {
+        "landed": "비행기에서 내리면 U.S. Customs와 Immigration 표지를 따라가세요.",
+        "passport": "CBP 입국심사에서 여권과 영주권(해당 시)을 제시하세요. 심사 구역에서는 휴대폰 사용 안내를 따르세요.",
+        "baggage": "국제선 수하물 구역 전광판에서 AA259 벨트를 확인하고, 가방 이름표와 태그를 대조하세요.",
+        "customs": "세관을 지나 International Arrivals Hall 방향으로 나가세요.",
+        "meeting": "엘리베이터로 지상층 Arrivals 도로 쪽으로 이동해 여행사 차량을 만나세요."
+      },
+      "sourceName": "PHL 공항 항공사 안내",
+      "sourceUrl": "https://www.phl.org/flights/airline-information"
+    },
+    {
+      "id": "place-hotel-Barcelona",
+      "version": 1,
+      "type": "hotel",
+      "name": "Hotel Catalonia Barcelona Plaza",
+      "lat": 41.3754168,
+      "lon": 2.1482785,
+      "radiusM": 350,
+      "nowBody": "Plaça Espanya 앞 숙소입니다.",
+      "doNow": [
+        "프런트에서 조식 장소와 시간을 확인하세요.",
+        "객실 카드와 여권을 같은 지갑에 넣지 말고 분리하세요.",
+        "내일 가이드 공지와 집합 시간을 앱에 남기세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "dateFrom": "2026-10-23",
+      "dateTo": "2026-10-25"
+    },
+    {
+      "id": "place-hotel-Madrid",
+      "version": 1,
+      "type": "hotel",
+      "name": "Hotel Chamartín The One",
+      "lat": 40.4724161,
+      "lon": -3.6832469,
+      "radiusM": 350,
+      "nowBody": "마드리드 숙소입니다.",
+      "doNow": [
+        "내일 톨레도 이동 전에 작은 가방과 겉옷을 준비하세요.",
+        "조식과 집합 시간을 가이드 공지에 남기세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "dateFrom": "2026-10-25",
+      "dateTo": "2026-10-26"
+    },
+    {
+      "id": "place-hotel-Toledo",
+      "version": 1,
+      "type": "hotel",
+      "name": "Hotel Cigarral El Bosque",
+      "lat": 39.8596082,
+      "lon": -4.0428477,
+      "radiusM": 400,
+      "nowBody": "톨레도 숙소입니다.",
+      "doNow": [
+        "내일은 장거리 이동입니다. 물·약·충전기는 작은 가방에 따로 넣으세요.",
+        "큰 캐리어는 아침에 다시 열지 않게 정리하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "dateFrom": "2026-10-26",
+      "dateTo": "2026-10-27"
+    },
+    {
+      "id": "place-hotel-Granada",
+      "version": 1,
+      "type": "hotel",
+      "name": "Gran Hotel Luna de Granada",
+      "lat": 37.1765798,
+      "lon": -3.6122392,
+      "radiusM": 350,
+      "nowBody": "그라나다 숙소입니다.",
+      "doNow": [
+        "내일 알함브라는 여권 원본이 필요합니다. 자기 전에 작은 가방 앞칸을 확인하세요.",
+        "40×40cm보다 큰 배낭은 가져가지 마세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "dateFrom": "2026-10-27",
+      "dateTo": "2026-10-28"
+    },
+    {
+      "id": "place-hotel-Seville",
+      "version": 1,
+      "type": "hotel",
+      "name": "Hotel Eurostars Al-Andalus Palace",
+      "lat": 37.3538508,
+      "lon": -5.9800628,
+      "radiusM": 450,
+      "nowBody": "세비야 숙소입니다.",
+      "doNow": [
+        "내일 대성당 복장을 미리 준비하세요.",
+        "리스본 장거리 이동용 작은 가방을 따로 챙기세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "dateFrom": "2026-10-28",
+      "dateTo": "2026-10-29"
+    },
+    {
+      "id": "place-hotel-Lisbon",
+      "version": 1,
+      "type": "hotel",
+      "name": "Hotel Mercure Lisboa Almada",
+      "lat": 38.6704468,
+      "lon": -9.1707882,
+      "radiusM": 450,
+      "nowBody": "테주강 건너 Almada 숙소입니다.",
+      "doNow": [
+        "공항 이동은 25 de Abril 대교 정체 여유를 두세요.",
+        "귀국 전날 항공편 최종 시각과 호텔 출발 시간을 확인하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "dateFrom": "2026-10-29",
+      "dateTo": "2026-10-31"
+    },
+    {
+      "id": "place-Montjuïc",
+      "version": 1,
+      "type": "attraction",
+      "name": "몬주익",
+      "lat": 41.3633756,
+      "lon": 2.1661443,
+      "radiusM": 900,
+      "nowBody": "바람과 체감온도를 조심할 장소입니다.",
+      "doNow": [
+        "겉옷을 버스에 두지 마세요.",
+        "난간 안쪽에서만 사진을 찍으세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-23"
+    },
+    {
+      "id": "place-Boqueria",
+      "version": 1,
+      "type": "restaurant",
+      "name": "보케리아 시장",
+      "lat": 41.381736,
+      "lon": 2.1715515,
+      "radiusM": 300,
+      "nowBody": "람블라 자유시간의 화장실 거점입니다.",
+      "doNow": [
+        "입구 첫 가게에서 바로 사지 말고 안쪽으로 들어가세요.",
+        "구매 영수증은 화장실 무료표이니 버리지 마세요.",
+        "과일은 손대지 말고 가리켜서 주문하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-23",
+      "bestItems": [
+        "작은 간식 한 가지",
+        "물 한 병"
+      ],
+      "watchOut": "시장 화장실은 영수증이 없으면 €0.50입니다."
+    },
+    {
+      "id": "place-Casa-batllo",
+      "version": 1,
+      "type": "attraction",
+      "name": "카사 바트요",
+      "lat": 41.3917,
+      "lon": 2.165,
+      "radiusM": 350,
+      "nowBody": "자유시간 1시간에는 외관만 보는 장소입니다.",
+      "doNow": [
+        "현장 표를 사지 마세요.",
+        "바로 옆 카사 아마트예르 외관까지만 보고 복귀하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-23"
+    },
+    {
+      "id": "place-Montserrat",
+      "version": 1,
+      "type": "attraction",
+      "name": "몬세라트 수도원",
+      "lat": 41.593,
+      "lon": 1.837,
+      "radiusM": 900,
+      "nowBody": "산 위 바람과 케이블카 대기가 변수입니다.",
+      "doNow": [
+        "겉옷을 들고 내리세요.",
+        "케이블카 탑승 줄에서는 단체에서 떨어지지 마세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-24"
+    },
+    {
+      "id": "place-Sagrada",
+      "version": 1,
+      "type": "attraction",
+      "name": "성가족성당",
+      "lat": 41.4036,
+      "lon": 2.1744,
+      "radiusM": 450,
+      "nowBody": "지정 시간과 복장이 중요한 장소입니다.",
+      "doNow": [
+        "어깨를 가리고 큰 가방은 줄이세요.",
+        "타워는 내려올 때 걸어야 하니 무릎이 불편하면 사지 마세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-24"
+    },
+    {
+      "id": "place-guell",
+      "version": 1,
+      "type": "attraction",
+      "name": "구엘공원",
+      "lat": 41.4145,
+      "lon": 2.1527,
+      "radiusM": 800,
+      "nowBody": "단체 예약 시간과 입구가 중요한 장소입니다.",
+      "doNow": [
+        "가이드가 안내한 입구에서 전원이 함께 들어가세요.",
+        "한 번 나가면 재입장이 안 될 수 있습니다."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-24"
+    },
+    {
+      "id": "place-Sants",
+      "version": 1,
+      "type": "station",
+      "name": "바르셀로나 산츠역",
+      "lat": 41.379,
+      "lon": 2.14,
+      "radiusM": 800,
+      "nowBody": "AVE 단체 이동 거점입니다.",
+      "doNow": [
+        "보안검색과 탑승 통제는 단체와 함께 통과하세요.",
+        "큰 짐은 객차 보관공간에 직접 넣을 준비를 하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-25"
+    },
+    {
+      "id": "place-Madrid-center",
+      "version": 1,
+      "type": "attraction",
+      "name": "마드리드 그랑비아·마요르 광장",
+      "lat": 40.4169,
+      "lon": -3.7035,
+      "radiusM": 1000,
+      "nowBody": "중심가 소지품 주의 구간입니다.",
+      "doNow": [
+        "여권과 휴대폰을 바깥 주머니에서 빼세요.",
+        "가방은 앞으로 메고 사진 뒤 바로 넣으세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-25"
+    },
+    {
+      "id": "place-Toledo-cathedral",
+      "version": 1,
+      "type": "attraction",
+      "name": "톨레도 대성당",
+      "lat": 39.8571,
+      "lon": -4.0234,
+      "radiusM": 450,
+      "nowBody": "복장과 입장 마감이 중요한 장소입니다.",
+      "doNow": [
+        "어깨와 무릎을 가리세요.",
+        "수신기를 목에 걸고 자리에서 일어날 때 다시 확인하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-26"
+    },
+    {
+      "id": "place-Mezquita",
+      "version": 1,
+      "type": "attraction",
+      "name": "메스키타·대성당",
+      "lat": 37.8789,
+      "lon": -4.7794,
+      "radiusM": 500,
+      "nowBody": "예배 공간의 규칙이 중요한 장소입니다.",
+      "doNow": [
+        "들어가기 전에 모자를 가방에 넣으세요.",
+        "수신기와 이어폰이 들리는지 확인하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-27"
+    },
+    {
+      "id": "place-Alhambra",
+      "version": 1,
+      "type": "attraction",
+      "name": "알함브라",
+      "lat": 37.176,
+      "lon": -3.588,
+      "radiusM": 1000,
+      "nowBody": "여권 원본과 나스르 궁전 시간이 핵심입니다.",
+      "doNow": [
+        "여권 원본과 QR 표를 확인하세요.",
+        "작은 가방만 들고 가이드 집합 순서에서 벗어나지 마세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-28"
+    },
+    {
+      "id": "place-Ronda",
+      "version": 1,
+      "type": "attraction",
+      "name": "론다 누에보 다리",
+      "lat": 36.7407,
+      "lon": -5.166,
+      "radiusM": 600,
+      "nowBody": "협곡 바람과 가파른 길에 주의할 장소입니다.",
+      "doNow": [
+        "난간 안쪽에서만 사진을 찍으세요.",
+        "무릎이 불편하면 아래 길로 내려가지 말고 위 전망대에서 보세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-28"
+    },
+    {
+      "id": "place-Seville-cathedral",
+      "version": 1,
+      "type": "attraction",
+      "name": "세비야 대성당",
+      "lat": 37.386,
+      "lon": -5.993,
+      "radiusM": 500,
+      "nowBody": "복장과 지정 입장 시간이 중요한 장소입니다.",
+      "doNow": [
+        "어깨를 가리는 겉옷을 준비하세요.",
+        "히랄다 탑은 몸 상태를 보고 결정하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "place-Pena",
+      "version": 1,
+      "type": "attraction",
+      "name": "신트라 페나 궁전",
+      "lat": 38.7876,
+      "lon": -9.3906,
+      "radiusM": 1000,
+      "nowBody": "표 시간이 공원 입구가 아니라 궁전 내부 입장 시간일 수 있습니다.",
+      "doNow": [
+        "공원 입구에서 궁전까지 약 30분을 잡으세요.",
+        "미끄럽지 않은 신발과 겉옷을 준비하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "place-pasteis",
+      "version": 1,
+      "type": "restaurant",
+      "name": "Pastéis de Belém 일대",
+      "lat": 38.6974795,
+      "lon": -9.2033202,
+      "radiusM": 300,
+      "nowBody": "따뜻한 나타를 먹기 좋은 장소입니다.",
+      "doNow": [
+        "따뜻한 나타 한 개를 주문해 계피와 슈가파우더는 조금만 뿌리세요.",
+        "집합 시간을 보고 줄이 길면 포장 줄과 복귀 시간을 먼저 계산하세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-30",
+      "bestItems": [
+        "따뜻한 파스텔 드 나타"
+      ],
+      "phrase": {
+        "text": "Um pastel de nata quentinho, por favor.",
+        "pronunciation": "웅 빠스-뗄 드 나타 낀-띠-뉴, 뽀르 파-보르",
+        "meaning": "따뜻한 파스텔 드 나타 한 개 주세요."
+      }
+    },
+    {
+      "id": "place-Jeronimos",
+      "version": 1,
+      "type": "attraction",
+      "name": "제로니무스 수도원 일대",
+      "lat": 38.6979,
+      "lon": -9.2067,
+      "radiusM": 700,
+      "nowBody": "벨렘 관광 거점입니다.",
+      "doNow": [
+        "다음 이동 전에 화장실부터 다녀오세요.",
+        "집합장소 사진을 남기고 자유시간 반경을 좁히세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "place-Rossio",
+      "version": 1,
+      "type": "attraction",
+      "name": "로시우 광장",
+      "lat": 38.7139,
+      "lon": -9.1394,
+      "radiusM": 650,
+      "nowBody": "리스본 중심 자유시간 거점입니다.",
+      "doNow": [
+        "집합장소와 큰 간판을 사진으로 남기세요.",
+        "언덕과 돌길 때문에 복귀 시간을 넉넉히 잡으세요."
+      ],
+      "priority": 1,
+      "verifiedAt": "2026-10-21",
+      "date": "2026-10-30"
     }
   ]
 }
