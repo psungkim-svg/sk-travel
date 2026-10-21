@@ -26,7 +26,15 @@
         "nonstop": true,
         "terminalFrom": "PHL Terminal A-West",
         "terminalTo": "BCN Terminal 1",
-        "baggage": "기내 가방 1개 + 개인물품 1개 · 위탁수하물 1개 무료 (종이 안내문 기준, 실제 예약에서 재확인)"
+        "baggage": "기내 가방 1개 + 개인물품 1개 · 위탁수하물 1개 무료 (종이 안내문 기준, 실제 예약에서 재확인)",
+        "airlineCode": "AA",
+        "airlineAppName": "American Airlines 앱",
+        "statusUrl": "https://www.aa.com/web/i18n/travel-info/travel-tools/american-airlines-app.html",
+        "checkinUrl": "https://www.aa.com/reservation/view/find-your-reservation",
+        "seat": "",
+        "gate": "",
+        "boardingTime": "",
+        "baggageClaim": ""
       },
       {
         "airline": "American Airlines",
@@ -48,7 +56,15 @@
         "nonstop": true,
         "terminalFrom": "LIS Terminal 1 · Area C 37~42번 (당일 전광판 재확인)",
         "terminalTo": "PHL Terminal A-West 국제선 도착",
-        "baggage": "기내 가방 1개 + 개인물품 1개 · 위탁수하물 1개 무료 (종이 안내문 기준, 실제 예약에서 재확인)"
+        "baggage": "기내 가방 1개 + 개인물품 1개 · 위탁수하물 1개 무료 (종이 안내문 기준, 실제 예약에서 재확인)",
+        "airlineCode": "AA",
+        "airlineAppName": "American Airlines 앱",
+        "statusUrl": "https://www.aa.com/web/i18n/travel-info/travel-tools/american-airlines-app.html",
+        "checkinUrl": "https://www.aa.com/reservation/view/find-your-reservation",
+        "seat": "",
+        "gate": "",
+        "boardingTime": "",
+        "baggageClaim": ""
       }
     ],
     "departureSteps": [
@@ -194,19 +210,22 @@
           "time": "15:30",
           "title": "필라델피아 하나관광 주차장 집결 후 필라공항으로 출발",
           "place": "",
-          "note": ""
+          "note": "",
+          "tz": "America/New_York"
         },
         {
           "time": "16:30",
           "title": "공항도착 후 개별체크인",
           "place": "",
-          "note": ""
+          "note": "",
+          "tz": "America/New_York"
         },
         {
           "time": "19:25",
           "title": "아메리칸 에어라인 742편으로 바르셀로나 향발",
           "place": "",
-          "note": ""
+          "note": "",
+          "tz": "America/New_York"
         }
       ],
       "meals": [
@@ -278,7 +297,7 @@
       ],
       "hotel": {
         "name": "HOTEL CATALONIA BARCELONA PLAZA",
-        "phone": "+934262600",
+        "phone": "+34934262600",
         "address": "Pl. Espanya 6-8, 08014 Barcelona, Spain"
       },
       "notes": [
@@ -353,7 +372,7 @@
       ],
       "hotel": {
         "name": "HOTEL CATALONIA BARCELONA PLAZA",
-        "phone": "+934262600",
+        "phone": "+34934262600",
         "address": "Pl. Espanya 6-8, 08014 Barcelona, Spain"
       },
       "notes": [],
@@ -425,7 +444,7 @@
       ],
       "hotel": {
         "name": "HOTEL CHAMARTÍN THE ONE",
-        "phone": "+913344900",
+        "phone": "+34913344900",
         "address": "Calle Agustín de Foxá s/n, 28036 Madrid, Spain"
       },
       "notes": [],
@@ -485,7 +504,7 @@
       ],
       "hotel": {
         "name": "HOTEL CIGARRAL EL BOSQUE",
-        "phone": "+925285640",
+        "phone": "+34925285640",
         "address": "Carretera de Navalpino 49, 45004 Toledo, Spain"
       },
       "notes": [
@@ -543,7 +562,7 @@
       ],
       "hotel": {
         "name": "GRAN HOTEL LUNA DE GRANADA",
-        "phone": "+958430538",
+        "phone": "+34958430538",
         "address": "Plaza del guitarrista Manuel Cano 2, 18004 Granada, Spain"
       },
       "notes": [
@@ -618,7 +637,7 @@
       ],
       "hotel": {
         "name": "HOTEL EUROSTARS AL-ANDALUS PALACE",
-        "phone": "+954230600",
+        "phone": "+34954230600",
         "address": "Av. de la Palmera s/n, esq. C/ Paraná, 41012 Seville, Spain"
       },
       "notes": [
@@ -804,13 +823,15 @@
           "time": "14:50",
           "title": "필라델피아 도착후 전용차량으로 이동",
           "place": "",
-          "note": ""
+          "note": "",
+          "tz": "America/New_York"
         },
         {
           "time": "17:00",
           "title": "필라 하나여행사 도착후 해산",
           "place": "",
-          "note": ""
+          "note": "",
+          "tz": "America/New_York"
         }
       ],
       "meals": [
@@ -991,7 +1012,7 @@
       "verifiedAt": "2026-10-19"
     },
     {
-      "date": "2026-10-22",
+      "date": "2026-10-23",
       "city": "바르셀로나",
       "place": "바르셀로나 공항 입국심사",
       "category": "입국",
@@ -1015,7 +1036,10 @@
           "url": "https://travel-europe.europa.eu/etias/faq"
         }
       ],
-      "verifiedAt": "2026-10-20"
+      "verifiedAt": "2026-10-20",
+      "showFrom": "2026-10-20",
+      "showUntil": "2026-10-23",
+      "expiresAt": "2026-10-23"
     },
     {
       "date": "2026-10-23",
@@ -1383,6 +1407,31 @@
         }
       ],
       "verifiedAt": "2026-10-20"
+    },
+    {
+      "date": "2026-10-25",
+      "showFrom": "2026-10-24",
+      "showUntil": "2026-10-25",
+      "city": "마드리드",
+      "place": "스페인 서머타임 종료",
+      "category": "시간",
+      "icon": "🕑",
+      "priority": 4,
+      "title": "오늘 새벽 시계가 1시간 뒤로 갔습니다",
+      "issue": "스페인은 10월 25일 새벽 서머타임이 끝나 현지 시각이 1시간 늦어집니다. 휴대폰 자동 시간대가 꺼져 있으면 열차·집합 시간을 잘못 볼 수 있습니다.",
+      "action": "휴대폰 날짜·시간·시간대 자동 설정을 켜고, 호텔 시계나 손목시계와 휴대폰 시간이 같은지 확인하세요.",
+      "alternative": "가이드가 말한 집합 시각을 휴대폰 알람으로 다시 맞추세요.",
+      "costHours": "10/25 03:00 CEST → 02:00 CET",
+      "mapQuery": "Madrid Spain",
+      "sourceName": "여행 일정 시간대 확인",
+      "sourceUrl": "https://www.timeanddate.com/news/time/europe-dst-end-2026.html",
+      "sources": [
+        {
+          "name": "Europe DST end 2026",
+          "url": "https://www.timeanddate.com/news/time/europe-dst-end-2026.html"
+        }
+      ],
+      "verifiedAt": "2026-10-21"
     }
   ],
   "airports": [
@@ -1486,7 +1535,7 @@
   "hotels": [
     {
       "name": "HOTEL CATALONIA BARCELONA PLAZA",
-      "phone": "+934262600",
+      "phone": "+34934262600",
       "address": "Pl. Espanya 6-8, 08014 Barcelona, Spain",
       "checkin": "2026-10-23",
       "checkout": "2026-10-25",
@@ -1495,7 +1544,7 @@
     },
     {
       "name": "HOTEL CHAMARTÍN THE ONE",
-      "phone": "+913344900",
+      "phone": "+34913344900",
       "address": "Calle Agustín de Foxá s/n, 28036 Madrid, Spain",
       "checkin": "2026-10-25",
       "checkout": "2026-10-26",
@@ -1504,7 +1553,7 @@
     },
     {
       "name": "HOTEL CIGARRAL EL BOSQUE",
-      "phone": "+925285640",
+      "phone": "+34925285640",
       "address": "Carretera de Navalpino 49, 45004 Toledo, Spain",
       "checkin": "2026-10-26",
       "checkout": "2026-10-27",
@@ -1513,7 +1562,7 @@
     },
     {
       "name": "GRAN HOTEL LUNA DE GRANADA",
-      "phone": "+958430538",
+      "phone": "+34958430538",
       "address": "Plaza del guitarrista Manuel Cano 2, 18004 Granada, Spain",
       "checkin": "2026-10-27",
       "checkout": "2026-10-28",
@@ -1522,7 +1571,7 @@
     },
     {
       "name": "HOTEL EUROSTARS AL-ANDALUS PALACE",
-      "phone": "+954230600",
+      "phone": "+34954230600",
       "address": "Av. de la Palmera s/n, esq. C/ Paraná, 41012 Seville, Spain",
       "checkin": "2026-10-28",
       "checkout": "2026-10-29",
@@ -1626,9 +1675,43 @@
     {
       "category": "비상 연락처",
       "label": "필라하나관광",
-      "value": "215-935-2500",
+      "value": "+1 215-935-2500",
       "note": "7827 Old York Road, Elkins Park PA 19027",
       "secret": false
+    }
+  ],
+  "infoFeed": [],
+  "guideNotes": [],
+  "liveSources": [
+    {
+      "label": "항공사 공식 알림",
+      "category": "flight",
+      "city": "",
+      "url": "https://www.aa.com/web/i18n/travel-info/travel-tools/flight-notifications.html"
+    },
+    {
+      "label": "PHL 공항",
+      "category": "flight",
+      "city": "필라델피아",
+      "url": "https://www.phl.org/flights"
+    },
+    {
+      "label": "바르셀로나 공항 Aena",
+      "category": "flight",
+      "city": "바르셀로나",
+      "url": "https://www.aena.es/en/josep-tarradellas-barcelona-el-prat.html"
+    },
+    {
+      "label": "Renfe",
+      "category": "traffic",
+      "city": "스페인",
+      "url": "https://www.renfe.com/es/en"
+    },
+    {
+      "label": "리스본 공항 ANA",
+      "category": "flight",
+      "city": "리스본",
+      "url": "https://www.ana.pt/en/lis/home"
     }
   ]
 }
