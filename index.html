@@ -59,17 +59,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .schedule-original-frame{flex:1;width:100%;min-height:0;border:0;display:block;background:#f2f5f7}
 .home-top-board{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
 .top-swap{transition:opacity .22s ease,transform .22s ease;will-change:opacity,transform}.home-top-board.is-switching .top-swap{opacity:.22;transform:translateY(3px)}@media (prefers-reduced-motion: reduce){.top-swap{transition:none}.home-top-board.is-switching .top-swap{opacity:1;transform:none}}
-.top-cell{border:1px solid #dbe7f6;background:#fff;border-radius:14px;padding:7px 9px 6px;min-width:0;height:67px;overflow:hidden;box-shadow:0 3px 10px rgba(22,34,66,.08);text-align:left;color:var(--ink);width:100%}
+.top-cell{display:flex;flex-direction:column;justify-content:center;border:1px solid #dbe7f6;background:#fff;border-radius:14px;padding:7px 9px 6px;min-width:0;height:67px;overflow:hidden;box-shadow:0 3px 10px rgba(22,34,66,.08);text-align:center;color:var(--ink);width:100%}
 .top-cell.home{background:var(--dark);color:#fff;border-color:var(--dark)}
 .top-cell.dest{background:#e9f6ff}
 .top-cell.wx{background:#fff8d6;border-color:#ffe58a;cursor:pointer}
 .top-cell.wx:active{transform:scale(.98)}
 .top-label{font-size:12px;font-weight:950;line-height:1.2;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
 .top-value{font-size:17px;font-weight:950;line-height:1.18;margin-top:2px;letter-spacing:-.35px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.top-cell.fx{display:flex;flex-direction:column;justify-content:center;text-align:center}
+.top-cell.fx{background:#dcf7dc;border-color:#aee2b0}
 .top-cell.fx .top-label{font-size:12px;font-weight:950;letter-spacing:-.55px}
 .top-cell.fx .top-value{font-size:17px;font-weight:950;letter-spacing:-.65px}
-.top-cell.fx .top-label,.top-cell.fx .top-value,.top-cell.fx .top-sub{width:100%;text-align:center}
+.top-cell .top-swap{width:100%}
+.top-cell .top-label,.top-cell .top-value,.top-cell .top-sub{width:100%;text-align:center}
 .top-cell.dest .top-label,.top-cell.wx .top-label{letter-spacing:-.65px}
 .top-cell.wx .top-value{font-size:15.5px}
 .top-sub{font-size:11.5px;font-weight:750;line-height:1.25;margin-top:1px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
@@ -214,7 +215,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.0.8';
+const APP_VERSION = 'v3.0.9';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -638,7 +639,7 @@ function homeTopData(requestedIndex){
   if(!fxDest||!fxCode) fxSub='등록 필요';
   else if(!fxCacheHit&&fxCode!=='USD') fxSub=navigator.onLine?'확인 중':'오프라인';
   const wxHit=dest?weatherForDestDate(dest,dateInTz(now,destTz)):{cache:null,day:null};
-  let wxValue='날씨 확인 중', wxSub=navigator.onLine?'눌러서 7일 보기':'오프라인 · 저장된 날씨 보기';
+  let wxValue='확인 중', wxSub=navigator.onLine?'눌러서 7일 보기':'오프라인 · 저장된 정보 보기';
   if(wxHit.day){
     const [icon,label]=wxInfo(wxHit.day.code);
     wxValue=icon+' '+shortWxLabel(label)+' '+fmtTempRange(wxHit.day);
@@ -648,13 +649,13 @@ function homeTopData(requestedIndex){
     idx,
     homeTime:fmtClock(now,HOME.tz),
     homeDate:fmtDate(dateInTz(now,HOME.tz)),
-    destTimeLabel:'📍 '+destPlace+' 시간',
+    destTimeLabel:'📍 '+destPlace,
     destTime:dest?fmtClock(now,destTz):'등록 필요',
     destDate:(dest?fmtDate(dateInTz(now,destTz)):'여행을 등록해 주세요')+(list.length>1?' · '+(idx+1)+'/'+list.length:''),
     fxLabel,
     fxValue:fx||'등록 필요',
     fxSub,
-    wxLabel:'🌤️ '+destPlace+' 날씨',
+    wxLabel:'🌤️ '+destPlace,
     wxValue,
     wxSub,
     wxAria:destCity+' 7일 날씨'
@@ -663,7 +664,7 @@ function homeTopData(requestedIndex){
 function renderHomeTopBoard(){
   const d=homeTopData();
   return '<section id="homeTopBoard" class="home-top-board" aria-label="시간 환율 날씨">'
-    +'<div class="top-cell home"><div class="top-label">🏠 필라델피아 시간</div><div class="top-value" data-top="homeTime">'+esc(d.homeTime)+'</div><div class="top-sub" data-top="homeDate">'+esc(d.homeDate)+'</div></div>'
+    +'<div class="top-cell home"><div class="top-label">🏠 필라델피아</div><div class="top-value" data-top="homeTime">'+esc(d.homeTime)+'</div><div class="top-sub" data-top="homeDate">'+esc(d.homeDate)+'</div></div>'
     +'<div class="top-cell fx"><div class="top-label" data-top="fxLabel">'+esc(d.fxLabel)+'</div><div class="top-value" data-top="fxValue">'+esc(d.fxValue)+'</div><div class="top-sub" data-top="fxSub">'+esc(d.fxSub)+'</div></div>'
     +'<div class="top-cell dest"><div class="top-swap"><div class="top-label" data-top="destTimeLabel">'+esc(d.destTimeLabel)+'</div><div class="top-value" data-top="destTime">'+esc(d.destTime)+'</div><div class="top-sub" data-top="destDate">'+esc(d.destDate)+'</div></div></div>'
     +'<button class="top-cell wx" data-action="weekly-weather" data-id="'+d.idx+'" aria-label="'+esc(d.wxAria)+'"><div class="top-swap"><div class="top-label" data-top="wxLabel">'+esc(d.wxLabel)+'</div><div class="top-value" data-top="wxValue">'+esc(d.wxValue)+'</div><div class="top-sub" data-top="wxSub">'+esc(d.wxSub)+'</div></div></button>'
