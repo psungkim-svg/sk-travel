@@ -245,7 +245,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.5.0';
+const APP_VERSION = 'v3.6.0';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -324,6 +324,7 @@ function updateAvailable(){ return !!(ui.updateReady||updateVersionText()); }
 function renderVersionFooter(){
   const nv=updateVersionText();
   let h='<div class="version-footer"><div class="version-app">SK-여행</div><div class="version-now">현재 버전 <b>'+esc(APP_VERSION)+'</b></div>';
+  if(ui.versionCheckDetail) h+='<div class="small-muted" role="status" style="margin-top:7px">'+esc(ui.versionCheckDetail)+'</div>';
   if(updateAvailable()){
     h+='<div class="update-note" role="status">🆕 '+(nv?('새 버전 <b>'+esc(nv)+'</b>가 나왔습니다.'):'새 버전이 준비됐습니다.')+'<br>새 버전을 업데이트할 수 있습니다.'
       +(ui.latestNotes?'<small>'+esc(ui.latestNotes)+'</small>':'')
@@ -383,7 +384,7 @@ function save(){
 }
 let cacheStore=safeJsonParse(lsGet(LS_CACHE)||'null')||{fx:{},weather:{}};
 function saveCache(){ lsSet(LS_CACHE,JSON.stringify(cacheStore)); }
-const ui={tab:(state.settings.startTab&&TABS.some(t=>t.id===state.settings.startTab))?state.settings.startTab:'home',openDays:new Set(),openAir:new Set(),revealed:new Set(),updateReady:false,updToasted:false,latestVersion:'',latestNotes:'',lastVersionCheck:0,updating:false,homeDestIndex:0,homeDestFirstKey:'',navSeq:0,rootBackAt:0,sheetHistory:false,consumePop:false,manualContext:'',manualAt:0,manualGeo:null,selectedPlace:null,selectedPlaceAt:0,geo:null,geoPermission:'unknown',geoPermissionObj:null,geoLastErrorCode:0,geoLastErrorAt:0,geoLastErrorMessage:'',geoRequestAt:0,geoRequestSeq:0,geoLastAttemptAt:0,geoLastSuccessAt:0,geoRetryCount:0,geoRetryTimer:null,geoRetryReason:'',geoFixCount:0,geoRejectedCount:0,geoFallbackAt:0,geoWatchId:null,geoWatchStartedAt:0,geoError:'',geoBusy:false,placeDecision:null,lastPlaceCandidates:[],lastNowData:null,onlinePlace:null,onlineCandidates:[],onlinePlaceBusy:false,onlinePlaceKey:'',onlinePlaceLastAt:0,onlinePlaceError:'',onlinePlaceSource:'',onlinePlaceStatus:'',fieldSignature:'',homeDestTimer:null,scheduleMode:'original',airHotelSection:'flights',openFlight:new Set(['reservation','flight-0']),openTransfers:new Set(),openHotels:new Set()};
+const ui={tab:(state.settings.startTab&&TABS.some(t=>t.id===state.settings.startTab))?state.settings.startTab:'home',openDays:new Set(),openAir:new Set(),revealed:new Set(),updateReady:false,updToasted:false,latestVersion:'',latestNotes:'',versionCheckDetail:'',lastVersionCheck:0,updating:false,homeDestIndex:0,homeDestFirstKey:'',navSeq:0,rootBackAt:0,sheetHistory:false,consumePop:false,manualContext:'',manualAt:0,manualGeo:null,selectedPlace:null,selectedPlaceAt:0,geo:null,geoPermission:'unknown',geoPermissionObj:null,geoLastErrorCode:0,geoLastErrorAt:0,geoLastErrorMessage:'',geoRequestAt:0,geoRequestSeq:0,geoLastAttemptAt:0,geoLastSuccessAt:0,geoRetryCount:0,geoRetryTimer:null,geoRetryReason:'',geoFixCount:0,geoRejectedCount:0,geoFallbackAt:0,geoWatchId:null,geoWatchStartedAt:0,geoError:'',geoBusy:false,placeDecision:null,lastPlaceCandidates:[],lastNowData:null,onlinePlace:null,onlineCandidates:[],onlinePlaceBusy:false,onlinePlaceKey:'',onlinePlaceLastAt:0,onlinePlaceError:'',onlinePlaceSource:'',onlinePlaceStatus:'',fieldSignature:'',homeDestTimer:null,scheduleMode:'original',airHotelSection:'flights',openFlight:new Set(['reservation','flight-0']),openTransfers:new Set(),openHotels:new Set()};
 let pendingImport=null;
 
 /* ---------- 토스트/시트 ---------- */
@@ -622,7 +623,9 @@ function expertContextScore(e,day,nowMs){
 function expertInfoForDate(iso,day){
   const d=day||state.days.find(x=>x.date===iso)||{date:iso||'',city:'',events:[]};
   let items=(state.expertInfo||[]).map(normalizeExpertInfo).filter(e=>expertApplies(e,d)&&!isFeedbackHidden(expertKey(e)));
-  items=items.map(e=>{ const q=geoQuality(ui.geo); const dist=(q.usableForArea&&validLatLon(e.lat,e.lon))?distanceKm(ui.geo.lat,ui.geo.lon,e.lat,e.lon):null; return Object.assign({},e,{_distanceKm:dist,_contextScore:expertContextScore(e,d)}); });
+  const registeredPlaces=derivedContextPlaces(d).filter(p=>validLatLon(p.lat,p.lon));
+  const q=geoQuality(ui.geo);
+  items=items.map(e=>{ const anchor=expertAnchorPlace(e,d,registeredPlaces); const dist=(q.usableForArea&&anchor)?distanceKm(ui.geo.lat,ui.geo.lon,anchor.lat,anchor.lon):null; return Object.assign({},e,{_distanceKm:dist,_contextScore:expertContextScore(e,d),_locationAnchor:anchor?anchor.name:''}); });
   items.sort((a,b)=>{
     const an=a._distanceKm!=null&&a._distanceKm<=10, bn=b._distanceKm!=null&&b._distanceKm<=10;
     if(an!==bn)return an?-1:1;
@@ -894,27 +897,34 @@ function contextPlaceApplies(p,day){
   if(p.dateTo&&day.date>p.dateTo)return false;
   return true;
 }
-function inferExpertPlaceType(e){
-  const t=((e.category||'')+' '+(e.trigger||'')+' '+(e.place||'')).toLowerCase();
-  if(/공항|체크인|탑승|보안/.test(t))return 'airport';
-  if(/식당|먹|주문|시장|휴게/.test(t))return 'restaurant';
-  if(/호텔|숙소/.test(t))return 'hotel';
-  if(/역|기차|열차/.test(t))return 'station';
-  return 'attraction';
-}
 function derivedContextPlaces(day){
   const out=(state.contextPlaces||[]).map(normalizeContextPlace).filter(p=>validLatLon(p.lat,p.lon)&&contextPlaceApplies(p,day));
   (state.hotels||[]).forEach(h=>{
     if(h&&validLatLon(h.lat,h.lon)){ const p=normalizeContextPlace({id:'hotel-'+(h.id||h.name),type:'hotel',name:h.name,lat:h.lat,lon:h.lon,radiusM:350,dateFrom:h.checkin||'',dateTo:h.checkout||'',nowBody:h.note||'',doNow:['조식 장소·시간과 내일 집합 시간을 확인하세요.','여권과 객실 키는 분리해서 보관하세요.'],priority:5}); if(contextPlaceApplies(p,day)&&!out.some(x=>x.type==='hotel'&&x.name===p.name))out.push(p); }
   });
-  if(day){
-    (state.expertInfo||[]).map(normalizeExpertInfo).filter(e=>e.date===day.date&&validLatLon(e.lat,e.lon)).forEach(e=>{
-      if(out.some(p=>distanceKm(p.lat,p.lon,e.lat,e.lon)!=null&&distanceKm(p.lat,p.lon,e.lat,e.lon)<0.25))return;
-      out.push(normalizeContextPlace({id:'expert-place-'+e.id,type:inferExpertPlaceType(e),name:e.place||e.city||e.title,lat:e.lat,lon:e.lon,radiusM:400,date:e.date,nowBody:e.body,doNow:e.action?[e.action]:[],phrase:e.phrase,priority:50}));
-    });
-  }
+  // Expert cards are content, not venue records. Their coordinates can be city/area anchors,
+  // so never turn them into 400m geofences. Only explicit contextPlaces/hotels may identify a place.
   if(ui.geo&&validLatLon(ui.geo.lat,ui.geo.lon))out.forEach(p=>{p._distanceKm=distanceKm(ui.geo.lat,ui.geo.lon,p.lat,p.lon);});
   return out;
+}
+function normalizeAnchorText(value){
+  return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').normalize('NFC').toLowerCase().replace(/[^a-z0-9가-힣]+/g,' ').trim();
+}
+function expertAnchorPlace(e,day,registeredPlaces){
+  if(!e)return null;
+  const places=(Array.isArray(registeredPlaces)?registeredPlaces:derivedContextPlaces(day)).filter(p=>validLatLon(p.lat,p.lon));
+  const explicitId=String(e.contextPlaceId||e.locationAnchorId||'');
+  if(explicitId){ const exact=places.find(p=>String(p.id||'')===explicitId); if(exact)return exact; }
+  if(!validLatLon(e.lat,e.lon))return null;
+  const reference=normalizeAnchorText([e.place,e.title,e.trigger].filter(Boolean).join(' '));
+  const matches=places.filter(p=>{
+    const d=distanceKm(e.lat,e.lon,p.lat,p.lon);
+    if(d==null||d>0.25)return false;
+    if(p.airportCode&&new RegExp('(^| )'+String(p.airportCode).toLowerCase()+'( |$)').test(reference))return true;
+    const placeName=normalizeAnchorText(p.name);
+    return !!placeName&&(' '+reference+' ').includes(' '+placeName+' ');
+  });
+  return matches.length===1?matches[0]:null;
 }
 function relevantAirportFlight(nowMs,code,wantedMode){
   const now=Number(nowMs||Date.now()); const out=[];
@@ -2145,7 +2155,7 @@ function nowEvidenceHTML(n){
   const chips=[]; const ctx=n&&n.fieldContext?n.fieldContext:null; const q=geoQuality(ui.geo);
   const add=(text,cls)=>{if(text)chips.push({text,cls:cls||'neutral'});};
   if(ctx&&(ctx.placeStatus==='confirmed'||ctx.placeStatus==='likely')){
-    add('위치로 확인됨'+(ctx.place?' · '+ctx.place.name:''),'good'); add('근거: 등록 장소 반경 + 정확도','neutral');
+    add((ctx.kind==='airport'?'공항 권역으로 확인됨':'위치로 확인됨')+(ctx.place?' · '+ctx.place.name:''),'good'); add('근거: 등록 장소 반경 + 정확도','neutral');
   }else if(ctx&&(ctx.placeStatus==='manual'||ctx.placeStatus==='selected')){
     add('사용자가 확인한 장소','good'); add('자동 판단보다 직접 확인 우선','neutral');
   }else if(ctx&&ctx.placeStatus==='schedule'){
@@ -3258,14 +3268,25 @@ async function installApp(){
 }
 let versionCheckPromise=null;
 async function fetchLatestVersion(){
+  ui.latestVersion=''; ui.latestNotes='';
+  const checkedAt=new Date().toLocaleString('ko-KR');
   try{
     const res=await fetch(VERSION_FILE+'?t='+Date.now(),{cache:'no-store'});
-    if(!res.ok)throw new Error('version '+res.status);
-    const data=await res.json();
+    if(!res.ok)throw Object.assign(new Error('HTTP '+res.status),{kind:'http',status:res.status});
+    let data;
+    try{ data=await res.json(); }
+    catch(e){ throw Object.assign(new Error('JSON이 아닌 응답'),{kind:'invalid-json'}); }
     const latest=String((data&&(data.version||data.appVersion))||'').trim();
-    if(latest){ ui.latestVersion=latest; ui.latestNotes=String((data&&(data.notes||data.note))||'').trim(); }
+    if(!parseVersion(latest))throw Object.assign(new Error('version 필드가 없거나 형식이 올바르지 않음'),{kind:'invalid-version'});
+    ui.latestVersion=latest;
+    ui.latestNotes=String((data&&(data.notes||data.note))||'').trim();
+    ui.versionCheckDetail='서버 version.json: '+latest+' · 확인 '+checkedAt;
     return latest;
-  }catch(e){ return ''; }
+  }catch(e){
+    const reason=e&&e.kind==='http'?'HTTP '+e.status:e&&e.kind==='invalid-json'?'JSON이 아닌 응답':e&&e.kind==='invalid-version'?'버전 필드 오류':'네트워크/요청 오류';
+    ui.versionCheckDetail='버전 확인 실패 · '+reason+' · version.json을 읽지 못했습니다. 최신 여부 미확인 · '+checkedAt;
+    return '';
+  }
 }
 function announceUpdate(){
   if(!updateAvailable())return;
@@ -3301,7 +3322,13 @@ async function checkForUpdate(manual){
       }else announceUpdate();
       return true;
     }
-    if(manual)toast((fetched||swChecked)?('지금 버전 '+APP_VERSION+'이 최신이에요 ✓'):'인터넷 연결을 확인해 주세요.');
+    if(manual){
+      if(ui.tab==='settings')keepScroll(renderMain);
+      if(!fetched) toast('버전 확인 실패 · 최신 여부를 확인하지 못했습니다. 설정의 업데이트 진단을 확인해 주세요.');
+      else if(isNewerVersion(fetched,APP_VERSION)) toast('서버 버전 '+fetched+'을 확인했습니다. 업데이트 파일 적용을 확인 중입니다.');
+      else if(isNewerVersion(APP_VERSION,fetched)) toast('배포 불일치 · 서버는 '+fetched+'을 제공 중이며 앱은 '+APP_VERSION+'입니다.');
+      else toast('서버 version.json에서 '+fetched+'을 확인했습니다. 서비스워커 업데이트도 '+(swChecked?'확인했습니다.':'확인하지 못했습니다.')+' 지금 버전이 최신입니다.');
+    }
     return false;
   })();
   try{ return await versionCheckPromise; }finally{ versionCheckPromise=null; }
@@ -3322,7 +3349,7 @@ async function doUpdate(){
   ui.updating=true; lsSet('sk_upd_from',APP_VERSION);
   if(regWaiting){ toast('업데이트 중…'); try{regWaiting.postMessage('SKIP_WAITING');}catch(e){location.reload();} return; }
   toast('업데이트를 준비하는 중…');
-  await fetchLatestVersion();
+  const fetchedVersion=await fetchLatestVersion();
   if(swReg){
     try{ await swReg.update(); }catch(e){}
     const waiting=await waitForWaitingWorker(4500);
@@ -3330,7 +3357,11 @@ async function doUpdate(){
   }
   if(updateAvailable()){ location.reload(); return; }
   ui.updating=false; lsRemove('sk_upd_from');
-  toast('지금 버전 '+APP_VERSION+'이 최신이에요 ✓');
+  if(!fetchedVersion) toast('업데이트 확인 실패 · 서버 버전을 읽지 못했습니다. 최신이라고 판단하지 않았습니다.');
+  else if(isNewerVersion(APP_VERSION,fetchedVersion)) toast('배포 불일치 · 서버는 '+fetchedVersion+'을 제공 중이며 앱은 '+APP_VERSION+'입니다.');
+  else if(isNewerVersion(fetchedVersion,APP_VERSION)) toast('새 버전 '+fetchedVersion+'이 확인됐지만 서비스워커가 아직 준비되지 않았습니다. 잠시 후 다시 시도해 주세요.');
+  else toast('서버 version.json에서 '+fetchedVersion+'을 확인했습니다. 지금 버전이 최신입니다.');
+  if(ui.tab==='settings')keepScroll(renderMain);
 }
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
