@@ -109,7 +109,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .tip-row .v{display:block;width:auto;font-size:15.5px;line-height:1.65;word-break:keep-all;overflow-wrap:anywhere}
 .feedback-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.feedback-row button{flex:1;min-width:96px;border:1.5px solid #cfe3ff;background:#f3f8ff;color:#084298;border-radius:11px;padding:9px 8px;font-size:14px;font-weight:950}.feedback-row button:active{transform:scale(.97)}.feedback-row button[data-id="done"]{background:#e9f8ee;border-color:#bdecc9;color:#146c2e}.feedback-row button[data-id="dismissed"]{background:#f2f4f8;border-color:#d5dce8;color:#5d6b82}.update-badge{display:inline-block;background:#ffe08a;color:#664d00;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:950;margin-bottom:4px}
 .expert-phrase{margin-top:10px;background:#172033;color:#fff;border-radius:13px;padding:11px 12px}.expert-phrase .tx{font-size:16.5px;font-weight:950;line-height:1.5}.expert-phrase .pr{font-size:15px;font-weight:850;line-height:1.55;margin-top:3px;color:#ffd43b}.expert-phrase .mn{font-size:13.5px;line-height:1.55;opacity:.88;margin-top:2px}.expert-steps{margin-top:10px;border:1px solid #dbeafe;border-radius:13px;overflow:hidden}.expert-steps .h{background:#e8f4ff;color:#075985;font-size:14px;font-weight:950;padding:8px 10px}.expert-step{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:8px 10px;border-top:1px solid #e5edf7;font-size:14.5px;line-height:1.55}.expert-step:first-of-type{border-top:0}.expert-step .tm{font-weight:950;color:#075985;white-space:nowrap}.expert-near{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:950;margin-left:5px}
-.field-panel{margin-top:13px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.3);border-radius:15px;padding:11px}.field-title{font-size:15px;font-weight:950}.field-status{font-size:13.5px;line-height:1.55;font-weight:720;opacity:.94;margin-top:3px}.field-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.field-chips button{border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:7px 10px;font-size:13px;font-weight:900}.field-chips button.on{background:#ffd43b;color:#172033;border-color:#ffd43b}.field-note{font-size:12px;line-height:1.5;opacity:.78;margin-top:7px}
+.field-panel{margin-top:13px;background:#eef6ff;border:1px solid #bfdbfe;border-radius:15px;padding:11px;color:#172033}.field-title{font-size:15px;font-weight:950}.field-status{font-size:13.5px;line-height:1.55;font-weight:720;opacity:.94;margin-top:3px}.field-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.field-chips button{border:1px solid #93c5fd;background:#fff;color:#075985;border-radius:999px;padding:7px 10px;font-size:13px;font-weight:900}.field-quick{margin:10px 0 5px;background:#fff3bf;color:#172033;border:1.5px solid #ffd43b;border-radius:14px;padding:10px;display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.45;font-weight:850}.field-quick.ok{background:#e7f8ee;border-color:#bdecc9}.field-quick.warn{background:#fff1f2;border-color:#fecdd3}.field-quick .grow{flex:1}.field-quick button{flex:none;border:0;border-radius:11px;background:#0b5ed7;color:#fff;padding:10px 12px;font-size:14px;font-weight:950}.field-chips button.on{background:#ffd43b;color:#172033;border-color:#ffd43b}.field-note{font-size:12px;line-height:1.5;opacity:.78;margin-top:7px}
 .sec-title{font-size:23px;font-weight:900;margin:4px 2px 5px;letter-spacing:-.4px}
 .sec-desc{font-size:15px;color:var(--ink2);line-height:1.7;margin:0 2px 15px}
 .card{background:var(--card);border:1px solid rgba(227,232,242,.9);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;margin-bottom:13px}
@@ -230,7 +230,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.4.2';
+const APP_VERSION = 'v3.4.3';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -324,7 +324,7 @@ function emptyState(){
     trip:null,
     destinations:[], days:[], tips:[], expertInfo:[], contextPlaces:[], airports:[], transfers:[], hotels:[], important:[],
     documents:[], guides:[], infoFeed:[], guideNotes:[], liveSources:[], feedback:{}, field:{airportStages:{},manualContext:'',manualAt:0},
-    settings:{startTab:'home',fontScale:115,driveClientId:'',driveFolderName:'SK-여행 백업',driveFolderId:'',updateFeedUrl:'trip-updates.json',fieldModeEnabled:false}
+    settings:{startTab:'home',fontScale:115,driveClientId:'',driveFolderName:'SK-여행 백업',driveFolderId:'',updateFeedUrl:'trip-updates.json',fieldModeEnabled:false,fieldModeOptOut:false}
   };
 }
 function normalizeState(raw){
@@ -368,7 +368,7 @@ function save(){
 }
 let cacheStore=safeJsonParse(lsGet(LS_CACHE)||'null')||{fx:{},weather:{}};
 function saveCache(){ lsSet(LS_CACHE,JSON.stringify(cacheStore)); }
-const ui={tab:(state.settings.startTab&&TABS.some(t=>t.id===state.settings.startTab))?state.settings.startTab:'home',openDays:new Set(),openAir:new Set(),revealed:new Set(),updateReady:false,updToasted:false,latestVersion:'',latestNotes:'',lastVersionCheck:0,updating:false,homeDestIndex:0,homeDestFirstKey:'',navSeq:0,rootBackAt:0,sheetHistory:false,consumePop:false,manualContext:'',manualAt:0,manualGeo:null,geo:null,geoWatchId:null,geoError:'',geoBusy:false,onlinePlace:null,onlinePlaceBusy:false,onlinePlaceKey:'',fieldSignature:'',homeDestTimer:null,scheduleMode:'original',airHotelSection:'flights',openFlight:new Set(['reservation','flight-0']),openTransfers:new Set(),openHotels:new Set()};
+const ui={tab:(state.settings.startTab&&TABS.some(t=>t.id===state.settings.startTab))?state.settings.startTab:'home',openDays:new Set(),openAir:new Set(),revealed:new Set(),updateReady:false,updToasted:false,latestVersion:'',latestNotes:'',lastVersionCheck:0,updating:false,homeDestIndex:0,homeDestFirstKey:'',navSeq:0,rootBackAt:0,sheetHistory:false,consumePop:false,manualContext:'',manualAt:0,manualGeo:null,geo:null,geoPermission:'unknown',geoPermissionObj:null,geoLastErrorCode:0,geoRequestAt:0,geoFixCount:0,geoFallbackAt:0,geoWatchId:null,geoError:'',geoBusy:false,onlinePlace:null,onlinePlaceBusy:false,onlinePlaceKey:'',fieldSignature:'',homeDestTimer:null,scheduleMode:'original',airHotelSection:'flights',openFlight:new Set(['reservation','flight-0']),openTransfers:new Set(),openHotels:new Set()};
 let pendingImport=null;
 
 /* ---------- 토스트/시트 ---------- */
@@ -964,20 +964,74 @@ async function lookupOnlinePlace(force){
 }
 function handleFieldPosition(pos){
   const c=pos&&pos.coords?pos.coords:{}; if(c.latitude==null||c.longitude==null)return;
-  ui.geo={lat:Number(c.latitude),lon:Number(c.longitude),accuracy:c.accuracy==null?null:Number(c.accuracy),speed:c.speed==null?null:Number(c.speed),heading:c.heading==null?null:Number(c.heading),at:Date.now()};
-  ui.geoError=''; ui.geoBusy=false; refreshFieldContext(false); lookupOnlinePlace(false);
+  const receivedAt=Date.now(); const fixAt=(pos&&isFinite(Number(pos.timestamp))&&Number(pos.timestamp)>0)?Number(pos.timestamp):receivedAt;
+  if(ui.geo&&fixAt<Number(ui.geo.at||0)-1000)return;
+  ui.geo={lat:Number(c.latitude),lon:Number(c.longitude),accuracy:c.accuracy==null?null:Number(c.accuracy),speed:c.speed==null?null:Number(c.speed),heading:c.heading==null?null:Number(c.heading),at:fixAt,receivedAt,stale:receivedAt-fixAt>120000};
+  ui.geoError=''; ui.geoLastErrorCode=0; ui.geoPermission='granted'; ui.geoBusy=false; ui.geoFixCount++;
+  refreshFieldContext(false); lookupOnlinePlace(false);
 }
-function handleFieldPositionError(err){
-  ui.geoBusy=false; ui.geoError=err&&err.code===1?'위치 권한이 꺼져 있어요':(err&&err.code===3?'위치 확인 시간이 오래 걸려요':'현재 위치를 가져오지 못했어요');
+function handleFieldPositionError(err,isFallback){
+  const code=err&&err.code?Number(err.code):0; ui.geoLastErrorCode=code;
+  if(code===1){
+    ui.geoPermission='denied'; ui.geoBusy=false; ui.geoError='Chrome에서 이 사이트의 위치 권한이 차단되어 있습니다';
+    if(ui.geoWatchId!=null&&navigator.geolocation&&navigator.geolocation.clearWatch){ try{navigator.geolocation.clearWatch(ui.geoWatchId);}catch(e){} ui.geoWatchId=null; }
+  }else if(code===3&&!isFallback&&Date.now()-Number(ui.geoFallbackAt||0)>30000){
+    ui.geoFallbackAt=Date.now(); ui.geoError='정밀 위치가 늦어 대략적인 위치로 다시 찾는 중입니다';
+    requestFieldPositionFix('fallback');
+  }else{
+    ui.geoBusy=false; ui.geoError=code===3?'위치 확인 시간이 오래 걸려요':'현재 위치를 가져오지 못했어요';
+  }
   if(ui.tab==='home')keepScroll(renderMain);
 }
+function requestFieldPositionFix(kind){
+  if(!navigator.geolocation||!navigator.geolocation.getCurrentPosition)return false;
+  const fallback=kind==='fallback';
+  if(!fallback&&ui.geoBusy&&Date.now()-Number(ui.geoRequestAt||0)<3000)return true;
+  ui.geoBusy=true; ui.geoRequestAt=Date.now();
+  const opts=fallback?{enableHighAccuracy:false,timeout:12000,maximumAge:300000}:{enableHighAccuracy:true,timeout:15000,maximumAge:0};
+  try{ navigator.geolocation.getCurrentPosition(handleFieldPosition,err=>handleFieldPositionError(err,fallback),opts); }
+  catch(e){ ui.geoBusy=false; ui.geoError='위치 기능을 시작하지 못했습니다'; return false; }
+  return true;
+}
+async function updateGeoPermissionState(){
+  if(!navigator.permissions||!navigator.permissions.query){ ui.geoPermission='unknown'; return ui.geoPermission; }
+  try{
+    const result=await navigator.permissions.query({name:'geolocation'});
+    ui.geoPermission=String(result.state||'unknown');
+    if(result&&ui.geoPermissionObj!==result){
+      ui.geoPermissionObj=result;
+      const onChange=()=>{ ui.geoPermission=String(result.state||'unknown'); if(ui.geoPermission==='granted'&&!(state.settings&&state.settings.fieldModeOptOut)){ state.settings.fieldModeEnabled=true; save(); startFieldLocation(false); } if(ui.tab==='home')keepScroll(renderMain); };
+      if(result.addEventListener)result.addEventListener('change',onChange); else if('onchange' in result)result.onchange=onChange;
+    }
+    return ui.geoPermission;
+  }catch(e){ ui.geoPermission='unknown'; return ui.geoPermission; }
+}
+function maybeAutoStartFieldLocation(){
+  if(!navigator.geolocation)return false;
+  const enabled=!!(state.settings&&state.settings.fieldModeEnabled), optOut=!!(state.settings&&state.settings.fieldModeOptOut);
+  if(enabled&&!optOut)return startFieldLocation(false);
+  if(!optOut)updateGeoPermissionState().then(st=>{ if(st==='granted'&&!(state.settings&&state.settings.fieldModeOptOut)){ state.settings.fieldModeEnabled=true; save(); startFieldLocation(false); } });
+  return false;
+}
+function ensureFieldLocationFresh(){
+  if(!(state.settings&&state.settings.fieldModeEnabled)||(state.settings&&state.settings.fieldModeOptOut)||document.hidden)return;
+  if(ui.geoWatchId==null)startFieldLocation(false);
+  else if(!ui.geo||Date.now()-Number(ui.geo.at||0)>120000)requestFieldPositionFix(false);
+}
 function startFieldLocation(fromUser){
-  if(!navigator.geolocation){ if(fromUser)toast('이 브라우저에서는 위치 기능을 쓸 수 없어요'); return false; }
-  if(fromUser){ state.settings.fieldModeEnabled=true; save(); }
-  if(ui.geoWatchId!=null){ if(fromUser){ try{navigator.geolocation.getCurrentPosition(handleFieldPosition,handleFieldPositionError,{enableHighAccuracy:true,timeout:12000,maximumAge:30000});}catch(e){} } return true; }
-  ui.geoBusy=true;
-  try{ ui.geoWatchId=navigator.geolocation.watchPosition(handleFieldPosition,handleFieldPositionError,{enableHighAccuracy:true,timeout:15000,maximumAge:30000}); }
-  catch(e){ ui.geoBusy=false; if(fromUser)toast('위치 기능을 시작하지 못했어요'); return false; }
+  if(!navigator.geolocation){
+    ui.geoError=(typeof window!=='undefined'&&window.isSecureContext===false)?'HTTPS 주소에서 열어야 위치를 받을 수 있습니다':'이 브라우저에서는 위치 기능을 쓸 수 없습니다';
+    if(fromUser)toast(ui.geoError);
+    return false;
+  }
+  if(fromUser){ state.settings.fieldModeEnabled=true; state.settings.fieldModeOptOut=false; save(); }
+  updateGeoPermissionState();
+  if(ui.geoWatchId==null){
+    ui.geoBusy=true;
+    try{ ui.geoWatchId=navigator.geolocation.watchPosition(handleFieldPosition,err=>handleFieldPositionError(err,false),{enableHighAccuracy:true,timeout:20000,maximumAge:30000}); }
+    catch(e){ ui.geoBusy=false; if(fromUser)toast('위치 기능을 시작하지 못했어요'); return false; }
+  }
+  if(fromUser||!ui.geo||Date.now()-Number(ui.geo.at||0)>60000)requestFieldPositionFix(false);
   if(fromUser&&ui.tab==='home')keepScroll(renderMain);
   return true;
 }
@@ -985,12 +1039,23 @@ function stopFieldLocation(clearGeo){
   if(ui.geoWatchId!=null&&navigator.geolocation&&navigator.geolocation.clearWatch){ try{navigator.geolocation.clearWatch(ui.geoWatchId);}catch(e){} }
   ui.geoWatchId=null; ui.geoBusy=false; if(clearGeo){ui.geo=null;ui.onlinePlace=null;ui.fieldSignature='';}
 }
+function fieldQuickStatusHTML(){
+  const enabled=!!(state.settings&&state.settings.fieldModeEnabled)&&!(state.settings&&state.settings.fieldModeOptOut);
+  if(!navigator.geolocation)return '<div class="field-quick warn"><span class="grow">📍 이 환경에서는 위치를 받을 수 없습니다. HTTPS 주소의 Chrome/PWA에서 열어 주세요.</span></div>';
+  if(!enabled)return '<div class="field-quick"><span class="grow">📍 아직 위치를 받지 않고 있습니다. 위치를 켜야 공항·호텔·관광지 안내가 자동으로 바뀝니다.</span><button type="button" data-action="field-enable">위치 사용 허용하고 켜기</button></div>';
+  if(ui.geoPermission==='denied'||ui.geoLastErrorCode===1)return '<div class="field-quick warn"><span class="grow">📍 위치 권한이 차단되어 있습니다. Chrome 사이트 설정에서 위치를 허용한 뒤 다시 눌러 주세요.</span><button type="button" data-action="field-refresh">다시 시도</button></div>';
+  if(!ui.geo)return '<div class="field-quick"><span class="grow">📍 위치 권한을 확인하고 첫 위치를 찾는 중입니다…</span><button type="button" data-action="field-refresh">다시 확인</button></div>';
+  const age=Math.max(0,Math.round((Date.now()-ui.geo.at)/1000));
+  return '<div class="field-quick ok"><span class="grow">📍 위치 확인됨 · '+(age<5?'방금':age+'초 전')+(ui.geo.accuracy!=null?' · 정확도 약 '+Math.round(ui.geo.accuracy)+'m':'')+(ui.geo.stale?' · 오래된 위치라 다시 확인 중':'')+'</span><button type="button" data-action="field-refresh">새로 확인</button></div>';
+}
 function fieldPanelHTML(n){
   const ctx=(n&&n.fieldContext)||detectFieldContext(Date.now());
   const enabled=!!(state.settings&&state.settings.fieldModeEnabled);
   let status='';
-  if(!enabled)status='현장 모드를 켜면 공항·호텔·식당·관광지 근처에서 지금 할 일을 먼저 알려드립니다. 전문가 정보 전체 목록은 아래에 그대로 유지됩니다.';
-  else if(ui.geoError)status=ui.geoError+'. 위치 권한을 확인하거나 아래에서 현재 장소를 직접 눌러 주세요.';
+  if(!navigator.geolocation)status=(typeof window!=='undefined'&&window.isSecureContext===false)?'이 주소에서는 브라우저 보안 규칙 때문에 위치를 받을 수 없습니다. HTTPS 주소에서 앱을 열어 주세요.':'이 브라우저에서는 위치 기능을 쓸 수 없습니다.';
+  else if(!enabled)status='아직 위치를 받지 않고 있습니다. 아래 버튼을 누르고 Chrome 위치 권한을 허용하면, 다음부터 앱을 열 때 자동으로 위치 확인을 시작합니다. 전문가 정보 전체 목록은 아래에 그대로 유지됩니다.';
+  else if(ui.geoPermission==='denied'||ui.geoLastErrorCode===1)status='Chrome에서 이 사이트의 위치 권한이 차단되어 있습니다. 주소창의 사이트 설정에서 위치를 허용한 뒤 “위치 새로 확인”을 눌러 주세요.';
+  else if(ui.geoError)status=ui.geoError+'. 잠시 뒤 다시 확인하거나 아래에서 현재 장소를 직접 눌러 주세요.';
   else if(ui.geo){
     const age=Math.max(0,Math.round((Date.now()-ui.geo.at)/1000));
     status='위치 확인됨 · '+(age<5?'방금':age+'초 전')+(ui.geo.accuracy!=null?' · 정확도 약 '+Math.round(ui.geo.accuracy)+'m':'');
@@ -1003,7 +1068,7 @@ function fieldPanelHTML(n){
   const chip=(id,label)=>'<button type="button" class="'+(manual===id?'on':'')+'" data-action="field-manual" data-id="'+id+'">'+label+'</button>';
   let h='<div class="field-panel"><div class="field-title">📍 현장 모드 · 지금 여기</div><div class="field-status">'+esc(status)+'</div>';
   h+='<div class="field-chips">';
-  if(!enabled)h+='<button type="button" class="on" data-action="field-enable">현장 모드 켜기</button>';
+  if(!enabled)h+='<button type="button" class="on" data-action="field-enable">📍 위치 사용 허용하고 켜기</button>';
   else h+='<button type="button" data-action="field-refresh">위치 새로 확인</button><button type="button" data-action="field-lookup">온라인 장소 찾기</button><button type="button" data-action="field-disable">끄기</button>';
   h+='</div><div class="field-chips" aria-label="현재 장소 직접 선택">'+chip('auto','자동')+chip('airport','공항')+chip('restaurant','식당')+chip('hotel','호텔')+chip('attraction','관광지')+chip('station','역·이동')+'</div>';
   if(ctx.kind==='airport'&&ctx.flightRel){
@@ -1273,7 +1338,7 @@ function goTab(id){
   const before=JSON.stringify(currentAppNavState(ui.navSeq));
   ui.tab=id; ui.revealed.clear(); renderAll();
   if(JSON.stringify(currentAppNavState(ui.navSeq))!==before)pushTab(id);
-  if(id==='home'){ refreshLiveData(false); if(state.settings&&state.settings.fieldModeEnabled)startFieldLocation(false); }
+  if(id==='home'){ refreshLiveData(false); maybeAutoStartFieldLocation(); }
 }
 
 /* ---------- 홈 ---------- */
@@ -1623,7 +1688,7 @@ function renderNowCard(){
     else if(p&&p.done) prep='<div class="prep-line">🎒 등록된 기본 준비는 끝났어요</div>';
   }
   return '<section class="now-card'+(n.softText?' flight-soft':'')+'"><div class="now-eyebrow"><span class="lab">지금</span>'+renderNowFx()+'<button class="icon-btn" data-action="refresh-live" title="날씨·환율 새로고침" aria-label="날씨 환율 새로고침">↻</button></div>'
-    +(n.context?'<div class="now-context">'+esc(n.context)+'</div>':'')
+    +(n.context?'<div class="now-context">'+esc(n.context)+'</div>':'')+fieldQuickStatusHTML()
     +'<div class="now-title'+(n.oneLineTitle?' one-line':'')+'">'+esc(n.title)+'</div>'
     +(n.body?'<div class="now-body">'+esc(n.body)+'</div>':'')
     +fieldPanelHTML(n)+extra+(details?'<div>'+details+'</div>':'')+prep+feedbackButtons(n.feedbackKey)+nowActionButtons(n.actions)+'</section>';
@@ -2025,7 +2090,7 @@ function renderSettings(){
   let html='<div class="view"><div class="sec-title">⚙️ 설정</div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:8px">현재 여행</div>'+(tp?(infoKV('이름',tp.name||'(이름 없음)')+infoKV('기간',(tp.start?fmtFull(tp.start):'')+(tp.end?' ~ '+fmtFull(tp.end):''))+infoKV('여행지',tp.destSummary||state.destinations.map(d=>d.city).filter(Boolean).join(' · ')||'(미설정)')):'<div class="small-muted">등록된 여행이 없습니다.</div>')+'<div class="row wrap" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-action="trip-register">✈️ 여행등록</button><button class="btn btn-soft btn-sm" data-action="trip-edit">여행 정보 수정</button><button class="btn btn-ghost btn-sm" data-action="dest-manage">도시·시간대 설정</button></div></div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">백업·복원</div><div class="small-muted" style="margin-bottom:11px">새 여행으로 바꾸기 전에 현재 여행을 먼저 백업합니다. 백업에 실패하면 기존 여행은 지워지지 않습니다.</div><div class="row wrap"><button class="btn btn-soft btn-sm" data-action="backup-options">⬇️ 파일로 백업</button><button class="btn btn-yellow btn-sm" data-action="drive-backup">☁️ Google Drive 백업</button><button class="btn btn-ghost btn-sm" data-action="restore-file">⬆️ 파일에서 복원</button><button class="btn btn-ghost btn-sm" data-action="drive-restore">Drive에서 복원</button><button class="btn btn-dark btn-sm" data-action="drive-config">Drive 연결 설정</button></div><div class="small-muted" style="margin-top:9px">Drive 상태: '+(state.settings.driveClientId?'Client ID 설정됨 · 폴더 “'+esc(state.settings.driveFolderName||'SK-여행 백업')+'”':'아직 연결 설정이 필요합니다')+'</div></div>';
-  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">정보 업데이트</div><div class="small-muted" style="margin-bottom:11px">항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 <b>sk-travel-update JSON</b>이 같은 서버의 trip-updates.json이나 설정한 주소에 올라오면 앱이 자동으로 확인합니다. 파일/붙여넣기로도 가져올 수 있어요.</div><div class="kv"><div class="k">현재 상태</div><div class="v">활성 업데이트 '+activeInfoUpdates().length+'건 · 전문가 정보 '+(state.expertInfo||[]).length+'건 · 현장 장소 '+(state.contextPlaces||[]).length+'곳 · 숨긴 안내 '+feedbackHiddenCount()+'건<br>주소: '+esc(state.settings.updateFeedUrl||'trip-updates.json')+'</div></div><div class="row wrap" style="margin-top:11px"><button class="btn btn-pri btn-sm" data-action="update-refresh">🔔 지금 확인</button><button class="btn btn-soft btn-sm" data-action="update-config">업데이트 주소 설정</button><button class="btn btn-ghost btn-sm" data-action="feedback-reset">숨긴 안내 다시 보기</button></div>'+(state.liveSources&&state.liveSources.length?'<div class="f-lbl">공식 확인 링크</div><div class="row wrap">'+state.liveSources.map(x=>x.url?'<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.label||x.category||'공식 확인')+'</a>':'').join('')+'</div>':'')+'</div>';
+  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">정보 업데이트</div><div class="small-muted" style="margin-bottom:11px">항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 <b>sk-travel-update JSON</b>이 같은 서버의 trip-updates.json이나 설정한 주소에 올라오면 앱이 자동으로 확인합니다. 파일/붙여넣기로도 가져올 수 있어요.</div><div class="kv"><div class="k">현재 상태</div><div class="v">활성 업데이트 '+activeInfoUpdates().length+'건 · 전문가 정보 '+(state.expertInfo||[]).length+'건 · 현장 장소 '+(state.contextPlaces||[]).length+'곳 · 위치 '+(ui.geo?'확인됨':(state.settings.fieldModeEnabled?'확인 중':'꺼짐'))+' · 숨긴 안내 '+feedbackHiddenCount()+'건<br>주소: '+esc(state.settings.updateFeedUrl||'trip-updates.json')+'</div></div><div class="row wrap" style="margin-top:11px"><button class="btn btn-pri btn-sm" data-action="update-refresh">🔔 지금 확인</button><button class="btn btn-soft btn-sm" data-action="update-config">업데이트 주소 설정</button><button class="btn btn-ghost btn-sm" data-action="feedback-reset">숨긴 안내 다시 보기</button><button class="btn btn-soft btn-sm" data-action="field-refresh">📍 위치 확인</button></div>'+(state.liveSources&&state.liveSources.length?'<div class="f-lbl">공식 확인 링크</div><div class="row wrap">'+state.liveSources.map(x=>x.url?'<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.label||x.category||'공식 확인')+'</a>':'').join('')+'</div>':'')+'</div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">화면</div><div class="kv"><div class="k">본문 크기</div><div class="v"><b id="fzVal" style="color:var(--skyDark)">'+fz+'%</b><br>준비물 체크리스트에는 적용되지 않습니다.</div></div><input type="range" id="fontRange" min="100" max="140" step="5" value="'+fz+'" style="margin-top:10px"><div class="set-row" data-action="set-start" style="margin-top:6px"><div class="ic">🗂️</div><div class="grow"><div class="tt">앱 시작 화면</div><div class="dd">현재: '+esc((TABS.find(t=>t.id===state.settings.startTab)||TABS[0]).lb)+'</div></div><span class="ch">❯</span></div><div class="set-row" data-action="set-install"><div class="ic">📲</div><div class="grow"><div class="tt">홈 화면에 앱 설치</div><div class="dd">안드로이드 크롬에서 SK-여행 앱으로 설치</div></div><span class="ch">❯</span></div></div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">AI 여행 패키지</div><div class="small-muted">다음 여행을 준비할 때 AI에게 이 형식을 알려 주면 앱이 날짜·날씨·환율·팁을 정확히 연결할 수 있습니다.</div><button class="btn btn-soft btn-block" style="margin-top:11px" data-action="schema-show">🧩 JSON 여행 패키지 형식 보기/복사</button></div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:9px">데이터 정리</div><button class="btn btn-ghost btn-block" data-action="clear-trip">현재 여행만 지우기 (체크리스트 유지)</button><button class="btn btn-danger btn-block" style="margin-top:8px" data-action="data-reset">앱 데이터 전체 초기화</button><div class="small-muted" style="margin-top:8px">전체 초기화에서도 체크리스트 기록은 별도로 선택하지 않으면 지우지 않습니다.</div></div>';
@@ -2522,7 +2587,7 @@ function applyAppNavState(st){
   if(['flights','airports','hotels'].includes(st.airHotelSection))ui.airHotelSection=st.airHotelSection;
   if(['original','edit'].includes(st.scheduleMode))ui.scheduleMode=st.scheduleMode;
   ui.revealed.clear(); renderAll();
-  if(ui.tab==='home'){ refreshLiveData(false); if(state.settings&&state.settings.fieldModeEnabled)startFieldLocation(false); }
+  if(ui.tab==='home'){ refreshLiveData(false); maybeAutoStartFieldLocation(); }
 }
 function pushAppHistory(){ ui.navSeq++; try{history.pushState(currentAppNavState(ui.navSeq),'');}catch(e){} }
 function pushTab(id){ pushAppHistory(); }
@@ -2554,7 +2619,7 @@ const actions={
   'expert-locate'(){ if(startFieldLocation(true))toast('현장 모드를 켜고 위치를 확인 중이에요'); },
   'field-enable'(){ if(startFieldLocation(true))toast('현장 모드를 켰어요'); },
   'field-refresh'(){ if(startFieldLocation(true))toast('현재 위치를 다시 확인 중이에요'); },
-  'field-disable'(){ state.settings.fieldModeEnabled=false; stopFieldLocation(true); save(); keepScroll(renderMain); toast('현장 모드를 껐어요'); },
+  'field-disable'(){ state.settings.fieldModeEnabled=false; state.settings.fieldModeOptOut=true; stopFieldLocation(true); save(); keepScroll(renderMain); toast('현장 모드를 껐어요'); },
   'field-lookup'(){ if(!ui.geo){ startFieldLocation(true); toast('위치를 먼저 확인한 뒤 장소를 찾을게요'); return; } lookupOnlinePlace(true).then(p=>toast(p?('가까운 장소 후보: '+p.name):'가까운 장소를 찾지 못했어요')); },
   'field-manual'(id){
     const chosen=id==='auto'?'':String(id||'');
@@ -2763,12 +2828,12 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(reloading||!(ui.updateReady||ui.updating))return; reloading=true; if(!lsGet('sk_upd_from'))lsSet('sk_upd_from',APP_VERSION); location.reload(); });
   });
 }
-document.addEventListener('visibilitychange',()=>{ if(!document.hidden){checkForUpdate(false); if(state.settings&&state.settings.fieldModeEnabled)startFieldLocation(false);} });
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden){checkForUpdate(false); maybeAutoStartFieldLocation(); ensureFieldLocationFresh();} });
 
 /* ---------- 시작 ---------- */
-applyFont(); save(); renderAll(); loadChecklist(); refreshLiveData(false); refreshInfoUpdates(false); ensureBundledSpainTrip(); if(state.settings&&state.settings.fieldModeEnabled)startFieldLocation(false);
+applyFont(); save(); renderAll(); loadChecklist(); refreshLiveData(false); refreshInfoUpdates(false); ensureBundledSpainTrip(); maybeAutoStartFieldLocation();
 initAppHistory();
-setInterval(()=>{ if(ui.tab==='home'&&!document.hidden&&!$('#sheetWrap').classList.contains('show')){updateHomeTopBoard(false); refreshLiveData(false); refreshInfoUpdates(false); refreshFieldContext(false);} },30000);
+setInterval(()=>{ if(ui.tab==='home'&&!document.hidden&&!$('#sheetWrap').classList.contains('show')){updateHomeTopBoard(false); refreshLiveData(false); refreshInfoUpdates(false); ensureFieldLocationFresh(); refreshFieldContext(false);} },30000);
 setTimeout(()=>checkForUpdate(false),1800);
 try{ const from=lsGet('sk_upd_from'); if(from){lsRemove('sk_upd_from'); if(from!==APP_VERSION)setTimeout(()=>toast('✅ 업데이트 완료! 지금 버전은 '+APP_VERSION+'입니다.'),900);} }catch(e){}
 </script>
