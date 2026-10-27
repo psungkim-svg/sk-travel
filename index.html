@@ -151,6 +151,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .now-fx{margin-left:auto;background:transparent;border:0;border-radius:0;padding:0;text-align:right;min-width:0;max-width:62%;overflow:hidden}
 .now-fx-label{font-size:12.5px;font-weight:850;line-height:1.2;letter-spacing:-.35px;color:#667085;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .now-fx-value{font-size:17.5px;font-weight:950;line-height:1.18;letter-spacing:-.65px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.now-fx-sub{font-size:10px;font-weight:650;line-height:1.25;color:#667085;white-space:normal;overflow-wrap:anywhere;margin-top:2px}
+.now-first-action{margin:12px 0;padding:12px 13px;border-radius:12px;background:#fff7d1;border:1px solid #efd873;color:#30364a;line-height:1.55}
+.now-first-action b{display:block;font-size:13px;margin-bottom:3px;color:#6b5000}
+.now-first-action div{font-size:16px;font-weight:800}
 .now-title{font-size:27px;line-height:1.3;font-weight:950;letter-spacing:-.6px;color:var(--ink);word-break:keep-all}
 .now-title.one-line{font-size:clamp(18px,5.7vw,25px);white-space:nowrap;letter-spacing:-1px}
 .now-body{font-size:18px;line-height:1.65;font-weight:720;color:#26324b;margin-top:8px;word-break:keep-all}
@@ -245,7 +249,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.6.0';
+const APP_VERSION = 'v3.8.1';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -324,7 +328,6 @@ function updateAvailable(){ return !!(ui.updateReady||updateVersionText()); }
 function renderVersionFooter(){
   const nv=updateVersionText();
   let h='<div class="version-footer"><div class="version-app">SK-여행</div><div class="version-now">현재 버전 <b>'+esc(APP_VERSION)+'</b></div>';
-  if(ui.versionCheckDetail) h+='<div class="small-muted" role="status" style="margin-top:7px">'+esc(ui.versionCheckDetail)+'</div>';
   if(updateAvailable()){
     h+='<div class="update-note" role="status">🆕 '+(nv?('새 버전 <b>'+esc(nv)+'</b>가 나왔습니다.'):'새 버전이 준비됐습니다.')+'<br>새 버전을 업데이트할 수 있습니다.'
       +(ui.latestNotes?'<small>'+esc(ui.latestNotes)+'</small>':'')
@@ -360,9 +363,24 @@ function normalizeState(raw){
   if(s.trip){ s.trip.flights=Array.isArray(s.trip.flights)?s.trip.flights.map(normalizeFlight):[]; s.trip.reservation=normalizeReservation(s.trip.reservation); if(!Array.isArray(s.trip.departureSteps))s.trip.departureSteps=[]; if(!Array.isArray(s.trip.preTripActions))s.trip.preTripActions=[]; }
   return s;
 }
+function normalizeEventBrief(x){
+  if(!x||typeof x!=='object'||Array.isArray(x))return null;
+  const list=v=>normalizePlaceTextList(Array.isArray(v)?v:(v?[v]:[]));
+  const out={
+    why:String(x.why||x.keyMessage||x.overview||''),
+    history:Array.isArray(x.history)?x.history.map(String).filter(Boolean).join('\n'):String(x.history||x.history3||''),
+    mustSee:list(x.mustSee||x.highlights||x.lookFor),route:list(x.route||x.routeSteps),
+    photoPoints:list(x.photoPoints||x.photoPoint||x.photos),toilets:list(x.toilets||x.toilet),
+    comfort:String(x.comfort||x.rest||''),prepare:list(x.prepare||x.prepareItems||x.checklist),
+    risks:list(x.risks||x.watchOut||x.warnings),meeting:String(x.meeting||x.meetingPoint||''),fallback:String(x.fallback||x.alternative||''),
+    sources:Array.isArray(x.sources)?x.sources.map(v=>({name:String((v&&v.name)||''),url:String((v&&v.url)||'')})).filter(v=>v.name||v.url):[],verifiedAt:String(x.verifiedAt||''),confidence:String(x.confidence||''),
+    visualClues:list(x.visualClues||x.lookForOnSite),ticketRules:list(x.ticketRules||x.entryRules),priceNotes:String(x.priceNotes||x.price||''),crowdPlan:list(x.crowdPlan||x.crowds),walking:String(x.walking||x.stepsAndRest||''),localPhrase:(x.localPhrase&&typeof x.localPhrase==='object')?{text:String(x.localPhrase.text||x.localPhrase.original||''),pronunciation:String(x.localPhrase.pronunciation||''),meaning:String(x.localPhrase.meaning||'')}:null
+  };
+  return (out.why||out.history||out.mustSee.length||out.route.length||out.photoPoints.length||out.toilets.length||out.comfort||out.prepare.length||out.risks.length||out.meeting||out.fallback)?out:null;
+}
 function normalizeDay(d){
   d=d||{};
-  const events=Array.isArray(d.events)?d.events.map(e=>({id:e.id||uid(),time:normalizeTimeToken(e.time||''),title:String(e.title||e.text||''),place:String(e.place||''),note:String(e.note||''),tz:String(e.tz||e.timezone||'')})).sort((a,b)=>eventStartMinutes(a)-eventStartMinutes(b)):[];
+  const events=Array.isArray(d.events)?d.events.map(e=>({id:e.id||uid(),time:normalizeTimeToken(e.time||e.startTime||''),endTime:normalizeTimeToken(e.endTime||e.end||''),durationMin:numOrNull(e.durationMin||e.durationMinutes),title:String(e.title||e.text||''),place:String(e.place||''),note:String(e.note||''),tz:String(e.tz||e.timezone||''),brief:normalizeEventBrief(e.brief||e.preBrief||e.briefing)})).sort((a,b)=>eventStartMinutes(a)-eventStartMinutes(b)):[];
   return {id:d.id||uid(),date:String(d.date||'').slice(0,10),label:String(d.label||''),city:String(d.city||''),country:String(d.country||''),tz:String(d.tz||''),currency:String(d.currency||''),lat:numOrNull(d.lat),lon:numOrNull(d.lon),events,meals:Array.isArray(d.meals)?d.meals.map(String):[],hotel:d.hotel||null,notes:Array.isArray(d.notes)?d.notes.map(String):[],alerts:Array.isArray(d.alerts)?d.alerts.map(String):[]};
 }
 function numOrNull(v){ if(v==null||v==='')return null; const n=Number(v); return Number.isFinite(n)?n:null; }
@@ -384,7 +402,7 @@ function save(){
 }
 let cacheStore=safeJsonParse(lsGet(LS_CACHE)||'null')||{fx:{},weather:{}};
 function saveCache(){ lsSet(LS_CACHE,JSON.stringify(cacheStore)); }
-const ui={tab:(state.settings.startTab&&TABS.some(t=>t.id===state.settings.startTab))?state.settings.startTab:'home',openDays:new Set(),openAir:new Set(),revealed:new Set(),updateReady:false,updToasted:false,latestVersion:'',latestNotes:'',versionCheckDetail:'',lastVersionCheck:0,updating:false,homeDestIndex:0,homeDestFirstKey:'',navSeq:0,rootBackAt:0,sheetHistory:false,consumePop:false,manualContext:'',manualAt:0,manualGeo:null,selectedPlace:null,selectedPlaceAt:0,geo:null,geoPermission:'unknown',geoPermissionObj:null,geoLastErrorCode:0,geoLastErrorAt:0,geoLastErrorMessage:'',geoRequestAt:0,geoRequestSeq:0,geoLastAttemptAt:0,geoLastSuccessAt:0,geoRetryCount:0,geoRetryTimer:null,geoRetryReason:'',geoFixCount:0,geoRejectedCount:0,geoFallbackAt:0,geoWatchId:null,geoWatchStartedAt:0,geoError:'',geoBusy:false,placeDecision:null,lastPlaceCandidates:[],lastNowData:null,onlinePlace:null,onlineCandidates:[],onlinePlaceBusy:false,onlinePlaceKey:'',onlinePlaceLastAt:0,onlinePlaceError:'',onlinePlaceSource:'',onlinePlaceStatus:'',fieldSignature:'',homeDestTimer:null,scheduleMode:'original',airHotelSection:'flights',openFlight:new Set(['reservation','flight-0']),openTransfers:new Set(),openHotels:new Set()};
+const ui={tab:(state.settings.startTab&&TABS.some(t=>t.id===state.settings.startTab))?state.settings.startTab:'home',openDays:new Set(),openAir:new Set(),revealed:new Set(),updateReady:false,updToasted:false,latestVersion:'',latestNotes:'',lastVersionCheck:0,updating:false,homeDestIndex:0,homeDestFirstKey:'',navSeq:0,rootBackAt:0,sheetHistory:false,consumePop:false,manualContext:'',manualAt:0,manualGeo:null,selectedPlace:null,selectedPlaceAt:0,geo:null,geoPermission:'unknown',geoPermissionObj:null,geoLastErrorCode:0,geoLastErrorAt:0,geoLastErrorMessage:'',geoRequestAt:0,geoRequestSeq:0,geoRequestSource:'',geoLastAttemptAt:0,geoLastSuccessAt:0,geoLastResultAt:0,geoLastResultSeq:0,geoLastResultKind:'',geoRefreshPending:false,geoRefreshTimer:null,geoRetryCount:0,geoRetryTimer:null,geoRetryReason:'',geoFixCount:0,geoRejectedCount:0,geoFallbackAt:0,geoWatchId:null,geoWatchStartedAt:0,geoSamples:[],geoSettlingUntil:0,geoError:'',geoBusy:false,placeDecision:null,lastPlaceCandidates:[],lastNowData:null,onlinePlace:null,onlineCandidates:[],onlinePlaceBusy:false,onlinePlaceKey:'',onlinePlaceLastAt:0,onlinePlaceError:'',onlinePlaceSource:'',onlinePlaceStatus:'',fieldSignature:'',homeDestTimer:null,fxBusyCodes:new Set(),fxRefreshStatus:'',scheduleMode:'original',airHotelSection:'flights',openFlight:new Set(['reservation','flight-0']),openTransfers:new Set(),openHotels:new Set()};
 let pendingImport=null;
 
 /* ---------- 토스트/시트 ---------- */
@@ -610,6 +628,15 @@ function expertContextScore(e,day,nowMs){
   const collect=ev=>{ if(!ev||!ev.time)return; const ms=zonedTimeToUtcMs(day.date,ev.time,ev.tz||tz); if(ms!=null)timed.push({ev,ms}); };
   (day.events||[]).forEach(collect); try{guideTimedEvents(day).forEach(collect);}catch(err){}
   const next=timed.filter(x=>x.ms>=now-30*60e3).sort((a,b)=>a.ms-b.ms)[0];
+  try{
+    const segs=scheduleSegmentsForDay(day);
+    segs.forEach(seg=>{
+      const match=segmentExpertMatchScore(e,seg); if(match<14)return;
+      if(seg.startMs<=now&&now<seg.endMs+15*60000)score+=80+match;
+      else if(seg.startMs>now&&seg.startMs-now<=4*3600e3)score+=120+match;
+      else if(seg.endMs+15*60000<=now)score-=60;
+    });
+  }catch(err){}
   if(next&&next.ms-now<=3*3600e3){
     const evText=String((next.ev.title||'')+' '+(next.ev.place||'')+' '+(next.ev.note||'')).toLowerCase();
     const genericPlace=new Set([String(day.city||'').toLowerCase(),String((dest&&dest.city)||'').toLowerCase()]);
@@ -623,14 +650,12 @@ function expertContextScore(e,day,nowMs){
 function expertInfoForDate(iso,day){
   const d=day||state.days.find(x=>x.date===iso)||{date:iso||'',city:'',events:[]};
   let items=(state.expertInfo||[]).map(normalizeExpertInfo).filter(e=>expertApplies(e,d)&&!isFeedbackHidden(expertKey(e)));
-  const registeredPlaces=derivedContextPlaces(d).filter(p=>validLatLon(p.lat,p.lon));
-  const q=geoQuality(ui.geo);
-  items=items.map(e=>{ const anchor=expertAnchorPlace(e,d,registeredPlaces); const dist=(q.usableForArea&&anchor)?distanceKm(ui.geo.lat,ui.geo.lon,anchor.lat,anchor.lon):null; return Object.assign({},e,{_distanceKm:dist,_contextScore:expertContextScore(e,d),_locationAnchor:anchor?anchor.name:''}); });
+  items=items.map(e=>{ const q=geoQuality(ui.geo); const dist=(q.usableForArea&&validLatLon(e.lat,e.lon))?distanceKm(ui.geo.lat,ui.geo.lon,e.lat,e.lon):null; return Object.assign({},e,{_distanceKm:dist,_contextScore:expertContextScore(e,d)}); });
   items.sort((a,b)=>{
+    if((b._contextScore||0)!==(a._contextScore||0))return (b._contextScore||0)-(a._contextScore||0);
     const an=a._distanceKm!=null&&a._distanceKm<=10, bn=b._distanceKm!=null&&b._distanceKm<=10;
     if(an!==bn)return an?-1:1;
     if(an&&bn&&a._distanceKm!==b._distanceKm)return a._distanceKm-b._distanceKm;
-    if((b._contextScore||0)!==(a._contextScore||0))return (b._contextScore||0)-(a._contextScore||0);
     return ((a.priority==null?50:a.priority)-((b.priority==null?50:b.priority)))||(b.stars-a.stars);
   });
   return items;
@@ -784,12 +809,12 @@ function geoQuality(geo,nowMs){
   let grade='unknown',label='품질 확인 불가';
   if(future){grade='invalid';label='시각 오류';}
   else if(accuracy==null){grade='unknown';label='정확도 정보 없음';}
-  else if(accuracy<=25){grade='excellent';label='아주 좋음';}
-  else if(accuracy<=65){grade='good';label='좋음';}
-  else if(accuracy<=150){grade='fair';label='보통';}
+  else if(accuracy<=25){grade='excellent';label='브라우저 추정 반경 작음';}
+  else if(accuracy<=65){grade='good';label='브라우저 추정 반경 보통';}
+  else if(accuracy<=150){grade='fair';label='브라우저 추정 반경 다소 큼';}
   else if(accuracy<=500){grade='coarse';label='낮음';}
   else {grade='approximate';label='대략 위치';}
-  const usableForPlace=!stale&&!future&&accuracy!=null&&accuracy<=250;
+  const usableForPlace=!stale&&!future&&accuracy!=null&&accuracy<=250&&!geo.provisional;
   const usableForArea=!stale&&!future&&accuracy!=null&&accuracy<=1200;
   let reason='';
   if(future)reason='위치 취득 시각이 현재보다 5분 이상 미래입니다.';
@@ -797,7 +822,7 @@ function geoQuality(geo,nowMs){
   else if(accuracy==null)reason='브라우저가 정확도 반경을 주지 않았습니다.';
   else if(accuracy>500)reason='정확한 위치 대신 대략 위치만 허용됐거나 실내 신호가 약할 수 있습니다.';
   else if(accuracy>250)reason='정확도 반경이 커서 특정 장소를 확정하지 않습니다.';
-  return {grade,label:stale?'오래된 위치':label,baseLabel:label,accuracy,ageMs,ageSec:ageMs==null?null:Math.max(0,Math.round(ageMs/1000)),stale,cacheLikely:!!geo.cacheLikely,usableForPlace,usableForArea,approximateLikely:accuracy!=null&&accuracy>500,reason};
+  return {grade,label:stale?'오래된 위치':label,baseLabel:label,accuracy,ageMs,ageSec:ageMs==null?null:Math.max(0,Math.round(ageMs/1000)),stale,cacheLikely:!!geo.cacheLikely,settling:!!geo.provisional,confirmSamples:Number(geo.confirmSamples||0),filtered:!!geo.filtered,usableForPlace,usableForArea,approximateLikely:accuracy!=null&&accuracy>500,reason:geo.provisional?'첫 좌표만으로 확정하지 않고 더 정확한 좌표를 기다리고 있습니다.':reason};
 }
 function geoAccuracyText(accuracy){
   if(accuracy==null||!Number.isFinite(Number(accuracy)))return '정확도 정보 없음';
@@ -897,34 +922,27 @@ function contextPlaceApplies(p,day){
   if(p.dateTo&&day.date>p.dateTo)return false;
   return true;
 }
+function inferExpertPlaceType(e){
+  const t=((e.category||'')+' '+(e.trigger||'')+' '+(e.place||'')).toLowerCase();
+  if(/공항|체크인|탑승|보안/.test(t))return 'airport';
+  if(/식당|먹|주문|시장|휴게/.test(t))return 'restaurant';
+  if(/호텔|숙소/.test(t))return 'hotel';
+  if(/역|기차|열차/.test(t))return 'station';
+  return 'attraction';
+}
 function derivedContextPlaces(day){
   const out=(state.contextPlaces||[]).map(normalizeContextPlace).filter(p=>validLatLon(p.lat,p.lon)&&contextPlaceApplies(p,day));
   (state.hotels||[]).forEach(h=>{
-    if(h&&validLatLon(h.lat,h.lon)){ const p=normalizeContextPlace({id:'hotel-'+(h.id||h.name),type:'hotel',name:h.name,lat:h.lat,lon:h.lon,radiusM:350,dateFrom:h.checkin||'',dateTo:h.checkout||'',nowBody:h.note||'',doNow:['조식 장소·시간과 내일 집합 시간을 확인하세요.','여권과 객실 키는 분리해서 보관하세요.'],priority:5}); if(contextPlaceApplies(p,day)&&!out.some(x=>x.type==='hotel'&&x.name===p.name))out.push(p); }
+    if(h&&validLatLon(h.lat,h.lon)){ const p=normalizeContextPlace({id:'hotel-'+(h.id||h.name),type:'hotel',name:h.name,lat:h.lat,lon:h.lon,radiusM:350,dateFrom:h.checkin||'',dateTo:h.checkout||'',nowBody:h.note||'',doNow:['조식 장소·시간과 내일 집합 시간을 확인하세요.','여권과 객실 키는 분리해서 보관하세요.'],priority:5}); if(contextPlaceApplies(p,day)&&!out.some(x=>x.type==='hotel'&&distanceKm(x.lat,x.lon,p.lat,p.lon)!=null&&distanceKm(x.lat,x.lon,p.lat,p.lon)<0.25))out.push(p); }
   });
-  // Expert cards are content, not venue records. Their coordinates can be city/area anchors,
-  // so never turn them into 400m geofences. Only explicit contextPlaces/hotels may identify a place.
+  if(day){
+    (state.expertInfo||[]).map(normalizeExpertInfo).filter(e=>e.date===day.date&&validLatLon(e.lat,e.lon)).forEach(e=>{
+      if(out.some(p=>distanceKm(p.lat,p.lon,e.lat,e.lon)!=null&&distanceKm(p.lat,p.lon,e.lat,e.lon)<0.25))return;
+      out.push(normalizeContextPlace({id:'expert-place-'+e.id,type:inferExpertPlaceType(e),name:e.place||e.city||e.title,lat:e.lat,lon:e.lon,radiusM:400,date:e.date,nowBody:e.body,doNow:e.action?[e.action]:[],phrase:e.phrase,priority:50}));
+    });
+  }
   if(ui.geo&&validLatLon(ui.geo.lat,ui.geo.lon))out.forEach(p=>{p._distanceKm=distanceKm(ui.geo.lat,ui.geo.lon,p.lat,p.lon);});
   return out;
-}
-function normalizeAnchorText(value){
-  return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').normalize('NFC').toLowerCase().replace(/[^a-z0-9가-힣]+/g,' ').trim();
-}
-function expertAnchorPlace(e,day,registeredPlaces){
-  if(!e)return null;
-  const places=(Array.isArray(registeredPlaces)?registeredPlaces:derivedContextPlaces(day)).filter(p=>validLatLon(p.lat,p.lon));
-  const explicitId=String(e.contextPlaceId||e.locationAnchorId||'');
-  if(explicitId){ const exact=places.find(p=>String(p.id||'')===explicitId); if(exact)return exact; }
-  if(!validLatLon(e.lat,e.lon))return null;
-  const reference=normalizeAnchorText([e.place,e.title,e.trigger].filter(Boolean).join(' '));
-  const matches=places.filter(p=>{
-    const d=distanceKm(e.lat,e.lon,p.lat,p.lon);
-    if(d==null||d>0.25)return false;
-    if(p.airportCode&&new RegExp('(^| )'+String(p.airportCode).toLowerCase()+'( |$)').test(reference))return true;
-    const placeName=normalizeAnchorText(p.name);
-    return !!placeName&&(' '+reference+' ').includes(' '+placeName+' ');
-  });
-  return matches.length===1?matches[0]:null;
 }
 function relevantAirportFlight(nowMs,code,wantedMode){
   const now=Number(nowMs||Date.now()); const out=[];
@@ -1264,8 +1282,50 @@ function scheduleGeoRetry(reason,delayMs){
   },delay);
   return true;
 }
+function medianNumber(values){
+  const v=(values||[]).map(Number).filter(Number.isFinite).sort((a,b)=>a-b); if(!v.length)return null;
+  const m=Math.floor(v.length/2); return v.length%2?v[m]:(v[m-1]+v[m])/2;
+}
+function refineGeoFix(fix){
+  const receivedAt=Number(fix.receivedAt||Date.now());
+  ui.geoSamples=(Array.isArray(ui.geoSamples)?ui.geoSamples:[]).filter(x=>x&&validLatLon(x.lat,x.lon)&&receivedAt-Number(x.receivedAt||x.at||0)<=30000);
+  const prev=ui.geo;
+  if(prev&&validLatLon(prev.lat,prev.lon)){
+    const distPrevKm=distanceKm(prev.lat,prev.lon,fix.lat,fix.lon);
+    const prevAge=receivedAt-Number(prev.receivedAt||prev.at||0);
+    if(prevAge<=30000&&prev.accuracy!=null&&fix.accuracy!=null&&fix.accuracy>Math.max(prev.accuracy*2,prev.accuracy+50)&&distPrevKm!=null&&distPrevKm*1000<=(Number(prev.accuracy)+Number(fix.accuracy))&&fix.at-Number(prev.at||0)<15000){
+      return {ignored:true,reason:'lower-quality-transient',fix:prev};
+    }
+  }
+  ui.geoSamples.push(Object.assign({},fix));
+  if(ui.geoSamples.length>24)ui.geoSamples=ui.geoSamples.slice(-24);
+  const recent=ui.geoSamples.filter(x=>receivedAt-Number(x.receivedAt||x.at||0)<=15000);
+  const confirmSamples=recent.filter(x=>{const d=distanceKm(fix.lat,fix.lon,x.lat,x.lon);return d!=null&&d*1000<=50;}).length;
+  let out=Object.assign({},fix,{confirmSamples,filtered:false});
+  const good=recent.filter(x=>x.accuracy!=null&&Number(x.accuracy)<=100);
+  if(good.length>=3){
+    const medLat=medianNumber(good.map(x=>x.lat)),medLon=medianNumber(good.map(x=>x.lon));
+    if(validLatLon(medLat,medLon)){
+      const spreadM=Math.max.apply(null,good.map(x=>{const d=distanceKm(medLat,medLon,x.lat,x.lon);return d==null?9999:d*1000;}));
+      const speeds=good.map(x=>x.speed).filter(v=>v!=null&&Number.isFinite(Number(v))).map(Number);
+      const moving=speeds.some(v=>v>1.5);
+      if(!moving&&spreadM<=35){
+        out.lat=medLat; out.lon=medLon; out.filtered=true;
+        out.accuracy=Math.max(Math.min.apply(null,good.map(x=>Number(x.accuracy))),Math.ceil(spreadM));
+      }
+    }
+  }
+  const inSettlingWindow=Date.now()<=Number(ui.geoSettlingUntil||0);
+  if(out.accuracy==null)out.provisional=true;
+  else if(out.accuracy<=30)out.provisional=false;
+  else if(out.accuracy<=65&&confirmSamples>=2)out.provisional=false;
+  else if(out.accuracy<=150&&confirmSamples>=3)out.provisional=false;
+  else out.provisional=inSettlingWindow;
+  return {ignored:false,fix:out};
+}
 function handleFieldPosition(pos,source){
   const parsed=normalizeGeoPosition(pos,source||'watch');
+  if(source==='getCurrentPosition'||source==='fallback'){ui.geoRefreshPending=false;if(ui.geoRefreshTimer){clearTimeout(ui.geoRefreshTimer);ui.geoRefreshTimer=null;}}
   if(!parsed.ok){
     ui.geoRejectedCount=Number(ui.geoRejectedCount||0)+1; ui.geoBusy=false;
     if(!ui.geo)ui.geoError='브라우저가 유효한 위치 좌표를 주지 않았습니다.';
@@ -1273,25 +1333,31 @@ function handleFieldPosition(pos,source){
     if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);
     return false;
   }
-  const fix=parsed.fix;
+  let fix=parsed.fix;
   if(ui.geo&&fix.at<Number(ui.geo.at||0)-1000){
     locDiag('fix_ignored_old',{source:fix.source,fixAt:fix.at,currentAt:Number(ui.geo.at||0),accuracy:fix.accuracy});
-    return false;
+    if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);return false;
   }
+  const refined=refineGeoFix(fix);
+  if(refined.ignored){ locDiag('fix_ignored_lower_quality',{source:fix.source,accuracy:fix.accuracy,previousAccuracy:ui.geo?ui.geo.accuracy:null}); if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);return false; }
+  fix=refined.fix;
   const previous=ui.geo;
   const movedKm=previous?distanceKm(previous.lat,previous.lon,fix.lat,fix.lon):null;
   const q=geoQuality(fix,fix.receivedAt);
   ui.geo=fix;
-  ui.geoError=''; ui.geoLastErrorCode=0; ui.geoLastErrorMessage=''; ui.geoPermission='granted'; ui.geoBusy=false; ui.geoFixCount++; ui.geoLastSuccessAt=fix.receivedAt; if(!q.stale&&q.usableForPlace)ui.geoRetryCount=0; clearGeoRetry();
+  ui.geoError=''; ui.geoLastErrorCode=0; ui.geoLastErrorMessage=''; ui.geoPermission='granted'; ui.geoBusy=!!ui.geoRefreshPending; ui.geoFixCount++; ui.geoLastSuccessAt=fix.receivedAt; if(!q.stale&&q.usableForPlace)ui.geoRetryCount=0; clearGeoRetry();
   const shouldLog=!previous||previous.qualityGrade!==q.grade||(movedKm!=null&&movedKm>=0.1)||fix.source!=='watch'||fix.cacheLikely||fix.stale;
-  if(shouldLog)locDiag('fix_accepted',{source:fix.source,lat:Number(fix.lat.toFixed(5)),lon:Number(fix.lon.toFixed(5)),accuracy:fix.accuracy,fixAt:fix.at,receivedAt:fix.receivedAt,ageMs:fix.receivedAt-fix.at,cacheLikely:fix.cacheLikely,quality:q.grade,movedKm:movedKm==null?null:Number(movedKm.toFixed(3))});
+  if(shouldLog)locDiag('fix_accepted',{source:fix.source,lat:Number(fix.lat.toFixed(5)),lon:Number(fix.lon.toFixed(5)),accuracy:fix.accuracy,fixAt:fix.at,receivedAt:fix.receivedAt,ageMs:fix.receivedAt-fix.at,cacheLikely:fix.cacheLikely,quality:q.grade,provisional:!!fix.provisional,confirmSamples:Number(fix.confirmSamples||0),filtered:!!fix.filtered,movedKm:movedKm==null?null:Number(movedKm.toFixed(3))});
   refreshFieldContext(false);
+  if(source==='getCurrentPosition'||source==='fallback'||ui.tab==='home'||ui.tab==='settings'){if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);}
   if(q.stale)scheduleGeoRetry('stale-fix',1200);
   else if(!q.usableForPlace&&fix.source==='watch')scheduleGeoRetry('low-quality-fix',8000);
   return true;
 }
 function handleFieldPositionError(err,isFallback,source){
   const code=err&&err.code?Number(err.code):0;
+  const retainManualWait=!!ui.geoRefreshPending&&code===3&&!isFallback&&source!=='watch';
+  if((source!=='watch'&&!retainManualWait)||code===1){ui.geoRefreshPending=false;if(ui.geoRefreshTimer){clearTimeout(ui.geoRefreshTimer);ui.geoRefreshTimer=null;}}
   const info=geoErrorInfo(code);
   ui.geoLastErrorCode=code; ui.geoLastErrorAt=Date.now(); ui.geoLastErrorMessage=String((err&&err.message)||info.name);
   locDiag('fix_error',{source:String(source||(isFallback?'fallback':'request')),code,name:info.name,message:ui.geoLastErrorMessage.slice(0,100),hasPreviousFix:!!ui.geo,previousAgeSec:ui.geo?geoQuality(ui.geo).ageSec:null});
@@ -1300,7 +1366,7 @@ function handleFieldPositionError(err,isFallback,source){
     if(ui.geoWatchId!=null&&navigator.geolocation&&navigator.geolocation.clearWatch){ try{navigator.geolocation.clearWatch(ui.geoWatchId);}catch(e){} ui.geoWatchId=null; }
   }else if(code===3&&!isFallback&&Date.now()-Number(ui.geoFallbackAt||0)>30000){
     ui.geoFallbackAt=Date.now(); ui.geoError='정밀 위치가 늦어 대략적인 위치로 다시 찾는 중입니다';
-    requestFieldPositionFix('fallback');
+    requestFieldPositionFix('fallback','retry-after-timeout',retainManualWait);
   }else{
     ui.geoBusy=false; ui.geoError=info.label;
     const delay=code===2?7000:(isFallback?15000:10000);
@@ -1308,7 +1374,7 @@ function handleFieldPositionError(err,isFallback,source){
   }
   if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);
 }
-function requestFieldPositionFix(kind,reason){
+function requestFieldPositionFix(kind,reason,force){
   if(!navigator.geolocation||!navigator.geolocation.getCurrentPosition){
     locDiag('request_blocked',{reason:'geolocation-unavailable'}); return false;
   }
@@ -1316,12 +1382,16 @@ function requestFieldPositionFix(kind,reason){
     ui.geoError='HTTPS 주소에서 열어야 위치를 받을 수 있습니다.'; locDiag('request_blocked',{reason:'insecure-context'}); return false;
   }
   const fallback=kind==='fallback';
-  if(!fallback&&ui.geoBusy&&Date.now()-Number(ui.geoRequestAt||0)<3000)return true;
+  if(!fallback&&!force&&ui.geoBusy&&Date.now()-Number(ui.geoRequestAt||0)<3000)return true;
+  const trackRefresh=!!force||!!ui.geoRefreshPending;
+  if(ui.geoRefreshTimer){clearTimeout(ui.geoRefreshTimer);ui.geoRefreshTimer=null;}
   ui.geoBusy=true; ui.geoRequestAt=Date.now(); ui.geoLastAttemptAt=ui.geoRequestAt; ui.geoRequestSeq=Number(ui.geoRequestSeq||0)+1;
+  const requestSeq=ui.geoRequestSeq; ui.geoRequestSource=String(reason|| (fallback?'fallback':'getCurrentPosition'));
+  if(trackRefresh){ui.geoRefreshPending=true;ui.geoRefreshTimer=setTimeout(()=>{if(ui.geoRequestSeq===requestSeq&&ui.geoRefreshPending){ui.geoRefreshPending=false;ui.geoBusy=false;ui.geoLastResultAt=Date.now();ui.geoLastResultSeq=requestSeq;ui.geoLastResultKind='timeout';ui.geoError='20초 안에 위치 응답이 오지 않았습니다. GPS·Chrome 권한을 확인하고 다시 눌러 주세요.';locDiag('request_watchdog',{seq:requestSeq});if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);}},20000);}
   const opts=fallback?{enableHighAccuracy:false,timeout:12000,maximumAge:60000}:{enableHighAccuracy:true,timeout:15000,maximumAge:0};
-  locDiag('request_start',{seq:ui.geoRequestSeq,source:fallback?'fallback':'getCurrentPosition',reason:String(reason||''),enableHighAccuracy:opts.enableHighAccuracy,timeout:opts.timeout,maximumAge:opts.maximumAge,permission:ui.geoPermission,online:!!navigator.onLine});
-  try{ navigator.geolocation.getCurrentPosition(pos=>handleFieldPosition(pos,fallback?'fallback':'getCurrentPosition'),err=>handleFieldPositionError(err,fallback,fallback?'fallback':'getCurrentPosition'),opts); }
-  catch(e){ ui.geoBusy=false; ui.geoError='위치 기능을 시작하지 못했습니다'; ui.geoLastErrorAt=Date.now(); ui.geoLastErrorMessage=String((e&&e.message)||e||'start failed'); locDiag('request_exception',{message:ui.geoLastErrorMessage.slice(0,100)}); return false; }
+  locDiag('request_start',{seq:requestSeq,source:fallback?'fallback':'getCurrentPosition',reason:String(reason||''),force:!!force,enableHighAccuracy:opts.enableHighAccuracy,timeout:opts.timeout,maximumAge:opts.maximumAge,permission:ui.geoPermission,online:!!navigator.onLine});
+  try{ navigator.geolocation.getCurrentPosition(pos=>{if(requestSeq!==ui.geoRequestSeq){locDiag('request_callback_ignored',{seq:requestSeq,currentSeq:ui.geoRequestSeq,kind:'success'});return;}ui.geoLastResultAt=Date.now();ui.geoLastResultSeq=requestSeq;ui.geoLastResultKind='success';locDiag('request_result',{seq:requestSeq,kind:'success',accuracy:Number(pos&&pos.coords&&pos.coords.accuracy)});const accepted=handleFieldPosition(pos,fallback?'fallback':'getCurrentPosition');if(!accepted){ui.geoLastResultKind='received-not-applied';if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);}},err=>{if(requestSeq!==ui.geoRequestSeq){locDiag('request_callback_ignored',{seq:requestSeq,currentSeq:ui.geoRequestSeq,kind:'error'});return;}ui.geoLastResultAt=Date.now();ui.geoLastResultSeq=requestSeq;ui.geoLastResultKind='error';locDiag('request_result',{seq:requestSeq,kind:'error',code:Number(err&&err.code||0)});handleFieldPositionError(err,fallback,fallback?'fallback':'getCurrentPosition');},opts); }
+  catch(e){ ui.geoBusy=false;ui.geoRefreshPending=false;if(ui.geoRefreshTimer){clearTimeout(ui.geoRefreshTimer);ui.geoRefreshTimer=null;} ui.geoError='위치 기능을 시작하지 못했습니다'; ui.geoLastErrorAt=Date.now(); ui.geoLastErrorMessage=String((e&&e.message)||e||'start failed'); locDiag('request_exception',{message:ui.geoLastErrorMessage.slice(0,100)}); return false; }
   return true;
 }
 async function updateGeoPermissionState(){
@@ -1393,6 +1463,7 @@ function startFieldLocation(fromUser){
   }
   if(fromUser){ state.settings.fieldModeEnabled=true; state.settings.fieldModeOptOut=false; state.settings.fieldPermissionAskedAt=Date.now(); ui.geoRetryCount=0; save(); }
   locDiag('start',{fromUser:!!fromUser,watchExisting:ui.geoWatchId!=null,permission:ui.geoPermission,online:!!navigator.onLine,hasFix:!!ui.geo,fixAgeSec:ui.geo?geoQuality(ui.geo).ageSec:null});
+  if(fromUser||!ui.geo||!geoQuality(ui.geo).usableForPlace)ui.geoSettlingUntil=Date.now()+30000;
   updateGeoPermissionState();
   if(ui.geoWatchId==null){
     ui.geoBusy=true; ui.geoWatchStartedAt=Date.now();
@@ -1403,27 +1474,29 @@ function startFieldLocation(fromUser){
     catch(e){ ui.geoBusy=false; ui.geoLastErrorMessage=String((e&&e.message)||e||'watch failed'); locDiag('watch_exception',{message:ui.geoLastErrorMessage.slice(0,100)}); if(fromUser)toast('위치 기능을 시작하지 못했어요'); return false; }
   }
   const q=geoQuality(ui.geo);
-  if(fromUser||!ui.geo||q.stale||Date.now()-Number(ui.geo.at||0)>30000)requestFieldPositionFix(false,fromUser?'user':'start');
+  if(fromUser||!ui.geo||q.stale||Date.now()-Number(ui.geo.at||0)>30000)requestFieldPositionFix(false,fromUser?'user':'start',!!fromUser);
   if((fromUser||!ui.geo)&&(ui.tab==='home'||ui.tab==='settings'))keepScroll(renderMain);
   return true;
 }
 function stopFieldLocation(clearGeo){
-  clearGeoRetry();
+  clearGeoRetry();if(ui.geoRefreshTimer){clearTimeout(ui.geoRefreshTimer);ui.geoRefreshTimer=null;}ui.geoRefreshPending=false;ui.geoRequestSeq=Number(ui.geoRequestSeq||0)+1;
   if(ui.geoWatchId!=null&&navigator.geolocation&&navigator.geolocation.clearWatch){ try{navigator.geolocation.clearWatch(ui.geoWatchId);}catch(e){} }
   locDiag('watch_stopped',{clearGeo:!!clearGeo,hadFix:!!ui.geo});
-  ui.geoWatchId=null; ui.geoWatchStartedAt=0; ui.geoBusy=false;
+  ui.geoWatchId=null; ui.geoWatchStartedAt=0; ui.geoBusy=false; ui.geoSamples=[]; ui.geoSettlingUntil=0;
   if(clearGeo){ui.geo=null;ui.onlinePlace=null;ui.onlineCandidates=[];ui.fieldSignature='';clearManualFieldContext('field-disabled');}
 }
 function fieldEnabledNow(){ return !!(state.settings&&state.settings.fieldModeEnabled)&&!(state.settings&&state.settings.fieldModeOptOut); }
 function locationPlaceSummary(ctx,quality){
   if(!ui.geo)return '일정 기준으로 안내 중';
-  if(ctx&&ctx.place&&(ctx.placeStatus==='confirmed'||ctx.placeStatus==='likely'))return '장소 확인 · '+ctx.place.name;
+  if(ctx&&ctx.place&&ctx.placeStatus==='confirmed')return '저장 장소와 일치 · '+ctx.place.name;
+  if(ctx&&ctx.place&&ctx.placeStatus==='likely')return '근처 장소 후보 · '+ctx.place.name+' (확정 아님)';
   if(ctx&&ctx.place&&(ctx.placeStatus==='manual'||ctx.placeStatus==='selected'))return '직접 확인 · '+ctx.place.name;
-  if(ctx&&ctx.kind==='airport'&&ctx.placeStatus==='schedule')return '공항 위치는 아직 미확인';
-  if(ctx&&ctx.kind==='place-uncertain')return '장소 후보 확인 필요';
+  if(ctx&&ctx.kind==='airport'&&ctx.placeStatus==='schedule')return '공항 위치는 일정으로 추정 중 · GPS 식별 아님';
+  if(ctx&&ctx.kind==='place-uncertain')return '저장 장소 후보를 하나로 확정하지 못함';
   if(ctx&&ctx.kind==='pretrip')return '여행 시작 전 · 장소 판단 보류';
-  if(quality&&!quality.usableForPlace)return '위치 품질 낮음 · 장소 미확정';
-  return '등록 장소 미확정';
+  if(quality&&!quality.usableForPlace)return '좌표 정확도가 낮아 저장 장소 대조 불가';
+  try{ const ss=scheduleState(Date.now()); if(ss.current)return '저장 장소 매칭 없음 · 일정상 현재: '+cleanSegmentTitle(ss.current.title); if(ss.next)return '저장 장소 매칭 없음 · 다음 일정: '+cleanSegmentTitle(ss.next.title); }catch(e){}
+  return '저장 목록의 일치 장소 없음 · 이름 식별 안 됨';
 }
 function renderLocationStrip(ctx){
   ctx=ctx||detectFieldContext(Date.now());
@@ -1445,20 +1518,26 @@ function renderLocationStrip(ctx){
     const failed=!!info&&!ui.geoBusy;
     return '<section class="loc-strip '+(failed?'bad':'info')+'" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">'+(failed?esc(info.label):'현재 위치를 찾는 중이에요')+'</div><div class="loc-sub">'+(failed?esc(info.help):'Chrome 권한과 첫 좌표를 확인하고 있습니다. 실내에서는 몇 초 더 걸릴 수 있어요.')+'</div></div><div class="loc-actions"><button type="button" data-action="field-refresh">다시 확인</button></div></section>';
   }
-  let cls='ok',title='위치 확인됨';
+  let cls='ok',title=(ui.geoBusy||ui.geoRefreshPending)?'새 위치 좌표 응답 대기 중':'현재 위치 좌표 응답 수신';
+  if(ui.geoBusy){cls='info';}
   if(q.stale){cls='warn';title='마지막 위치를 보고 있어요';}
+  else if(q.settling){cls='info';title='좌표 오차를 줄이는 중이에요';}
   else if(q.grade==='approximate'){cls='warn';title='대략 위치만 확인됐어요';}
-  else if(q.grade==='coarse'||q.grade==='unknown'||q.grade==='invalid'){cls='warn';title='위치는 받았지만 정확도가 낮아요';}
-  else if(q.grade==='fair'){cls='info';title='위치 확인됨';}
+  else if(q.grade==='coarse'||q.grade==='unknown'||q.grade==='invalid'){cls='warn';title='좌표를 받았지만 오차 추정이 큽니다';}
+  else if(q.grade==='fair'){cls='info';title='현재 위치 좌표 응답 수신';}
   const compactAccuracy=q.accuracy==null?'정확도 정보 없음':('정확도 약 '+(Math.round(q.accuracy)>=1000?(Math.round(q.accuracy)/1000).toFixed(Math.round(q.accuracy)>=10000?0:1).replace(/\.0$/,'')+'km':Math.round(q.accuracy)+'m'));
-  const sub=[geoAgeText(ui.geo),compactAccuracy,(q.stale?q.baseLabel:q.label)].join(' · ');
+  const sub='Chrome이 보고한 위치 좌표 오차 추정 · '+[geoAgeText(ui.geo),compactAccuracy].join(' · ');
   const placeSummary=locationPlaceSummary(ctx,q);
   let help='';
-  if(q.stale)help='새 위치를 다시 확인하고 있습니다. 오래된 좌표로는 장소를 확정하지 않습니다.';
+  if(ui.geoRefreshPending)help='새 위치 좌표 요청 #'+Number(ui.geoRequestSeq||0)+'을 보냈습니다. 요청 시각 '+locationDiagTime(ui.geoLastAttemptAt)+' · 응답 대기 중입니다.';
+  else if(ui.geoLastResultSeq===ui.geoRequestSeq&&ui.geoLastResultSeq)help='최근 요청 #'+ui.geoLastResultSeq+' · '+locationDiagTime(ui.geoLastAttemptAt)+' · '+(ui.geoLastResultKind==='success'?'새 좌표 응답 수신':ui.geoLastResultKind==='received-not-applied'?'응답은 왔지만 품질이 낮아 기존 좌표 유지':ui.geoLastResultKind==='timeout'?'응답 시간 초과':ui.geoError||'위치 요청 오류');
+  else if(q.stale)help='새 위치를 다시 확인하고 있습니다. 오래된 좌표로는 장소를 확정하지 않습니다.';
+  else if(q.settling)help='첫 좌표만으로 장소를 확정하지 않고, 연속 좌표 중 가장 정확한 값을 고르고 있습니다.';
   else if(q.approximateLikely)help='Chrome 위치 설정에서 이 사이트에 “정확한 위치”가 허용됐는지, 안드로이드 설정에서 Chrome의 정확한 위치가 켜졌는지 확인해 주세요.';
   else if(!q.usableForPlace&&q.reason)help=q.reason;
+  else if(!ctx||!['confirmed','likely','manual','selected'].includes(ctx.placeStatus))help='두 줄은 서로 다른 결과입니다. 위의 m 값은 Chrome이 보고한 좌표 오차의 추정 반경이지 장소 이름 확인 결과가 아닙니다. 저장 목록과 맞는 곳을 못 찾았다는 뜻이며, GPS가 나쁘다는 뜻은 아닙니다. 실내 매장·공항 내부 구역은 GPS로 단정하지 않습니다.';
   if(ui.geoError)help=(help?help+' ':'')+'최근 재확인: '+ui.geoError;
-  return '<section class="loc-strip '+cls+'" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">'+esc(title)+'</div><div class="loc-sub">'+esc(sub)+'</div><div class="loc-place">'+esc(placeSummary)+'</div>'+(help?'<div class="loc-help">'+esc(help)+'</div>':'')+'</div><div class="loc-actions"><button class="loc-icon-btn" type="button" data-action="field-refresh" title="위치 새로 확인" aria-label="위치 새로 확인">↻</button><button class="loc-icon-btn soft" type="button" data-action="loc-diag-open" title="위치 진단 열기" aria-label="위치 진단 열기">i</button></div></section>';
+  return '<section class="loc-strip '+cls+'" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">'+esc(title)+'</div><div class="loc-sub">'+esc(sub)+'</div><div class="loc-place">장소 식별 결과 · '+esc(placeSummary)+'</div>'+(help?'<div class="loc-help">'+esc(help)+'</div>':'')+'</div><div class="loc-actions"><button class="loc-icon-btn" type="button" data-action="field-refresh" title="위치 새로 확인" aria-label="위치 새로 확인" '+(ui.geoRefreshPending?'disabled aria-busy="true"':'')+'>'+(ui.geoRefreshPending?'…':'↻')+'</button><button class="loc-icon-btn soft" type="button" data-action="loc-diag-open" title="위치 진단 열기" aria-label="위치 진단 열기">i</button></div></section>';
 }
 function fieldQuickStatusHTML(ctx){ return renderLocationStrip(ctx); }
 function manualContextControlsHTML(ctx){
@@ -1530,7 +1609,7 @@ function locationDiagnosticsText(){
   lines.push('실행 형태: 설치형 웹앱(PWA/WebAPK) · Chrome Geolocation/Permissions API');
   lines.push('HTTPS 보안 주소: '+(s.secure?'예':'아니오')+' · 네트워크: '+(s.online?'온라인':'오프라인'));
   lines.push('현장 모드: '+(s.enabled?'켜짐':'꺼짐')+' · Chrome 위치 권한: '+ui.geoPermission+' ('+geoPermissionLabel(ui.geoPermission)+')');
-  lines.push('위치 감시 중: '+(ui.geoWatchId!=null?'예':'아니오')+' · 요청 중: '+(ui.geoBusy?'예':'아니오')+' · 재시도: '+Number(ui.geoRetryCount||0)+'회');
+  lines.push('위치 감시 중: '+(ui.geoWatchId!=null?'예':'아니오')+' · 요청 중: '+(ui.geoBusy?'예':'아니오')+' · 요청 ID: #'+Number(ui.geoRequestSeq||0)+' ('+(ui.geoRequestSource||'미요청')+') · 수동 새로고침 대기: '+(ui.geoRefreshPending?'예':'아니오')+' · 재시도: '+Number(ui.geoRetryCount||0)+'회');
   lines.push('마지막 요청: '+locationDiagTime(ui.geoLastAttemptAt||ui.geoRequestAt)+' · 마지막 성공: '+locationDiagTime(ui.geoLastSuccessAt));
   lines.push('마지막 오류: '+(ui.geoLastErrorCode?('#'+ui.geoLastErrorCode+' '+geoErrorInfo(ui.geoLastErrorCode).name+' · '+locationDiagTime(ui.geoLastErrorAt)):'없음'));
   if(ui.geo){
@@ -1550,7 +1629,7 @@ function renderLocationDiagnosticsCard(){
   const row=(k,v)=>'<div class="kv"><div class="k">'+esc(k)+'</div><div class="v">'+esc(v)+'</div></div>';
   let h='<div class="card" id="locationDiagnosticsCard"><div class="card-title" style="margin-bottom:7px">📍 위치 진단</div><div class="small-muted" style="margin-bottom:8px">좌표 취득과 장소 식별을 분리해 보여줍니다. 진단 기록은 이번 실행 메모리에만 있고 API 키나 토큰은 기록하지 않습니다.</div><div class="diag-grid">';
   h+=row('실행·연결','설치형 웹앱(PWA/WebAPK) · Chrome Geolocation API\nHTTPS '+(s.secure?'예':'아니오')+' · 네트워크 '+(s.online?'온라인':'오프라인 (장소 검색만 영향)'));
-  h+=row('권한·감시','현장 모드 '+(s.enabled?'켜짐':'꺼짐')+' · Chrome 권한 '+geoPermissionLabel(ui.geoPermission)+'\n위치 감시 '+(ui.geoWatchId!=null?'중':'아님')+' · 요청 '+(ui.geoBusy?'중':'대기')+' · 자동 재시도 '+Number(ui.geoRetryCount||0)+'회');
+  h+=row('권한·감시','현장 모드 '+(s.enabled?'켜짐':'꺼짐')+' · Chrome 권한 '+geoPermissionLabel(ui.geoPermission)+'\n위치 감시 '+(ui.geoWatchId!=null?'중':'아님')+' · 요청 '+(ui.geoBusy?'중':'대기')+' #'+Number(ui.geoRequestSeq||0)+' ('+(ui.geoRequestSource||'미요청')+') · 수동 새로고침 '+(ui.geoRefreshPending?'대기 중':'없음')+' · 자동 재시도 '+Number(ui.geoRetryCount||0)+'회');
   h+=row('마지막 요청·오류','요청 '+locationDiagTime(ui.geoLastAttemptAt||ui.geoRequestAt)+'\n성공 '+locationDiagTime(ui.geoLastSuccessAt)+'\n오류 '+(ui.geoLastErrorCode?('#'+ui.geoLastErrorCode+' '+geoErrorInfo(ui.geoLastErrorCode).name+' · '+locationDiagTime(ui.geoLastErrorAt)):'없음'));
   if(ui.geo)h+=row('현재 좌표 판정',Number(ui.geo.lat).toFixed(5)+', '+Number(ui.geo.lon).toFixed(5)+'\n취득 '+locationDiagTime(ui.geo.at)+' · '+geoAgeText(ui.geo)+'\n'+geoAccuracyText(q.accuracy)+' · 품질 '+q.label+' ('+q.grade+')\n출처 '+(ui.geo.source||'unknown')+' · 캐시 가능성 '+(ui.geo.cacheLikely?'있음':'낮음')+(q.reason?'\n'+q.reason:''));
   else h+=row('현재 좌표 판정','아직 유효한 좌표가 없습니다.');
@@ -1721,48 +1800,96 @@ function deriveDayWxCode(j,date,dailyCode,dailyPop,dailySum){
   const avg=cloudSum/cloudCount;
   return avg<=20?0:(avg<=50?1:(avg<=80?2:3));
 }
+async function fetchFxReference(code){
+  const q=encodeURIComponent(String(code||'').toUpperCase());
+  let lastError=null;
+  try{
+    const rows=await fetchJson('https://api.frankfurter.dev/v2/rates?base=USD&quotes='+q);
+    const row=Array.isArray(rows)?rows.find(x=>String(x.quote||'').toUpperCase()===q):null;
+    if(row&&Number.isFinite(Number(row.rate))&&String(row.date||'').match(/^\d{4}-\d{2}-\d{2}$/))return {rate:Number(row.rate),date:row.date,source:'Frankfurter v2'};
+    throw new Error('Frankfurter v2 returned no valid quote');
+  }catch(e){lastError=e;}
+  try{
+    const j=await fetchJson('https://api.frankfurter.dev/v1/latest?base=USD&symbols='+q);
+    const rate=j&&j.rates?Number(j.rates[String(code).toUpperCase()]):NaN;
+    if(Number.isFinite(rate)&&String(j.date||'').match(/^\d{4}-\d{2}-\d{2}$/))return {rate,date:j.date,source:'Frankfurter v1 fallback'};
+    throw new Error('Frankfurter v1 returned no valid quote');
+  }catch(e){throw new Error(String((e&&e.message)||lastError||e||'환율 조회 실패'));}
+}
 async function refreshLiveData(force){
-  if(liveBusy||!navigator.onLine) return; const ph=tripPhase(); if(ph.phase==='none') return;
-  const now=Date.now(); const jobs=[]; let changed=false;
+  if(!navigator.onLine)return;
+  const ph=tripPhase(); if(ph.phase==='none')return;
+  const now=Date.now(); const fxJobs=[]; const weatherJobs=[]; let changed=false;
   const curDest=ph.dest||destForDate(ph.start); const currencies=new Set();
-  if(curDest&&curDest.currency) currencies.add(curDest.currency.toUpperCase());
+  if(curDest&&curDest.currency)currencies.add(curDest.currency.toUpperCase());
   state.destinations.forEach(d=>{if(d.currency)currencies.add(d.currency.toUpperCase());});
   sortedDays().forEach(d=>{if(d.currency)currencies.add(d.currency.toUpperCase());});
   currencies.forEach(code=>{
-    if(code==='USD')return; const c=fxCache(code);
-    const fxAge=c?now-new Date(c.fetchedAt).getTime():Infinity;
-    if(c&&fxAge>=0&&fxAge<FX_REFRESH_MS)return;
-    jobs.push(fetchJson('https://api.frankfurter.dev/v1/latest?base=USD&symbols='+encodeURIComponent(code)).then(j=>{
-      if(j&&j.rates&&j.rates[code]){ cacheStore.fx[code]={rate:j.rates[code],date:j.date||'',fetchedAt:new Date().toISOString()}; changed=true; }
-    }).catch(()=>{}));
+    if(code==='USD'||ui.fxBusyCodes.has(code))return;
+    const c=fxCache(code); const lastCheck=Number(c&& (c.checkedAt||c.fetchedAt) ? new Date(c.checkedAt||c.fetchedAt).getTime() : 0);
+    if(!force&&lastCheck&&now-lastCheck>=0&&now-lastCheck<FX_REFRESH_MS)return;
+    ui.fxBusyCodes.add(code);
+    fxJobs.push((async()=>{
+      const checkedAt=new Date().toISOString();
+      try{
+        const result=await fetchFxReference(code);
+        cacheStore.fx[code]={rate:result.rate,date:result.date,source:result.source,fetchedAt:new Date().toISOString(),checkedAt,error:''};
+        changed=true;
+      }catch(e){
+        const prior=fxCache(code)||{};
+        cacheStore.fx[code]=Object.assign({},prior,{checkedAt,error:String((e&&e.message)||e||'환율 확인 실패').slice(0,140)});
+        changed=true;
+      }finally{ui.fxBusyCodes.delete(code);}
+    })());
   });
   const destMap=new Map();
   if(curDest) destMap.set(weatherKey(curDest),curDest);
   homeDestinations().forEach(dest=>{const k=weatherKey(dest); if(k&&!destMap.has(k))destMap.set(k,dest);});
-  sortedDays().slice(0,12).forEach(d=>{ const dd=destinationFromDay(d); const k=weatherKey(dd); if(k&&!destMap.has(k)) destMap.set(k,dd); });
-  [...destMap.values()].slice(0,10).forEach(dest=>{
-    const k=weatherKey(dest); if(!k)return; const c=cacheStore.weather[k];
-    if(!force&&c&&c.wxVersion===2&&c.daily&&c.daily.length>=WEATHER_FORECAST_DAYS&&now-new Date(c.fetchedAt).getTime()<WEATHER_REFRESH_MS)return;
-    const tz=encodeURIComponent(dest.tz||'auto');
-    const url='https://api.open-meteo.com/v1/forecast?latitude='+dest.lat+'&longitude='+dest.lon+'&hourly=weather_code,cloud_cover&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone='+tz+'&forecast_days='+WEATHER_FORECAST_DAYS;
-    jobs.push(fetchJson(url).then(j=>{
-      if(j&&j.daily&&Array.isArray(j.daily.time)){
-        cacheStore.weather[k]={wxVersion:2,fetchedAt:new Date().toISOString(),daily:j.daily.time.map((date,i)=>{ const rawCode=j.daily.weather_code[i]; const pop=j.daily.precipitation_probability_max?j.daily.precipitation_probability_max[i]:null; const sum=j.daily.precipitation_sum?j.daily.precipitation_sum[i]:null; return {date,code:deriveDayWxCode(j,date,rawCode,pop,sum),rawCode,max:j.daily.temperature_2m_max[i],min:j.daily.temperature_2m_min[i],pop,sum}; })};
-        changed=true;
-      }
-    }).catch(()=>{}));
-  });
-  if(!jobs.length)return; liveBusy=true;
-  try{ await Promise.allSettled(jobs); }finally{ liveBusy=false; }
-  if(changed){ saveCache(); if(ui.tab==='home') keepScroll(renderMain); }
+  sortedDays().slice(0,12).forEach(d=>{ const dd=destinationFromDay(d); const k=weatherKey(dd); if(k&&!destMap.has(k))destMap.set(k,dd); });
+  if(!liveBusy){
+    [...destMap.values()].slice(0,10).forEach(dest=>{
+      const k=weatherKey(dest); if(!k)return; const c=cacheStore.weather[k];
+      if(!force&&c&&c.wxVersion===2&&c.daily&&c.daily.length>=WEATHER_FORECAST_DAYS&&now-new Date(c.fetchedAt).getTime()<WEATHER_REFRESH_MS)return;
+      const tz=encodeURIComponent(dest.tz||'auto');
+      const url='https://api.open-meteo.com/v1/forecast?latitude='+dest.lat+'&longitude='+dest.lon+'&hourly=weather_code,cloud_cover&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone='+tz+'&forecast_days='+WEATHER_FORECAST_DAYS;
+      weatherJobs.push(fetchJson(url).then(j=>{
+        if(j&&j.daily&&Array.isArray(j.daily.time)){
+          cacheStore.weather[k]={wxVersion:2,fetchedAt:new Date().toISOString(),daily:j.daily.time.map((date,i)=>{ const rawCode=j.daily.weather_code[i]; const pop=j.daily.precipitation_probability_max?j.daily.precipitation_probability_max[i]:null; const sum=j.daily.precipitation_sum?j.daily.precipitation_sum[i]:null; return {date,code:deriveDayWxCode(j,date,rawCode,pop,sum),rawCode,max:j.daily.temperature_2m_max[i],min:j.daily.temperature_2m_min[i],pop,sum}; })};
+          changed=true;
+        }
+      }).catch(()=>{}));
+    });
+  }
+  if(!fxJobs.length&&!weatherJobs.length)return;
+  if(weatherJobs.length)liveBusy=true;
+  if(fxJobs.length){ui.fxRefreshStatus=force?'manual':'checking';if(ui.tab==='home')updateHomeTopBoard(false);}
+  try{await Promise.allSettled([...fxJobs,...weatherJobs]);}
+  finally{if(weatherJobs.length)liveBusy=false;if(fxJobs.length)ui.fxRefreshStatus='';}
+  if(changed){saveCache();if(ui.tab==='home'){updateHomeTopBoard(false);keepScroll(renderMain);}}
 }
 function fmtFx(dest){
-  if(!dest||!dest.currency) return '';
-  const code=dest.currency.toUpperCase(); if(code==='USD') return '$1 = $1 (미국 달러)';
-  const c=fxCache(code); if(!c) return '$1 → '+code+' · 온라인에서 환율 확인';
+  if(!dest||!dest.currency)return '';
+  const code=dest.currency.toUpperCase(); if(code==='USD')return '$1 = $1 (미국 달러)';
+  const c=fxCache(code); if(!c||!Number.isFinite(Number(c.rate)))return '$1 → '+code+' · 환율 확인 필요';
   const symbols={EUR:'€',KRW:'₩',JPY:'¥',GBP:'£',CNY:'¥',CAD:'$',AUD:'$'};
-  const rate=Number(c.rate); const txt=rate>=100?Math.round(rate).toLocaleString('ko-KR'):rate>=10?rate.toFixed(2):rate.toFixed(3).replace(/0$/,'');
+  const rate=Number(c.rate); const txt=rate>=100?Math.round(rate).toLocaleString('ko-KR'):rate>=10?rate.toFixed(2):rate.toFixed(5).replace(/0+$/,'').replace(/\.$/,'');
   return '$1 ≈ '+(symbols[code]||'')+txt+' '+code;
+}
+function fxStatusFor(dest){
+  const code=dest&&dest.currency?String(dest.currency).toUpperCase():'';
+  if(!code)return '목적지 통화 미등록';
+  if(code==='USD')return '기준 통화 USD';
+  const c=fxCache(code); if(!c)return navigator.onLine?'Frankfurter 환율 연결 중':'오프라인 · 저장된 환율 없음';
+  const basis=c.date?fmtUsDate(c.date):'기준일 미표시';
+  const checked=c.checkedAt||c.fetchedAt;
+  const checkText=checked?fmtFetched(checked):'확인 시각 미표시';
+  if(ui.fxBusyCodes.has(code))return 'Frankfurter에서 새 환율 확인 중 · 이전 기준일 '+basis;
+  if(c.error)return '가져오기 실패 · '+basis+' 기준 · 마지막 확인 '+checkText+' · 온라인 연결을 확인해 다시 시도';
+  const basisMs=c.date?Date.parse(c.date+'T12:00:00Z'):NaN;
+  const today=Date.parse(dateInTz(new Date(),(dest&&dest.tz)||HOME.tz)+'T12:00:00Z');
+  const age=Number.isFinite(basisMs)&&Number.isFinite(today)?Math.floor((today-basisMs)/86400000):0;
+  const freshness=age>3?' · 기준일 '+age+'일 전 (최신 응답 여부 확인 필요)':'';
+  return 'Frankfurter 기준일 '+basis+' · 앱 확인 '+checkText+freshness+(!navigator.onLine?' · 오프라인 저장값':'');
 }
 function fmtMonthDay(iso){ const m=String(iso||'').slice(0,10).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/); return m?((+m[2])+'/'+(+m[3])):''; }
 function fmtUsDate(iso){ const m=String(iso||'').slice(0,10).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/); return m?(pad2(+m[2])+'/'+pad2(+m[3])+'/'+m[1]):''; }
@@ -1890,12 +2017,10 @@ function homeTopData(requestedIndex){
   const fxCode=fxDest&&fxDest.currency?String(fxDest.currency).toUpperCase():'';
   const fxCacheHit=fxCode?fxCache(fxCode):null;
   let fxDate='';
-  if(fxCacheHit) fxDate=fmtUsDate(fxCacheHit.date||dateInTz(new Date(fxCacheHit.fetchedAt),HOME.tz));
+  if(fxCacheHit) fxDate=fxCacheHit.date?fmtUsDate(fxCacheHit.date):'기준일 미표시';
   else if(fxCode==='USD') fxDate=fmtUsDate(dateInTz(now,HOME.tz));
-  const fxLabel=fxDate;
-  let fxSub='';
-  if(!fxDest||!fxCode) fxSub='등록 필요';
-  else if(!fxCacheHit&&fxCode!=='USD') fxSub=navigator.onLine?'확인 중':'오프라인';
+  const fxLabel=fxCode==='USD'?'USD 기준':(fxDate?'기준일 '+fxDate:'환율 확인');
+  const fxSub=ui.fxRefreshStatus==='manual'?'강제 새로고침 중':fxStatusFor(fxDest);
   const wxHit=dest?weatherForDestDate(dest,dateInTz(now,destTz)):{cache:null,day:null};
   let wxValue='확인 중', wxSub=navigator.onLine?'':'오프라인';
   if(wxHit.day){
@@ -1932,6 +2057,7 @@ function renderHomeTopBoard(){
 function setHomeTopText(el,d){
   const set=(name,value)=>{const n=el.querySelector('[data-top="'+name+'"]'); if(n)n.textContent=value;};
   set('homeTime',d.homeTime); set('homeDate',d.homeDate);
+  const fxSub=document.querySelector('[data-now-fx="sub"]'); if(fxSub)fxSub.textContent=d.fxSub||'';
   set('destTimeLabel',d.destTimeLabel); set('destTime',d.destTime); set('destDate',d.destDate);
   const homeCell=el.querySelector('.top-cell.home'); if(homeCell)homeCell.className='top-cell home '+d.homeTone;
   const destCell=el.querySelector('.top-cell.dest'); if(destCell)destCell.className='top-cell dest '+d.destTone;
@@ -2058,6 +2184,277 @@ function ddayText(ph){
   const n=daysBetween(ph.homeToday,ph.start);
   return n===0?'D-DAY':(n>0?'D-'+n:'여행 '+Math.abs(n)+'일째');
 }
+/* ---------- 일정 주도 4시간 사전 브리핑 ---------- */
+function cleanSegmentTitle(title){
+  let t=String(title||'다음 일정').trim().replace(/\s+/g,' ').replace(/\s*\((?:약\s*)?[\d\s~시간분]+\)/g,'');
+  t=t.split(/\s+[—–]\s+/)[0].split(' : ')[0];
+  if(t.length>48)t=t.slice(0,48);
+  return t||'다음 일정';
+}
+function segmentKindForEvent(ev){
+  ev=ev||{}; const t=String((ev.title||'')+' '+(ev.place||'')+' '+(ev.note||''));
+  if(ev.guide)return 'guide';
+  if(/열차|기차|AVE|열차역/.test(t))return 'train';
+  if(/항공|비행|공항|체크인|탑승|출국|입국/.test(t))return 'airport';
+  if(/역으로|역에서/.test(t))return 'train';
+  if(/집결|미팅|만남/.test(t))return 'meeting';
+  if(/자유시간/.test(t))return 'free';
+  if(/호텔.*체크인|체크인 및|호텔 체크인/.test(t))return 'hotel';
+  if(/이동|출발|귀환|버스|차량|셔틀/.test(t))return 'transfer';
+  if(/조식|중식|석식|식사|아침 식사|점심|저녁/.test(t)){
+    if(/관광|성당|공원|궁전|미술관|광장|수도원|메스키타|알함브라|구시가지/.test(t))return 'attraction';
+    return 'meal';
+  }
+  if(/호텔|체크아웃|숙소/.test(t))return 'hotel';
+  return 'attraction';
+}
+function parseDurationMinutesFromText(text){
+  const t=String(text||''); const specs=[]; const re=/(?:(\d+(?:\.\d+)?)\s*시간(?:\s*(\d+)\s*분)?|(\d+)\s*분)/g; let m;
+  while((m=re.exec(t))){ if(m[1]!=null)specs.push(Number(m[1])*60+Number(m[2]||0)); else if(m[3]!=null)specs.push(Number(m[3])); }
+  if(!specs.length)return null;
+  return Math.round((Math.min.apply(null,specs)+Math.max.apply(null,specs))/2);
+}
+function segmentDurationGuess(ev,kind){
+  if(ev&&ev.durationMin!=null&&Number(ev.durationMin)>0)return Math.round(Number(ev.durationMin));
+  const parsed=parseDurationMinutesFromText((ev&&ev.title||'')+' '+(ev&&ev.note||''));
+  if(parsed)return Math.max(15,parsed);
+  const map={guide:20,meeting:30,meal:75,hotel:45,free:60,transfer:60,train:60,airport:90,attraction:90};
+  if(/시내관광|구시가지/.test(String(ev&&ev.title||'')))return 120;
+  return map[kind]||60;
+}
+function segmentTimeToken(minutes){ const m=Math.max(0,Math.min(1439,Math.round(Number(minutes)||0))); return pad2(Math.floor(m/60))+':'+pad2(m%60); }
+function segmentLeadMinutes(seg){
+  if(!seg)return 240;
+  if(seg.kind==='meal')return 120;
+  if(seg.kind==='guide'||seg.kind==='meeting')return 240;
+  return 240;
+}
+function segmentFeedbackKey(seg){ return seg?feedbackKey('segment',(seg.day&&seg.day.date||'')+'|'+(seg.event&&seg.event.id||seg.id||seg.title||'')):''; }
+function scheduleSegmentsForDay(day){
+  if(!day||!day.date)return [];
+  const dest=destinationFromDay(day); const tz=(dest&&dest.tz)||day.tz||HOME.tz;
+  const toMs=min=>zonedTimeToUtcMs(day.date,segmentTimeToken(min),tz);
+  let raw=(day.events||[]).map((ev,i)=>{
+    const nums=[...String(ev.time||'').matchAll(/(\d{1,2}):(\d{2})/g)].map(x=>(+x[1])*60+(+x[2]));
+    const endNums=[...String(ev.endTime||'').matchAll(/(\d{1,2}):(\d{2})/g)].map(x=>(+x[1])*60+(+x[2]));
+    const kind=segmentKindForEvent(ev);
+    return {id:'seg-'+day.date+'-'+i+'-'+(ev.id||''),seq:i,day,dest,tz,event:ev,title:ev.title||day.label||'일정',kind,exactStartMin:nums.length?nums[0]:null,exactEndMin:endNums.length?endNums[0]:(nums.length>1?nums[1]:null),durationMin:segmentDurationGuess(ev,kind),estimated:!nums.length,startMs:null,endMs:null,guide:false};
+  });
+  // normalizeDay의 시간 정렬 때문에 열차·비행 앞 준비 일정이 뒤로 간 경우를 바로잡는다.
+  for(let i=1;i<raw.length;i++){
+    const cur=raw[i],prev=raw[i-1];
+    if(cur.exactStartMin==null&&prev.exactStartMin!=null&&((/체크아웃|호텔 조식|조식 후/.test(cur.title)&&/(역으로|공항으로)/.test(cur.title))||/공항으로 이동|역으로 이동/.test(cur.title))){
+      raw.splice(i,1); raw.splice(i-1,0,cur);
+    }
+  }
+  raw.forEach(seg=>{
+    if(seg.exactStartMin!=null)seg.startMs=toMs(seg.exactStartMin);
+    if(seg.exactEndMin!=null)seg.endMs=toMs(seg.exactEndMin);
+  });
+  let idx=0;
+  while(idx<raw.length){
+    const seg=raw[idx];
+    if(seg.exactStartMin!=null){
+      if(seg.endMs==null||seg.endMs<=seg.startMs)seg.endMs=seg.startMs+seg.durationMin*60000;
+      idx++; continue;
+    }
+    let j=idx; while(j<raw.length&&raw[j].exactStartMin==null)j++;
+    const block=raw.slice(idx,j);
+    const prev=idx>0?raw[idx-1]:null;
+    const next=j<raw.length?raw[j]:null;
+    const total=block.reduce((a,x)=>a+x.durationMin,0);
+    let cursor;
+    if(!prev&&next&&next.startMs!=null)cursor=next.startMs-total*60000;
+    else if(prev&&prev.endMs!=null)cursor=prev.endMs;
+    else cursor=toMs(9*60);
+    let scale=1;
+    if(next&&next.startMs!=null&&cursor!=null){
+      const available=(next.startMs-cursor)/60000;
+      if(available>0&&total>available)scale=available/total;
+    }
+    block.forEach(x=>{
+      x.startMs=cursor;
+      const dur=Math.max(15,Math.round(x.durationMin*scale));
+      x.endMs=cursor+dur*60000;
+      if(next&&next.startMs!=null&&x.endMs>next.startMs)x.endMs=next.startMs;
+      cursor=x.endMs;
+    });
+    idx=j;
+  }
+  raw.forEach(seg=>{ if(seg.startMs!=null&&(seg.endMs==null||seg.endMs<=seg.startMs))seg.endMs=seg.startMs+Math.max(15,seg.durationMin)*60000; });
+  const guideSegs=guideTimedEvents(day).map((ev,i)=>{
+    const nums=[...String(ev.time||'').matchAll(/(\d{1,2}):(\d{2})/g)].map(x=>(+x[1])*60+(+x[2]));
+    const startMs=nums.length?toMs(nums[0]):null; const dur=/조식/.test(ev.title)?45:(/출발|집합/.test(ev.title)?30:15);
+    return {id:'seg-'+ev.id,seq:1000+i,day,dest,tz,event:ev,title:ev.title,kind:'guide',exactStartMin:nums.length?nums[0]:null,exactEndMin:null,durationMin:dur,estimated:false,startMs,endMs:startMs==null?null:startMs+dur*60000,guide:true};
+  }).filter(x=>x.startMs!=null);
+  return raw.concat(guideSegs).filter(x=>x.startMs!=null&&x.endMs!=null).sort((a,b)=>(a.startMs-b.startMs)||(a.seq-b.seq));
+}
+function allScheduleSegments(){
+  let out=[];
+  sortedDays().forEach(day=>{out=out.concat(scheduleSegmentsForDay(day));});
+  flightList().forEach((f,i)=>{
+    const dep=Date.parse(f.departAt||''),arr=Date.parse(f.arriveAt||'');
+    if(isFinite(dep))out.push({id:'flight-seg-'+i,seq:2000+i,day:state.days.find(d=>d.date===String(f.departAt||'').slice(0,10))||fieldRelevantDay(dep),dest:null,tz:HOME.tz,event:{id:'flight-'+i,title:((f.flightNo||'항공편')+' 출발'),place:f.fromName||f.from||''},title:((f.flightNo||'항공편')+' 출발'),kind:'flight',estimated:false,startMs:dep,endMs:isFinite(arr)&&arr>dep?arr:dep+3600e3,flight:f,guide:false});
+  });
+  return out.filter(x=>x.startMs!=null&&x.endMs!=null).sort((a,b)=>(a.startMs-b.startMs)||(a.seq-b.seq));
+}
+function scheduleState(nowMs){
+  const now=Number(nowMs||Date.now()); const segments=allScheduleSegments();
+  let current=null,next=null,previous=null;
+  segments.forEach(seg=>{
+    if(seg.startMs<=now&&now<seg.endMs+15*60000)current=seg;
+    if(!next&&seg.startMs>now)next=seg;
+    if(seg.endMs<=now)previous=seg;
+  });
+  const hidden=seg=>isFeedbackHidden(segmentFeedbackKey(seg));
+  let target=null,targetMode='';
+  const upcoming=segments.filter(seg=>seg.startMs>now&&seg.kind!=='flight');
+  for(const seg of upcoming){
+    if(seg.startMs-now<=segmentLeadMinutes(seg)*60000&&!hidden(seg)){target=seg;targetMode='ahead';break;}
+  }
+  if(!target&&current&&current.kind!=='flight'&&!hidden(current)&&now-current.startMs<=2*3600e3){target=current;targetMode='current';}
+  return {now,segments,current,next,previous,target,targetMode};
+}
+function segmentWhenText(seg){
+  if(!seg)return '';
+  const when=fmtClock(new Date(seg.startMs),seg.tz||HOME.tz);
+  return (seg.estimated?'순서상 약 ':'')+when;
+}
+function segmentSearchTokens(text){
+  return String(text||'').toLowerCase().replace(/[()·,./\-]/g,' ').split(/\s+/).filter(w=>w.length>=2);
+}
+function segmentMatchScore(seg,text){
+  const a=String((seg&&seg.title||'')+' '+(seg&&seg.event&&seg.event.place||'')+' '+(seg&&seg.day&&seg.day.city||'')).toLowerCase();
+  const b=String(text||'').toLowerCase(); if(!a||!b)return 0;
+  if(a.indexOf(b)!==-1||b.indexOf(a)!==-1)return 100;
+  let score=0; segmentSearchTokens(b).forEach(w=>{if(a.indexOf(w)!==-1)score+=Math.min(20,4+w.length*2);});
+  return score;
+}
+function segmentPlace(seg){
+  if(!seg||!seg.day)return null;
+  let best=null,bestScore=0;
+  derivedContextPlaces(seg.day).forEach(p=>{
+    let score=segmentMatchScore(seg,p.name);
+    if(seg.kind===p.type)score+=8;
+    if(score>bestScore){bestScore=score;best=p;}
+  });
+  return bestScore>=18?best:null;
+}
+function segmentExpertMatchScore(e,seg){
+  if(!e||!seg)return 0;
+  return Math.max(segmentMatchScore(seg,e.place),segmentMatchScore(seg,e.title),segmentMatchScore(seg,e.trigger));
+}
+function segmentExperts(seg){
+  if(!seg||!seg.day)return [];
+  return expertInfoForDate(seg.day.date,seg.day).map(e=>({e,score:segmentExpertMatchScore(e,seg)})).filter(x=>x.score>=14).sort((a,b)=>b.score-a.score).map(x=>x.e).slice(0,2);
+}
+function addBriefDetail(details,k,v){
+  if(!v)return;
+  const text=Array.isArray(v)?v.filter(Boolean).join('\n'):String(v);
+  if(!text.trim()||details.some(d=>d.k===k))return;
+  details.push({k,v:text});
+}
+function segmentBriefDetails(seg,place,experts){
+  const details=[]; const ev=seg.event||{}; const brief=ev.brief||null;
+  if(brief){
+    addBriefDetail(details,'왜 중요한가',brief.why);
+    addBriefDetail(details,'가기 전에 알 역사',brief.history);
+    addBriefDetail(details,'꼭 볼 것',brief.mustSee);
+    addBriefDetail(details,'현장에서 찾을 시각 단서',brief.visualClues);
+    addBriefDetail(details,'한 단계씩 동선',brief.route);
+    addBriefDetail(details,'사진 포인트',brief.photoPoints);
+    addBriefDetail(details,'화장실·휴식',brief.toilets.concat(brief.comfort?[brief.comfort]:[]));
+    addBriefDetail(details,'걷기·계단·휴식',brief.walking);
+    addBriefDetail(details,'입장·준비·가격',brief.ticketRules.concat(brief.prepare,brief.priceNotes?[brief.priceNotes]:[]));
+    addBriefDetail(details,'혼잡·주의',brief.crowdPlan.concat(brief.risks));
+    addBriefDetail(details,'집합·다음 이동',brief.meeting);
+    addBriefDetail(details,'시간 부족 시 대안',brief.fallback);
+    if(brief.localPhrase&&brief.localPhrase.text)addBriefDetail(details,'현지어 한마디',brief.localPhrase.text+'\n한국말 발음: '+brief.localPhrase.pronunciation+'\n뜻: '+brief.localPhrase.meaning);
+    if(brief.sources&&brief.sources.length)addBriefDetail(details,'조사 출처·확인일',brief.sources.map(x=>x.name).filter(Boolean).join(' · ')+(brief.verifiedAt?' · '+brief.verifiedAt+' 확인':'')+(brief.confidence?'\n'+brief.confidence:''));
+  }
+  const desc=String(ev.title||'').split(/\s+[—–]\s+/).slice(1).join(' — ');
+  if(desc)addBriefDetail(details,'먼저 알 것',desc);
+  if(ev.note)addBriefDetail(details,'일정 메모',ev.note);
+  if(place){
+    addBriefDetail(details,'이 장소의 핵심',place.nowBody);
+    addBriefDetail(details,'가서 할 일',(place.doNow||[]).map((x,i)=>(i+1)+'. '+x));
+    addBriefDetail(details,'먹을 것',place.bestItems);
+    addBriefDetail(details,'주의',place.watchOut);
+    if(place.phrase&&place.phrase.text)addBriefDetail(details,'현지어 한마디',place.phrase.text+(place.phrase.pronunciation?'\n한국말 발음: '+place.phrase.pronunciation:'')+(place.phrase.meaning?'\n뜻: '+place.phrase.meaning:''));
+  }
+  (experts||[]).forEach((e,i)=>{
+    const joined=(e.title||'')+' '+(e.body||'')+' '+(e.action||'')+' '+(e.category||'');
+    const key=/화장실/.test(joined)?'화장실·휴식':(/사진|전망|뷰|포토/.test(joined)?'사진 포인트':'전문가 사전 정보');
+    addBriefDetail(details,key,(i===0?'':'')+e.title+(e.action?'\n'+e.action:'')+(e.body?'\n'+e.body:''));
+    if(e.secretItem)addBriefDetail(details,'비밀무기',e.secretItem+(e.secretWhy?' — '+e.secretWhy:''));
+    if(e.phrase&&e.phrase.text)addBriefDetail(details,'현지어 한마디',e.phrase.text+(e.phrase.pronunciation?'\n한국말 발음: '+e.phrase.pronunciation:'')+(e.phrase.meaning?'\n뜻: '+e.phrase.meaning:''));
+  });
+  const wx=seg.day?weatherText(seg.dest||destinationFromDay(seg.day),seg.day.date):'';
+  if(wx)addBriefDetail(details,'날씨·옷차림',wx);
+  if(seg.kind==='attraction'&&!details.some(d=>d.k==='화장실·휴식'))addBriefDetail(details,'화장실·휴식','이 장소의 정확한 무료 화장실 위치는 사전 데이터에 없을 수 있습니다. 입장 전 화장실을 먼저 확인하고, 아래 전문가 정보에서 이 장소의 화장실 항목을 확인하세요.');
+  if(seg.kind==='meal')addBriefDetail(details,'식사 전 확인','메뉴판 가격, 물·쿠베르·팁 규칙을 먼저 확인하세요. 등록된 식당 데이터가 없으면 대표 메뉴를 단정하지 않습니다.');
+  if(seg.kind==='hotel')addBriefDetail(details,'체크인 전 확인','여권, 조식 시간, 내일 집합 시간을 확인하세요. 객실 카드와 여권은 분리해 보관하세요.');
+  if(seg.kind==='transfer'||seg.kind==='train')addBriefDetail(details,'이동 전 확인','화장실, 물, 약, 충전기를 작은 가방에 두고 집합 장소를 확인하세요.');
+  return details;
+}
+function scheduleLookaheadNowData(ph,nowMs){
+  if(!ph||ph.phase==='none'||ph.phase==='after')return null;
+  const st=scheduleState(nowMs); const seg=st.target; if(!seg)return null;
+  const place=segmentPlace(seg); const experts=segmentExperts(seg);
+  const details=[];
+  if(st.current&&st.current!==seg)addBriefDetail(details,'지금 일정',cleanSegmentTitle(st.current.title)+' · '+segmentWhenText(st.current)+' 시작');
+  segmentBriefDetails(seg,place,experts).forEach(d=>addBriefDetail(details,d.k,d.v));
+  const clean=cleanSegmentTitle(seg.title);
+  const body=(seg.event&&seg.event.brief&&seg.event.brief.why)||(place&&place.nowBody)||String(seg.title||'').split(/\s+[—–]\s+/).slice(1).join(' — ')||'일정 순서상 다음 구간입니다. 아래 순서대로 준비한 뒤 현장 표지와 가이드 지시를 확인하세요.';
+  const currentBrief=st.current&&st.current.event&&st.current.event.brief;
+  const currentAction=st.current&&['transfer','train','airport','meeting'].includes(st.current.kind)&&currentBrief&&currentBrief.route&&currentBrief.route[0]?currentBrief.route[0]:'';
+  const firstAction=currentAction||(seg.event&&seg.event.brief&&seg.event.brief.route&&seg.event.brief.route[0]?seg.event.brief.route[0]:'');
+  if(currentAction)addBriefDetail(details,'현재 이동에서 이어서 할 일',currentBrief.route.slice(1,3));
+  if(seg.estimated)addBriefDetail(details,'시각 신뢰도','원본 일정에 정확한 시각이 없어 순서와 적힌 이동시간으로 계산한 예상입니다. 집합·입장·버스 출발 시각은 가이드·티켓에서 다시 확인하세요.');
+  const sourceBrief=seg.event&&seg.event.brief;
+  if(sourceBrief&&sourceBrief.sources&&sourceBrief.sources[0]&&sourceBrief.sources[0].url)actions.push({label:'공식 방문 안내 확인',href:sourceBrief.sources[0].url,kind:'btn-soft'});
+  const idx=st.segments.indexOf(seg);
+  const stepSegs=[]; if(st.current&&st.current!==seg)stepSegs.push(st.current); stepSegs.push(seg); if(st.segments[idx+1])stepSegs.push(st.segments[idx+1]);
+  const steps=stepSegs.map(x=>({time:segmentWhenText(x),label:(x===st.current?'지금 · ':x===seg?'다음 · ':'그다음 · ')+cleanSegmentTitle(x.title),ms:x.startMs}));
+  const actions=[{label:'일정 보기',action:'nav',id:'schedule',kind:'btn-pri'}];
+  if(place&&(place.mapQuery||place.name))actions.push({label:'지도에서 보기',href:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(place.mapQuery||place.name),kind:'btn-soft'});
+  return {
+    context:(st.targetMode==='ahead'?'다음 장소 미리보기 · '+(seg.estimated?'일정 순서상 약 '+untilText(seg.startMs)+' 후 · 시각 미기재':'약 '+untilText(seg.startMs)+' 후'):'지금 일정 · 현장 실행'),
+    title:st.targetMode==='ahead'?(clean+' 가기 전에 알고 가세요'):(clean+'에서 지금 볼 것'),
+    body,firstAction,details,steps,actions,dest:seg.dest||ph.dest,ph,hidePrep:true,showTodayEvents:false,todayDay:seg.day,
+    feedbackKey:segmentFeedbackKey(seg),scheduleSegment:seg,scheduleState:st,scheduleMode:st.targetMode,fieldContext:detectFieldContext(nowMs)
+  };
+}
+function airportTimelineNowData(ph,nowMs,ctx){
+  if(!ph||ph.phase==='none'||ph.phase==='after')return null;
+  const now=Number(nowMs||Date.now());
+  for(const flight of flightList()){
+    const dep=Date.parse(flight.departAt||''),arr=Date.parse(flight.arriveAt||'');
+    if(ctx&&ctx.kind==='airport'&&ctx.flightRel&&ctx.flightRel.flight===flight){ const hit=airportNowData(ctx,ph); if(hit)return hit; }
+    if(isFinite(dep)&&now>=dep-4*3600e3&&now<dep){
+      const rel={flight,mode:'departure',targetMs:dep,diff:Math.abs(dep-now)};
+      const forced={kind:'airport',day:fieldRelevantDay(now),place:airportPlaceForFlight(flight,'departure'),flightRel:rel,confidence:'시간 기준 예상',placeStatus:'schedule',placeSource:'flight-time',nowMs:now,nearest:null};
+      const hit=airportNowData(forced,ph); if(hit)return hit;
+    }
+    if(isFinite(arr)&&now>=arr&&now<=arr+2*3600e3){
+      const rel={flight,mode:'arrival',targetMs:arr,diff:Math.abs(arr-now)};
+      const forced={kind:'airport',day:fieldRelevantDay(now),place:airportPlaceForFlight(flight,'arrival'),flightRel:rel,confidence:'시간 기준 예상',placeStatus:'schedule',placeSource:'flight-time',nowMs:now,nearest:null};
+      const hit=airportNowData(forced,ph); if(hit)return hit;
+    }
+    if(isFinite(dep)&&now<dep-4*3600e3){
+      const depLocalDate=String(flight.departAt||'').slice(0,10); if(!depLocalDate)continue;
+      const prevDate=addDaysISO(depLocalDate,-1); const prevDay=state.days.find(d=>d.date===prevDate)||null;
+      const prevDest=prevDay?destinationFromDay(prevDay):destForDate(prevDate); const threshold=zonedTimeToUtcMs(prevDate,'17:00',(prevDest&&prevDest.tz)||HOME.tz);
+      if(threshold!=null&&now>=threshold&&now<dep-4*3600e3){
+        const place=airportPlaceForFlight(flight,'departure');
+        const details=[{k:'항공편',v:((flight.airline||'')+' '+(flight.flightNo||'')).trim()+'\n'+airportDisplay(flight.from,flight.fromName)+' → '+airportDisplay(flight.to,flight.toName)},{k:'출발',v:fmtFlightWhen(flight.departAt)},{k:'자기 전에 확인할 것',v:'여권은 작은 가방 앞칸에 두세요.\n위탁수하물과 기내 가방을 나누고 액체·보조배터리·약·충전기를 확인하세요.\n터미널과 집합 시간을 항공사 공식 앱과 가이드 공지에서 다시 확인하세요.'}];
+        if(place&&place.stageGuide&&place.stageGuide.outside)details.push({k:'공항 도착 후 첫 순서',v:place.stageGuide.outside});
+        return {context:'공항 준비 · 전날',title:'공항 가기 전에 여권과 수하물부터 확인하세요',body:'내일 공항 절차를 미리 준비하는 시간입니다. 온라인 체크인이 가능한지는 항공사 공식 앱에서 확인하고, 단체 예약은 제한될 수 있습니다.',details,actions:[...(flight.statusUrl?[{label:'항공사 공식 운항 확인',href:flight.statusUrl,kind:'btn-pri'}]:[]),...(flight.checkinUrl?[{label:'항공사 체크인 확인',href:flight.checkinUrl,kind:'btn-soft'}]:[]),{label:'공항 안내 보기',action:'nav-air-section',id:'airports',kind:'btn-soft'}],dest:ph.dest,ph,hidePrep:true,showTodayEvents:false,fieldContext:ctx||detectFieldContext(now)};
+      }
+    }
+  }
+  return null;
+}
 function nowCardData(){
   const ph=tripPhase(); const now=new Date();
   if(ph.phase==='none') return {context:'여행 등록 전',title:'여행을 등록해 주세요',body:'AI가 미리 조사해 만든 여행 패키지를 등록하면, 이곳에 지금 가장 필요한 한 가지가 크게 표시됩니다.',actions:[{label:'여행 파일 가져오기',action:'trip-register',kind:'btn-pri'}],dest:null,ph,hidePrep:true};
@@ -2068,8 +2465,14 @@ function nowCardData(){
   const inFlight=flightList().find(f=>{ const dep=new Date(f.departAt).getTime(),arr=new Date(f.arriveAt).getTime(); return isFinite(dep)&&isFinite(arr)&&dep<=now.getTime()&&arr>now.getTime(); });
   if(inFlight){ const arrMs=new Date(inFlight.arriveAt).getTime(); return {context:'비행 중 · '+((inFlight.airline||'')+' '+(inFlight.flightNo||'')).trim(),title:'도착까지 '+untilText(arrMs),body:'기내에서는 물과 가벼운 움직임을 챙기고, 도착 뒤 입국심사와 수하물·가이드 만남 순서를 확인하세요.',details:[{k:'도착',v:fmtFlightWhen(inFlight.arriveAt)+'\n'+airportDisplay(inFlight.to,inFlight.toName)},{k:'구간',v:airportDisplay(inFlight.from,inFlight.fromName)+' → '+airportDisplay(inFlight.to,inFlight.toName)}],actions:[...(inFlight.statusUrl?[{label:'항공사 공식 운항 확인',href:inFlight.statusUrl,kind:'btn-pri'}]:[]),{label:'항공 예약 보기',action:'nav-air-section',id:'flights',kind:'btn-soft'}],dest:ph.dest,ph,hidePrep:true}; }
   const fieldCtx=detectFieldContext(now.getTime());
+  const airportTimeline=airportTimelineNowData(ph,now.getTime(),fieldCtx); if(airportTimeline)return airportTimeline;
+  const lookahead=scheduleLookaheadNowData(ph,now.getTime());
+  const currentSeg=lookahead&&lookahead.scheduleState?lookahead.scheduleState.current:null;
+  const urgentCurrent=!!(currentSeg&&lookahead.scheduleSegment!==currentSeg&&currentSeg.endMs-now.getTime()<=60*60000&&['guide','meeting','transfer','train','airport','flight'].includes(currentSeg.kind));
+  if(lookahead&&!urgentCurrent)return lookahead;
   if(fieldCtx.kind==='airport'){ const airportNow=airportNowData(fieldCtx,ph); if(airportNow)return airportNow; }
   if(['restaurant','hotel','attraction','station'].includes(fieldCtx.kind)&&(fieldCtx.place||fieldCtx.onlinePlace||fieldCtx.kind==='restaurant')){ const placeNow=placeNowData(fieldCtx,ph); if(placeNow)return placeNow; }
+  if(lookahead)return lookahead;
   const steps=departureSteps();
   if(steps.length&&ph.start===homeToday){
     const enriched=steps.map(step=>Object.assign({},step,{ms:zonedTimeToUtcMs(step.date||ph.start,step.time,HOME.tz)}));
@@ -2149,13 +2552,19 @@ function nowActionButtons(actions){
 }
 function renderNowFx(){
   const d=homeTopData(ui.homeDestIndex);
-  return '<div class="now-fx" aria-label="환율"><div class="now-fx-label" data-now-fx="label">'+esc(d.fxLabel)+'</div><div class="now-fx-value" data-now-fx="value">'+esc(d.fxValue)+'</div></div>';
+  return '<div class="now-fx" aria-label="환율"><div class="now-fx-label" data-now-fx="label">'+esc(d.fxLabel)+'</div><div class="now-fx-value" data-now-fx="value">'+esc(d.fxValue)+'</div><div class="now-fx-sub" data-now-fx="sub">'+esc(d.fxSub||'')+'</div></div>';
 }
 function nowEvidenceHTML(n){
   const chips=[]; const ctx=n&&n.fieldContext?n.fieldContext:null; const q=geoQuality(ui.geo);
   const add=(text,cls)=>{if(text)chips.push({text,cls:cls||'neutral'});};
+  if(n&&n.scheduleSegment){
+    add(n.scheduleMode==='ahead'?'다음 장소 사전 브리핑':'현재 구간 실행 안내','good');
+    add('근거: 일정 시간 + 사전 조사','neutral');
+    if(ctx&&(ctx.placeStatus==='confirmed'||ctx.placeStatus==='likely'))add('GPS 현재 장소 확인','good');
+    return '<div class="evidence-row" aria-label="안내 근거">'+chips.slice(0,3).map(c=>'<span class="evidence-chip '+esc(c.cls)+'">'+esc(c.text)+'</span>').join('')+'</div>';
+  }
   if(ctx&&(ctx.placeStatus==='confirmed'||ctx.placeStatus==='likely')){
-    add((ctx.kind==='airport'?'공항 권역으로 확인됨':'위치로 확인됨')+(ctx.place?' · '+ctx.place.name:''),'good'); add('근거: 등록 장소 반경 + 정확도','neutral');
+    add('위치로 확인됨'+(ctx.place?' · '+ctx.place.name:''),'good'); add('근거: 등록 장소 반경 + 정확도','neutral');
   }else if(ctx&&(ctx.placeStatus==='manual'||ctx.placeStatus==='selected')){
     add('사용자가 확인한 장소','good'); add('자동 판단보다 직접 확인 우선','neutral');
   }else if(ctx&&ctx.placeStatus==='schedule'){
@@ -2192,11 +2601,11 @@ function renderNowCard(){
     if(p&&!p.done) prep='<div class="prep-line"><b>다음 준비 하나</b><br>'+esc(p.item.text)+'<br><span style="font-weight:650">'+esc(p.section)+' · 준비물 탭에서 체크하세요</span></div>';
     else if(p&&p.done) prep='<div class="prep-line">🎒 등록된 기본 준비는 끝났어요</div>';
   }
-  return '<section class="now-card'+(n.softText?' flight-soft':'')+'" aria-label="지금 가장 먼저 할 일"><div class="now-eyebrow"><span class="lab">지금</span>'+renderNowFx()+'<button class="icon-btn" data-action="refresh-live" title="날씨·환율 새로고침" aria-label="날씨 환율 새로고침">↻</button></div>'
+  return '<section class="now-card'+(n.softText?' flight-soft':'')+'" aria-label="지금 가장 먼저 할 일"><div class="now-eyebrow"><span class="lab">지금</span>'+renderNowFx()+'<button class="icon-btn" data-action="refresh-live" title="날씨·최신 기준환율·정보를 즉시 다시 가져오기" aria-label="날씨·최신 기준환율·정보를 즉시 다시 가져오기">↻</button></div>'
     +(n.context?'<div class="now-context">'+esc(n.context)+'</div>':'')
     +'<div class="now-title'+(n.oneLineTitle?' one-line':'')+'">'+esc(n.title)+'</div>'
     +(n.body?'<div class="now-body">'+esc(n.body)+'</div>':'')+nowEvidenceHTML(n)
-    +extra+(details?'<div>'+details+'</div>':'')+prep+feedbackButtons(n.feedbackKey)+nowActionButtons(n.actions)+'</section>';
+    +(n.firstAction?'<div class="now-first-action"><b>지금 먼저</b><div>'+esc(n.firstAction)+'</div></div>':'')+extra+(details?'<div>'+details+'</div>':'')+prep+feedbackButtons(n.feedbackKey)+nowActionButtons(n.actions)+'</section>';
 }
 function nextCandidate(){
   const candidates=[]; const now=Date.now(); const ph=tripPhase();
@@ -2218,6 +2627,12 @@ function nextCandidate(){
 }
 function renderNextCard(){
   const ph=tripPhase(); if(ph.phase==='none'||ph.phase==='after')return '';
+  const last=ui.lastNowData;
+  if(last&&last.scheduleSegment&&last.scheduleState){
+    const segs=last.scheduleState.segments||[]; const idx=segs.indexOf(last.scheduleSegment);
+    const nxt=segs.slice(idx+1).find(x=>x.endMs>Date.now()-15*60000);
+    if(nxt)return '<section class="card home-next-card"><div class="card-title">⏭️ 다음</div>'+stackItem('그다음 · '+cleanSegmentTitle(nxt.title),fmtDate(nxt.day?nxt.day.date:'')+' '+segmentWhenText(nxt)+'\n'+untilText(nxt.startMs))+'<button class="btn btn-soft btn-block" style="margin-top:10px" data-action="nav" data-id="schedule">일정 보기</button></section>';
+  }
   const c=nextCandidate();
   let body='';
   if(c) body=stackItem(c.label,c.when+'\n'+untilText(c.ms));
@@ -2735,7 +3150,7 @@ const TRIP_SCHEMA_TEXT=[
 '    "preTripActions":[{"due":"YYYY-MM-DD","title":"","detail":""}]},',
 '  "destinations":[{"city":"","country":"","tz":"Europe/Madrid","currency":"EUR","lat":0,"lon":0,"from":"","to":""}],',
 '  "days":[{"date":"YYYY-MM-DD","label":"1일차","city":"","tz":"","currency":"","lat":0,"lon":0,',
-'    "events":[{"time":"HH:MM","tz":"필요할 때만 IANA 시간대","title":"","place":"","note":""}], "meals":[], "hotel":{"name":"","phone":"+국가번호 포함","address":""}, "notes":[], "alerts":[]}],',
+'    "events":[{"time":"HH:MM","endTime":"HH:MM","durationMin":90,"tz":"필요할 때만 IANA 시간대","title":"","place":"","note":"","brief":{"why":"왜 중요한가 한 문장","history":"도착 전 핵심 역사 2~3문장","mustSee":["핵심 볼거리"],"visualClues":["현장에서 실제로 찾을 모양·표지·방향"],"route":["1. 도착 즉시 확인","2. 차례로 이동","3. 집합점 복귀"],"photoPoints":["안전한 촬영 위치·구도·금지사항"],"toilets":["정확한 위치·무료/유료·고객 조건. 미확인 시 미확인이라고 기재"],"comfort":"걷기·계단·경사·그늘·휴식","walking":"걸음 수/계단 부담과 쉬는 시점","ticketRules":["티켓 구역·예약 시각·신분증·짐 제한"],"prepare":["표·신분증·복장·짐"],"priceNotes":"기준 가격·확인 날짜·포함 여부. 미확인 가격은 쓰지 않기","crowdPlan":["혼잡 우회·대기 줄·포기 시점"],"risks":["가격·안전 함정"],"meeting":"정확한 집합·퇴장·복귀 시각","fallback":"시간 부족/날씨 대안","localPhrase":{"text":"현지어 원문","pronunciation":"한국말 발음","meaning":"뜻"},"sources":[{"name":"공식 출처명","url":"https://..."}],"verifiedAt":"YYYY-MM-DD","confidence":"확실/현장 확인 필요 구분"}}], "meals":[], "hotel":{"name":"","phone":"+국가번호 포함","address":""}, "notes":[], "alerts":[]}],',
 '  "tips":[{"date":"YYYY-MM-DD","showFrom":"YYYY-MM-DD","showUntil":"YYYY-MM-DD","expiresAt":"YYYY-MM-DD","city":"","place":"","category":"","icon":"💡","priority":10,"onlyIf":[],"hideIf":[],"title":"","issue":"","action":"","alternative":"","costHours":"","mapQuery":"","sourceName":"","sourceUrl":"","sources":[{"name":"","url":""}],"verifiedAt":"YYYY-MM-DD"}],',
 '  "expertInfo":[{"id":"고유ID","version":1,"date":"YYYY-MM-DD","trigger":"아침/공항/점심/자유시간","category":"숨은 조건/화장실/자유시간 황금동선","icon":"⭐","place":"","title":"행동이 보이는 제목","body":"왜 중요한지","action":"이렇게 하세요","secretItem":"","secretWhy":"그 자리에서 용도 설명","phrase":{"text":"","pronunciation":"한국말 발음","meaning":""},"priceNote":"","routeSteps":[{"time":"0~10분","text":""}],"fallback":"","weatherMode":"clothing 또는 빈칸","lat":0,"lon":0,"priority":1,"stars":5,"sourceName":"","sourceUrl":"","verifiedAt":"YYYY-MM-DD"}],',
 '  "contextPlaces":[{"id":"고유ID","version":1,"type":"airport/hotel/restaurant/attraction/station","name":"","date":"YYYY-MM-DD","lat":0,"lon":0,"radiusM":300,"airportCode":"","mode":"departure/arrival","terminal":"","stageGuide":{},"bestItems":[],"doNow":[],"watchOut":"","phrase":{"text":"","pronunciation":"한국말 발음","meaning":""}}],',
@@ -2744,7 +3159,7 @@ const TRIP_SCHEMA_TEXT=[
 '  "liveSources":[{"label":"공식 확인","category":"flight/closure/strike/traffic","city":"","url":"https://"}], "infoFeed":[]',
 '}',
 '',
-'홈은 지금 → 다음 → 내일 준비 → 전문가 정보 순서입니다. 전문가 정보는 하루 5개만, 사진 방향·빛보다 손해방지·화장실·줄 우회·정상가격·현지 주문·자유시간 황금동선을 우선하고, 비밀무기는 같은 자리에서 용도를 설명하며 현지어는 한국말 발음을 함께 쓰세요. contextPlaces에는 공항·호텔·식당·관광지의 좌표와 반경, 공항 단계별 안내, 그 장소에서 지금 할 일을 넣으세요. 전문가 정보 전체 목록은 줄이지 마세요. 항공사 이름으로 앱을 고정하지 말고 각 항공편의 공식 운항·체크인 주소를 넣으세요. 항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 별도 정보 업데이트 JSON으로 만들 수 있습니다: {"format":"sk-travel-update","version":1,"items":[{"id":"고유ID","version":1,"category":"flight/closure/strike/traffic/weather/guide","severity":1~3,"date":"YYYY-MM-DD","startsAt":"ISO","expiresAt":"ISO","title":"","body":"","action":"","sourceName":"공식 출처","sourceUrl":"https://","updatedAt":"ISO"}]}. 실제로 타지 않는 교통수단 팁은 onlyIf/hideIf 조건으로 숨기세요.'
+'홈은 한 줄 위치 상태 → 지금(다음 장소 4시간 사전 브리핑) → 다음 → 내일 준비 → 전문가 정보 순서입니다. 여행 패키지를 만들 때 모든 일정을 순서대로 조사해 각 events에 확정 시각/미확정 표시, 예상 소요시간과 구조화 brief를 넣으세요. exact time이 없으면 시각을 만들어 내지 말고 일정 순서상 추정으로 표시하세요. 앱은 인터넷 없이 날짜·현지시간으로 사전 브리핑을 열고 GPS는 현재 장소 확인용으로만 씁니다. 전문가 정보는 하루 5개만, 사진 방향·빛보다 손해방지·화장실·줄 우회·정상가격·현지 주문·자유시간 황금동선을 우선하고, 비밀무기는 같은 자리에서 용도를 설명하며 현지어는 한국말 발음을 함께 쓰세요. contextPlaces에는 공항·호텔·식당·관광지의 좌표와 반경, 공항 단계별 안내, 그 장소에서 지금 할 일을 넣으세요. 전문가 정보 전체 목록은 줄이지 마세요. 항공사 이름으로 앱을 고정하지 말고 각 항공편의 공식 운항·체크인 주소를 넣으세요. 항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 별도 정보 업데이트 JSON으로 만들 수 있습니다: {"format":"sk-travel-update","version":1,"items":[{"id":"고유ID","version":1,"category":"flight/closure/strike/traffic/weather/guide","severity":1~3,"date":"YYYY-MM-DD","startsAt":"ISO","expiresAt":"ISO","title":"","body":"","action":"","sourceName":"공식 출처","sourceUrl":"https://","updatedAt":"ISO"}]}. 실제로 타지 않는 교통수단 팁은 onlyIf/hideIf 조건으로 숨기세요.'
 ].join('\n');
 function pickTripFile(){ $('#tripFile').click(); }
 async function readFileText(file){
@@ -2865,9 +3280,13 @@ function applyPendingImport(importantMode){
   ui.openDays.clear(); ui.scheduleMode=isBundledSpainTrip()?'original':'edit'; pendingImport=null; save(); goTab('home'); refreshLiveData(true);
 }
 const SPAIN_FULL_SEED_FLAG='sk-spain-full-seed-v3-4-0';
+const SPAIN_BRIEF_SEED_FLAG='sk-spain-brief-seed-v3-8-0';
 async function ensureBundledSpainTrip(){
-  if(lsGet(BUNDLED_SEED_OPT_OUT)||lsGet(SPAIN_FULL_SEED_FLAG)) return;
+  if(lsGet(BUNDLED_SEED_OPT_OUT))return;
   const hasTrip=!!(state.trip&&(state.trip.start||state.trip.name));
+  const hasSpainTrip=isSpainDateRange(state.trip);
+  const needBriefUpgrade=hasSpainTrip&&!lsGet(SPAIN_BRIEF_SEED_FLAG);
+  if(lsGet(SPAIN_FULL_SEED_FLAG)&&!needBriefUpgrade)return;
   if(hasTrip&&!isSpainDateRange(state.trip)){ lsSet(SPAIN_FULL_SEED_FLAG,'skipped-other-trip'); return; }
   try{
     const res=await fetch('spain-trip-data.json'); if(!res.ok) throw new Error('spain data '+res.status);
@@ -2896,7 +3315,7 @@ async function ensureBundledSpainTrip(){
     if(!state.transfers.length)state.transfers=f.transfers||[];
     if(!state.hotels.length)state.hotels=f.hotels||[];
     else (f.hotels||[]).forEach(ph=>{ const ex=state.hotels.find(h=>h.name===ph.name); if(ex){ ['city','address','checkin','checkout','phone','note'].forEach(k=>{if(!ex[k]&&ph[k])ex[k]=ph[k];}); if(ph.phone&&/^\+9\d{8}$/.test(String(ex.phone||'')))ex.phone=ph.phone; } else state.hotels.push(ph); });
-    const pkgDaySeed=new Map(pkgDays.map(d=>[d.date,d])); state.days.forEach(d=>{ const pd=pkgDaySeed.get(d.date); if(pd&&pd.hotel){ if(!d.hotel)d.hotel=pd.hotel; else { Object.keys(pd.hotel).forEach(k=>{if(!d.hotel[k]&&pd.hotel[k])d.hotel[k]=pd.hotel[k];}); if(pd.hotel.phone&&/^\+9\d{8}$/.test(String(d.hotel.phone||'')))d.hotel.phone=pd.hotel.phone; } } if(pd){ (pd.events||[]).forEach(pe=>{ const ex=(d.events||[]).find(e=>e.title===pe.title&&e.time===pe.time); if(ex){ if(!ex.tz&&pe.tz)ex.tz=pe.tz; if(!ex.place&&pe.place)ex.place=pe.place; if(!ex.note&&pe.note)ex.note=pe.note; } }); } });
+    const pkgDaySeed=new Map(pkgDays.map(d=>[d.date,d])); state.days.forEach(d=>{ const pd=pkgDaySeed.get(d.date); if(pd&&pd.hotel){ if(!d.hotel)d.hotel=pd.hotel; else { Object.keys(pd.hotel).forEach(k=>{if(!d.hotel[k]&&pd.hotel[k])d.hotel[k]=pd.hotel[k];}); if(pd.hotel.phone&&/^\+9\d{8}$/.test(String(d.hotel.phone||'')))d.hotel.phone=pd.hotel.phone; } } if(pd){ (pd.events||[]).forEach(pe=>{ const ex=(d.events||[]).find(e=>e.title===pe.title&&e.time===pe.time); if(ex){ if(!ex.tz&&pe.tz)ex.tz=pe.tz; if(!ex.place&&pe.place)ex.place=pe.place; if(!ex.note&&pe.note)ex.note=pe.note; if(pe.brief){if(!ex.brief)ex.brief=pe.brief;else Object.keys(pe.brief).forEach(k=>{const old=ex.brief[k];const empty=old==null||old===''||(Array.isArray(old)&&!old.length);if(empty&&pe.brief[k]!=null)ex.brief[k]=pe.brief[k];});} } }); } });
     if(!state.guides.length)state.guides=f.guides||[];
     if(f.infoFeed&&f.infoFeed.length)mergeInfoUpdates(f.infoFeed);
     if(f.expertInfo&&f.expertInfo.length)mergeExpertInfo(f.expertInfo);
@@ -2908,7 +3327,7 @@ async function ensureBundledSpainTrip(){
     (f.tips||[]).forEach(t=>{ [...tipMap.keys()].forEach(k=>{ const old=tipMap.get(k); if(old&&old.title===t.title&&k!==((t.date||'')+'|'+(t.title||'')))tipMap.delete(k); }); tipMap.set((t.date||'')+'|'+(t.title||''),t); }); state.tips=[...tipMap.values()];
     const impSeen=new Set((state.important||[]).map(i=>(i.category||'')+'|'+(i.label||'')+'|'+(i.value||'')));
     (f.important||[]).forEach(i=>{ const k=(i.category||'')+'|'+(i.label||'')+'|'+(i.value||''); if(!impSeen.has(k))state.important.push(i); });
-    ui.scheduleMode='original'; lsSet(SPAIN_FULL_SEED_FLAG,'done'); save(); renderAll(); refreshLiveData(true);
+    ui.scheduleMode='original'; lsSet(SPAIN_FULL_SEED_FLAG,'done'); if(isSpainDateRange(state.trip))lsSet(SPAIN_BRIEF_SEED_FLAG,'done'); save(); renderAll(); refreshLiveData(true);
   }catch(e){ /* 일정 원본 파일 자체는 schedule-seed.html로 그대로 볼 수 있습니다. */ }
 }
 function openTripPaste(){
@@ -3127,7 +3546,7 @@ const actions={
   'feedback-reset'(){ if(confirm('완료·나중에·필요 없음으로 숨긴 안내를 모두 다시 볼까요?')){ state.feedback={}; save(); keepScroll(renderMain); toast('숨긴 안내를 다시 보이게 했어요'); } },
   'expert-locate'(){ if(startFieldLocation(true))toast('현장 모드를 켜고 위치를 확인 중이에요'); },
   'field-enable'(){ if(startFieldLocation(true))toast('현장 모드를 켰어요'); },
-  'field-refresh'(){ if(startFieldLocation(true))toast('현재 위치를 다시 확인 중이에요'); },
+  'field-refresh'(){ if(startFieldLocation(true)){if(ui.tab==='home'||ui.tab==='settings')keepScroll(renderMain);toast('새 GPS 요청 #'+ui.geoRequestSeq+'을 보냈어요. 결과가 오면 정확도와 장소 일치 상태를 따로 갱신합니다.');} },
   'field-disable'(){ state.settings.fieldModeEnabled=false; state.settings.fieldModeOptOut=true; stopFieldLocation(true); save(); keepScroll(renderMain); toast('현장 모드를 껐어요'); },
   'field-lookup'(){ if(!ui.geo||!geoQuality(ui.geo).usableForPlace){ startFieldLocation(true); toast('유효한 위치를 먼저 확인한 뒤 장소를 찾을게요'); return; } lookupOnlinePlace(true,true).then(p=>toast(ui.onlineCandidates.length?('장소 후보 '+ui.onlineCandidates.length+'개를 찾았어요. 실제 장소와 같은지 확인해 주세요.'):'가까운 장소 후보를 찾지 못했어요')); },
   'field-candidate-select'(id,el){
@@ -3268,25 +3687,14 @@ async function installApp(){
 }
 let versionCheckPromise=null;
 async function fetchLatestVersion(){
-  ui.latestVersion=''; ui.latestNotes='';
-  const checkedAt=new Date().toLocaleString('ko-KR');
   try{
     const res=await fetch(VERSION_FILE+'?t='+Date.now(),{cache:'no-store'});
-    if(!res.ok)throw Object.assign(new Error('HTTP '+res.status),{kind:'http',status:res.status});
-    let data;
-    try{ data=await res.json(); }
-    catch(e){ throw Object.assign(new Error('JSON이 아닌 응답'),{kind:'invalid-json'}); }
+    if(!res.ok)throw new Error('version '+res.status);
+    const data=await res.json();
     const latest=String((data&&(data.version||data.appVersion))||'').trim();
-    if(!parseVersion(latest))throw Object.assign(new Error('version 필드가 없거나 형식이 올바르지 않음'),{kind:'invalid-version'});
-    ui.latestVersion=latest;
-    ui.latestNotes=String((data&&(data.notes||data.note))||'').trim();
-    ui.versionCheckDetail='서버 version.json: '+latest+' · 확인 '+checkedAt;
+    if(latest){ ui.latestVersion=latest; ui.latestNotes=String((data&&(data.notes||data.note))||'').trim(); }
     return latest;
-  }catch(e){
-    const reason=e&&e.kind==='http'?'HTTP '+e.status:e&&e.kind==='invalid-json'?'JSON이 아닌 응답':e&&e.kind==='invalid-version'?'버전 필드 오류':'네트워크/요청 오류';
-    ui.versionCheckDetail='버전 확인 실패 · '+reason+' · version.json을 읽지 못했습니다. 최신 여부 미확인 · '+checkedAt;
-    return '';
-  }
+  }catch(e){ return ''; }
 }
 function announceUpdate(){
   if(!updateAvailable())return;
@@ -3322,13 +3730,7 @@ async function checkForUpdate(manual){
       }else announceUpdate();
       return true;
     }
-    if(manual){
-      if(ui.tab==='settings')keepScroll(renderMain);
-      if(!fetched) toast('버전 확인 실패 · 최신 여부를 확인하지 못했습니다. 설정의 업데이트 진단을 확인해 주세요.');
-      else if(isNewerVersion(fetched,APP_VERSION)) toast('서버 버전 '+fetched+'을 확인했습니다. 업데이트 파일 적용을 확인 중입니다.');
-      else if(isNewerVersion(APP_VERSION,fetched)) toast('배포 불일치 · 서버는 '+fetched+'을 제공 중이며 앱은 '+APP_VERSION+'입니다.');
-      else toast('서버 version.json에서 '+fetched+'을 확인했습니다. 서비스워커 업데이트도 '+(swChecked?'확인했습니다.':'확인하지 못했습니다.')+' 지금 버전이 최신입니다.');
-    }
+    if(manual)toast((fetched||swChecked)?('지금 버전 '+APP_VERSION+'이 최신이에요 ✓'):'인터넷 연결을 확인해 주세요.');
     return false;
   })();
   try{ return await versionCheckPromise; }finally{ versionCheckPromise=null; }
@@ -3349,7 +3751,7 @@ async function doUpdate(){
   ui.updating=true; lsSet('sk_upd_from',APP_VERSION);
   if(regWaiting){ toast('업데이트 중…'); try{regWaiting.postMessage('SKIP_WAITING');}catch(e){location.reload();} return; }
   toast('업데이트를 준비하는 중…');
-  const fetchedVersion=await fetchLatestVersion();
+  await fetchLatestVersion();
   if(swReg){
     try{ await swReg.update(); }catch(e){}
     const waiting=await waitForWaitingWorker(4500);
@@ -3357,11 +3759,7 @@ async function doUpdate(){
   }
   if(updateAvailable()){ location.reload(); return; }
   ui.updating=false; lsRemove('sk_upd_from');
-  if(!fetchedVersion) toast('업데이트 확인 실패 · 서버 버전을 읽지 못했습니다. 최신이라고 판단하지 않았습니다.');
-  else if(isNewerVersion(APP_VERSION,fetchedVersion)) toast('배포 불일치 · 서버는 '+fetchedVersion+'을 제공 중이며 앱은 '+APP_VERSION+'입니다.');
-  else if(isNewerVersion(fetchedVersion,APP_VERSION)) toast('새 버전 '+fetchedVersion+'이 확인됐지만 서비스워커가 아직 준비되지 않았습니다. 잠시 후 다시 시도해 주세요.');
-  else toast('서버 version.json에서 '+fetchedVersion+'을 확인했습니다. 지금 버전이 최신입니다.');
-  if(ui.tab==='settings')keepScroll(renderMain);
+  toast('지금 버전 '+APP_VERSION+'이 최신이에요 ✓');
 }
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
