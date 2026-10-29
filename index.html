@@ -110,13 +110,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .feedback-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.feedback-row button{flex:1;min-width:96px;border:1.5px solid #cfe3ff;background:#f3f8ff;color:#084298;border-radius:11px;padding:9px 8px;font-size:14px;font-weight:950}.feedback-row button:active{transform:scale(.97)}.feedback-row button[data-id="done"]{background:#e9f8ee;border-color:#bdecc9;color:#146c2e}.feedback-row button[data-id="dismissed"]{background:#f2f4f8;border-color:#d5dce8;color:#5d6b82}.update-badge{display:inline-block;background:#ffe08a;color:#664d00;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:950;margin-bottom:4px}
 .expert-phrase{margin-top:10px;background:#172033;color:#fff;border-radius:13px;padding:11px 12px}.expert-phrase .tx{font-size:16.5px;font-weight:950;line-height:1.5}.expert-phrase .pr{font-size:15px;font-weight:850;line-height:1.55;margin-top:3px;color:#ffd43b}.expert-phrase .mn{font-size:13.5px;line-height:1.55;opacity:.88;margin-top:2px}.expert-steps{margin-top:10px;border:1px solid #dbeafe;border-radius:13px;overflow:hidden}.expert-steps .h{background:#e8f4ff;color:#075985;font-size:14px;font-weight:950;padding:8px 10px}.expert-step{display:grid;grid-template-columns:72px 1fr;gap:8px;padding:8px 10px;border-top:1px solid #e5edf7;font-size:14.5px;line-height:1.55}.expert-step:first-of-type{border-top:0}.expert-step .tm{font-weight:950;color:#075985;white-space:nowrap}.expert-near{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:950;margin-left:5px}
 .field-panel{margin-top:13px;background:#eef6ff;border:1px solid #bfdbfe;border-radius:15px;padding:11px;color:#172033}.field-title{font-size:15px;font-weight:950}.field-status{font-size:13.5px;line-height:1.55;font-weight:720;opacity:.94;margin-top:3px}.field-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.field-chips button{border:1px solid #93c5fd;background:#fff;color:#075985;border-radius:999px;padding:7px 10px;font-size:13px;font-weight:900}.field-quick{margin:10px 0 5px;background:#fff3bf;color:#172033;border:1.5px solid #ffd43b;border-radius:14px;padding:10px;display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.45;font-weight:850}.field-quick.ok{background:#e7f8ee;border-color:#bdecc9}.field-quick.warn{background:#fff1f2;border-color:#fecdd3}.field-quick .grow{flex:1}.field-quick button{flex:none;border:0;border-radius:11px;background:#0b5ed7;color:#fff;padding:10px 12px;font-size:14px;font-weight:950}.field-chips button.on{background:#ffd43b;color:#172033;border-color:#ffd43b}.field-note{font-size:12px;line-height:1.5;opacity:.78;margin-top:7px}
-.loc-strip{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid #dbe7f6;border-radius:17px;padding:12px 13px;margin:0 0 11px;box-shadow:0 4px 14px rgba(22,34,66,.07)}
+.loc-strip{display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #dbe7f6;border-radius:15px;padding:8px 10px;margin:0 0 11px;box-shadow:0 4px 14px rgba(22,34,66,.07);min-height:48px}
 .loc-strip.ok{background:#effaf2;border-color:#bdecc9}.loc-strip.warn{background:#fff8d6;border-color:#ffe58a}.loc-strip.bad{background:#fff1f2;border-color:#fecdd3}.loc-strip.info{background:#eef6ff;border-color:#bfdbfe}
-.loc-dot{width:13px;height:13px;border-radius:50%;background:#94a3b8;flex:none;margin-top:5px;box-shadow:0 0 0 4px rgba(148,163,184,.16)}
+.loc-dot{width:10px;height:10px;border-radius:50%;background:#94a3b8;flex:none;box-shadow:0 0 0 3px rgba(148,163,184,.16)}
 .loc-strip.ok .loc-dot{background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.15)}.loc-strip.warn .loc-dot{background:#d97706;box-shadow:0 0 0 4px rgba(217,119,6,.15)}.loc-strip.bad .loc-dot{background:#e11d48;box-shadow:0 0 0 4px rgba(225,29,72,.13)}.loc-strip.info .loc-dot{background:#0b5ed7;box-shadow:0 0 0 4px rgba(11,94,215,.13)}
-.loc-main{flex:1;min-width:0}.loc-title{font-size:16.5px;font-weight:950;line-height:1.4;word-break:keep-all}.loc-sub{font-size:13.5px;font-weight:720;line-height:1.55;color:#46556e;margin-top:2px;word-break:keep-all;overflow-wrap:anywhere}.loc-place{font-size:13px;font-weight:900;line-height:1.45;color:#075985;margin-top:1px;word-break:keep-all;overflow-wrap:anywhere}
-.loc-actions{display:flex;gap:6px;flex:none;align-items:center}.loc-actions button{border:0;border-radius:11px;padding:9px 10px;font-size:13px;font-weight:950;background:var(--dark);color:#fff}.loc-actions button.soft{background:#fff;color:var(--skyDark);border:1px solid #cfe3ff}.loc-actions button:active{transform:scale(.96)}.loc-actions .loc-icon-btn{width:42px;height:42px;padding:0;border-radius:50%;font-size:19px;display:inline-flex;align-items:center;justify-content:center}.loc-actions .loc-icon-btn.soft{font-size:17px;font-weight:950}.loc-strip.ok,.loc-strip.info{align-items:flex-start}.loc-strip.ok .loc-actions,.loc-strip.info .loc-actions{align-self:center}
-.loc-cta{width:100%;margin-top:9px}.loc-help{margin-top:8px;font-size:13px;line-height:1.55;font-weight:720;color:#5c4700}
+.loc-main{flex:1;min-width:0}.loc-title{font-size:15px;font-weight:950;line-height:1.2;word-break:keep-all;white-space:nowrap}.loc-sub{font-size:13.5px;font-weight:720;line-height:1.55;color:#46556e;margin-top:2px;word-break:keep-all;overflow-wrap:anywhere}.loc-place{font-size:13px;font-weight:900;line-height:1.45;color:#075985;margin-top:1px;word-break:keep-all;overflow-wrap:anywhere}
+.loc-actions{display:flex;gap:5px;flex:none;align-items:center}.loc-actions button{border:0;border-radius:11px;padding:9px 10px;font-size:13px;font-weight:950;background:var(--dark);color:#fff}.loc-actions button.soft{background:#fff;color:var(--skyDark);border:1px solid #cfe3ff}.loc-actions button:active,.loc-actions a:active{transform:scale(.96)}.loc-actions .loc-icon-btn{width:34px;height:34px;padding:0;border-radius:50%;font-size:18px;display:inline-flex;align-items:center;justify-content:center}.loc-actions .loc-icon-btn.soft{font-size:15px;font-weight:950;background:#fff;color:var(--skyDark);border:1px solid #cfe3ff}.loc-actions .loc-map-btn{height:34px;padding:0 9px;border-radius:10px;background:var(--dark);color:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;font-size:12px;font-weight:950}.loc-strip{align-items:center}.loc-strip .loc-main{align-self:center}
+.loc-cta{width:100%;margin-top:9px}.loc-help{margin-top:8px;font-size:13px;line-height:1.55;font-weight:720;color:#5c4700}.field-advice-item{padding:8px 0;border-top:1px solid #e7edf5}.field-advice-item:first-child{border-top:0;padding-top:0}.field-advice-source{font-size:12px;color:#53647b;margin-top:3px}.field-advice-source a{color:#075985;font-weight:800}
 .evidence-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}.evidence-chip{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;background:#eef6ff;color:#075985;font-size:12.5px;font-weight:900;line-height:1.35}.evidence-chip.good{background:#dcfce7;color:#166534}.evidence-chip.warn{background:#fef3c7;color:#92400e}.evidence-chip.neutral{background:#eef2f7;color:#526077}
 .context-card{background:#f5f9ff;border:1px solid #bfdbfe;border-radius:18px;padding:14px;margin:-3px 0 13px;box-shadow:var(--shadow)}
 .context-card.warn{background:#fffbea;border-color:#fde68a}.context-card .card-title{font-size:17px}.context-desc{font-size:14px;line-height:1.62;font-weight:720;color:#33415c;margin-top:5px;word-break:keep-all}
@@ -252,7 +252,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v3.9.1';
+const APP_VERSION = 'v3.10.0';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -385,9 +385,13 @@ function normalizeEventBrief(x){
   };
   return (out.why||out.history||out.mustSee.length||out.route.length||out.photoPoints.length||out.toilets.length||out.toiletData.length||out.comfort||out.prepare.length||out.risks.length||out.meeting||out.fallback)?out:null;
 }
+function normalizeFieldAdvice(items){
+  if(!Array.isArray(items))return [];
+  return items.map(x=>({id:String(x&&x.id||''),title:String(x&&x.title||''),body:String(x&&x.body||''),action:String(x&&x.action||''),phrase:(x&&x.phrase&&typeof x.phrase==='object')?{text:String(x.phrase.text||''),pronunciation:String(x.phrase.pronunciation||''),meaning:String(x.phrase.meaning||'')}:null,sourceName:String(x&&x.sourceName||''),sourceUrl:String(x&&x.sourceUrl||''),verifiedAt:String(x&&x.verifiedAt||''),confidence:String(x&&x.confidence||''),onlyIf:String(x&&x.onlyIf||'')})).filter(x=>x.title||x.body||x.action||x.phrase&&x.phrase.text);
+}
 function normalizeDay(d){
   d=d||{};
-  const events=Array.isArray(d.events)?d.events.map(e=>({id:e.id||uid(),time:normalizeTimeToken(e.time||e.startTime||''),endTime:normalizeTimeToken(e.endTime||e.end||''),durationMin:numOrNull(e.durationMin||e.durationMinutes),title:String(e.title||e.text||''),place:String(e.place||''),note:String(e.note||''),tz:String(e.tz||e.timezone||''),brief:normalizeEventBrief(e.brief||e.preBrief||e.briefing),fieldGuide:normalizeEventBrief(e.fieldGuide||null)})).sort((a,b)=>eventStartMinutes(a)-eventStartMinutes(b)):[];
+  const events=Array.isArray(d.events)?d.events.map(e=>({id:e.id||uid(),time:normalizeTimeToken(e.time||e.startTime||''),endTime:normalizeTimeToken(e.endTime||e.end||''),durationMin:numOrNull(e.durationMin||e.durationMinutes),title:String(e.title||e.text||''),place:String(e.place||''),city:String(e.city||''),country:String(e.country||''),note:String(e.note||''),tz:String(e.tz||e.timezone||''),brief:normalizeEventBrief(e.brief||e.preBrief||e.briefing),fieldGuide:normalizeEventBrief(e.fieldGuide||null),fieldAdvice:normalizeFieldAdvice(e.fieldAdvice)})).sort((a,b)=>eventStartMinutes(a)-eventStartMinutes(b)):[];
   return {id:d.id||uid(),date:String(d.date||'').slice(0,10),label:String(d.label||''),city:String(d.city||''),country:String(d.country||''),tz:String(d.tz||''),currency:String(d.currency||''),lat:numOrNull(d.lat),lon:numOrNull(d.lon),events,meals:Array.isArray(d.meals)?d.meals.map(String):[],hotel:d.hotel||null,notes:Array.isArray(d.notes)?d.notes.map(String):[],alerts:Array.isArray(d.alerts)?d.alerts.map(String):[]};
 }
 function numOrNull(v){ if(v==null||v==='')return null; const n=Number(v); return Number.isFinite(n)?n:null; }
@@ -1024,7 +1028,7 @@ function airportNowData(ctx,ph){
 function genericRestaurantDetails(day){
   const dest=day?destinationFromDay(day):null; const country=String((dest&&dest.country)||(day&&day.country)||'');
   if(/포르투갈|Portugal/i.test(country)||String((dest&&dest.tz)||'').indexOf('Lisbon')!==-1){
-    return [{k:'오늘의 요리 묻기',v:'Qual é o prato do dia?\n한국말 발음: 꾸알 에 우 쁘라-뚜 두 디-아?\n뜻: 오늘의 요리가 뭐예요?'},{k:'쿠베르 주의',v:'빵·올리브는 손대면 요금이 붙을 수 있습니다. 필요 없으면 “Não, obrigado. (한국말 발음: 나웅, 오브리가두)”라고 하세요.'}];
+    return [{k:'오늘의 요리 묻기',v:'Qual é o prato do dia?\n한국말 발음: 꾸알 에 우 쁘라-뚜 두 디-아?\n뜻: 오늘의 요리가 뭐예요?'},{k:'쿠베르 주의',v:'빵·올리브 등 쿠베르가 유료일 수 있으니 손대기 전에 가격을 물어보세요. 원하지 않으면 정중히 거절할 수 있습니다. 제공 항목과 요금은 식당마다 다릅니다. “Não, obrigado(a).” (한국말 발음: 나웅, 오브리가두/다)'}];
   }
   return [{k:'숨은 점심 메뉴 묻기',v:'¿Tienen menú del día?\n한국말 발음: 띠에-넨 메-누 델 디-아?\n뜻: 오늘의 메뉴가 있어요?'},{k:'무료 물 주문',v:'Una jarra de agua del grifo, por favor.\n한국말 발음: 우-나 하-라 데 아-구아 델 그리-포, 뽀르 파-보르\n뜻: 수돗물 한 주전자 주세요.'}];
 }
@@ -1032,7 +1036,7 @@ function placeNowData(ctx,ph){
   const day=ctx.day||fieldRelevantDay(ctx.nowMs);
   let place=ctx.place||null;
   if(!place&&ctx.onlinePlace)place=normalizeContextPlace(ctx.onlinePlace);
-  if(!place&&ctx.kind==='restaurant')place=normalizeContextPlace({id:'current-restaurant',type:'restaurant',name:'식당 안내',lat:ui.geo?ui.geo.lat:null,lon:ui.geo?ui.geo.lon:null,nowBody:'위치만으로는 이 식당의 이름과 메뉴를 확인하지 못했습니다. 대표 메뉴를 단정하지 않고, 현지 주문 규칙과 오늘의 전문가 정보를 먼저 보여드립니다.'});
+  if(!place&&ctx.kind==='restaurant')place=normalizeContextPlace({id:'current-restaurant',type:'restaurant',name:'식당 안내',lat:ui.geo?ui.geo.lat:null,lon:ui.geo?ui.geo.lon:null,nowBody:'위치만으로는 이 식당의 이름과 메뉴를 확인하지 못했습니다. 대표 메뉴를 단정하지 않고, 현지 주문 규칙과 일정에 저장된 현장 조언을 확인하세요.'});
   if(!place)return null;
   const details=[];
   if(place.doNow&&place.doNow.length)details.push({k:'지금 할 일',v:place.doNow.map((x,i)=>(i+1)+'. '+x).join('\n')});
@@ -1040,7 +1044,9 @@ function placeNowData(ctx,ph){
   if(place.phrase&&place.phrase.text)details.push({k:'현지어 한마디',v:place.phrase.text+(place.phrase.pronunciation?'\n한국말 발음: '+place.phrase.pronunciation:'')+(place.phrase.meaning?'\n뜻: '+place.phrase.meaning:'')});
   if(place.type==='restaurant'&&!(place.bestItems&&place.bestItems.length))genericRestaurantDetails(day).forEach(d=>details.push(d));
   if(place.watchOut)details.push({k:'주의',v:place.watchOut});
-  if(day){ const experts=expertInfoForDate(day.date,day).slice(0,2); if(experts.length)details.push({k:'전문가 정보에서도 지금 관련',v:experts.map(e=>e.title+(e.action?'\n'+e.action:'')).join('\n\n')}); }
+  let fieldAdvice=[];
+  if(day){ const candidates=scheduleSegmentsForDay(day).map(seg=>({seg,score:segmentMatchScore(seg,place.name||place.mapQuery||'')})).filter(x=>x.score>=18).sort((a,b)=>b.score-a.score); if(candidates[0])fieldAdvice=candidates[0].seg.event.fieldAdvice||[]; }
+  if(place.type==='restaurant'&&!(place.bestItems&&place.bestItems.length)){ /* Never infer a named dish from location alone. */ }
   if(place.type==='hotel'&&day){ const note=guideNoteForDate(day.date); if(note&&guideNoteLines(note).length)details.push({k:'가이드 공지',v:guideNoteLines(note).join('\n')}); const nextDay=state.days.find(d=>d.date===addDaysISO(day.date,1)); if(nextDay&&nextDay.events&&nextDay.events[0])details.push({k:'내일 첫 일정',v:(nextDay.events[0].time?nextDay.events[0].time+' · ':'')+nextDay.events[0].title}); }
   const actions=[]; const q=place.mapQuery||place.name;
   if(q)actions.push({label:'지도에서 보기',href:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q),kind:'btn-pri'});
@@ -1049,7 +1055,7 @@ function placeNowData(ctx,ph){
   const placeTitle=place.id==='current-restaurant'
     ?(String(ctx.confidence||'').indexOf('식사 시간')!==-1?'식사 시간에 필요한 안내':'식당에서 지금 필요한 안내')
     :(ctx.placeStatus==='manual'||ctx.placeStatus==='selected'?(place.name+' 안내를 보고 있어요'):(ctx.confidence==='높음'?(place.name+'에 계시네요'):(place.name+' 안쪽으로 확인돼요')));
-  return {context:'현장 모드 · '+(place.type==='restaurant'?'식당':place.type==='hotel'?'호텔':place.type==='station'?'역':'관광지')+(ctx.confidence?' · 판단 '+ctx.confidence:''),title:placeTitle,body:place.nowBody||place.watchOut||'지금 장소에 맞는 전문가 정보를 아래 전체 목록에서도 함께 확인하세요.',details,actions,dest:ph.dest,ph,hidePrep:true,showTodayEvents:false,todayDay:day,fieldContext:ctx};
+  return {context:'현장 모드 · '+(place.type==='restaurant'?'식당':place.type==='hotel'?'호텔':place.type==='station'?'역':'관광지')+(ctx.confidence?' · 판단 '+ctx.confidence:''),title:placeTitle,body:place.nowBody||place.watchOut||'일정에 저장된 현장 안내를 확인하세요.',details,fieldAdvice,actions,dest:ph.dest,ph,hidePrep:true,showTodayEvents:false,todayDay:day,fieldContext:ctx};
 }
 function fieldTripStarted(nowMs){
   const now=Number(nowMs||Date.now()); const ph=tripPhase();
@@ -1514,45 +1520,21 @@ function locationPlaceSummary(ctx,quality){
   return '저장 목록의 일치 장소 없음 · 이름 식별 안 됨';
 }
 function renderLocationStrip(ctx){
-  ctx=ctx||detectFieldContext(Date.now());
-  const enabled=fieldEnabledNow();
   const q=geoQuality(ui.geo);
-  const secure=typeof window==='undefined'?true:window.isSecureContext!==false;
-  if(!navigator.geolocation||!secure){
-    return '<section class="loc-strip bad" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">이 주소에서는 위치를 받을 수 없어요</div><div class="loc-sub">HTTPS 주소의 Chrome 또는 설치한 SK-여행 앱에서 열어 주세요. 위치가 없어도 일정 안내는 계속 표시됩니다.</div></div></section>';
-  }
-  if(!enabled){
-    return '<section class="loc-strip warn" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">위치가 꺼져 있어요</div><div class="loc-sub">위치를 켜야 공항·호텔·식당·관광지 안내가 현재 장소에 맞게 바뀝니다. 처음 한 번 Chrome에서 정확한 위치를 허용하면 다음부터 자동으로 시작합니다.</div><button class="btn btn-dark btn-sm loc-cta" type="button" data-action="field-enable">정확한 위치 허용하고 켜기</button></div></section>';
-  }
-  if(ui.geoPermission==='denied'||ui.geoLastErrorCode===1){
-    const info=geoErrorInfo(1);
-    return '<section class="loc-strip bad" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">'+esc(info.label)+'</div><div class="loc-sub">'+esc(info.help)+'</div><button class="btn btn-dark btn-sm loc-cta" type="button" data-action="field-refresh">설정 뒤 다시 시도</button></div></section>';
-  }
-  if(!ui.geo){
-    const info=ui.geoLastErrorCode?geoErrorInfo(ui.geoLastErrorCode):null;
-    const failed=!!info&&!ui.geoBusy;
-    return '<section class="loc-strip '+(failed?'bad':'info')+'" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">'+(failed?esc(info.label):'현재 위치를 찾는 중이에요')+'</div><div class="loc-sub">'+(failed?esc(info.help):'Chrome 권한과 첫 좌표를 확인하고 있습니다. 실내에서는 몇 초 더 걸릴 수 있어요.')+'</div></div><div class="loc-actions"><button type="button" data-action="field-refresh">다시 확인</button></div></section>';
-  }
-  let cls='ok',title=(ui.geoBusy||ui.geoRefreshPending)?'새 위치 좌표 응답 대기 중':'현재 위치 좌표 응답 수신';
-  if(ui.geoBusy){cls='info';}
-  if(q.stale){cls='warn';title='마지막 위치를 보고 있어요';}
-  else if(q.settling){cls='info';title='좌표 오차를 줄이는 중이에요';}
-  else if(q.grade==='approximate'){cls='warn';title='대략 위치만 확인됐어요';}
-  else if(q.grade==='coarse'||q.grade==='unknown'||q.grade==='invalid'){cls='warn';title='좌표를 받았지만 오차 추정이 큽니다';}
-  else if(q.grade==='fair'){cls='info';title='현재 위치 좌표 응답 수신';}
-  const compactAccuracy=q.accuracy==null?'정확도 정보 없음':('정확도 약 '+(Math.round(q.accuracy)>=1000?(Math.round(q.accuracy)/1000).toFixed(Math.round(q.accuracy)>=10000?0:1).replace(/\.0$/,'')+'km':Math.round(q.accuracy)+'m'));
-  const sub='Chrome이 보고한 위치 좌표 오차 추정 · '+[geoAgeText(ui.geo),compactAccuracy].join(' · ');
-  const placeSummary=locationPlaceSummary(ctx,q);
-  let help='';
-  if(ui.geoRefreshPending)help='새 위치 좌표 요청 #'+Number(ui.geoRequestSeq||0)+'을 보냈습니다. 요청 시각 '+locationDiagTime(ui.geoLastAttemptAt)+' · 응답 대기 중입니다.';
-  else if(ui.geoLastResultSeq===ui.geoRequestSeq&&ui.geoLastResultSeq)help='최근 요청 #'+ui.geoLastResultSeq+' · '+locationDiagTime(ui.geoLastAttemptAt)+' · '+(ui.geoLastResultKind==='success'?'새 좌표 응답 수신':ui.geoLastResultKind==='received-not-applied'?'응답은 왔지만 품질이 낮아 기존 좌표 유지':ui.geoLastResultKind==='timeout'?'응답 시간 초과':ui.geoError||'위치 요청 오류');
-  else if(q.stale)help='새 위치를 다시 확인하고 있습니다. 오래된 좌표로는 장소를 확정하지 않습니다.';
-  else if(q.settling)help='첫 좌표만으로 장소를 확정하지 않고, 연속 좌표 중 가장 정확한 값을 고르고 있습니다.';
-  else if(q.approximateLikely)help='Chrome 위치 설정에서 이 사이트에 “정확한 위치”가 허용됐는지, 안드로이드 설정에서 Chrome의 정확한 위치가 켜졌는지 확인해 주세요.';
-  else if(!q.usableForPlace&&q.reason)help=q.reason;
-  else if(!ctx||!['confirmed','likely','manual','selected'].includes(ctx.placeStatus))help='두 줄은 서로 다른 결과입니다. 위의 m 값은 Chrome이 보고한 좌표 오차의 추정 반경이지 장소 이름 확인 결과가 아닙니다. 저장 목록과 맞는 곳을 못 찾았다는 뜻이며, GPS가 나쁘다는 뜻은 아닙니다. 실내 매장·공항 내부 구역은 GPS로 단정하지 않습니다.';
-  if(ui.geoError)help=(help?help+' ':'')+'최근 재확인: '+ui.geoError;
-  return '<section class="loc-strip '+cls+'" aria-label="위치 상태"><span class="loc-dot"></span><div class="loc-main"><div class="loc-title">'+esc(title)+'</div><div class="loc-sub">'+esc(sub)+'</div><div class="loc-place">장소 식별 결과 · '+esc(placeSummary)+'</div>'+(help?'<div class="loc-help">'+esc(help)+'</div>':'')+'</div><div class="loc-actions"><button class="loc-icon-btn" type="button" data-action="field-refresh" title="위치 새로 확인" aria-label="위치 새로 확인" '+(ui.geoRefreshPending?'disabled aria-busy="true"':'')+'>'+(ui.geoRefreshPending?'…':'↻')+'</button><button class="loc-icon-btn soft" type="button" data-action="loc-diag-open" title="위치 진단 열기" aria-label="위치 진단 열기">i</button></div></section>';
+  const secure=typeof window==='undefined'||window.isSecureContext!==false;
+  const supported=!!(navigator.geolocation&&secure);
+  const fresh=!!(supported&&ui.geo&&validLatLon(ui.geo.lat,ui.geo.lon)&&!q.stale);
+  const pending=!!(supported&&fieldEnabledNow()&&(ui.geoBusy||ui.geoRefreshPending||(!ui.geo&&!ui.geoLastErrorCode)));
+  const status=pending?'확인 중':(fresh?'작동 중':'작동 불가');
+  const cls=pending?'info':(fresh?'ok':'bad');
+  const mapHref=fresh
+    ?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(String(ui.geo.lat)+','+String(ui.geo.lon))
+    :'https://www.google.com/maps/@?api=1&map_action=map';
+  return '<section class="loc-strip '+cls+'" role="status" aria-live="polite" aria-atomic="true" aria-label="현재 위치 응답 상태">'
+    +'<span class="loc-dot" aria-hidden="true"></span><div class="loc-main"><div class="loc-title">위치 · '+status+'</div></div>'
+    +'<div class="loc-actions"><button class="loc-icon-btn" type="button" data-action="field-refresh" title="위치 새로 확인" aria-label="위치 새로 확인" '+(ui.geoRefreshPending?'disabled aria-busy="true"':'')+'>'+(ui.geoRefreshPending?'…':'↻')+'</button>'
+    +'<a class="loc-map-btn" href="'+mapHref+'" title="현재 좌표가 있으면 좌표를 Google Maps로 전달합니다.">Google 지도</a>'
+    +'<button class="loc-icon-btn soft" type="button" data-action="loc-diag-open" title="위치 진단 열기" aria-label="위치 진단 열기">i</button></div></section>';
 }
 function fieldQuickStatusHTML(ctx){ return renderLocationStrip(ctx); }
 function manualContextControlsHTML(ctx){
@@ -2248,12 +2230,12 @@ function segmentFeedbackKey(seg){ return seg?feedbackKey('segment',(seg.day&&seg
 function scheduleSegmentsForDay(day){
   if(!day||!day.date)return [];
   const dest=destinationFromDay(day); const tz=(dest&&dest.tz)||day.tz||HOME.tz;
-  const toMs=min=>zonedTimeToUtcMs(day.date,segmentTimeToken(min),tz);
+  const toMs=(min,eventTz)=>zonedTimeToUtcMs(day.date,segmentTimeToken(min),eventTz||tz);
   let raw=(day.events||[]).map((ev,i)=>{
     const nums=[...String(ev.time||'').matchAll(/(\d{1,2}):(\d{2})/g)].map(x=>(+x[1])*60+(+x[2]));
     const endNums=[...String(ev.endTime||'').matchAll(/(\d{1,2}):(\d{2})/g)].map(x=>(+x[1])*60+(+x[2]));
     const kind=segmentKindForEvent(ev);
-    return {id:'seg-'+day.date+'-'+i+'-'+(ev.id||''),seq:i,day,dest,tz,event:ev,title:ev.title||day.label||'일정',kind,exactStartMin:nums.length?nums[0]:null,exactEndMin:endNums.length?endNums[0]:(nums.length>1?nums[1]:null),durationMin:segmentDurationGuess(ev,kind),estimated:!nums.length,startMs:null,endMs:null,guide:false};
+    return {id:'seg-'+day.date+'-'+i+'-'+(ev.id||''),seq:i,day,dest,tz:ev.tz||tz,event:ev,title:ev.title||day.label||'일정',kind,exactStartMin:nums.length?nums[0]:null,exactEndMin:endNums.length?endNums[0]:(nums.length>1?nums[1]:null),durationMin:segmentDurationGuess(ev,kind),estimated:!nums.length,startMs:null,endMs:null,guide:false};
   });
   // normalizeDay의 시간 정렬 때문에 열차·비행 앞 준비 일정이 뒤로 간 경우를 바로잡는다.
   for(let i=1;i<raw.length;i++){
@@ -2263,8 +2245,8 @@ function scheduleSegmentsForDay(day){
     }
   }
   raw.forEach(seg=>{
-    if(seg.exactStartMin!=null)seg.startMs=toMs(seg.exactStartMin);
-    if(seg.exactEndMin!=null)seg.endMs=toMs(seg.exactEndMin);
+    if(seg.exactStartMin!=null)seg.startMs=toMs(seg.exactStartMin,seg.tz);
+    if(seg.exactEndMin!=null)seg.endMs=toMs(seg.exactEndMin,seg.tz);
   });
   let idx=0;
   while(idx<raw.length){
@@ -2281,7 +2263,7 @@ function scheduleSegmentsForDay(day){
     let cursor;
     if(!prev&&next&&next.startMs!=null)cursor=next.startMs-total*60000;
     else if(prev&&prev.endMs!=null)cursor=prev.endMs;
-    else cursor=toMs(9*60);
+    else cursor=toMs(9*60,(block[0]&&block[0].tz)||tz);
     let scale=1;
     if(next&&next.startMs!=null&&cursor!=null){
       const available=(next.startMs-cursor)/60000;
@@ -2299,8 +2281,8 @@ function scheduleSegmentsForDay(day){
   raw.forEach(seg=>{ if(seg.startMs!=null&&(seg.endMs==null||seg.endMs<=seg.startMs))seg.endMs=seg.startMs+Math.max(15,seg.durationMin)*60000; });
   const guideSegs=guideTimedEvents(day).map((ev,i)=>{
     const nums=[...String(ev.time||'').matchAll(/(\d{1,2}):(\d{2})/g)].map(x=>(+x[1])*60+(+x[2]));
-    const startMs=nums.length?toMs(nums[0]):null; const dur=/조식/.test(ev.title)?45:(/출발|집합/.test(ev.title)?30:15);
-    return {id:'seg-'+ev.id,seq:1000+i,day,dest,tz,event:ev,title:ev.title,kind:'guide',exactStartMin:nums.length?nums[0]:null,exactEndMin:null,durationMin:dur,estimated:false,startMs,endMs:startMs==null?null:startMs+dur*60000,guide:true};
+    const guideTz=ev.tz||tz; const startMs=nums.length?toMs(nums[0],guideTz):null; const dur=/조식/.test(ev.title)?45:(/출발|집합/.test(ev.title)?30:15);
+    return {id:'seg-'+ev.id,seq:1000+i,day,dest,tz:guideTz,event:ev,title:ev.title,kind:'guide',exactStartMin:nums.length?nums[0]:null,exactEndMin:null,durationMin:dur,estimated:false,startMs,endMs:startMs==null?null:startMs+dur*60000,guide:true};
   }).filter(x=>x.startMs!=null);
   return raw.concat(guideSegs).filter(x=>x.startMs!=null&&x.endMs!=null).sort((a,b)=>(a.startMs-b.startMs)||(a.seq-b.seq));
 }
@@ -2366,7 +2348,7 @@ function fieldProgressNowData(info,ph,nowMs){
   const actions=[{label:'전체 일정 보기',action:'nav',id:'schedule',kind:'btn-soft'}];
   if(place&&(place.mapQuery||place.name))actions.push({label:'지도에서 보기',href:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(place.mapQuery||place.name),kind:'btn-soft'});
   const timeNote=seg.estimated?' · 시각은 원본에 없어 일정 순서로 추정':'';
-  return {context:(active?'현재 단계':'단계 미리보기')+' · '+(seg.day&&seg.day.city?seg.day.city+' · ':'')+(seg.kind==='transfer'||seg.kind==='train'?'이동':seg.kind==='attraction'?'방문':'일정')+timeNote,title:cleanSegmentTitle(seg.title),body,firstAction,details,steps:around,actions,dest:seg.dest||ph.dest,ph,hidePrep:true,showTodayEvents:false,todayDay:seg.day,feedbackKey:segmentFeedbackKey(seg),scheduleSegment:seg,fieldProgressInfo:info,fieldContext:detectFieldContext(nowMs||Date.now())};
+  return {context:(active?'현재 단계':'단계 미리보기')+' · '+(segmentCity(seg)?segmentCity(seg)+' · ':'')+(seg.kind==='transfer'||seg.kind==='train'?'이동':seg.kind==='attraction'?'방문':'일정')+timeNote,title:cleanSegmentTitle(seg.title),body,firstAction,details,steps:around,actions,dest:seg.dest||ph.dest,ph,hidePrep:true,showTodayEvents:false,todayDay:seg.day,feedbackKey:segmentFeedbackKey(seg),scheduleSegment:seg,fieldProgressInfo:info,fieldContext:detectFieldContext(nowMs||Date.now())};
 }
 function fieldProgressControlHTML(info){
   if(!info||!info.active)return '';
@@ -2409,11 +2391,12 @@ function segmentWhenText(seg){
   const when=fmtClock(new Date(seg.startMs),seg.tz||HOME.tz);
   return (seg.estimated?'순서상 약 ':'')+when;
 }
+function segmentCity(seg){ return String(seg&&seg.event&&seg.event.city||seg&&seg.day&&seg.day.city||''); }
 function segmentSearchTokens(text){
   return String(text||'').toLowerCase().replace(/[()·,./\-]/g,' ').split(/\s+/).filter(w=>w.length>=2);
 }
 function segmentMatchScore(seg,text){
-  const a=String((seg&&seg.title||'')+' '+(seg&&seg.event&&seg.event.place||'')+' '+(seg&&seg.day&&seg.day.city||'')).toLowerCase();
+  const a=String((seg&&seg.title||'')+' '+(seg&&seg.event&&seg.event.place||'')+' '+segmentCity(seg)).toLowerCase();
   const b=String(text||'').toLowerCase(); if(!a||!b)return 0;
   if(a.indexOf(b)!==-1||b.indexOf(a)!==-1)return 100;
   let score=0; segmentSearchTokens(b).forEach(w=>{if(a.indexOf(w)!==-1)score+=Math.min(20,4+w.length*2);});
@@ -2434,7 +2417,7 @@ function segmentExpertMatchScore(e,seg){
   return Math.max(segmentMatchScore(seg,e.place),segmentMatchScore(seg,e.title),segmentMatchScore(seg,e.trigger));
 }
 function segmentExperts(seg){
-  if(!seg||!seg.day)return [];
+  if(!seg||!seg.day||Array.isArray(seg.event&&seg.event.fieldAdvice)&&seg.event.fieldAdvice.length)return [];
   return expertInfoForDate(seg.day.date,seg.day).map(e=>({e,score:segmentExpertMatchScore(e,seg)})).filter(x=>x.score>=14).sort((a,b)=>b.score-a.score).map(x=>x.e).slice(0,2);
 }
 function addBriefDetail(details,k,v){
@@ -2442,6 +2425,10 @@ function addBriefDetail(details,k,v){
   const text=Array.isArray(v)?v.filter(Boolean).join('\n'):String(v);
   if(!text.trim()||details.some(d=>d.k===k))return;
   details.push({k,v:text});
+}
+function fieldAdviceHTML(items){
+  const list=normalizeFieldAdvice(items||[]); if(!list.length)return '';
+  return '<div class="stack-item field-advice-block"><div class="stack-k">현장 조언</div><div class="stack-v">'+list.map(x=>'<div class="field-advice-item"><b>'+esc(x.title||'현장 조언')+'</b>'+(x.onlyIf?'<div>조건: '+esc(x.onlyIf)+'</div>':'')+(x.body?'<div>'+esc(x.body)+'</div>':'')+(x.action?'<div>👉 '+esc(x.action)+'</div>':'')+(x.phrase&&x.phrase.text?'<div>'+esc(x.phrase.text)+(x.phrase.pronunciation?' · '+esc(x.phrase.pronunciation):'')+(x.phrase.meaning?' · '+esc(x.phrase.meaning):'')+'</div>':'')+((x.sourceName||x.sourceUrl)?'<div class="field-advice-source">출처: '+(x.sourceUrl?'<a target="_blank" rel="noopener" href="'+esc(x.sourceUrl)+'">'+esc(x.sourceName||'원문 보기')+'</a>':esc(x.sourceName))+(x.verifiedAt?' · '+esc(x.verifiedAt)+' 확인':'')+(x.confidence?' · '+esc(x.confidence):'')+'</div>':'')+'</div>').join('')+'</div></div>';
 }
 function segmentBriefDetails(seg,place,experts){
   const details=[]; const ev=seg.event||{}; const brief=(ev.fieldGuide&&ev.fieldGuide.researchStatus?Object.assign({},ev.brief||{},ev.fieldGuide):ev.brief)||null;
@@ -2459,7 +2446,7 @@ function segmentBriefDetails(seg,place,experts){
     addBriefDetail(details,'예상 관람 시간·입장 상태',[brief.visitDuration,brief.ticketStatus,brief.ticketRules.join('\n'),brief.priceNotes].filter(Boolean).join('\n'));
     const toiletLines=brief.toiletData&&brief.toiletData.length?brief.toiletData.map(a=>a.name+' · 약 '+(validLatLon(brief.anchorLat,brief.anchorLon)?Math.round(distanceKm(brief.anchorLat,brief.anchorLon,a.lat,a.lon)*1000)+'m 직선거리 · ':'거리 기준 좌표 미확인 · ')+(a.feeStatus==='free'?'무료':a.feeStatus==='paid'?'유료'+(a.price?' '+a.price:''):a.feeStatus==='customer-free'?'고객 전용·요금 없음(공공 이용 불가)':'요금/이용조건 미확인')+(a.accessStatus==='public'?' · 공공 이용':a.accessStatus==='customers'?' · 고객 전용':'')+(a.hours?' · '+a.hours:'')+(a.notes?' · '+a.notes:'')):brief.toilets;
     addBriefDetail(details,'가까운 화장실·휴식',toiletLines);
-    addBriefDetail(details,'집합·다음 이동',brief.meeting);
+    // Do not invent a meeting place/time when the source documents omit it.
     addBriefDetail(details,'시간 부족 시 대안',brief.fallback);
     if(brief.localPhrase&&brief.localPhrase.text)addBriefDetail(details,'현지어 한마디',brief.localPhrase.text+'\n한국말 발음: '+brief.localPhrase.pronunciation+'\n뜻: '+brief.localPhrase.meaning);
     if(brief.sources&&brief.sources.length)addBriefDetail(details,'조사 출처·확인일',brief.sources.map(x=>x.name).filter(Boolean).join(' · ')+(brief.verifiedAt?' · '+brief.verifiedAt+' 확인':'')+(brief.confidence?'\n'+brief.confidence:''));
@@ -2476,7 +2463,7 @@ function segmentBriefDetails(seg,place,experts){
   }
   (experts||[]).forEach((e,i)=>{
     const joined=(e.title||'')+' '+(e.body||'')+' '+(e.action||'')+' '+(e.category||'');
-    const key=/화장실/.test(joined)?'화장실·휴식':(/사진|전망|뷰|포토/.test(joined)?'사진 포인트':'전문가 사전 정보');
+    const key=/화장실/.test(joined)?'화장실·휴식':(/사진|전망|뷰|포토/.test(joined)?'사진 포인트':'현장 조언');
     addBriefDetail(details,key,(i===0?'':'')+e.title+(e.action?'\n'+e.action:'')+(e.body?'\n'+e.body:''));
     if(e.secretItem)addBriefDetail(details,'비밀무기',e.secretItem+(e.secretWhy?' — '+e.secretWhy:''));
     if(e.phrase&&e.phrase.text)addBriefDetail(details,'현지어 한마디',e.phrase.text+(e.phrase.pronunciation?'\n한국말 발음: '+e.phrase.pronunciation:'')+(e.phrase.meaning?'\n뜻: '+e.phrase.meaning:''));
@@ -2689,6 +2676,7 @@ function renderNowCard(){
     extra='<div class="now-next">'+n.todayDay.events.slice(0,4).map(e=>'<div class="step'+(eventStartMinutes(e)<mins&&e.time?' done':'')+'"><span class="tm">'+esc(e.time||'가이드 안내 시간')+'</span><span class="step-text">'+esc(e.title)+'</span></div>').join('')+'</div>';
   }
   const details=(n.details||[]).map(d=>stackItem(d.k,d.v)).join('');
+  const adviceHtml=fieldAdviceHTML(n.fieldAdvice||(n.scheduleSegment&&n.scheduleSegment.event&&n.scheduleSegment.event.fieldAdvice)||[]);
   let prep='';
   if(!n.hidePrep&&(ph.phase==='before'||ph.phase==='none')){
     const p=nextPrepItem();
@@ -2700,7 +2688,7 @@ function renderNowCard(){
     +(n.context?'<div class="now-context">'+esc(n.context)+'</div>':'')
     +'<div class="now-title'+(n.oneLineTitle?' one-line':'')+'">'+esc(n.title)+'</div>'
     +(n.body?'<div class="now-body">'+esc(n.body)+'</div>':'')+nowEvidenceHTML(n)
-    +(n.firstAction?'<div class="now-first-action"><b>지금 먼저</b><div>'+esc(n.firstAction)+'</div></div>':'')+nearbyToiletButtonHTML(n)+extra+(details?'<div>'+details+'</div>':'')+prep+feedbackButtons(n.feedbackKey)+nowActionButtons(n.actions)+'</section>';
+    +(n.firstAction?'<div class="now-first-action"><b>지금 먼저</b><div>'+esc(n.firstAction)+'</div></div>':'')+nearbyToiletButtonHTML(n)+extra+(details?'<div>'+details+'</div>':'')+adviceHtml+prep+feedbackButtons(n.feedbackKey)+nowActionButtons(n.actions)+'</section>';
 }
 function nextCandidate(){
   const candidates=[]; const now=Date.now(); const ph=tripPhase();
@@ -2812,18 +2800,7 @@ function tipCard(t,compact){
 function renderHomeTips(){
   const sel=selectHomeTips();
   const visibleTips=ui.nowPromotedTipKey?sel.tips.filter(t=>tipKey(t)!==ui.nowPromotedTipKey):sel.tips;
-  const expertSel=selectHomeExpertInfo();
-  const updateItems=activeInfoUpdates((expertSel.day||sel.day)?(expertSel.day||sel.day).date:'').filter(u=>Number(u.severity||1)<3);
-  if(expertSel.items.length){
-    const online=navigator.onLine;
-    return '<section class="home-tips-card" aria-label="전문가 정보"><div class="home-tips-head"><span class="home-tips-label">⭐ 전문가 정보</span><span class="home-tips-when">'+esc(expertSel.label)+' · '+(online?'온라인 최신 정보 반영':'오프라인 저장 정보')+'</span></div>'
-      +'<button class="btn btn-soft btn-block" style="margin:8px 0 4px" data-action="expert-locate">📍 현재 위치에서 가까운 순서로 보기</button>'
-      +(ui.geo?'<div class="small-muted" style="margin:5px 0 2px">'+(geoQuality(ui.geo).usableForArea?'현재 좌표로 가까운 전문가 정보를 앞에 정렬했습니다. 위치는 저장하지 않습니다.':'위치 품질이 낮거나 오래돼 거리순 정렬은 적용하지 않았습니다.')+'</div>':'')
-      +updateItems.map(u=>infoUpdateCardHTML(u)).join('')
-      +expertSel.items.map((e,i)=>expertCardHTML(e,expertSel.day,i)).join('')
-      +(feedbackHiddenCount()?'<button class="btn btn-ghost btn-block" style="margin-top:10px" data-action="feedback-reset">숨긴 안내 다시 보기</button>':'')
-      +'</section>';
-  }
+  const updateItems=activeInfoUpdates(sel.day?sel.day.date:'').filter(u=>Number(u.severity||1)<3);
   if(!visibleTips.length&&!updateItems.length) return feedbackHiddenCount()?'<button class="btn btn-ghost btn-block" style="margin-bottom:13px" data-action="feedback-reset">숨긴 안내 다시 보기</button>':'';
   const rows=(t)=>{
     const row=(k,v)=>v?'<div class="tip-row"><span class="k">'+k+'</span><span class="v">'+esc(v)+'</span></div>':'';
@@ -3109,7 +3086,7 @@ function renderSettings(){
   html+='<div class="card"><div class="card-title" style="margin-bottom:8px">현재 여행</div>'+(tp?(infoKV('이름',tp.name||'(이름 없음)')+infoKV('기간',(tp.start?fmtFull(tp.start):'')+(tp.end?' ~ '+fmtFull(tp.end):''))+infoKV('여행지',tp.destSummary||state.destinations.map(d=>d.city).filter(Boolean).join(' · ')||'(미설정)')):'<div class="small-muted">등록된 여행이 없습니다.</div>')+'<div class="row wrap" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-action="trip-register">✈️ 여행등록</button><button class="btn btn-soft btn-sm" data-action="trip-edit">여행 정보 수정</button><button class="btn btn-ghost btn-sm" data-action="dest-manage">도시·시간대 설정</button></div></div>';
   html+=renderLocationDiagnosticsCard();
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">백업·복원</div><div class="small-muted" style="margin-bottom:11px">새 여행으로 바꾸기 전에 현재 여행을 먼저 백업합니다. 백업에 실패하면 기존 여행은 지워지지 않습니다.</div><div class="row wrap"><button class="btn btn-soft btn-sm" data-action="backup-options">⬇️ 파일로 백업</button><button class="btn btn-yellow btn-sm" data-action="drive-backup">☁️ Google Drive 백업</button><button class="btn btn-ghost btn-sm" data-action="restore-file">⬆️ 파일에서 복원</button><button class="btn btn-ghost btn-sm" data-action="drive-restore">Drive에서 복원</button><button class="btn btn-dark btn-sm" data-action="drive-config">Drive 연결 설정</button></div><div class="small-muted" style="margin-top:9px">Drive 상태: '+(state.settings.driveClientId?'Client ID 설정됨 · 폴더 “'+esc(state.settings.driveFolderName||'SK-여행 백업')+'”':'아직 연결 설정이 필요합니다')+'</div></div>';
-  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">정보 업데이트</div><div class="small-muted" style="margin-bottom:11px">항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 <b>sk-travel-update JSON</b>이 같은 서버의 trip-updates.json이나 설정한 주소에 올라오면 앱이 자동으로 확인합니다. 파일/붙여넣기로도 가져올 수 있어요.</div><div class="kv"><div class="k">현재 상태</div><div class="v">활성 업데이트 '+activeInfoUpdates().length+'건 · 전문가 정보 '+(state.expertInfo||[]).length+'건 · 현장 장소 '+(state.contextPlaces||[]).length+'곳 · 위치 '+(ui.geo?'확인됨':(state.settings.fieldModeEnabled?'확인 중':'꺼짐'))+' · 숨긴 안내 '+feedbackHiddenCount()+'건<br>주소: '+esc(state.settings.updateFeedUrl||'trip-updates.json')+'</div></div><div class="row wrap" style="margin-top:11px"><button class="btn btn-pri btn-sm" data-action="update-refresh">🔔 지금 확인</button><button class="btn btn-soft btn-sm" data-action="update-config">업데이트 주소 설정</button><button class="btn btn-ghost btn-sm" data-action="feedback-reset">숨긴 안내 다시 보기</button><button class="btn btn-soft btn-sm" data-action="field-refresh">📍 위치 확인</button></div>'+(state.liveSources&&state.liveSources.length?'<div class="f-lbl">공식 확인 링크</div><div class="row wrap">'+state.liveSources.map(x=>x.url?'<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.label||x.category||'공식 확인')+'</a>':'').join('')+'</div>':'')+'</div>';
+  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">정보 업데이트</div><div class="small-muted" style="margin-bottom:11px">항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 <b>sk-travel-update JSON</b>이 같은 서버의 trip-updates.json이나 설정한 주소에 올라오면 앱이 자동으로 확인합니다. 파일/붙여넣기로도 가져올 수 있어요.</div><div class="kv"><div class="k">현재 상태</div><div class="v">활성 업데이트 '+activeInfoUpdates().length+'건 · 현장 장소 '+(state.contextPlaces||[]).length+'곳 · 위치 '+(ui.geo?'좌표 응답 수신':(state.settings.fieldModeEnabled?'확인 중':'작동 불가'))+' · 숨긴 안내 '+feedbackHiddenCount()+'건<br>주소: '+esc(state.settings.updateFeedUrl||'trip-updates.json')+'</div></div><div class="row wrap" style="margin-top:11px"><button class="btn btn-pri btn-sm" data-action="update-refresh">🔔 지금 확인</button><button class="btn btn-soft btn-sm" data-action="update-config">업데이트 주소 설정</button><button class="btn btn-ghost btn-sm" data-action="feedback-reset">숨긴 안내 다시 보기</button><button class="btn btn-soft btn-sm" data-action="field-refresh">📍 위치 확인</button></div>'+(state.liveSources&&state.liveSources.length?'<div class="f-lbl">공식 확인 링크</div><div class="row wrap">'+state.liveSources.map(x=>x.url?'<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.label||x.category||'공식 확인')+'</a>':'').join('')+'</div>':'')+'</div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">화면</div><div class="kv"><div class="k">본문 크기</div><div class="v"><b id="fzVal" style="color:var(--skyDark)">'+fz+'%</b><br>준비물 체크리스트에는 적용되지 않습니다.</div></div><input type="range" id="fontRange" min="100" max="140" step="5" value="'+fz+'" style="margin-top:10px"><div class="set-row" data-action="set-start" style="margin-top:6px"><div class="ic">🗂️</div><div class="grow"><div class="tt">앱 시작 화면</div><div class="dd">현재: '+esc((TABS.find(t=>t.id===state.settings.startTab)||TABS[0]).lb)+'</div></div><span class="ch">❯</span></div><div class="set-row" data-action="set-install"><div class="ic">📲</div><div class="grow"><div class="tt">홈 화면에 앱 설치</div><div class="dd">안드로이드 크롬에서 SK-여행 앱으로 설치</div></div><span class="ch">❯</span></div></div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">AI 여행 패키지</div><div class="small-muted">다음 여행을 준비할 때 AI에게 이 형식을 알려 주면 앱이 날짜·날씨·환율·팁을 정확히 연결할 수 있습니다.</div><button class="btn btn-soft btn-block" style="margin-top:11px" data-action="schema-show">🧩 JSON 여행 패키지 형식 보기/복사</button></div>';
   html+='<div class="card"><div class="card-title" style="margin-bottom:9px">데이터 정리</div><button class="btn btn-ghost btn-block" data-action="clear-trip">현재 여행만 지우기 (체크리스트 유지)</button><button class="btn btn-danger btn-block" style="margin-top:8px" data-action="data-reset">앱 데이터 전체 초기화</button><div class="small-muted" style="margin-top:8px">전체 초기화에서도 체크리스트 기록은 별도로 선택하지 않으면 지우지 않습니다.</div></div>';
@@ -3235,27 +3212,30 @@ function importantForm(it){
 }
 
 /* ---------- 여행 패키지/문서 가져오기 ---------- */
+const TRIP_SCHEMA_TEMPLATE={
+  format:'sk-travel-trip',version:1,
+  trip:{name:'',destSummary:'',start:'YYYY-MM-DD',end:'YYYY-MM-DD',flights:[{directionLabel:'출발편/귀국편',airline:'',airlineCode:'',flightNo:'',from:'공항코드',fromName:'',to:'공항코드',toName:'',departAt:'ISO 시각(UTC 오프셋 포함)',arriveAt:'ISO 시각(UTC 오프셋 포함)',status:'CONFIRMED',terminalFrom:'',terminalTo:'',statusUrl:'항공사 공식 운항 확인 URL',checkinUrl:'항공사 공식 체크인 URL'}],departureSteps:[{date:'YYYY-MM-DD',time:'HH:MM',label:''}],preTripActions:[{due:'YYYY-MM-DD',title:'',detail:''}]},
+  destinations:[{city:'',country:'',tz:'Europe/Madrid',currency:'EUR',lat:0,lon:0,from:'YYYY-MM-DD',to:'YYYY-MM-DD'}],
+  days:[{date:'YYYY-MM-DD',label:'1일차',city:'',country:'',tz:'IANA time zone',currency:'EUR',lat:0,lon:0,events:[{time:'HH:MM 또는 빈칸',endTime:'HH:MM 또는 빈칸',durationMin:null,tz:'IANA time zone(도시가 바뀌거나 날짜 시간대와 다를 때)',city:'',country:'',title:'여행사 일정 원문에 가까운 제목',place:'',note:'',brief:{why:'장소/구간이 무엇이며 왜 중요한지',history:['근거가 확인된 역사·역할'],mustSee:['실제로 볼 수 있는 것'],visualClues:['현장에서 알아볼 모양/방향'],route:['1. 일정에 포함된 구역에서 볼 순서','2. 이동 방향/복귀; 집합점은 가이드가 정한 위치로'],photoPoints:['안전한 촬영 위치/구도'],visitDuration:'일정 원문 시간 또는 미기재',ticketStatus:'외관/내부·티켓 포함 여부를 구분',toilets:['공공/고객전용·요금·접근·운영 불확실성'],toiletData:[],comfort:'걷기/계단/경사/휴식',walking:'접근성·보행 조건',ticketRules:['공식 규정과 적용 조건'],prepare:['필요한 표/신분증/복장'],priceNotes:'공식 가격과 확인일 또는 미확인',crowdPlan:['확인된 혼잡 요령'],risks:['출처 기반 주의'],fallback:'대안; 정확한 모임 시각/장소를 만들지 않기',localPhrase:{text:'',pronunciation:'',meaning:''},sources:[{name:'',url:'https://'}],verifiedAt:'YYYY-MM-DD',confidence:'사실/추정/미확인 구분'},fieldGuide:{researchStatus:'researched_partial',anchorLat:0,anchorLon:0,anchorLabel:'',why:'',history:[],mustSee:[],visualClues:[],route:[],photoPoints:[],visitDuration:'',ticketStatus:'',toilets:[],toiletData:[],sources:[{name:'',url:'https://'}],verifiedAt:'YYYY-MM-DD',confidence:''},fieldAdvice:[{title:'짧고 행동 중심인 현장 조언',body:'근거와 조건',action:'다음 행동',onlyIf:'적용 조건(선택)',phrase:{text:'',pronunciation:'',meaning:''},sourceName:'여행사 원문 또는 공식 출처',sourceUrl:'https:// (없으면 빈칸)',verifiedAt:'YYYY-MM-DD',confidence:'조건/불확실성'}]}],meals:[],hotel:{name:'',phone:'+국가번호 포함',address:''},notes:[],alerts:[]}],
+  tips:[{date:'YYYY-MM-DD',showFrom:'YYYY-MM-DD',showUntil:'YYYY-MM-DD',expiresAt:'YYYY-MM-DD',city:'',place:'',category:'',icon:'💡',priority:10,onlyIf:[],hideIf:[],title:'',issue:'',action:'',alternative:'',costHours:'',mapQuery:'',sourceName:'',sourceUrl:'',sources:[{name:'',url:'https://'}],verifiedAt:'YYYY-MM-DD'}],
+  contextPlaces:[{id:'',type:'airport/hotel/restaurant/attraction/station',name:'',date:'YYYY-MM-DD',lat:0,lon:0,radiusM:300,airportCode:'',mode:'departure/arrival',terminal:'',stageGuide:{},bestItems:[],doNow:[],watchOut:'',phrase:{text:'',pronunciation:'',meaning:''}}],
+  amenities:[{id:'',kind:'toilet',name:'',city:'',country:'',lat:0,lon:0,feeStatus:'free/paid/unknown',accessStatus:'public/customers/unknown',hours:'',wheelchair:'yes/no/unknown',sourceName:'',sourceUrl:'',sourceCheckedAt:'YYYY-MM-DD',surveyDate:'YYYY-MM-DD'}],
+  airports:[],transfers:[],hotels:[],guides:[{title:'',html:''}],important:[],guideNotes:[{date:'YYYY-MM-DD',wake:'',breakfast:'',luggage:'',depart:'',dress:'',cash:'',note:''}],liveSources:[{label:'공식 확인',category:'flight/closure/strike/traffic',city:'',url:'https://'}],infoFeed:[]
+};
+const TRIP_SCHEMA_TEMPLATE_JSON=JSON.stringify(TRIP_SCHEMA_TEMPLATE,null,2);
+const TRIP_SCHEMA_TEMPLATE_VALID=(()=>{try{const x=JSON.parse(TRIP_SCHEMA_TEMPLATE_JSON);return x.format==='sk-travel-trip'&&Array.isArray(x.days)&&Array.isArray(x.days[0].events)&&Array.isArray(x.days[0].events[0].fieldAdvice)&&Array.isArray(x.contextPlaces);}catch(e){return false;}})();
 const TRIP_SCHEMA_TEXT=[
-'SK-여행 JSON 여행 패키지를 만들어 주세요. 예약번호 같은 민감 정보는 넣지 마세요.','',
-'{',
-'  "format": "sk-travel-trip", "version": 1,',
-'  "trip": {"name":"", "destSummary":"", "start":"YYYY-MM-DD", "end":"YYYY-MM-DD",',
-'    "flights":[{"directionLabel":"출발편/귀국편","airline":"","airlineCode":"","flightNo":"","from":"공항코드","fromName":"출발공항","to":"공항코드","toName":"도착공항","departAt":"ISO 시각(±오프셋 포함)","arriveAt":"","status":"CONFIRMED","cabin":"","seat":"","gate":"","boardingTime":"","baggageClaim":"","airlineAppName":"항공사 공식 앱","statusUrl":"항공사 공식 운항 확인 주소","checkinUrl":"항공사 공식 체크인 주소","aircraftCode":"","durationText":"","terminalFrom":"","terminalTo":""}],',
-'    "departureSteps":[{"date":"YYYY-MM-DD","time":"HH:MM","label":""}],',
-'    "preTripActions":[{"due":"YYYY-MM-DD","title":"","detail":""}]},',
-'  "destinations":[{"city":"","country":"","tz":"Europe/Madrid","currency":"EUR","lat":0,"lon":0,"from":"","to":""}],',
-'  "days":[{"date":"YYYY-MM-DD","label":"1일차","city":"","tz":"","currency":"","lat":0,"lon":0,',
-'    "events":[{"time":"HH:MM","endTime":"HH:MM","durationMin":90,"tz":"필요할 때만 IANA 시간대","title":"","place":"","note":"","brief":{"why":"왜 중요한가 한 문장","history":"도착 전 핵심 역사 2~3문장","mustSee":["핵심 볼거리"],"visualClues":["현장에서 실제로 찾을 모양·표지·방향"],"route":["1. 도착 즉시 확인","2. 차례로 이동","3. 집합점 복귀"],"photoPoints":["안전한 촬영 위치·구도·금지사항"],"visitDuration":"실제/예상/미확인 구분","ticketStatus":"입장료·휴무·예약 및 외관/내부 구분","toilets":["정확한 위치·무료/유료·공공/고객전용·운영시간; 미확인 이유"],"toiletData":[{"name":"","lat":0,"lon":0,"feeStatus":"free/paid/unknown","accessStatus":"public/customers/unknown","hours":"","sourceName":"","sourceUrl":"","sourceCheckedAt":"YYYY-MM-DD"}],"comfort":"걷기·계단·경사·그늘·휴식","walking":"걸음 수/계단 부담과 쉬는 시점","ticketRules":["티켓 구역·예약 시각·신분증·짐 제한"],"prepare":["표·신분증·복장·짐"],"priceNotes":"기준 가격·확인 날짜·포함 여부. 미확인 가격은 쓰지 않기","crowdPlan":["혼잡 우회·대기 줄·포기 시점"],"risks":["가격·안전 함정"],"meeting":"정확한 집합·퇴장·복귀 시각","fallback":"시간 부족/날씨 대안","localPhrase":{"text":"현지어 원문","pronunciation":"한국말 발음","meaning":"뜻"},"sources":[{"name":"공식 출처명","url":"https://..."}],"verifiedAt":"YYYY-MM-DD","confidence":"확실/현장 확인 필요 구분"},"fieldGuide":{"researchStatus":"researched_partial","anchorLat":0,"anchorLon":0,"anchorLabel":"","why":"","history":[],"mustSee":[],"visualClues":[],"route":[],"visitDuration":"","ticketStatus":"","toiletData":[],"toilets":[],"sources":[{"name":"","url":""}],"verifiedAt":"YYYY-MM-DD","confidence":""}}], "meals":[], "hotel":{"name":"","phone":"+국가번호 포함","address":""}, "notes":[], "alerts":[]}],',
-'  "tips":[{"date":"YYYY-MM-DD","showFrom":"YYYY-MM-DD","showUntil":"YYYY-MM-DD","expiresAt":"YYYY-MM-DD","city":"","place":"","category":"","icon":"💡","priority":10,"onlyIf":[],"hideIf":[],"title":"","issue":"","action":"","alternative":"","costHours":"","mapQuery":"","sourceName":"","sourceUrl":"","sources":[{"name":"","url":""}],"verifiedAt":"YYYY-MM-DD"}],',
-'  "expertInfo":[{"id":"고유ID","version":1,"date":"YYYY-MM-DD","trigger":"아침/공항/점심/자유시간","category":"숨은 조건/화장실/자유시간 황금동선","icon":"⭐","place":"","title":"행동이 보이는 제목","body":"왜 중요한지","action":"이렇게 하세요","secretItem":"","secretWhy":"그 자리에서 용도 설명","phrase":{"text":"","pronunciation":"한국말 발음","meaning":""},"priceNote":"","routeSteps":[{"time":"0~10분","text":""}],"fallback":"","weatherMode":"clothing 또는 빈칸","lat":0,"lon":0,"priority":1,"stars":5,"sourceName":"","sourceUrl":"","verifiedAt":"YYYY-MM-DD"}],',
-'  "amenities":[{"id":"","kind":"toilet","name":"","city":"","lat":0,"lon":0,"feeStatus":"free/paid/unknown","accessStatus":"public/customers/unknown","hours":"","sourceName":"","sourceUrl":"","sourceCheckedAt":"YYYY-MM-DD","surveyDate":"YYYY-MM-DD"}],,"version":1,"type":"airport/hotel/restaurant/attraction/station","name":"","date":"YYYY-MM-DD","lat":0,"lon":0,"radiusM":300,"airportCode":"","mode":"departure/arrival","terminal":"","stageGuide":{},"bestItems":[],"doNow":[],"watchOut":"","phrase":{"text":"","pronunciation":"한국말 발음","meaning":""}}],',
-'  "airports":[], "transfers":[], "hotels":[], "guides":[{"title":"","html":""}], "important":[],',
-'  "guideNotes":[{"date":"YYYY-MM-DD","wake":"","breakfast":"","luggage":"","depart":"","meetingTime":"","meetingPlace":"","dress":"","cash":"","note":""}],',
-'  "liveSources":[{"label":"공식 확인","category":"flight/closure/strike/traffic","city":"","url":"https://"}], "infoFeed":[]',
-'}',
-'',
-'홈은 한 줄 위치 상태 → 지금(다음 장소 4시간 사전 브리핑) → 다음 → 내일 준비 → 전문가 정보 순서입니다. 여행 패키지를 만들 때 모든 일정을 순서대로 조사해 각 events에 확정 시각/미확정 표시, 예상 소요시간과 구조화 brief를 넣으세요. exact time이 없으면 시각을 만들어 내지 말고 일정 순서상 추정으로 표시하세요. 앱은 인터넷 없이 날짜·현지시간으로 사전 브리핑을 열고 GPS는 현재 장소 확인용으로만 씁니다. 전문가 정보는 하루 5개만, 사진 방향·빛보다 손해방지·화장실·줄 우회·정상가격·현지 주문·자유시간 황금동선을 우선하고, 비밀무기는 같은 자리에서 용도를 설명하며 현지어는 한국말 발음을 함께 쓰세요. contextPlaces에는 공항·호텔·식당·관광지의 좌표와 반경, 공항 단계별 안내, 그 장소에서 지금 할 일을 넣으세요. 전문가 정보 전체 목록은 줄이지 마세요. 항공사 이름으로 앱을 고정하지 말고 각 항공편의 공식 운항·체크인 주소를 넣으세요. 항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 별도 정보 업데이트 JSON으로 만들 수 있습니다: {"format":"sk-travel-update","version":1,"items":[{"id":"고유ID","version":1,"category":"flight/closure/strike/traffic/weather/guide","severity":1~3,"date":"YYYY-MM-DD","startsAt":"ISO","expiresAt":"ISO","title":"","body":"","action":"","sourceName":"공식 출처","sourceUrl":"https://","updatedAt":"ISO"}]}. 실제로 타지 않는 교통수단 팁은 onlyIf/hideIf 조건으로 숨기세요.'
+  'SK-여행 JSON 여행 패키지 템플릿입니다. 예약번호·여권번호 등 민감 정보는 넣지 마세요. 일정 원문은 보존하고, 빠진 시각·집합 장소·시설은 만들어 내지 마세요.',
+  '',TRIP_SCHEMA_TEMPLATE_JSON,'',
+  '작성 원칙:',
+  '1) 핵심 역사·장소의 역할·무엇을 볼지·현장 동선을 events[].brief/fieldGuide에 넣고, 관련 실용 조언은 같은 event의 fieldAdvice에 통합합니다. 별도 전문가 카드 목록을 만들지 않습니다.',
+  '2) 원본 일정에 정확한 시각이 없으면 time은 빈칸으로 둡니다. IANA timezone을 day.tz 및 현지 시간이 다른 event.tz에 기록합니다. 날짜가 바뀌거나 국가/도시 시간대가 달라질 때 event.city와 event.tz를 명시합니다.',
+  '3) 만남 장소/시각·휴게소·입장 포함 여부를 추정하지 않습니다. 없으면 “여행사 자료에 미기재; 당일 가이드/티켓 확인”으로 표시합니다.',
+  '4) 가격·운영시간·접근성은 공식/공신력 출처 URL과 확인일을 붙이고, 커뮤니티 데이터는 오래된 자료/현장 재확인 필요를 분명히 씁니다. 화장실 고객 전용·유료·휠체어 불명확을 공공 무료처럼 쓰지 않습니다.',
+  '5) fieldAdvice는 특정 event에 맞는 짧은 조언만 넣고, onlyIf로 적용 조건을 표시합니다. 출처 없는 절대 단정·추정 숫자는 넣지 않습니다.',
+  '6) 항공 지연·휴무·파업·교통 통제·가이드 공지는 별도 정보 업데이트 JSON 형식 {"format":"sk-travel-update","version":1,"items":[{"id":"고유ID","version":1,"category":"flight/closure/strike/traffic/weather/guide","severity":1,"date":"YYYY-MM-DD","startsAt":"ISO","expiresAt":"ISO","title":"","body":"","action":"","sourceName":"공식 출처","sourceUrl":"https://","updatedAt":"ISO"}]}로 전달할 수 있습니다.'
 ].join('\n');
+
 function pickTripFile(){ $('#tripFile').click(); }
 async function readFileText(file){
   if(file&&typeof file.text==='function') return await file.text();
@@ -3270,8 +3250,26 @@ function normalizeReservation(r){
   let passengers=Array.isArray(r.passengers)?r.passengers.map(p=>typeof p==='string'?{name:p,eTicket:''}:{name:String(p.name||''),eTicket:String(p.eTicket||p.ticketNumber||p.ticket||'')}):[];
   return {airline:String(r.airline||''),bookingRef:String(r.bookingRef||r.confirmationCode||r.reservationNo||''),status:String(r.status||''),passengers,note:String(r.note||'')};
 }
+function validIanaTimeZone(tz){
+  if(!tz)return true;
+  try{new Intl.DateTimeFormat('en',{timeZone:String(tz)}).format(0);return true;}catch(e){return false;}
+}
+function validateTripPackageShape(pkg){
+  const warnings=[]; const days=Array.isArray(pkg&&pkg.days)?pkg.days:[];
+  if(pkg&&pkg.format&&pkg.format!=='sk-travel-trip')warnings.push('패키지 format이 sk-travel-trip이 아닙니다. 앱은 읽을 수 있는 필드만 가져옵니다.');
+  days.forEach((day,di)=>{
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(String(day&&day.date||'')))warnings.push((di+1)+'일차 날짜 형식을 확인하세요.');
+    if(day&&day.tz&&!validIanaTimeZone(day.tz))warnings.push((day.date||((di+1)+'일차'))+' day.tz가 유효한 IANA 시간대가 아닙니다.');
+    (Array.isArray(day&&day.events)?day.events:[]).forEach((event,ei)=>{
+      if(event&&event.tz&&!validIanaTimeZone(event.tz))warnings.push((day.date||'날짜 미상')+' '+(event.title||('일정 '+(ei+1)))+' event.tz가 유효하지 않습니다.');
+      if(event&&event.fieldAdvice&&!Array.isArray(event.fieldAdvice))warnings.push((event.title||'일정')+' fieldAdvice는 배열이어야 합니다.');
+    });
+  });
+  return warnings;
+}
 function normalizePackage(pkg,fileName){
   if(!pkg||typeof pkg!=='object') throw new Error('JSON 형식이 아닙니다.');
+  if(!TRIP_SCHEMA_TEMPLATE_VALID)throw new Error('앱 내부 여행 패키지 템플릿 검증에 실패했습니다.');
   if(pkg.format==='sk-travel-backup'||pkg.state) throw new Error('이 파일은 여행 패키지가 아니라 앱 백업 파일입니다. 설정의 복원을 사용해 주세요.');
   const tripRaw=pkg.trip||pkg.meta||{};
   const destinations=(pkg.destinations||pkg.places||[]).map(d=>({id:d.id||uid(),city:String(d.city||d.name||''),country:String(d.country||''),tz:String(d.tz||d.timezone||''),currency:String(d.currency||'').toUpperCase(),lat:numOrNull(d.lat),lon:numOrNull(d.lon),from:String(d.from||'').slice(0,10),to:String(d.to||'').slice(0,10)}));
@@ -3300,11 +3298,12 @@ function normalizePackage(pkg,fileName){
     liveSources:(pkg.liveSources||[]).map(normalizeLiveSource).filter(x=>x.url||x.label)
   };
   if(!fragment.hotels.length){ const seen=new Set(); days.forEach(d=>{ if(d.hotel&&d.hotel.name&&!seen.has(d.hotel.name)){seen.add(d.hotel.name);fragment.hotels.push(Object.assign({id:uid(),checkin:d.date||''},d.hotel));}}); }
-  const warnings=[];
+  const warnings=validateTripPackageShape(pkg);
   if(!days.length)warnings.push('날짜별 일정이 없습니다.');
   if(destinations.some(d=>!d.tz||!d.currency||d.lat==null))warnings.push('일부 도시의 시간대·통화·좌표가 없어 날씨/환율 표시가 제한될 수 있습니다.');
   if(fragment.important.length)warnings.push('이 파일에 중요 정보 '+fragment.important.length+'개가 포함되어 있습니다. 출처를 믿을 수 있을 때만 가져오세요.');
-  return {kind:'package',fileName,fragment,warnings,summary:{name:trip.name||fileName,start,end,days:days.length,destinations:destinations.length,tips:fragment.tips.length,expertInfo:fragment.expertInfo.length,contextPlaces:fragment.contextPlaces.length,amenities:fragment.amenities.length,airports:fragment.airports.length,hotels:fragment.hotels.length,important:fragment.important.length,updates:fragment.infoFeed.length,guideNotes:fragment.guideNotes.length}};
+  const fieldAdviceCount=days.reduce((n,d)=>n+(d.events||[]).reduce((m,e)=>m+(e.fieldAdvice||[]).length,0),0);
+  return {kind:'package',fileName,fragment,warnings,summary:{name:trip.name||fileName,start,end,days:days.length,destinations:destinations.length,tips:fragment.tips.length,expertInfo:fragment.expertInfo.length,fieldAdvice:fieldAdviceCount,contextPlaces:fragment.contextPlaces.length,amenities:fragment.amenities.length,airports:fragment.airports.length,hotels:fragment.hotels.length,important:fragment.important.length,updates:fragment.infoFeed.length,guideNotes:fragment.guideNotes.length}};
 }
 function mdToHtml(md){
   const inline=t=>{let x=esc(t);x=x.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\[([^\]]+)\]\((https?:[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');return x;};
@@ -3336,7 +3335,7 @@ async function handleTripFile(file){
 }
 function openImportPreview(){
   const p=pendingImport; if(!p)return; const s=p.summary;
-  const body='<div style="font-size:13.5px;line-height:1.75"><b>'+esc(s.name||p.fileName)+'</b>'+(s.start?'<br>'+esc(fmtFull(s.start))+(s.end?' ~ '+esc(fmtFull(s.end)):''):'')+'<br>일정 '+s.days+'일 · 도시 '+s.destinations+'곳 · 팁 '+s.tips+'개'+(s.expertInfo?' · 전문가 정보 '+s.expertInfo+'개':'')+(s.contextPlaces?' · 현장 장소 '+s.contextPlaces+'곳':'')+(s.amenities?' · 화장실/편의시설 '+s.amenities+'곳':'')+' · 공항 '+s.airports+'개 · 숙소 '+s.hotels+'개'+(s.important?'<br>중요 정보 '+s.important+'개 포함':'')+'</div>'
+  const body='<div style="font-size:13.5px;line-height:1.75"><b>'+esc(s.name||p.fileName)+'</b>'+(s.start?'<br>'+esc(fmtFull(s.start))+(s.end?' ~ '+esc(fmtFull(s.end)):''):'')+'<br>일정 '+s.days+'일 · 도시 '+s.destinations+'곳 · 팁 '+s.tips+'개'+(s.fieldAdvice?' · 현장 조언 '+s.fieldAdvice+'개':'')+(s.contextPlaces?' · 현장 장소 '+s.contextPlaces+'곳':'')+(s.amenities?' · 화장실/편의시설 '+s.amenities+'곳':'')+' · 공항 '+s.airports+'개 · 숙소 '+s.hotels+'개'+(s.important?'<br>중요 정보 '+s.important+'개 포함':'')+'</div>'
     +(p.warnings.length?'<div class="notice" style="margin-top:12px">'+p.warnings.map(esc).join('<br>')+'</div>':'')
     +fSelect('바꾸기 전에 현재 여행 백업','backupMode','download',[{v:'download',t:'파일로 먼저 백업 (추천)'},{v:'drive',t:'Google Drive로 먼저 백업'},{v:'none',t:'백업 없이 바꾸기'}])
     +fCheck('백업에 중요 정보 포함','includeImportant',true,'현재 회의 결정에 따라 기본값은 포함입니다. 공유용 백업이면 끄세요.')
@@ -3376,7 +3375,7 @@ function applyPendingImport(importantMode){
   ui.openDays.clear(); ui.fieldProgressViewId=''; ui.scheduleMode=isBundledSpainTrip()?'original':'edit'; pendingImport=null; save(); goTab('home'); refreshLiveData(true);
 }
 const SPAIN_FULL_SEED_FLAG='sk-spain-full-seed-v3-4-0';
-const SPAIN_BRIEF_SEED_FLAG='sk-spain-brief-seed-v3-9-0';
+const SPAIN_BRIEF_SEED_FLAG='sk-spain-brief-seed-v3-10-0';
 async function ensureBundledSpainTrip(){
   if(lsGet(BUNDLED_SEED_OPT_OUT))return;
   const hasTrip=!!(state.trip&&(state.trip.start||state.trip.name));
@@ -3411,7 +3410,7 @@ async function ensureBundledSpainTrip(){
     if(!state.transfers.length)state.transfers=f.transfers||[];
     if(!state.hotels.length)state.hotels=f.hotels||[];
     else (f.hotels||[]).forEach(ph=>{ const ex=state.hotels.find(h=>h.name===ph.name); if(ex){ ['city','address','checkin','checkout','phone','note'].forEach(k=>{if(!ex[k]&&ph[k])ex[k]=ph[k];}); if(ph.phone&&/^\+9\d{8}$/.test(String(ex.phone||'')))ex.phone=ph.phone; } else state.hotels.push(ph); });
-    const pkgDaySeed=new Map(pkgDays.map(d=>[d.date,d])); state.days.forEach(d=>{ const pd=pkgDaySeed.get(d.date); if(pd&&pd.hotel){ if(!d.hotel)d.hotel=pd.hotel; else { Object.keys(pd.hotel).forEach(k=>{if(!d.hotel[k]&&pd.hotel[k])d.hotel[k]=pd.hotel[k];}); if(pd.hotel.phone&&/^\+9\d{8}$/.test(String(d.hotel.phone||'')))d.hotel.phone=pd.hotel.phone; } } if(pd){ (pd.events||[]).forEach(pe=>{ const ex=(d.events||[]).find(e=>e.title===pe.title&&e.time===pe.time); if(ex){ if(!ex.tz&&pe.tz)ex.tz=pe.tz; if(!ex.place&&pe.place)ex.place=pe.place; if(!ex.note&&pe.note)ex.note=pe.note; if(pe.brief){if(!ex.brief)ex.brief=pe.brief;else Object.keys(pe.brief).forEach(k=>{const old=ex.brief[k];const empty=old==null||old===''||(Array.isArray(old)&&!old.length);if(empty&&pe.brief[k]!=null)ex.brief[k]=pe.brief[k];});} if(pe.fieldGuide&&!ex.fieldGuide)ex.fieldGuide=pe.fieldGuide; } }); } });
+    const pkgDaySeed=new Map(pkgDays.map(d=>[d.date,d])); state.days.forEach(d=>{ const pd=pkgDaySeed.get(d.date); if(pd&&pd.hotel){ if(!d.hotel)d.hotel=pd.hotel; else { Object.keys(pd.hotel).forEach(k=>{if(!d.hotel[k]&&pd.hotel[k])d.hotel[k]=pd.hotel[k];}); if(pd.hotel.phone&&/^\+9\d{8}$/.test(String(d.hotel.phone||'')))d.hotel.phone=pd.hotel.phone; } } if(pd){ (pd.events||[]).forEach(pe=>{ const ex=(d.events||[]).find(e=>e.title===pe.title&&e.time===pe.time); if(ex){ if(!ex.tz&&pe.tz)ex.tz=pe.tz; if(!ex.city&&pe.city)ex.city=pe.city; if(!ex.country&&pe.country)ex.country=pe.country; if(!ex.place&&pe.place)ex.place=pe.place; if(!ex.note&&pe.note)ex.note=pe.note; if(pe.brief){if(!ex.brief)ex.brief=pe.brief;else Object.keys(pe.brief).forEach(k=>{const old=ex.brief[k];const empty=old==null||old===''||(Array.isArray(old)&&!old.length);if(empty&&pe.brief[k]!=null)ex.brief[k]=pe.brief[k];});} if(pe.fieldGuide&&!ex.fieldGuide)ex.fieldGuide=pe.fieldGuide; if(Array.isArray(pe.fieldAdvice)&&pe.fieldAdvice.length){ if(!Array.isArray(ex.fieldAdvice))ex.fieldAdvice=[]; const seenAdvice=new Set(ex.fieldAdvice.map(a=>String(a.title||'').trim())); pe.fieldAdvice.forEach(a=>{if(!seenAdvice.has(String(a.title||'').trim()))ex.fieldAdvice.push(a);}); } } }); } });
     if(!state.guides.length)state.guides=f.guides||[];
     if(f.infoFeed&&f.infoFeed.length)mergeInfoUpdates(f.infoFeed);
     if(f.expertInfo&&f.expertInfo.length)mergeExpertInfo(f.expertInfo);
@@ -3638,7 +3637,7 @@ const actions={
   'dest-add'(){ destinationForm(null); },
   'dest-edit'(id){ destinationForm(state.destinations.find(d=>d.id===id)); },
   'dest-del'(id){ if(confirm('이 도시를 삭제할까요?')){state.destinations=state.destinations.filter(d=>d.id!==id);save();closeSheet();openDestinationManager();renderAll();} },
-  'schema-show'(){ openCustomSheet('AI 여행 패키지 형식','<div class="small-muted">아래 내용을 복사해서 AI에게 주면 됩니다. 예약번호 같은 민감 정보는 파일에 넣지 마세요.</div>'+fArea('복사용 형식','schema',TRIP_SCHEMA_TEXT)+'<button type="button" class="btn btn-yellow btn-block" id="copySchemaBtn" style="margin-top:12px">형식 전체 복사</button>',()=>{ const b=$('#copySchemaBtn'); if(b)b.onclick=()=>copyText(TRIP_SCHEMA_TEXT); }); },
+  'schema-show'(){ if(!TRIP_SCHEMA_TEMPLATE_VALID){toast('여행 패키지 템플릿 검증에 실패했습니다.');return;} openCustomSheet('AI 여행 패키지 형식','<div class="small-muted">아래 내용을 복사해서 AI에게 주면 됩니다. 예약번호 같은 민감 정보는 파일에 넣지 마세요.</div>'+fArea('복사용 형식','schema',TRIP_SCHEMA_TEXT)+'<button type="button" class="btn btn-yellow btn-block" id="copySchemaBtn" style="margin-top:12px">형식 전체 복사</button>',()=>{ const b=$('#copySchemaBtn'); if(b)b.onclick=()=>copyText(TRIP_SCHEMA_TEXT); }); },
   'feedback'(id,el){ const key=decodeURIComponent((el&&el.dataset.extra)||''); if(!key)return; const status=['done','later','dismissed'].includes(id)?id:'dismissed'; if(!state.feedback)state.feedback={}; state.feedback[key]={status,until:status==='later'?Date.now()+3*3600e3:0,updatedAt:new Date().toISOString()}; save(); keepScroll(renderMain); toast(status==='done'?'완료로 표시했어요':status==='later'?'3시간 뒤에 다시 알려드릴게요':'이 안내는 다시 보지 않을게요'); },
   'feedback-reset'(){ if(confirm('완료·나중에·필요 없음으로 숨긴 안내를 모두 다시 볼까요?')){ state.feedback={}; save(); keepScroll(renderMain); toast('숨긴 안내를 다시 보이게 했어요'); } },
   'expert-locate'(){ if(startFieldLocation(true))toast('현장 모드를 켜고 위치를 확인 중이에요'); },

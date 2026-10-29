@@ -262,7 +262,20 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Philadelphia",
+          "country": "United States",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-22-1",
+              "title": "셔틀은 안내문 시각에 출발",
+              "body": "필라하나관광 안내문에는 10월 22일 오후 3시 30분 출발, 정시 운행이라고 적혀 있습니다. 준비 항목: 여권·공동경비 $200·AA건전지 2개 — 공동경비는 출발 당일 현금으로 내고, AA건전지는 투어 수신기에 바로 쓰기 때문입니다. 확인 범위: 정확한 승차 장소는 안내문 주소와 당일 여행사 안내를 확인하세요.",
+              "action": "오후 3시 30분 전에 탑승 준비를 마치세요. 셔틀을 이용하지 않을 경우 여행사에 미리 연락하세요.",
+              "sourceName": "여행 안내문",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "16:30",
@@ -320,7 +333,38 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Philadelphia",
+          "country": "United States",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-22-2",
+              "title": "PHL에서는 A-West로 바로 가세요",
+              "body": "AA742 국제선 출발 안내 기준은 Terminal A-West입니다. 다른 터미널로 들어가면 이동 시간이 늘어납니다.",
+              "action": "Departures 도로에서 A-West 표지를 보고 내린 뒤 American Airlines 카운터·키오스크로 가세요.",
+              "sourceName": "PHL 공항 항공사 안내",
+              "sourceUrl": "https://www.phl.org/flights/airline-information",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-22-3",
+              "title": "온라인 체크인돼도 여권 확인이 또 있을 수 있습니다",
+              "body": "국제선은 수하물을 맡길 때 카운터나 키오스크에서 여권 확인이 필요할 수 있습니다. 단체·여행사 예약은 온라인 체크인이 막힐 수도 있습니다.",
+              "action": "여권은 큰 가방이 아니라 손가방 앞칸에 두고, 탑승권과 수하물 태그를 받은 뒤 Bag Drop으로 가세요.",
+              "sourceName": "여행 안내문·공항 안내",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-22-4",
+              "title": "물은 보안검색 뒤에 사세요",
+              "body": "기내 가방에는 100ml를 넘는 액체를 넣을 수 없습니다. 보안검색 전에 산 음료는 버려야 할 수 있습니다.",
+              "action": "액체는 투명 지퍼백에 따로 넣고, 마실 물은 보안검색 뒤 게이트를 확인한 다음 사세요. 화장실도 게이트 근처에서 먼저 다녀오세요.",
+              "sourceName": "여행 안내문",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "19:25",
@@ -378,7 +422,20 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Philadelphia",
+          "country": "United States",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-22-5",
+              "title": "첫날 일정을 위해 기내에서 휴식",
+              "body": "여행 일정상 바르셀로나 도착 당일 시내 관광이 이어집니다. 출발편과 현지 시차를 고려해 수면을 우선하면 도움이 됩니다. 확인 범위: 수면 효과는 개인차가 있습니다.",
+              "action": "상비약·수면용품·충전기는 작은 가방에 두고, 도착 후 일정은 가이드 공지에 따르세요.",
+              "sourceName": "여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         }
       ],
       "meals": [
@@ -456,7 +513,21 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-23-2",
+              "title": "솅겐 입국 EES 안내 확인",
+              "body": "2026년 4월 10일부터 EES가 완전 운영되며 대상 비EU 단기 방문객은 얼굴 사진·지문 등 전자 등록을 할 수 있습니다. 이후 여권 수기 도장은 폐지됩니다. 확인 범위: 여행자 국적·체류 자격에 따라 적용 여부가 다릅니다.",
+              "action": "대상 여부와 실제 입국 절차는 국적·경계 직원 안내에 따르세요. 등록 비용을 요구하는 비공식 대행에 주의하세요.",
+              "sourceName": "EU · EES FAQ",
+              "sourceUrl": "https://travel-europe.europa.eu/en/ees/faq",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -512,7 +583,63 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "몬주익은 바르셀로나 항구와 시가지 남서쪽 언덕의 조망 구간입니다. 단체가 지정한 정차 지점에서 전망과 주변 지형을 읽는 데 집중하세요.",
+            "history": [
+              "몬주익 언덕은 항구를 내려다보는 전략적 고지로, 성·전시시설·공원 등 여러 시대의 도시 시설이 모여 있습니다."
+            ],
+            "mustSee": [
+              "항구와 해안선의 방향",
+              "언덕 위에서 바르셀로나의 격자형 시가지와 구시가지의 경계"
+            ],
+            "visualClues": [
+              "전경에서 항구·해안·도심의 방향 구분",
+              "가까운 언덕 시설과 멀리 보이는 시가지의 층위"
+            ],
+            "route": [
+              "1. 차량에서 내리면 실제 관람 허용 구역과 재탑승 안내를 먼저 확인합니다.",
+              "2. 안전한 공공 전망 지점에서 항구→도심 방향으로 조망합니다.",
+              "3. 일정에 없는 성·박물관·케이블카로 우회하지 말고 안내된 차량으로 돌아갑니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "언덕의 바람·경사에 대비하고 차량 승하차 구간에서 차도와 자전거를 주의하세요.",
+            "prepare": [
+              "겹쳐 입을 수 있는 얇은 겉옷",
+              "가이드가 공지한 재탑승 절차"
+            ],
+            "risks": [],
+            "fallback": "체류가 짧으면 안전한 전망 지점에서 항구와 도시 방향만 확인합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "일정에는 언덕 조망 정차만 기재되어 있습니다. 성·박물관 등 내부 입장이나 추가 교통수단은 포함으로 간주하지 마세요.",
+            "sources": [
+              {
+                "name": "Barcelona City Council · Montjuïc",
+                "url": "https://www.barcelona.cat/en/what-to-do-in-bcn/montjuic-park"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "역사·장소 정보는 출처 기반. 실제 입장·단체 경로·집합점은 원본 일정/당일 안내를 우선.",
+            "anchorLat": 41.3634,
+            "anchorLon": 2.1661,
+            "anchorLabel": "Montjuïc viewpoint"
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-23-1",
+              "title": "겹쳐 입을 옷을 작은 가방에",
+              "body": "여행사 준비 안내는 지역별 기온 차이에 대비해 얇은 옷을 겹쳐 입고 가벼운 바람막이를 준비하도록 권합니다. 준비 항목: 50센트 동전 1개 — 보케리아 시장 화장실은 구매 영수증이 있으면 무료지만, 영수증이 없으면 €0.50을 내야 하기 때문입니다. 확인 범위: 고정된 기온 예보는 사용하지 않습니다.",
+              "action": "당일 예보를 확인하고 바로 꺼낼 겉옷은 위탁수하물 대신 작은 가방에 두세요.",
+              "sourceName": "Open-Meteo·BBC Weather",
+              "sourceUrl": "https://www.bbc.com/weather/3128760",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -567,7 +694,26 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-23-3",
+              "title": "스페인 식당에서 수돗물 요청",
+              "body": "스페인 법은 식당 등에서 요청 시 무료 비병입수(수돗물)를 제공하도록 규정합니다. 확인 범위: 해당 매장·서비스 조건은 현장 안내를 확인하세요.",
+              "action": "병입수를 주문하기 전에 “Una jarra de agua del grifo, por favor”라고 요청하세요.",
+              "sourceName": "BOE · Ley 7/2022",
+              "sourceUrl": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-5809",
+              "verifiedAt": "2026-10-21",
+              "phrase": {
+                "text": "Una jarra de agua del grifo, por favor.",
+                "pronunciation": "우-나 하-라 데 아-구아 델 그리-포, 뽀르 파-보르",
+                "meaning": "수돗물 한 주전자 주세요."
+              }
+            }
+          ]
         },
         {
           "time": "",
@@ -622,7 +768,53 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "바르셀로나 구시가지는 로마·중세의 흔적과 오늘의 상업·생활이 겹치는 보행 구역입니다.",
+            "history": [
+              "바리 고틱은 옛 도시 중심부에 자리하며, 현재 보이는 건물은 여러 시대에 걸쳐 형성·복원된 층위를 함께 보여줍니다."
+            ],
+            "mustSee": [
+              "대성당 주변 광장과 좁은 골목",
+              "로마 성벽·기둥의 흔적이 표시된 구간(실제 접근 가능한 곳만)"
+            ],
+            "visualClues": [
+              "골목이 광장으로 열리는 방향",
+              "오래된 석조 건물과 후대 건물의 접합부"
+            ],
+            "route": [
+              "1. 현재 위치와 가이드가 지정한 구간을 확인합니다.",
+              "2. 대성당 주변 광장과 이어지는 골목을 순서대로 살핍니다.",
+              "3. 좁은 길에서 보행 흐름을 막지 말고 정해진 구간으로 되돌아갑니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "돌바닥·좁은 보행로가 있으므로 익숙한 신발을 신고 천천히 이동하세요.",
+            "prepare": [
+              "가방을 몸 가까이에 두기",
+              "가이드가 정한 경로·재집합 안내 확인"
+            ],
+            "risks": [],
+            "fallback": "시간이 짧으면 광장과 지정된 골목만 보고 같은 안내 경로로 복귀합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "구시가지 야외 산책입니다. 개별 성당·박물관 입장권은 일정에 포함된 것으로 볼 수 없습니다.",
+            "sources": [
+              {
+                "name": "Barcelona City Council · Gothic Quarter",
+                "url": "https://meet.barcelona.cat/en/discover-barcelona/districts/ciutat-vella/gothic-quarter"
+              },
+              {
+                "name": "Barcelona City Council · Roman Barcelona",
+                "url": "https://www.barcelona.cat/en/discovering-bcn/barcelona-history"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "역사·장소 정보는 출처 기반. 실제 입장·단체 경로·집합점은 원본 일정/당일 안내를 우선."
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -677,7 +869,60 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "람블라스는 카탈루냐 광장과 항구 방향을 잇는 도심의 대표 보행축입니다. 길 자체와 주변 구역의 연결을 보며 걷습니다.",
+            "history": [
+              "도시 확장과 함께 구시가지 중앙부를 남북으로 잇는 대로로 자리잡아 상업·보행 공간으로 발전했습니다."
+            ],
+            "mustSee": [
+              "중앙 보행로의 방향과 광장·시장 입구의 위치",
+              "보행로 양쪽의 구시가지 골목과 연결"
+            ],
+            "visualClues": [
+              "산책로의 북쪽/남쪽 흐름",
+              "보행 구간과 차량 통행 구간의 경계"
+            ],
+            "route": [
+              "1. 실제로 걷는 시작점·종료점은 가이드 안내를 확인합니다.",
+              "2. 람블라스의 중앙 보행로를 따라 일정상 허용된 구간만 걷습니다.",
+              "3. 시장이나 다른 거리로 들어갈 경우 복귀 경로와 재집합 안내를 먼저 확인합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "혼잡한 보행 구간에서는 일행과 간격을 유지하고 소지품을 몸 가까이 둡니다.",
+            "prepare": [
+              "가이드의 실제 재집합 위치 확인"
+            ],
+            "risks": [],
+            "fallback": "시간이 제한되면 지정된 람블라스 구간만 걷고 우회하지 않습니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "야외 거리 산책입니다. 시장·시설 내부 입장이나 매장 방문은 원본 일정에 지정되어 있지 않습니다.",
+            "sources": [
+              {
+                "name": "Barcelona Bus Turístic · La Rambla",
+                "url": "https://www.barcelonabusturistic.cat/en/la-rambla"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "역사·장소 정보는 출처 기반. 실제 입장·단체 경로·집합점은 원본 일정/당일 안내를 우선."
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-23-4",
+              "title": "보케리아를 들를 때만 화장실 조건 확인",
+              "body": "보케리아 공식 안내는 시장 사무동 지하 1층 화장실을 고객에게 제공하며, 구매 영수증이 있으면 무료, 구매하지 않은 방문객은 €0.50이라고 안내합니다. 확인 범위: 여행사 일정은 시장 방문을 지정하지 않습니다. 자유시간 범위 안에서만 고려하세요.",
+              "action": "시장을 실제로 방문한다면 현장 운영·요금 표지를 확인하고 영수증을 보관하세요.",
+              "sourceName": "Mercat de la Boqueria · Services",
+              "sourceUrl": "https://www.boqueria.barcelona/services",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "여행사 일정은 시장 방문을 지정하지 않습니다. 자유시간 범위 안에서만 고려하세요."
+            }
+          ]
         },
         {
           "time": "",
@@ -732,7 +977,67 @@
             "ticketStatus": "외관 관람으로 일정표에 기재; 내부 입장권은 포함으로 간주하지 않음.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "카사 바트요는 안토니 가우디가 기존 주거 건물을 개조한 모데르니스메 건축물이며, 유네스코가 등재한 가우디 작품군에 포함됩니다.",
+            "history": [
+              "조셉 바트요 의뢰로 1904–1906년 무렵 가우디가 기존 건물을 개조했습니다. 외관은 건축가의 유기적 형태·색채 사용을 보여줍니다."
+            ],
+            "mustSee": [
+              "파사드의 물결치는 윤곽과 색 타일",
+              "발코니·창·지붕의 서로 다른 표면"
+            ],
+            "visualClues": [
+              "파사드의 곡선과 타일 색",
+              "건물 위쪽 지붕선과 표면 장식"
+            ],
+            "route": [
+              "1. 원본 일정의 권고대로 외관 관람을 기본으로 합니다.",
+              "2. 보행로를 막지 않는 공공 보도에서 파사드를 봅니다.",
+              "3. 내부 관람을 원한다면 자유시간·티켓·복귀 안내가 실제로 허용되는지 먼저 확인합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "주변 보도가 붐빌 수 있으니 촬영 중 통행을 막지 마세요.",
+            "prepare": [
+              "외관 관람/내부 입장 여부와 실제 복귀 지점 확인"
+            ],
+            "risks": [],
+            "fallback": "외관과 지붕 실루엣을 본 뒤 원래 안내된 자유시간 범위로 돌아갑니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "여행사 일정은 자유시간 1시간이며 외관 관람을 권합니다. 내부 티켓이 포함되었다고 볼 근거가 없으므로 입장 대기/예약을 임의로 일정에 넣지 마세요.",
+            "sources": [
+              {
+                "name": "UNESCO · Works of Antoni Gaudí",
+                "url": "https://whc.unesco.org/en/list/320/"
+              },
+              {
+                "name": "Casa Batlló · FAQs",
+                "url": "https://www.casabatllo.es/en/visit/faqs/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "유네스코·공식 FAQ 및 여행사 일정 기반. 일정상 내부 입장 미확인.",
+            "anchorLat": 41.3917,
+            "anchorLon": 2.165,
+            "anchorLabel": "Casa Batlló"
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-23-5",
+              "title": "카사 바트요는 일정상 외관 관람 권장",
+              "body": "여행사 일정에는 람블라스 자유시간 1시간과 카사 바트요 외관 관람 권고가 적혀 있습니다. 실내 관람은 입장·대기 시간이 추가될 수 있습니다. 확인 범위: 내부 티켓이 일정에 포함된 것으로 보지 않습니다.",
+              "action": "내부 티켓을 사기 전에 실제 복귀 시각과 자유시간 범위를 가이드에게 확인하세요.",
+              "sourceName": "UNESCO · Works of Antoni Gaudí",
+              "sourceUrl": "https://whc.unesco.org/en/list/320/",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "내부 티켓이 일정에 포함된 것으로 보지 않습니다."
+            }
+          ]
         },
         {
           "time": "",
@@ -789,7 +1094,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         }
       ],
       "meals": [
@@ -870,7 +1178,21 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-24-1",
+              "title": "몬세라트 산악 기온에 대비",
+              "body": "산악 지역은 바람·기온이 도심과 다를 수 있고 여행사 준비문도 가벼운 겉옷을 권합니다. 확인 범위: 당일 날씨는 출발 전 예보로 확인하세요.",
+              "action": "하차할 때 바로 입을 얇은 바람막이를 작은 가방에 넣으세요.",
+              "sourceName": "Montserrat 공식 안내·여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -925,7 +1247,74 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "몬세라트는 독특한 암봉 지형 위의 산악 수도원·순례지입니다. 풍경, 수도원 위치, 검은 성모상 전통을 구분해 보세요.",
+            "history": [
+              "산타 마리아 데 몬세라트 수도원은 11세기 초 베네딕토회 수도원으로 자리잡았고, 카탈루냐의 중요한 종교·문화 장소가 되었습니다."
+            ],
+            "mustSee": [
+              "수도원과 바실리카의 산비탈 배치",
+              "기암절벽의 둥글고 톱니 모양인 윤곽",
+              "일정에 포함된 경우에만 바실리카·성모상 관람"
+            ],
+            "visualClues": [
+              "수도원과 바실리카의 산비탈 배치",
+              "기암절벽의 둥글고 톱니 모양인 윤곽",
+              "일정에 포함된 경우에만 바실리카·성모상 관람"
+            ],
+            "route": [
+              "산봉우리와 수도원이 놓인 단을 먼저 조망합니다.",
+              "가이드가 안내한 산악 교통수단으로 수도원 구역에 접근합니다.",
+              "관람 가능 구역·성당 출입 여부는 현장 공지에 따릅니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "산악 고도에서는 도심보다 바람·기온이 달라질 수 있습니다. 경사·계단이 있는 구간은 천천히 이동하세요.",
+            "prepare": [
+              "얇은 바람막이",
+              "성당에 들어갈 경우 현장 복장 규칙 확인"
+            ],
+            "risks": [],
+            "fallback": "체력이 부담되면 안전한 전망 구역과 일정상 필수 구간에 집중합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "수도원·바실리카·검은 성모상 방문 가능 여부와 티켓 조건은 여행사 바우처 및 당일 공식 안내로 확인하세요.",
+            "sources": [
+              {
+                "name": "Turisme de Catalunya · Monastery of Montserrat",
+                "url": "https://www.catalunya.com/en/continguts/patrimoni-cultural/monastery-of-montserrat-17-16003-333"
+              },
+              {
+                "name": "Montserrat Official Visitor Information",
+                "url": "https://www.montserratvisita.com/en"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "수도원 공식 관광 안내 기반. 일정의 실제 입장 포함 범위는 바우처 미확인.",
+            "anchorLat": 41.593,
+            "anchorLon": 1.837,
+            "anchorLabel": "Montserrat Monastery"
+          },
+          "city": "Montserrat",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-24-5",
+              "title": "화장실 위치를 현지어로 묻기",
+              "body": "관광시설의 화장실 위치는 현장 표지나 직원에게 확인하는 편이 안전합니다. 확인 범위: 현지어 표현; 시설 개방·이용권은 별도 확인.",
+              "action": "“¿Dónde está el baño, por favor?”라고 물어보세요.",
+              "sourceName": "현지어 표현",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "phrase": {
+                "text": "¿Dónde están los servicios?",
+                "pronunciation": "돈-데 에스-딴 로스 세르-비-시-오스?",
+                "meaning": "화장실이 어디예요?"
+              }
+            }
+          ]
         },
         {
           "time": "",
@@ -979,7 +1368,10 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "research-required"
-          }
+          },
+          "city": "Montserrat",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1034,7 +1426,21 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Montserrat",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-24-2",
+              "title": "Aeri 케이블카는 운행 안내 확인",
+              "body": "Aeri de Montserrat 공식 운영 안내에는 편도 약 5분, 통상 15분 간격 운행으로 소개되어 있습니다. 운행 간격·운영은 날씨·운영상태에 따라 달라질 수 있습니다. 확인 범위: 여행사 일정은 편도 케이블카로 표기하지만 예약·승하차 운영은 현장 공지 우선.",
+              "action": "가이드가 정한 탑승 위치와 순서를 따르고, 개인적으로 줄을 이탈하지 마세요.",
+              "sourceName": "Aeri de Montserrat · Cable car",
+              "sourceUrl": "https://www.montserratvisita.com/en/how-to-get-there/cable-car",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -1091,7 +1497,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1153,7 +1562,70 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "사그라다 파밀리아는 가우디의 바실리카로, 성탄 파사드·지하 경당 일부가 유네스코 가우디 작품군에 등재되어 있습니다.",
+            "history": [
+              "건축은 1882년 시작됐고 가우디는 1883년 이후 설계와 공사를 맡았습니다. 건축은 계속 진행 중이므로 완공 상태를 단정하지 않습니다."
+            ],
+            "mustSee": [
+              "성탄 파사드의 자연·성서 조각",
+              "수난 파사드와 성탄 파사드의 대비",
+              "내부 입장권이 있으면 기둥·빛·스테인드글라스"
+            ],
+            "visualClues": [
+              "성탄 파사드의 자연·성서 조각",
+              "수난 파사드와 성탄 파사드의 대비",
+              "내부 입장권이 있으면 기둥·빛·스테인드글라스"
+            ],
+            "route": [
+              "1. 티켓의 날짜·시간·구역을 확인합니다.",
+              "2. 외관 일정이라면 가이드가 지정한 외부 관람 구역에서 파사드를 비교합니다.",
+              "3. 타워는 별도 티켓일 때만 고려하고, 해당 공식 제한을 확인합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "공식 타워 방문은 엘리베이터로 올라가고 계단으로 내려오며, 거동·건강상 제한이 있습니다. 타워 포함을 가정하지 마세요.",
+            "prepare": [
+              "실제 티켓·입장 시각·구역 확인",
+              "타워 포함 시 공식 이용 제한 확인"
+            ],
+            "risks": [],
+            "fallback": "내부 입장권이 없거나 대기 시간이 허용되지 않으면 외관과 파사드에 집중합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "여행 일정에 성당 방문은 있으나 내부·타워 티켓 포함은 확인되지 않습니다. 타워 티켓에는 별도 신분증·시간·이동 제한이 있습니다.",
+            "sources": [
+              {
+                "name": "UNESCO · Works of Antoni Gaudí",
+                "url": "https://whc.unesco.org/en/list/320/"
+              },
+              {
+                "name": "Sagrada Família · Official visitor rules",
+                "url": "https://sagradafamilia.org/en/sagrada-familia-and-tower"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "유네스코·바실리카 공식 규칙 기반. 내부/타워 포함은 일정표에 미기재.",
+            "anchorLat": 41.4036,
+            "anchorLon": 2.1744,
+            "anchorLabel": "Sagrada Família"
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-24-3",
+              "title": "사그라다 파밀리아 타워는 별도 조건",
+              "body": "공식 타워 티켓은 엘리베이터로 올라가고 걸어서 내려오도록 안내하며, 거동·건강상 제한이 있습니다. 확인 범위: 이 일정의 타워 포함 여부는 확인되지 않았습니다.",
+              "action": "타워가 실제 포함된 티켓인지 먼저 확인하고, 제한 대상 여부를 공식 규정으로 점검하세요.",
+              "sourceName": "Sagrada Família · Official tower visit",
+              "sourceUrl": "https://sagradafamilia.org/en/sagrada-familia-and-tower",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "이 일정의 타워 포함 여부는 확인되지 않았습니다."
+            }
+          ]
         },
         {
           "time": "",
@@ -1209,7 +1681,70 @@
             "ticketStatus": "일정표에 입장 표기 있음; 정확한 시설명·티켓·예약시각은 실제 바우처 대조 필요.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "파크 구엘은 가우디가 에우세비 구엘의 주거 개발 구상으로 설계한 공원이며, 현재 공공 공원과 기념 구역이 함께 있습니다.",
+            "history": [
+              "공사 1900년 시작; 원래 구상은 주택 단지였으나 완성되지 않았습니다. 공원은 1984년 가우디 작품군으로 유네스코 등재됐습니다."
+            ],
+            "mustSee": [
+              "용 모양 계단·타일 장식",
+              "기둥이 늘어선 Hypostyle Room",
+              "물결 모양 벤치와 도시 조망"
+            ],
+            "visualClues": [
+              "용 모양 계단·타일 장식",
+              "기둥이 늘어선 Hypostyle Room",
+              "물결 모양 벤치와 도시 조망"
+            ],
+            "route": [
+              "1. 티켓/예약 시간에 표시된 입구로 이동합니다.",
+              "2. 지정된 기념 구역 안에서 계단·Hypostyle Room·광장 순으로 살핍니다.",
+              "3. 퇴장하면 재입장이 안 되므로 이동 전 화장실·사진·일행을 확인합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "언덕·계단이 있고 일부 구간은 경사집니다. 여유 있게 걷고 일행과 분리되지 마세요.",
+            "prepare": [
+              "단체 예약이 있다면 일행 전체와 같은 입구로 입장",
+              "티켓 QR 보관"
+            ],
+            "risks": [],
+            "fallback": "시간이 짧으면 지정된 기념 구역의 주요 건축 요소만 보고 재집합 안내를 따릅니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "일정에는 입장이 포함된 것으로 적혀 있으나 실제 예약 시각·그룹 티켓·입구는 별도 바우처에서 확인하세요. 공식 규정은 예약 시간대 후 30분까지 입장, 퇴장 후 재입장 불가를 안내합니다.",
+            "sources": [
+              {
+                "name": "UNESCO · Works of Antoni Gaudí",
+                "url": "https://whc.unesco.org/en/list/320/"
+              },
+              {
+                "name": "Park Güell · Official visiting rules",
+                "url": "https://parkguell.barcelona/en/planning-your-visit/recommendations-and-rules-for-the-visit"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "공식 Park Güell 규정 및 UNESCO. 실제 그룹 예약 조건은 바우처에 따름.",
+            "anchorLat": 41.4145,
+            "anchorLon": 2.1527,
+            "anchorLabel": "Park Güell"
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-24-4",
+              "title": "구엘 공원 예약은 일행과 함께",
+              "body": "공식 단체 예약은 지정 시간대 후 30분까지 입장할 수 있고, 그룹 전원이 함께 들어가야 합니다. 퇴장 후 재입장은 허용되지 않습니다. 확인 범위: 실제 예약 형식과 입구는 바우처 확인.",
+              "action": "실제 단체 티켓의 시간·입구를 확인하고 일행과 함께 이동하세요.",
+              "sourceName": "Park Güell · Organized groups",
+              "sourceUrl": "https://parkguell.barcelona/en/planning-your-visit/organized-groups",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "실제 예약 형식과 입구는 바우처 확인."
+            }
+          ]
         },
         {
           "time": "",
@@ -1266,7 +1801,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         }
       ],
       "meals": [
@@ -1347,7 +1885,31 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-25-1",
+              "title": "휴대전화 자동 시간대 확인",
+              "body": "2026년 10월 25일 스페인에서 서머타임이 종료됐습니다. 일정 중 시간 표시가 바뀌는 날에는 기기 자동 날짜·시간대 설정을 확인하세요. 확인 범위: 정확한 열차 시각은 원본 티켓 기준.",
+              "action": "휴대전화의 자동 시간·시간대 설정을 켜고 열차 티켓 현지 시각을 확인하세요.",
+              "sourceName": "timeanddate.com · Europe DST end 2026",
+              "sourceUrl": "https://www.timeanddate.com/news/time/europe-dst-end-2026.html",
+              "verifiedAt": "2026-10-21",
+              "confidence": "정확한 열차 시각은 원본 티켓 기준."
+            },
+            {
+              "id": "fa-2026-10-25-3",
+              "title": "화장실은 호텔에서 먼저 다녀오세요",
+              "body": "역에서는 단체 보안검색과 탑승 통제가 이어져 따로 움직일 여유가 적습니다.",
+              "action": "체크아웃 전에 객실 화장실을 이용하고, 여권과 귀중품은 큰 캐리어가 아닌 작은 가방에 두세요.",
+              "sourceName": "여행 일정·Renfe 안내",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "09:00~12:17",
@@ -1404,7 +1966,21 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Barcelona → Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-25-2",
+              "title": "산츠역은 그룹 안내를 먼저 확인",
+              "body": "Renfe는 단체 승차권 이용 시 그룹의 역 입장·탑승 절차를 안내합니다. 역에 따라 수하물 검색 등 절차가 적용될 수 있습니다. 확인 범위: 일정 문서에 개별 도착 시각·보안검색 조건은 미기재; 역과 티켓 공지 우선.",
+              "action": "가이드가 지정한 표·그룹 입장 절차를 따르고, 간식·화장실 때문에 일행에서 먼저 이탈하지 마세요.",
+              "sourceName": "Renfe · Group travel FAQs",
+              "sourceUrl": "https://www.renfe.com/es/en/ayuda/faqs/grupos",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -1461,7 +2037,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1514,7 +2093,68 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "research-required"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "그랑비아는 20세기 초 도심 재개발을 상징하는 대로로, 극장·상업 건물과 초기 고층 건축이 연속됩니다.",
+            "history": [
+              "공사는 1910–1931년 단계적으로 진행되어 옛 도심의 혼잡을 줄이고 새 건축 양식을 도입하려는 역할을 했습니다."
+            ],
+            "mustSee": [
+              "메트로폴리스·텔레포니카·카피톨 등 일정상 통과하는 건축 외관",
+              "거리의 연속적인 건물 높이와 장식"
+            ],
+            "visualClues": [
+              "메트로폴리스·텔레포니카·카피톨 등 일정상 통과하는 건축 외관",
+              "거리의 연속적인 건물 높이와 장식"
+            ],
+            "route": [
+              "1. 차량/도보 시작 위치를 확인합니다.",
+              "2. 실제로 통과하는 구간에서 대표 건물 외관과 거리 축을 봅니다.",
+              "3. 횡단보도와 보행 신호를 따르고 도로 중앙으로 나가지 않습니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "도심 횡단·군중을 주의하고 소지품을 몸 가까이 둡니다.",
+            "prepare": [
+              "교차로에서 일행 이동 확인"
+            ],
+            "risks": [],
+            "fallback": "시간이 짧으면 이동 경로에서 보이는 대표 건물 외관만 확인합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "야외 도심 거리 관광입니다. 극장·상점 내부 입장은 일정에 포함되지 않습니다.",
+            "sources": [
+              {
+                "name": "Madrid Tourism · Gran Vía",
+                "url": "https://www.esmadrid.com/en/tourist-information/la-gran-via"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "마드리드 공식 관광 안내 기반. 실제 통과 구간은 가이드 동선 우선."
+          },
+          "city": "Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-25-4",
+              "title": "도심에서는 소지품을 몸 가까이",
+              "body": "관광지·교통 거점에서 소매치기를 포함한 절도에 주의하라는 여행 안내가 있습니다. 확인 범위: 일반 예방 조언; 위험을 과장하거나 특정 구역을 단정하지 않습니다.",
+              "action": "휴대전화·여권을 바깥 주머니에 두지 말고 가방 지퍼를 잠가 몸 앞쪽에 둡니다.",
+              "sourceName": "U.S. Department of State · Spain travel advice",
+              "sourceUrl": "https://travel.state.gov/en/international-travel/travel-advisories/spain.html",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-25-5",
+              "title": "오늘은 열차보다 도착 뒤 걷기가 더 깁니다",
+              "body": "기차에서 3시간 넘게 앉은 뒤 그랑비아와 광장을 걷습니다. 마드리드는 바르셀로나보다 아침·저녁이 서늘하게 느껴질 수 있습니다.",
+              "action": "가장 익숙한 운동화와 지퍼 겉옷을 입고, 기차에서 내리기 전에 다리를 가볍게 움직이세요.",
+              "sourceName": "여행 일정·날씨 예보",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -1569,7 +2209,50 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "마요르 광장은 17세기 초 공식 광장으로 조성된 마드리드의 역사적 중심 공간입니다.",
+            "history": [
+              "펠리페 3세 시기 1620년 공식 개장; 장터와 공공 행사 공간으로 활용됐고 1790년 화재 이후 재건되었습니다."
+            ],
+            "mustSee": [
+              "붉은빛 외벽과 아케이드",
+              "카사 데 라 파나데리아",
+              "중앙의 펠리페 3세 기마상"
+            ],
+            "visualClues": [
+              "붉은빛 외벽과 아케이드",
+              "카사 데 라 파나데리아",
+              "중앙의 펠리페 3세 기마상"
+            ],
+            "route": [
+              "1. 광장 입구의 아치로 들어갑니다.",
+              "2. 아케이드 안쪽에서 광장 전체와 카사 데 라 파나데리아를 살핍니다.",
+              "3. 중앙 기마상과 광장 출구 방향을 확인하고 가이드 안내에 맞춰 이동합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "광장 바닥과 아케이드에서 보행자 흐름을 막지 마세요.",
+            "prepare": [
+              "집합·복귀 위치는 가이드가 실제로 정한 곳 확인"
+            ],
+            "risks": [],
+            "fallback": "중앙 기마상과 아케이드 외관을 보고 이동합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "공공 광장 외관 관람입니다. 주변 식당·시장 입장은 별도입니다.",
+            "sources": [
+              {
+                "name": "Madrid Tourism · Plaza Mayor",
+                "url": "https://www.esmadrid.com/en/tourist-information/plaza-mayor-madrid"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "마드리드 공식 관광 안내 기반."
+          },
+          "city": "Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1624,7 +2307,50 @@
             "ticketStatus": "외관 관람으로 일정표에 기재; 내부 입장권은 포함으로 간주하지 않음.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "프라도 미술관 외관 관람은 후안 데 비야누에바가 설계한 신고전주의 건물과 스페인 왕실 컬렉션의 역사에 초점을 둡니다.",
+            "history": [
+              "건물은 자연사 시설 구상으로 설계됐고 1819년 왕실 회화 박물관으로 문을 열었습니다. 현재 스페인 회화의 대표 컬렉션을 보유합니다."
+            ],
+            "mustSee": [
+              "비야누에바 건물의 정면·기둥·대칭",
+              "입구 주변 조각·명판",
+              "내부 작품은 티켓으로 입장할 때만 관람"
+            ],
+            "visualClues": [
+              "비야누에바 건물의 정면·기둥·대칭",
+              "입구 주변 조각·명판",
+              "내부 작품은 티켓으로 입장할 때만 관람"
+            ],
+            "route": [
+              "1. 일정 표기가 외관이므로 외부에서 정면과 건물 축을 봅니다.",
+              "2. 내부 입장이 따로 확인된 경우에만 티켓·마감·보안 안내를 따릅니다.",
+              "3. 광장·도로 횡단은 횡단보도로 이동합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "정면 주변의 교통과 보행자 흐름에 주의합니다.",
+            "prepare": [
+              "외관과 내부 입장을 혼동하지 않기"
+            ],
+            "risks": [],
+            "fallback": "외관 정면과 입구 주변만 보고 지정된 동선으로 이동합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "여행사 일정은 외관 관람으로 표시합니다. 내부 관람권은 포함되지 않은 것으로 취급하세요.",
+            "sources": [
+              {
+                "name": "Madrid Tourism · Prado Museum",
+                "url": "https://www.esmadrid.com/en/tourist-information/museo-del-prado"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "마드리드 공식 관광 안내 기반. 내부 입장 여부는 미확인."
+          },
+          "city": "Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1677,7 +2403,50 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "스페인 광장은 그랑비아 서쪽 끝의 보행 광장으로, 세르반테스와 돈키호테 기념물이 중심 시각 요소입니다.",
+            "history": [
+              "현대 재정비로 주변 왕궁·사바티니 정원·데보드 신전 등 공공 공간을 보행으로 연결하는 역할이 커졌습니다."
+            ],
+            "mustSee": [
+              "세르반테스 기념물과 돈키호테·산초 판사 조각",
+              "그랑비아로 이어지는 광장 축",
+              "주변 광장과 녹지 연결"
+            ],
+            "visualClues": [
+              "세르반테스 기념물과 돈키호테·산초 판사 조각",
+              "그랑비아로 이어지는 광장 축",
+              "주변 광장과 녹지 연결"
+            ],
+            "route": [
+              "1. 기념물 앞 보행 구역에서 조각을 살핍니다.",
+              "2. 광장에서 그랑비아/주변 녹지 방향을 확인합니다.",
+              "3. 일정에 없는 주변 명소로 우회하지 말고 안내 동선으로 복귀합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "넓은 광장에서도 차량 진입부·자전거 경로를 주의합니다.",
+            "prepare": [
+              "단체 이동 시 횡단 위치 확인"
+            ],
+            "risks": [],
+            "fallback": "세르반테스 기념물과 그랑비아 방향을 확인하고 이동합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "야외 광장 관광입니다. 주변 시설 내부 방문은 일정에 포함되지 않습니다.",
+            "sources": [
+              {
+                "name": "Madrid Tourism · Plaza de España",
+                "url": "https://www.esmadrid.com/en/tourist-information/plaza-de-espana"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "마드리드 공식 관광 안내 기반."
+          },
+          "city": "Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1734,7 +2503,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Madrid",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         }
       ],
       "meals": [
@@ -1818,7 +2590,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Madrid → Toledo",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1878,7 +2653,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Toledo",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -1938,7 +2716,84 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "톨레도 구시가지는 타호강 굽이와 가파른 암반 위에 놓인 역사 도시로, 로마·서고트·이슬람·유대·기독교 역사가 겹쳐 있습니다.",
+            "history": [
+              "톨레도는 로마 도시·서고트 왕국 수도·코르도바 토후국 요새·중세 기독교 왕국의 거점 등을 거쳤고, 16세기 카를 5세 치하에서도 중요한 권력 중심지였습니다."
+            ],
+            "mustSee": [
+              "도시 외곽의 성벽·강·언덕 관계",
+              "좁은 골목에서 만나는 모스크·시나고그·교회 흔적",
+              "가이드가 지정한 전망/골목 구간"
+            ],
+            "visualClues": [
+              "도시 외곽의 성벽·강·언덕 관계",
+              "좁은 골목에서 만나는 모스크·시나고그·교회 흔적",
+              "가이드가 지정한 전망/골목 구간"
+            ],
+            "route": [
+              "1. 출발 전에 실제로 걷는 구역과 지형을 확인합니다.",
+              "2. 골목→광장→전망 방향으로 동선을 따라가며 세 문화의 건축 흔적을 봅니다.",
+              "3. 언덕 아래로 임의 하강하거나 다른 출구로 나가지 말고 안내 경로를 따릅니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "언덕과 돌 포장 구간이 있습니다. 지도상 가까운 거리도 고저차가 있을 수 있어 속도를 조절하세요.",
+            "prepare": [
+              "편한 신발",
+              "가이드의 경로·실제 재집합 안내"
+            ],
+            "risks": [],
+            "fallback": "시간·체력에 맞춰 지정된 골목·광장만 걷고 예정 경로로 돌아갑니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "구시가지 도보 관광입니다. 특정 유대교 회당·교회 입장 여부는 일정/티켓에 명시된 경우만 포함합니다.",
+            "sources": [
+              {
+                "name": "UNESCO · Historic City of Toledo",
+                "url": "https://whc.unesco.org/en/list/379/"
+              },
+              {
+                "name": "Toledo Cathedral · Cultural visit",
+                "url": "https://www.catedralprimada.es/en/cultural-visit/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "UNESCO 및 공식 대성당 방문 안내 기반. 실제 단체 경로는 일정표 미기재."
+          },
+          "city": "Toledo",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-26-3",
+              "title": "톨레도는 거리보다 오르막이 문제입니다",
+              "body": "구시가지는 좁은 골목과 경사가 많아 지도에서 가까워 보여도 체력 소모가 큽니다.",
+              "action": "새 신발이 아니라 가장 익숙한 운동화를 신으세요. 오르막에서는 가이드 바로 뒤를 따라가려 무리하지 말고 일정한 속도를 유지하세요.",
+              "sourceName": "여행 일정·날씨 예보",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-26-4",
+              "title": "수신기와 건전지는 여행사 안내 기준",
+              "body": "여행사 준비 안내에는 개인 수신기 1대와 AA 건전지 2개, 분실·파손 교체비용 $85가 적혀 있습니다. 확인 범위: 비용은 여행사 안내문 기준; 현장 조건은 여행사에 확인.",
+              "action": "수신기를 받은 경우 가방 안쪽에 고정하고, 차량·식당에서 이동할 때 장비를 확인하세요.",
+              "sourceName": "필라하나관광 여행 안내문 · 개인수신기",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-26-5",
+              "title": "칼 기념품은 항공 보안 규정 확인",
+              "body": "톨레도에서 칼 형태 기념품을 살 경우 기내 반입 가능 여부는 항공사·공항 보안 규정과 제품 형태에 따라 달라집니다. 확인 범위: 임의로 기내 반입 가능/불가를 단정하지 않습니다.",
+              "action": "결제 전에 위탁 수하물 포장·배송 가능 여부를 판매자와 항공사에서 확인하세요.",
+              "sourceName": "TSA · What can I bring?",
+              "sourceUrl": "https://www.tsa.gov/travel/security-screening/whatcanibring/items/knives",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -1993,7 +2848,77 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "톨레도 대성당은 스페인의 프리마테 대성당으로, 13세기부터 여러 시대의 예술·신앙이 쌓인 고딕 성당입니다.",
+            "history": [
+              "주요 문화 방문 동선에는 중앙 예배당의 금박 제단, 르네상스 합창석, 사크리스티의 회화관 등이 포함됩니다."
+            ],
+            "mustSee": [
+              "정문·고딕 구조",
+              "내부 티켓이 있을 때 중앙 제단·합창석·사크리스티 회화관",
+              "출입 안내와 예배 구역 경계"
+            ],
+            "visualClues": [
+              "정문·고딕 구조",
+              "내부 티켓이 있을 때 중앙 제단·합창석·사크리스티 회화관",
+              "출입 안내와 예배 구역 경계"
+            ],
+            "route": [
+              "1. 실제 입장권·입구·시각을 확인합니다.",
+              "2. 내부 입장이 허용되면 안내 동선에 따라 주요 예술 공간을 관람합니다.",
+              "3. 예배·보안 표지와 촬영 규칙을 따르고 정해진 출구로 나옵니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "큰 건물 내부에서 오래 서 있을 수 있습니다. 휴식·접근성은 현장 안내에 문의하세요.",
+            "prepare": [
+              "실제 티켓·입장구역·복장 규칙을 공식 공지로 확인"
+            ],
+            "risks": [],
+            "fallback": "입장 불가/시간 부족이면 외관과 주변 광장만 보고 다음 공식 동선에 합류합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "여행사 일정에 대성당 방문이 있으나 내부 티켓/입장 슬롯 포함은 별도 확인이 필요합니다. 공식 운영시간은 요일·예배에 따라 달라집니다.",
+            "sources": [
+              {
+                "name": "Toledo Cathedral · Cultural visit",
+                "url": "https://www.catedralprimada.es/en/cultural-visit/"
+              },
+              {
+                "name": "UNESCO · Historic City of Toledo",
+                "url": "https://whc.unesco.org/en/list/379/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "대성당 공식 방문 안내 기반. 일정표만으로 입장권 포함 여부는 판단하지 않음.",
+            "anchorLat": 39.8571,
+            "anchorLon": -4.0234,
+            "anchorLabel": "Toledo Cathedral"
+          },
+          "city": "Toledo",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-26-1",
+              "title": "톨레도 대성당은 실제 티켓·운영 확인",
+              "body": "대성당 공식 문화 방문 시간은 요일·예배 일정에 따라 달라질 수 있습니다. 일정표만으로 내부 입장권이나 특정 복장 제한을 확정할 수 없습니다. 확인 범위: 여행사 일정의 실제 입장 포함 여부 미확인.",
+              "action": "내부 입장권이 있다면 티켓 시간·출입구·공식 복장 안내를 확인하세요.",
+              "sourceName": "Toledo Cathedral · Cultural visit",
+              "sourceUrl": "https://www.catedralprimada.es/en/cultural-visit/",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-26-2",
+              "title": "오늘의 비밀무기는 얇은 스카프입니다",
+              "body": "스카프 하나면 성당에서 어깨를 가리고, 실내가 서늘할 때 목을 덮을 수 있습니다. 큰 겉옷보다 가방에 넣기 쉽습니다. 준비 항목: 얇은 스카프 — 대성당 복장 규정과 실내 서늘함을 한 번에 해결하기 때문입니다.",
+              "action": "스카프를 작은 가방 맨 위에 넣으세요.",
+              "sourceName": "톨레도 대성당 공식 안내",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -2047,7 +2972,55 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "산토 토메 교회는 엘 그레코의 대형 회화 〈오르가스 백작의 매장〉을 볼 수 있는 톨레도 구시가지의 교회입니다.",
+            "history": [
+              "이 작품은 1586–1588년경 산토 토메 교회를 위해 제작됐으며, 오르가스 백작의 매장 전승을 묘사합니다."
+            ],
+            "mustSee": [
+              "교회 내부 작품 〈오르가스 백작의 매장〉",
+              "작품의 아래쪽 장례 장면과 위쪽 천상 장면",
+              "교회 외부와 골목의 관계"
+            ],
+            "visualClues": [
+              "교회 내부 작품 〈오르가스 백작의 매장〉",
+              "작품의 아래쪽 장례 장면과 위쪽 천상 장면",
+              "교회 외부와 골목의 관계"
+            ],
+            "route": [
+              "1. 일정에 교회 내부 입장권/개방이 포함되어 있는지 확인합니다.",
+              "2. 입장하면 안내된 관람 구역에서 작품을 보고 사진 규칙을 따릅니다.",
+              "3. 관람 후 지정된 골목 경로로 복귀합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "좁은 구시가지 골목과 계단·돌바닥을 고려해 걷습니다.",
+            "prepare": [
+              "내부 관람 포함 여부 확인",
+              "예배·촬영 안내 준수"
+            ],
+            "risks": [],
+            "fallback": "문이 닫혀 있거나 입장권이 없으면 외관·골목만 관람하고 임의로 다른 시설을 추가하지 않습니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "실제 입장 여부·개방 시간은 여행사 일정/교회 공식 안내로 확인하세요.",
+            "sources": [
+              {
+                "name": "Iglesia de Santo Tomé · Official",
+                "url": "https://santotome.org/"
+              },
+              {
+                "name": "UNESCO · Historic City of Toledo",
+                "url": "https://whc.unesco.org/en/list/379/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "교회 공식 사이트와 UNESCO. 정확한 단체 입장 조건은 자료에 미기재."
+          },
+          "city": "Toledo",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2104,7 +3077,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Toledo",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         }
       ],
       "meals": [
@@ -2191,7 +3167,45 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Granada → Córdoba",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-27-1",
+              "title": "내일은 작은 가방 하나가 하루를 살립니다",
+              "body": "톨레도에서 코르도바까지 약 3시간 30분~4시간, 다시 그라나다까지 약 2시간 15분~2시간 45분 이동합니다. 큰 캐리어는 중간에 꺼내기 어렵습니다.",
+              "action": "전날 밤 물, 상비약, 멀미약, 간식, 충전기, 겉옷을 작은 가방에 따로 넣으세요.",
+              "sourceName": "여행 안내문",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-27-2",
+              "title": "장거리 이동 전 화장실·정차 확인",
+              "body": "여행사 일정에는 이동시간이 있으나 특정 휴게소·정차 시각은 적혀 있지 않습니다. 확인 범위: 예정된 휴게소가 있다고 가정하지 않습니다.",
+              "action": "버스 출발 전 화장실을 이용하고, 정차가 안내되면 복귀 시각은 가이드 지시를 따르세요.",
+              "sourceName": "여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "confidence": "예정된 휴게소가 있다고 가정하지 않습니다."
+            },
+            {
+              "id": "fa-2026-10-27-4",
+              "title": "테이크아웃 커피는 이 한마디로 주문하세요",
+              "body": "정차 시간이 짧을 때는 메뉴를 오래 고르지 않는 것이 중요합니다. 화장실을 먼저 다녀온 뒤에만 주문하세요.",
+              "action": "아래 문장을 읽어보세요.",
+              "sourceName": "현지어 표현",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "phrase": {
+                "text": "Un café con leche para llevar, por favor.",
+                "pronunciation": "운 까-페 콘 레-체 빠-라 예-바르, 뽀르 파-보르",
+                "meaning": "테이크아웃으로 카페콘레체 한 잔 주세요."
+              }
+            }
+          ]
         },
         {
           "time": "",
@@ -2250,7 +3264,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Córdoba",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2313,7 +3330,85 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "메스키타·대성당은 이슬람 대모스크의 핵심 구조와 기독교 대성당 공간이 한 건물 안에 공존하는 코르도바의 대표 유산입니다.",
+            "history": [
+              "원래 모스크는 8세기 압드 알라흐만 1세 시기에 시작됐고, 1236년 기독교 대성당으로 봉헌됐습니다. 16세기에 중앙부에 대성당 본당·익랑이 더해졌습니다."
+            ],
+            "mustSee": [
+              "붉고 흰 이중 아치와 기둥의 반복",
+              "알하캄 2세 시기 미흐랍과 모자이크",
+              "중앙의 르네상스 성당 본당·합창 공간",
+              "오렌지 나무 안뜰(Patio de los Naranjos)"
+            ],
+            "visualClues": [
+              "붉고 흰 이중 아치와 기둥의 반복",
+              "알하캄 2세 시기 미흐랍과 모자이크",
+              "중앙의 르네상스 성당 본당·합창 공간",
+              "오렌지 나무 안뜰(Patio de los Naranjos)"
+            ],
+            "route": [
+              "1. 실제 입장권과 관람 출입구를 확인합니다.",
+              "2. 오렌지 나무 안뜰과 옛 기도실의 아치 숲을 살핍니다.",
+              "3. 미흐랍 장식과 중앙 대성당을 비교해 건축 층위를 읽습니다.",
+              "4. 예배·촬영·복장 규칙을 따르고 지정된 출구로 나옵니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "넓은 내부에서 오래 걸을 수 있으며 예배 구역에서는 정숙합니다.",
+            "prepare": [
+              "현장 복장·가방·촬영 규칙 확인",
+              "수신기가 배부되면 작동 여부를 확인"
+            ],
+            "risks": [],
+            "fallback": "시간이 짧으면 기둥·아치와 중앙 성당, 미흐랍 중 허용된 공간에 집중합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "일정에는 방문이 기재되어 있으나 티켓 포함/시간은 바우처 확인이 필요합니다. 공식 규정·예배 일정은 당일 다시 확인하세요.",
+            "sources": [
+              {
+                "name": "Mosque-Cathedral of Córdoba · History",
+                "url": "https://mezquita-catedraldecordoba.es/en/descubre-el-monumento/la-historia/"
+              },
+              {
+                "name": "UNESCO · Historic Centre of Córdoba",
+                "url": "https://whc.unesco.org/en/list/313/"
+              },
+              {
+                "name": "Mosque-Cathedral · Visitor rules",
+                "url": "https://mezquita-catedraldecordoba.es/en/organiza-la-visita/normativa/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "기념물 공식 연혁/규정과 UNESCO. 세부 동선은 당일 제한 우선.",
+            "anchorLat": 37.8789,
+            "anchorLon": -4.7794,
+            "anchorLabel": "Mezquita-Catedral"
+          },
+          "city": "Córdoba",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-27-3",
+              "title": "메스키타 방문 규정·예배 안내 따르기",
+              "body": "이곳은 현재도 종교 예배가 이루어지는 대성당입니다. 공식 방문 규정과 현장 표지를 우선하세요. 확인 범위: 기존 자료의 세부 단체/모자 규정은 방문 당일 공식 규정 확인.",
+              "action": "입장 전 모자·가방·촬영·정숙 규칙을 현장 표지로 확인하고, 단체 수신기가 있으면 수신 상태를 점검하세요.",
+              "sourceName": "Mosque-Cathedral of Córdoba · Visitor rules",
+              "sourceUrl": "https://mezquita-catedraldecordoba.es/en/organiza-la-visita/normativa/",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-27-5",
+              "title": "오늘은 앉는 시간과 걷는 시간이 번갈아 옵니다",
+              "body": "장거리 버스에서는 에어컨 때문에 서늘하고, 코르도바에서는 오래 걷습니다. 한 벌로 버티기보다 벗고 입기 쉬운 옷이 좋습니다.",
+              "action": "지퍼 겉옷을 작은 가방에 넣고, 정차 때마다 다리를 움직이세요.",
+              "sourceName": "여행 일정·날씨 예보",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -2368,7 +3463,52 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "코르도바 유대인 지구(Judería)는 메스키타 주변의 좁은 길과 광장으로 이루어진 구시가지 구역입니다.",
+            "history": [
+              "코르도바의 역사적 중심은 이슬람 칼리프 시대의 도시 성장과 후대 기독교 통치의 흔적을 함께 보존합니다."
+            ],
+            "mustSee": [
+              "좁은 골목과 작은 안뜰·광장",
+              "일정상 지나가는 회당·기념 표지(입장이 확인될 때만)"
+            ],
+            "visualClues": [
+              "좁은 골목과 작은 안뜰·광장",
+              "일정상 지나가는 회당·기념 표지(입장이 확인될 때만)"
+            ],
+            "route": [
+              "1. 메스키타 주변의 가이드 지정 골목으로 이동합니다.",
+              "2. 실제 경로에 포함된 광장·문화 표지만 봅니다.",
+              "3. 안뜰·박물관 입장은 별도 티켓 여부를 확인합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "돌바닥과 좁은 길이므로 통행을 막지 않고 천천히 걷습니다.",
+            "prepare": [
+              "가이드가 안내한 이동 방향 확인"
+            ],
+            "risks": [],
+            "fallback": "시간이 짧으면 메스키타 주변 골목만 걷고 예정 경로로 돌아갑니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "야외 구시가지 산책으로 안내합니다. 회당·박물관 입장은 일정에 포함된 것으로 간주하지 않습니다.",
+            "sources": [
+              {
+                "name": "UNESCO · Historic Centre of Córdoba",
+                "url": "https://whc.unesco.org/en/list/313/"
+              },
+              {
+                "name": "Córdoba Tourism · Jewish Quarter",
+                "url": "https://www.turismodecordoba.org/the-jewish-quarter"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "UNESCO·도시 관광 안내 기반. 실제 구간은 가이드 동선 우선."
+          },
+          "city": "Córdoba",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2425,7 +3565,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Córdoba → Granada",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         }
       ],
       "meals": [
@@ -2518,7 +3661,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Granada",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2584,7 +3730,91 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "알함브라는 나스르 왕조의 궁전·요새·정원으로 이루어진 그라나다의 언덕 위 복합 유산입니다.",
+            "history": [
+              "알함브라 단지는 궁전 도시·나스르 궁전·알카사바·헤네랄리페와 여러 시기의 시설로 구성됩니다."
+            ],
+            "mustSee": [
+              "나스르 궁전의 석고·목재 장식과 안뜰",
+              "사자의 중정/분수(티켓 동선에 포함될 때)",
+              "카를로스 5세 궁전의 르네상스 대비"
+            ],
+            "visualClues": [
+              "나스르 궁전의 석고·목재 장식과 안뜰",
+              "사자의 중정/분수(티켓 동선에 포함될 때)",
+              "카를로스 5세 궁전의 르네상스 대비"
+            ],
+            "route": [
+              "1. 티켓에 표시된 날짜·입장구역·나스르 궁전 시간 확인.",
+              "2. 성벽·문·정원 구간을 현장 표지와 가이드 동선에 따라 이동.",
+              "3. 궁전 시간 지정이 있다면 늦지 않게 해당 출입구로 이동.",
+              "4. 티켓 QR과 신분증을 관람이 끝날 때까지 보관합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "단지 규모가 크고 야외 경사·계단이 있습니다. 출입구·정원 구간의 보행 접근성을 확인합니다.",
+            "prepare": [
+              "원본 여권/ID",
+              "티켓 QR",
+              "가방 크기 규정 확인"
+            ],
+            "risks": [],
+            "fallback": "시간이 부족하면 티켓의 지정 입장 구역을 우선하고 임의로 구역을 건너뛰거나 추가하지 않습니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "공식 티켓 안내는 원본 여권/신분증, QR, 나스르 궁전 시간 엄수를 요구합니다. 40×40cm 초과 배낭은 금지; 티켓 픽업 필요 시 나스르 입장 1시간 전까지 매표소 절차를 마쳐야 합니다.",
+            "sources": [
+              {
+                "name": "Alhambra and Generalife · Official visitor portal",
+                "url": "https://tickets.alhambra-patronato.es/en/"
+              },
+              {
+                "name": "Alhambra Patronato · Official guide",
+                "url": "https://www.alhambra-patronato.es/en/recomendacion-lectura/official-guide-to-the-alhambra"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "알함브라 공식 티켓 포털. 세부 시간은 예약 티켓 기준.",
+            "anchorLat": 37.176,
+            "anchorLon": -3.588,
+            "anchorLabel": "Alhambra entrance"
+          },
+          "city": "Granada",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-28-1",
+              "title": "알함브라 입장에는 원본 신분증 필요",
+              "body": "공식 티켓 안내는 입장 시 원본 신분증 또는 여권, QR 티켓 제시와 나스르 궁전 시간 엄수를 요구합니다. 확인 범위: 예약 티켓의 구역·시간 우선.",
+              "action": "원본 여권/신분증과 QR을 작은 가방에 넣고, 실제 티켓에 인쇄된 시간을 확인하세요.",
+              "sourceName": "Alhambra · Official tickets and entry conditions",
+              "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-28-2",
+              "title": "알함브라 가방 크기 규정",
+              "body": "공식 입장 규정은 40×40cm를 넘는 배낭을 허용하지 않는다고 안내합니다. 확인 범위: 가방 보관 장소가 포함된다고 가정하지 않습니다.",
+              "action": "큰 배낭은 숙소/차량에 두고 허용 크기와 보관 장소를 공식 사이트에서 확인하세요.",
+              "sourceName": "Alhambra · Official tickets and entry conditions",
+              "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "가방 보관 장소가 포함된다고 가정하지 않습니다."
+            },
+            {
+              "id": "fa-2026-10-28-3",
+              "title": "나스르 궁전 예약 시각과 티켓 수령 조건",
+              "body": "공식 안내는 티켓을 현장에서 구매·수령해야 하는 경우 나스르 궁전 지정 입장시각 최소 1시간 전에 매표 절차를 마치도록 안내합니다. 확인 범위: 전자 티켓/여행사 단체권이면 조건이 다를 수 있습니다.",
+              "action": "예약 티켓을 확인해 현장 수령이 필요한 경우에만 이 여유 조건을 적용하세요.",
+              "sourceName": "Alhambra · Official tickets and entry conditions",
+              "sourceUrl": "https://tickets.alhambra-patronato.es/en/",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "전자 티켓/여행사 단체권이면 조건이 다를 수 있습니다."
+            }
+          ]
         },
         {
           "time": "",
@@ -2639,7 +3869,55 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "헤네랄리페는 알함브라와 연결된 나스르 왕조의 정원·휴식 공간으로, 물길과 정원 축을 살펴볼 수 있습니다.",
+            "history": [
+              "왕실 별궁·정원 구역으로 알함브라 궁전 도시와 함께 세계유산 경관을 이룹니다."
+            ],
+            "mustSee": [
+              "아세키아의 중정과 물길",
+              "정원 테라스와 알함브라·도시 방향 조망",
+              "계절 식재와 수로의 배치"
+            ],
+            "visualClues": [
+              "아세키아의 중정과 물길",
+              "정원 테라스와 알함브라·도시 방향 조망",
+              "계절 식재와 수로의 배치"
+            ],
+            "route": [
+              "1. 티켓에 헤네랄리페 구역이 포함되는지 확인합니다.",
+              "2. 표지된 방문 경로를 따라 물길과 정원 테라스를 봅니다.",
+              "3. 궁전 지정 시간과 혼동하지 않도록 티켓 시각을 다시 확인합니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "야외 정원 보행·계단이 있으므로 무리한 우회는 피합니다.",
+            "prepare": [
+              "티켓에 적힌 구역·시간 확인",
+              "물·모자"
+            ],
+            "risks": [],
+            "fallback": "지정 구역의 정원과 물길만 관람한 뒤 안내 동선으로 복귀합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "티켓 유형에 따라 포함 구역이 달라질 수 있습니다. 실제 QR/바우처 범위와 시간표를 확인하세요.",
+            "sources": [
+              {
+                "name": "Alhambra and Generalife · Official visitor portal",
+                "url": "https://tickets.alhambra-patronato.es/en/"
+              },
+              {
+                "name": "UNESCO · Alhambra, Generalife and Albayzín",
+                "url": "https://whc.unesco.org/en/list/314/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "공식 알함브라 방문 안내·UNESCO. 실제 티켓 구역 미확인."
+          },
+          "city": "Granada",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2695,7 +3973,53 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "알카사바는 알함브라의 방어 요새 구역으로, 성벽과 망루에서 그라나다 시가지와 주변 지형을 조망할 수 있습니다.",
+            "history": [
+              "복합 유산 중 가장 오래된 요새 요소를 포함하며, 방어·감시 기능을 담당했습니다."
+            ],
+            "mustSee": [
+              "성벽·망루·요새 내부 흔적",
+              "그라나다 도심과 시에라 네바다 방향의 조망"
+            ],
+            "visualClues": [
+              "성벽·망루·요새 내부 흔적",
+              "그라나다 도심과 시에라 네바다 방향의 조망"
+            ],
+            "route": [
+              "1. 티켓에 알카사바 구역이 포함되어 있는지 확인합니다.",
+              "2. 안내 표지의 성벽 경로와 안전 난간을 따릅니다.",
+              "3. 전망 지점에서만 멈추고 좁은 통로를 막지 않습니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "요새 구역은 계단·경사와 노출된 전망 구간이 있어 보행에 유의합니다.",
+            "prepare": [
+              "미끄럽지 않은 신발",
+              "난간 밖으로 나가지 않기"
+            ],
+            "risks": [],
+            "fallback": "체력이나 운영 조건이 부담되면 무리해 망루까지 오르지 말고 가이드 안내를 따릅니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "티켓 유형별 포함 여부를 예약 정보로 확인하세요.",
+            "sources": [
+              {
+                "name": "Alhambra and Generalife · Official visitor portal",
+                "url": "https://tickets.alhambra-patronato.es/en/"
+              },
+              {
+                "name": "UNESCO · Alhambra, Generalife and Albayzín",
+                "url": "https://whc.unesco.org/en/list/314/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "공식 알함브라·UNESCO 기반. 접근성/운영은 당일 확인."
+          },
+          "city": "Granada",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2752,7 +4076,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Granada → Ronda",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2806,7 +4133,56 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "research-required"
-          }
+          },
+          "fieldGuide": {
+            "researchStatus": "researched_partial",
+            "why": "론다의 누에보 다리는 엘 타호 협곡을 가로질러 구시가지와 신시가지 쪽을 잇는 18세기 공학 구조물입니다.",
+            "history": [
+              "다리는 18세기에 건설되어 1793년 완성됐으며, 협곡과 도시의 구조적 연결을 보여줍니다."
+            ],
+            "mustSee": [
+              "다리 중앙의 아치와 협곡 양쪽 절벽",
+              "상부 보행 전망대에서 보는 구시가지·강 계곡"
+            ],
+            "visualClues": [
+              "다리 중앙의 아치와 협곡 양쪽 절벽",
+              "상부 보행 전망대에서 보는 구시가지·강 계곡"
+            ],
+            "route": [
+              "1. 상부의 공공 보행 전망 지점에서 협곡 양쪽을 봅니다.",
+              "2. 난간 안쪽에서 다리 구조와 도시 연결을 살핍니다.",
+              "3. 협곡 아래로 내려가는 길은 원본 일정에 없으므로 임의로 진입하지 않습니다."
+            ],
+            "photoPoints": [],
+            "toilets": [],
+            "comfort": "절벽 가까이에서 바람·낙하 위험을 주의하고 난간을 넘지 마세요.",
+            "prepare": [
+              "편한 신발",
+              "상부 공공 전망 지점에서만 관람"
+            ],
+            "risks": [],
+            "fallback": "시간이 짧으면 상부 전망대에서 다리와 협곡을 보고 가이드가 안내한 차량으로 복귀합니다.",
+            "visitDuration": "원본 일정표에 방문 시간을 기재하지 않음.",
+            "ticketStatus": "일정은 다리 주변 조망입니다. 해석센터·협곡 아래 보행로 입장은 포함된 것으로 보지 않습니다.",
+            "sources": [
+              {
+                "name": "Andalusia Tourism · Puente Nuevo Interpretation Centre",
+                "url": "https://www.andalucia.org/en/ronda-cultural-tourism-puente-nuevo-interpretation-centre"
+              },
+              {
+                "name": "Ronda Tourism · Official",
+                "url": "https://www.turismoderonda.es/"
+              }
+            ],
+            "verifiedAt": "2026-10-29",
+            "confidence": "안달루시아·론다 관광 공식 정보 기반. 협곡 아래 도보는 일정에 미기재.",
+            "anchorLat": 36.7407,
+            "anchorLon": -5.166,
+            "anchorLabel": "Puente Nuevo"
+          },
+          "city": "Ronda",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -2861,7 +4237,22 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Ronda",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-28-4",
+              "title": "누에보 다리는 상부 전망부터",
+              "body": "일정은 누에보 다리 주변 조망입니다. 협곡 아래 보행로·해석시설 방문은 원본 일정에 지정되어 있지 않습니다. 확인 범위: 낙하 위험 구역·난간 밖 접근 금지.",
+              "action": "상부 공공 전망 지점에서 다리와 협곡을 보고, 아래로 내려가는 길은 가이드가 포함이라고 확인한 경우에만 이용하세요.",
+              "sourceName": "Ronda Today 누에보 다리 안내",
+              "sourceUrl": "https://rondatoday.com/puente-nuevo-and-el-tajo-gorge/",
+              "verifiedAt": "2026-10-21",
+              "confidence": "낙하 위험 구역·난간 밖 접근 금지."
+            }
+          ]
         },
         {
           "time": "",
@@ -2918,7 +4309,21 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Ronda → Sevilla",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-28-5",
+              "title": "세비야 이동 전에 화장실부터 다녀오세요",
+              "body": "론다에서 세비야까지 약 1시간 45분~2시간 15분 이동합니다. 협곡 사진을 더 찍는 것보다 출발 전 화장실이 중요합니다.",
+              "action": "버스에 타기 전에 화장실을 이용하고 물과 겉옷을 작은 가방에 두세요.",
+              "sourceName": "여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         }
       ],
       "meals": [
@@ -3000,7 +4405,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Sevilla",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -3149,7 +4557,6 @@
               "내부 입장료·복장·가방·촬영 규정은 당일 공식 사이트를 확인하세요.",
               "교회 앞 광장에서 소매치기·꽃/팔찌 판매 권유 주의."
             ],
-            "meeting": "정문 이름·광장 어느 면인지와 버스 위치를 구체적으로 저장하세요.",
             "fallback": "외관 관람 시간이 짧으면 히랄다와 주 출입구만 확인하고 내부 별도 줄은 서지 마세요.",
             "sources": [
               {
@@ -3218,7 +4625,30 @@
             "anchorLat": 37.386,
             "anchorLon": -5.993,
             "anchorLabel": "Plaza del Triunfo / Seville Cathedral"
-          }
+          },
+          "city": "Sevilla",
+          "country": "Spain",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-29-1",
+              "title": "세비야 대성당 내부 입장 규정 확인",
+              "body": "세비야 대성당의 문화 방문은 티켓에 적힌 시각에 맞춰 입장하며, 출입 통제가 있습니다. 확인 범위: 여행 일정의 내부 입장 여부는 미확인.",
+              "action": "내부 입장권이 확인되면 당일 공식 복장·가방·출입 안내와 티켓 시각을 확인하세요.",
+              "sourceName": "Seville Cathedral · Schedules and rates",
+              "sourceUrl": "https://www.catedraldesevilla.es/en/cultural-visit/schedules-and-rates/",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-29-2",
+              "title": "히랄다 탑 오르막은 체력 확인",
+              "body": "공식 설명에 따르면 히랄다는 내부의 완만한 경사로를 따라 올라가는 구조이며, 상부에 르네상스 종탑이 더해져 있습니다. 확인 범위: 높이·체력 부담은 개인차가 있으며, 일정상 탑 입장 여부 미확인.",
+              "action": "탑 입장이 실제 포함됐는지 확인하고, 경사로 보행이 부담되면 무리하지 마세요.",
+              "sourceName": "Seville Cathedral · The Giralda",
+              "sourceUrl": "https://www.catedraldesevilla.es/en/the-cathedral/building/the-giralda/",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -3382,7 +4812,6 @@
               "좁은 골목에서 마차·자전거·배달 차량을 위해 한 줄로 비켜주기",
               "대성당·알카사르 표를 권하는 무허가 판매자와 일정에 없는 추가 입장 제안 주의"
             ],
-            "meeting": "원본 일정은 산책의 시작·종료 집합점을 지정하지 않았습니다. Plaza del Triunfo 또는 가이드가 실제로 정한 지점을 출발 전에 확인하고, 임의로 다른 출구를 택하지 마세요.",
             "fallback": "시간이 부족하면 Plaza del Triunfo 세 건물 조망과 Patio de Banderas까지만 보고, 골목 깊숙이 들어가는 구간은 생략해 정해진 집합점으로 복귀.",
             "sources": [
               {
@@ -3456,7 +4885,10 @@
             "anchorLat": 37.386,
             "anchorLon": -5.993,
             "anchorLabel": "Plaza del Triunfo / Seville Cathedral"
-          }
+          },
+          "city": "Sevilla",
+          "country": "Spain",
+          "tz": "Europe/Madrid"
         },
         {
           "time": "",
@@ -3557,7 +4989,6 @@
               "호텔 위치를 Lisbon 중심 Rossio로 오인하지 말 것: 저장 주소는 Almada 남쪽 강변",
               "가방을 내릴 때 다른 단체 차량 수하물과 혼동하지 않도록 색·태그 확인"
             ],
-            "meeting": "세비야 출발 집합점과 리스본 하차점은 패키지 일정표에 상세히 적혀 있지 않습니다. 여행사 가이드의 당일 집합 지점을 따르세요.",
             "fallback": "교통 지연·정차 변경 시 현재 위치를 목적지로 추정하지 말고 버스·가이드 안내를 우선. 호텔 도착이 늦으면 체크인 안내를 확보하고, 도시 관광 안내는 다음 일정으로 미룹니다.",
             "sources": [
               {
@@ -3567,12 +4998,36 @@
             ],
             "verifiedAt": "2026-10-29",
             "confidence": "이동시간은 원본 일정표의 범위 추정. 운행사·휴게소·정확한 하차점은 미확인.",
-            "visitDuration": "이동 약 4시간 30분–5시간 30분 (원본 일정표의 예상; 교통·정차에 따라 변동).",
+            "visitDuration": "이동 약 4시간 30분–5시간 30분 (원본 일정표의 예상; 교통·정차에 따라 변동). (안내용 추정이며 여행사 확정 체류시간이 아님). (안내용 추정이며 여행사 확정 체류시간이 아님). (안내용 추정이며 여행사 확정 체류시간이 아님).",
             "ticketStatus": "버스/단체 이동. 출발·정차·도착 지점은 여행사/가이드 운행 정보가 필요하며 원본 일정표에는 정확한 시각·터미널이 미기재.",
             "toiletData": [],
             "researchStatus": "researched_partial",
             "toiletStatus": "research-required"
-          }
+          },
+          "city": "Sevilla → Lisboa",
+          "country": "Spain → Portugal",
+          "tz": "Europe/Madrid",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-29-3",
+              "title": "리스본에 도착하면 시계가 1시간 뒤로 갑니다",
+              "body": "점심 뒤 리스본까지 약 4시간 30분~5시간 30분 이동합니다. 포르투갈은 스페인보다 1시간 늦어 휴대폰 시간이 바뀔 수 있습니다.",
+              "action": "여권, 약, 물, 충전기는 작은 가방에 두고 도착 뒤 휴대폰 시간이 Europe/Lisbon으로 바뀌었는지 확인하세요.",
+              "sourceName": "여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-29-4",
+              "title": "장거리 버스 전에 시설 이용",
+              "body": "여행사 일정에는 세비야→리스본 이동시간만 있고 휴게소·정차 계획은 기재되어 있지 않습니다. 확인 범위: 정차·소요시간은 당일 운행 안내 우선.",
+              "action": "출발 전 이용 가능한 화장실을 확인하세요. 버스 정차를 확정된 일정으로 가정하지 마세요.",
+              "sourceName": "여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "confidence": "정차·소요시간은 당일 운행 안내 우선."
+            }
+          ]
         },
         {
           "time": "",
@@ -3675,7 +5130,6 @@
               "도심 Lisboa와 호텔이 있는 Almada를 혼동하지 않기",
               "버스에 짐·휴대전화를 두고 내리지 않기"
             ],
-            "meeting": "호텔 로비·식사 장소는 원본 일정표에 미기재. 가이드가 지정한 모임 위치와 시간을 따르세요.",
             "fallback": "탑승구 변경·지연 시 항공사 안내를 따르고 가이드에게 메시지로 상태를 알리세요.",
             "sources": [
               {
@@ -3696,7 +5150,26 @@
             "anchorLat": 38.6704468,
             "anchorLon": -9.1707882,
             "anchorLabel": "Hotel Mercure Lisboa Almada · hotel reference point"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-29-5",
+              "title": "포르투갈 식당 쿠베르 요금 확인",
+              "body": "포르투갈 식당의 빵·올리브 등 쿠베르는 제공될 수 있으며, 메뉴 가격·현장 안내를 확인해야 합니다. 확인 범위: 요금·제공 항목은 식당별로 다르므로 보편 요금처럼 단정하지 않습니다.",
+              "action": "원하지 않으면 손대기 전에 직원에게 유료 여부를 물어보고 거절하세요.",
+              "sourceName": "Montepio 소비자 규칙 안내",
+              "sourceUrl": "https://www.montepio.org/ei/pessoal/tem-de-pagar-o-couvert-gelo-ou-copos-de-agua-no-restaurante-conheca-as-regras/",
+              "verifiedAt": "2026-10-21",
+              "phrase": {
+                "text": "Não, obrigado.",
+                "pronunciation": "나웅, 오브리가두",
+                "meaning": "괜찮습니다. 사양하겠습니다. (여성은 obrigada: 오브리가다)"
+              }
+            }
+          ]
         }
       ],
       "meals": [
@@ -3779,7 +5252,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Lisboa → Sintra",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         },
         {
           "time": "",
@@ -3835,7 +5311,21 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Sintra",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-30-2",
+              "title": "오늘은 밑창이 깊은 신발이 정답입니다",
+              "body": "신트라 언덕과 리스본 물결무늬 돌바닥은 젖으면 미끄럽고, 지도에서 가까워 보여도 경사 때문에 시간이 오래 걸립니다.",
+              "action": "밑창 패턴이 있는 가장 익숙한 운동화를 신으세요. 비가 오면 우산보다 방수 겉옷이 걷기 편합니다.",
+              "sourceName": "리스본 여행자 경험·날씨 예보",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -3995,7 +5485,6 @@
               "Pena Palace의 예약 슬롯을 놓치면 입장이 거부될 수 있음; 공원 입구 도착 시각과 궁전 입구 슬롯을 혼동하지 말 것",
               "안개·비·강풍 시 고지대 노출·돌길 미끄럼 주의"
             ],
-            "meeting": "원본 일정표에는 Sintra 명소·집합점·티켓 시각이 기재되지 않았습니다. 버스에서 내리기 전 단체 집합 위치를 확인하세요.",
             "fallback": "티켓에서 시설명이 확인되지 않으면 즉시 가이드에게 바우처를 보여 주고 그 시설의 정확한 지도 핀을 선택; 이름이 확인되기 전에는 “Pena”로 안내하지 않습니다.",
             "sources": [
               {
@@ -4017,7 +5506,7 @@
             ],
             "verifiedAt": "2026-10-29",
             "confidence": "정식 시설이 일정표에 특정되지 않아 Pena 관련 운영·요금은 후보 정보로만 제공. 티켓 확인 전에는 장소 확정 금지.",
-            "visitDuration": "시설이 확인되지 않아 확정 불가. Pena Palace 공식 Essential Visit은 입장 슬롯+공원 관람; 일정표 체류시간은 미기재.",
+            "visitDuration": "시설이 확인되지 않아 확정 불가. Pena Palace 공식 Essential Visit은 입장 슬롯+공원 관람; 일정표 체류시간은 미기재. (안내용 추정이며 여행사 확정 체류시간이 아님). (안내용 추정이며 여행사 확정 체류시간이 아님). (안내용 추정이며 여행사 확정 체류시간이 아님).",
             "ticketStatus": "미확인 — “Sintra Castle”은 정식 시설명이 아닙니다. Pena Palace 공식 성인 Essential Visit €20, Park-only €12 (공식 웹사이트 확인일 2026-10-29); 실제 티켓의 시설·가격·슬롯이 우선.",
             "ticketRules": [
               "Pena Palace일 때만: 궁전 티켓은 날짜·시각 지정; 공원 09:00–19:00, 궁전 09:30–18:30, 마지막 티켓 17:30/18:00 (공식 표기).",
@@ -4073,7 +5562,22 @@
             "anchorLat": 38.7876,
             "anchorLon": -9.3906,
             "anchorLabel": "Pena Palace candidate · exact ticket facility unconfirmed"
-          }
+          },
+          "city": "Sintra",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-30-1",
+              "title": "신트라 입장 시설명을 먼저 확인",
+              "body": "원본 일정의 “신트라 성”만으로 페나 궁전인지 무어성인지 확정할 수 없습니다. 시설마다 입장 지점·티켓 시간·도보 경로가 다릅니다. 확인 범위: 특정 궁전·성으로 추정하지 않습니다.",
+              "action": "바우처의 공식 시설명과 입장시각을 확인한 뒤 해당 시설의 공식 길찾기·입장 규칙을 따르세요.",
+              "sourceName": "Parques de Sintra 공식 페나 궁전 안내",
+              "sourceUrl": "https://www.parquesdesintra.pt/en/plan-your-visit/tickets-palace-of-pena/",
+              "verifiedAt": "2026-10-21",
+              "onlyIf": "특정 궁전·성으로 추정하지 않습니다."
+            }
+          ]
         },
         {
           "time": "",
@@ -4130,7 +5634,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Sintra → Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         },
         {
           "time": "",
@@ -4304,7 +5811,6 @@
               "전망 사진 찍느라 단체 이동 시각을 놓치지 않기",
               "화장실 후보는 공원 전망대와 별도 위치; 자동으로 무료라고 가정하지 않기"
             ],
-            "meeting": "원본 일정표에는 공원 내 하차·재집합 지점이 없습니다. 버스의 실제 정차 핀을 확인하세요.",
             "fallback": "시간이 부족하면 상단 전망대에서 잔디축·강 방향만 확인하고 바로 집합 장소로 돌아갑니다.",
             "sources": [
               {
@@ -4398,7 +5904,10 @@
             "anchorLat": 38.73033,
             "anchorLon": -9.154409,
             "anchorLabel": "Miradouro do Parque Eduardo VII"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         },
         {
           "time": "",
@@ -4451,7 +5960,10 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "research-required"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         },
         {
           "time": "",
@@ -4660,7 +6172,6 @@
               "중심 광장 인파에서 휴대전화·지갑 관리",
               "지도에 점이 있어도 OSM 태그의 opening_hours=off 또는 이용료 상충을 무시하지 말 것"
             ],
-            "meeting": "광장은 넓으므로 동상 기단 또는 북쪽 극장 앞처럼 구체적인 점을 가이드가 지정해야 합니다. 일정표에는 미팅 지점 미기재.",
             "fallback": "단체 출발이 임박하면 광장 중앙 동상과 포장무늬를 보고, 화장실을 찾으려고 골목으로 이동하지 말고 즉시 집합점으로 복귀.",
             "sources": [
               {
@@ -4787,7 +6298,31 @@
             "anchorLat": 38.7139,
             "anchorLon": -9.1394,
             "anchorLabel": "Praça D. Pedro IV / Rossio"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-30-3",
+              "title": "리스본 화장실 요금·결제수단 확인",
+              "body": "저장된 지역 자료에는 요금·운영·결제 방식이 서로 다르거나 오래된 시설이 포함될 수 있습니다. 준비 항목: 작은 유로 동전 — 유료 화장실에서 카드가 안 되거나 잔돈이 없을 때 바로 쓰기 때문입니다. 확인 범위: 오프라인 커뮤니티 자료는 현재 상태를 보증하지 않습니다.",
+              "action": "시설 표지의 요금·결제수단·운영 여부를 확인하고, 소액 현금은 선택적으로 준비하세요.",
+              "sourceName": "리스본 여행자 경험담",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "confidence": "오프라인 커뮤니티 자료는 현재 상태를 보증하지 않습니다."
+            },
+            {
+              "id": "fa-2026-10-30-5",
+              "title": "자유시간은 재집합 안내를 기준으로",
+              "body": "언덕·포장길은 실제 이동이 지도 예상보다 길어질 수 있습니다. 원본 일정에는 정확한 자유시간 집합점·분량이 없습니다. 확인 범위: 임의의 집합 위치·시간을 만들지 않습니다.",
+              "action": "먼저 가이드가 실제로 지정한 복귀 위치를 확인하고, 그 범위 안에서 가까운 선택지만 고르세요.",
+              "sourceName": "여행 일정",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "",
@@ -4844,7 +6379,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         },
         {
           "time": "",
@@ -4975,7 +6513,6 @@
               "외관 관람만으로 내부 화장실·쉼터 사용이 보장되지 않음",
               "강변으로 이동하는 경우 버스 집합시각과 거리를 고려"
             ],
-            "meeting": "일정표에 정확한 버스 하차·집합 핀 미기재. 실제 집합 장소를 먼저 저장하세요.",
             "fallback": "시간이 부족하면 남쪽 정면과 Praça do Império 조망만 하고 탑까지 무리하게 걷지 않습니다.",
             "sources": [
               {
@@ -5026,7 +6563,26 @@
             "anchorLat": 38.6979,
             "anchorLon": -9.2067,
             "anchorLabel": "Mosteiro dos Jerónimos exterior"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-30-4",
+              "title": "파스텔 드 나타 주문 표현",
+              "body": "따뜻한 페이스트리를 원하면 주문할 때 온도를 물어볼 수 있습니다. 확인 범위: 매장별 제공·재가열 여부는 다릅니다.",
+              "action": "“Pode aquecer, por favor?”라고 물어보세요.",
+              "sourceName": "현지어 표현",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "phrase": {
+                "text": "Um pastel de nata quentinho, por favor.",
+                "pronunciation": "웅 빠스-뗄 드 나타 낀-띠-뉴, 뽀르 파-보르",
+                "meaning": "따뜻한 파스텔 드 나타 한 개 주세요."
+              }
+            }
+          ]
         },
         {
           "time": "",
@@ -5153,7 +6709,6 @@
               "최근 복원 후 개방·입장 조건은 바뀔 수 있으므로, 외관 관람과 내부 운영 정보를 혼동하지 말 것",
               "강변에서 촬영하다 단체 버스 집합시간 놓치지 않기"
             ],
-            "meeting": "원본에 버스 집합점 미기재. 실제 하차·재집합 지점 확인 필요.",
             "fallback": "짧은 시간에는 강변 포토 포인트에서 외관만 보고 집합 지점으로 복귀.",
             "sources": [
               {
@@ -5200,7 +6755,10 @@
             "anchorLat": 38.6916,
             "anchorLon": -9.216,
             "anchorLabel": "Torre de Belém riverside exterior"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         },
         {
           "time": "",
@@ -5257,7 +6815,10 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon"
         }
       ],
       "meals": [
@@ -5342,7 +6903,30 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-31-2",
+              "title": "공항 가기 전 호텔 화장실이 가장 편합니다",
+              "body": "Mercure Lisboa Almada에서 공항까지는 25 de Abril 대교 정체 변수가 있어 버스 안에서 오래 기다릴 수 있습니다. 준비 항목: 여권과 상비약 — 공항 체크인과 장거리 비행 중 큰 캐리어에서 꺼낼 수 없기 때문입니다.",
+              "action": "조식 뒤 객실 화장실을 이용하고 여권, 약, 충전기를 작은 가방에 넣으세요.",
+              "sourceName": "여행 일정·공항 안내",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            },
+            {
+              "id": "fa-2026-10-31-3",
+              "title": "리스본 출발 절차와 출국 심사",
+              "body": "American Airlines 안내는 리스본 T1 이용 정보를 제공합니다. 미국행은 솅겐 외부 국경 출국 심사가 적용될 수 있습니다. 확인 범위: 터미널/절차는 항공사·공항의 당일 안내 우선.",
+              "action": "체크인·보안검색 뒤 여권심사·게이트 순서를 공항 표지와 직원에게 확인하고, 면세점 체류는 절차를 마친 뒤로 미루세요.",
+              "sourceName": "American Airlines · Lisbon airport information",
+              "sourceUrl": "https://www.aa.com/i18n/travelInformation/destinationInformation/lis-airport.html",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "11:05",
@@ -5399,7 +6983,31 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Lisboa",
+          "country": "Portugal",
+          "tz": "Europe/Lisbon",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-31-1",
+              "title": "AA259 출발 시각이 문서 간 다릅니다",
+              "body": "전자항공권에는 리스본 10:55 출발, 일정표에는 11:05 출발로 서로 다르게 적혀 있습니다. 확인 범위: 앱은 두 문서 중 하나를 임의로 선택하지 않습니다.",
+              "action": "여행사/항공사에서 최종 출발시각과 호텔 출발 절차를 확인하고, 확인된 시각으로 알람을 맞추세요.",
+              "sourceName": "여행사 항공권 및 일정표 · AA259",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21",
+              "confidence": "앱은 두 문서 중 하나를 임의로 선택하지 않습니다."
+            },
+            {
+              "id": "fa-2026-10-31-4",
+              "title": "귀국 비행 작은 가방에는 이 다섯 가지만 따로 두세요",
+              "body": "장거리 비행과 미국 입국 절차에서는 큰 캐리어를 다시 열 수 없습니다. 필요한 것을 좌석 아래 가방에 모아두면 통로에서 헤매지 않습니다.",
+              "action": "여권·영주권(해당 시), 상비약, 충전기, 물티슈, 가벼운 겉옷을 작은 가방에 넣으세요.",
+              "sourceName": "여행 안내문",
+              "sourceUrl": "",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "14:50",
@@ -5457,7 +7065,20 @@
             "ticketStatus": "관람 입장료 대상 일정 아님; 출발/집합 시간은 원본 일정·가이드 기준.",
             "researchStatus": "partial",
             "toiletStatus": "unverified"
-          }
+          },
+          "city": "Philadelphia",
+          "country": "United States",
+          "fieldAdvice": [
+            {
+              "id": "fa-2026-10-31-5",
+              "title": "미국 입국은 심사·수하물·세관 순서",
+              "body": "PHL 국제선 도착 안내는 입국심사, 수하물 수령, 세관을 거친 뒤 도착 구역으로 이동하도록 안내합니다. 확인 범위: CBP/공항 직원의 현장 지시를 우선합니다.",
+              "action": "Arrivals/Passport Control 표지를 따라 입국 심사 → 수하물 → 세관 순으로 이동하세요.",
+              "sourceName": "Philadelphia International Airport · Airline information",
+              "sourceUrl": "https://www.phl.org/flights/airline-information",
+              "verifiedAt": "2026-10-21"
+            }
+          ]
         },
         {
           "time": "17:00",
@@ -5512,7 +7133,9 @@
             "ticketStatus": "입장권·외관 여부가 원본 일정표에 명시되지 않아 미확인.",
             "researchStatus": "partial",
             "toiletStatus": "research-required"
-          }
+          },
+          "city": "Philadelphia",
+          "country": "United States"
         }
       ],
       "meals": [
