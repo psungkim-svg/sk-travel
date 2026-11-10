@@ -28,7 +28,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 #phone{max-width:600px;height:100dvh;margin:0 auto;display:flex;flex-direction:column;background:var(--bg);position:relative;box-shadow:0 0 55px rgba(15,23,42,.25)}
 /* 상단바 (짙은 색) */
 #header{background:var(--dark);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 7px) 12px 8px;flex:none;z-index:50;box-shadow:0 3px 14px rgba(15,23,42,.28)}
-.h-row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px}
+.trip-manage-row{display:flex;align-items:center;gap:7px;padding:10px 0;border-top:1px solid var(--line)}.trip-switch-bar{display:flex;align-items:center;gap:9px;padding:7px 12px 9px;background:#f3f7fc;border-top:1px solid #edf1f6;font-size:12px;color:#526078}.trip-switch-bar span{font-weight:800}.trip-switch-bar b{flex:1;color:#192c45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trip-switch-bar select{flex:1;min-width:0;border:1px solid #cfdae8;border-radius:9px;padding:7px;background:#fff;color:#14263c;font-weight:750}.trip-switch-bar button{border:0;border-radius:9px;background:#e1edff;color:#225ea8;width:32px;height:32px;font-size:20px;font-weight:900}.h-row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px}
 .h-brand{display:flex;align-items:center;gap:9px;min-width:0}
 .h-title{font-size:19px;font-weight:900;letter-spacing:-.3px;white-space:nowrap}
 .h-back{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.13);color:#fff;border-radius:999px;padding:8px 13px;font-size:14px;font-weight:800;white-space:nowrap}
@@ -253,7 +253,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v4.1.1';
+const APP_VERSION = 'v4.1.2';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -1966,7 +1966,8 @@ const BAG_SVG='<svg width="31" height="31" viewBox="0 0 100 100" style="flex:non
 function renderHeader(){
   const cur=TABS.find(t=>t.id===ui.tab);
   const inHome=ui.tab==='home';
-  $('#header').innerHTML='<div class="h-row"><div class="h-brand">'+BAG_SVG+(inHome?'<div class="h-title">SK-여행</div>':'<button class="h-back" data-action="nav" data-id="home">‹ 홈</button><div class="h-title">'+esc((ui.tab==='settings'||ui.tab==='manage')?'관리':(cur?cur.lb:''))+'</div>')+'</div><button class="h-gear" data-action="nav-gear" aria-label="설정">⚙️</button></div>';
+  const activeTrip=v4TripEntries.find(t=>t.id===v4ActiveTripId);const tripPicker='<div class="trip-switch-bar"><span>여행</span><select aria-label="집중할 여행 선택" id="v4TripPicker">'+v4TripEntries.map(t=>'<option value="'+esc(t.id)+'" '+(t.id===v4ActiveTripId?'selected':'')+'>'+esc(t.name||'여행')+(t.start?' · '+esc(t.start):'')+'</option>').join('')+'</select><button data-action="trip-image" aria-label="여행 추가">＋</button></div>';
+  $('#header').innerHTML='<div class="h-row"><div class="h-brand">'+BAG_SVG+(inHome?'<div class="h-title">SK-여행</div>':'<button class="h-back" data-action="nav" data-id="home">‹ 홈</button><div class="h-title">'+esc((ui.tab==='settings'||ui.tab==='manage')?'관리':(cur?cur.lb:''))+'</div>')+'</div><button class="h-gear" data-action="nav-gear" aria-label="설정">⚙️</button></div>'+(v4TripEntries.length>1?tripPicker:'<div class="trip-switch-bar"><span>현재 여행</span><b>'+esc(activeTrip?.name||state.trip?.name||'여행 미등록')+'</b><button data-action="trip-image" aria-label="여행 업데이트 또는 추가">＋</button></div>');
 }
 function renderTabbar(){
   $('#tabbar').innerHTML=TABS.map(t=>'<button class="tab'+(ui.tab===t.id?' on':'')+'" data-action="nav" data-id="'+t.id+'" aria-current="'+(ui.tab===t.id?'page':'false')+'"><span class="ic">'+t.ic+'</span><span class="lb">'+t.lb+'</span></button>').join('');
@@ -2872,7 +2873,7 @@ function renderHome(){
   html+=renderNowCard();
   html+=renderHomeContextCard(ui.lastNowData||{fieldContext:homeCtx});
   if(ph.phase==='none'){
-    html+='<div class="card"><div class="card-title" style="margin-bottom:7px">✈️ 새 여행 등록</div><div style="font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:12px">AI가 만든 JSON 여행 패키지를 가져오면 날짜·도시·일정·팁이 자동으로 정리됩니다. HTML·MD·텍스트 문서도 가져올 수 있어요.</div><button class="btn btn-pri btn-block" data-action="trip-register">여행 파일 가져오기</button><button class="btn btn-soft btn-block" style="margin-top:8px" data-action="trip-manual">직접 여행 만들기</button></div>';
+    html+='<div class="card"><div class="card-title" style="margin-bottom:7px">✈️ 여행 업데이트하기</div><div style="font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:12px">AI가 만든 JSON 여행 패키지를 가져오면 날짜·도시·일정·팁이 자동으로 정리됩니다. HTML·MD·텍스트 문서도 가져올 수 있어요.</div><button class="btn btn-pri btn-block" data-action="trip-register">여행 정보 불러오기</button><button class="btn btn-soft btn-block" style="margin-top:8px" data-action="trip-manual">직접 일정 입력</button></div>';
   } else {
     html+=renderNextCard();
     html+=renderTomorrowCard();
@@ -3030,7 +3031,7 @@ function renderFlightSection(){
   html+='<button class="btn btn-soft btn-block" data-action="flight-add">＋ 항공편 추가</button>';
   return html;
 }
-function renderAirportSection(){
+function renderAirportSection(includeTransfers=true){
   if(!ui._airInit){ if(state.airports[0])ui.openAir.add(state.airports[0].id); ui._airInit=true; }
   let html='<div class="card-title" style="margin:4px 2px 10px">공항별 안내</div>';
   if(!state.airports.length) html+='<div class="card"><div class="empty"><div class="e">🛫</div><div class="t">등록된 공항이 없어요</div><div class="d">여행 패키지를 등록하거나 직접 추가해 주세요.</div></div></div>';
@@ -3042,6 +3043,7 @@ function renderAirportSection(){
       +'<div class="row" style="margin-top:10px"><button class="btn btn-soft btn-sm" style="flex:1" data-action="air-edit" data-id="'+a.id+'">✏️ 수정</button><button class="btn btn-danger btn-sm" style="flex:1" data-action="air-del" data-id="'+a.id+'">🗑 삭제</button></div></div></article>';
   });
   html+='<button class="btn btn-soft btn-block" data-action="air-add">＋ 공항 추가</button>';
+  if(includeTransfers){
   html+='<div class="card-title" style="margin:22px 2px 10px">공항 ↔ 숙소 이동</div>';
   if(!state.transfers.length) html+='<div class="card"><div class="empty"><div class="e">🚌</div><div class="t">이동 정보가 없어요</div></div></div>';
   state.transfers.forEach(t=>{
@@ -3051,6 +3053,7 @@ function renderAirportSection(){
       +'<div class="row" style="margin-top:10px"><button class="btn btn-soft btn-sm" style="flex:1" data-action="tr-edit" data-id="'+t.id+'">✏️ 수정</button><button class="btn btn-ghost btn-sm" style="flex:1" data-action="tr-rec" data-id="'+t.id+'">'+(t.rec?'추천 해제':'추천하기')+'</button><button class="btn btn-danger btn-sm" style="flex:1" data-action="tr-del" data-id="'+t.id+'">🗑 삭제</button></div></div></article>';
   });
   html+='<button class="btn btn-soft btn-block" data-action="tr-add">＋ 이동 방법 추가</button>';
+  }
   return html;
 }
 function hotelStayGroups(){
@@ -3090,10 +3093,11 @@ function renderHotelSection(){
 }
 function airHotelTabs(){
   const sec=ui.airHotelSection||'flights';
-  return '<div class="airhotel-tabs" role="tablist" aria-label="항공 공항 호텔"><button class="'+(sec==='flights'?'on':'')+'" data-action="airhotel-section" data-id="flights">✈️ 항공</button><button class="'+(sec==='airports'?'on':'')+'" data-action="airhotel-section" data-id="airports">🛫 공항</button><button class="'+(sec==='hotels'?'on':'')+'" data-action="airhotel-section" data-id="hotels">🏨 호텔</button></div>';
+  return '<div class="airhotel-tabs" role="tablist" aria-label="항공 공항 호텔"><button class="'+(sec==='flights'?'on':'')+'" data-action="airhotel-section" data-id="flights">✈️ 항공</button><button class="'+(sec==='airports'?'on':'')+'" data-action="airhotel-section" data-id="airports">🛫 공항</button><button class="'+(sec==='hotels'?'on':'')+'" data-action="airhotel-section" data-id="hotels">🏨 호텔</button><button class="'+(sec==='transfer'?'on':'')+'" data-action="airhotel-section" data-id="transfer">🚌 공항 이동</button></div>';
 }
+function renderTransferSection(){const h=renderAirportSection(true);return h.slice(h.indexOf('<div class="card-title" style="margin:22px 2px 10px">'));}
 function renderAirport(){
-  return '<div class="view"><div class="sec-title">✈️ 항공</div><div class="sec-desc">항공편·예약·수하물·체크인 정보를 확인합니다. 공항 이동 안내는 관리의 긴급·현장 안내에서 확인하세요.</div>'+renderFlightSection()+'</div>';
+  const sec=ui.airHotelSection||'flights';return '<div class="view"><div class="sec-title">✈️ 항공·공항</div><div class="sec-desc">선택한 여행의 항공편, 공항, 공항 이동, 숙박 정보를 한곳에서 확인합니다.</div>'+airHotelTabs()+(sec==='airports'?renderAirportSection(false):sec==='hotels'?renderHotelSection():sec==='transfer'?'<div class="card-title">공항 ↔ 숙소 이동</div>'+renderTransferSection():renderFlightSection())+'</div>';
 }
 
 /* ---------- 준비물: 원본 packing.html 100% 그대로 ---------- */
@@ -3142,20 +3146,20 @@ function v4ClockStart(){
 }
 function v4ClockStop(){window.__SK_V4_NOW=null;v4VirtualClockAt=null;window.Date=V4_NATIVE_DATE;v4ClockBanner();renderAll();refreshLiveData(false);toast('실제 현재 시각으로 돌아왔습니다.');}
 function renderV4TripManager(){
-  const rows=v4TripEntries.map(t=>'<div class="card" style="padding:13px;margin:8px 0"><div class="card-title">'+esc(t.name||'여행')+'</div><div class="small-muted">기기 저장 · '+esc(t.start||'날짜 미확인')+(t.end?' ~ '+esc(t.end):'')+(t.id===v4ActiveTripId?' · 현재 선택':'')+'</div><div class="row wrap" style="margin-top:9px"><button class="btn btn-pri btn-sm" data-action="v4-trip-open" data-id="'+esc(t.id)+'">'+(t.id===v4ActiveTripId?'현재 여행':'열기')+'</button><button class="btn btn-danger btn-sm" data-action="v4-trip-remove" data-id="'+esc(t.id)+'">기기에서 제거</button></div></div>').join('');
-  return '<div class="card"><div class="card-title">기기에 있는 여행 ('+v4TripEntries.length+'/3)</div><div class="small-muted" style="margin:5px 0 9px">기기 저장본을 열거나 제거합니다. 제거해도 Google Drive 원본은 삭제되지 않습니다.</div>'+(rows||'<div class="small-muted">아직 저장된 여행이 없습니다.</div>')+'</div>';
+ const rows=v4TripEntries.map(t=>'<div class="trip-manage-row"><div class="grow"><b>'+esc(t.name||'여행')+'</b><div class="small-muted">'+esc(t.start||'날짜 미확인')+(t.end?' ~ '+esc(t.end):'')+'</div></div><button class="btn '+(t.id===v4ActiveTripId?'btn-pri':'btn-soft')+' btn-sm" data-action="v4-trip-open" data-id="'+esc(t.id)+'">'+(t.id===v4ActiveTripId?'사용 중':'열기 · 선택')+'</button><button class="btn btn-danger btn-sm" aria-label="이 기기에서 제거" data-action="v4-trip-remove" data-id="'+esc(t.id)+'">×</button></div>').join('');
+ return '<div class="card"><div class="card-title">저장된 여행 · '+v4TripEntries.length+'개</div><div class="small-muted" style="margin:5px 0 9px">여행을 선택하면 홈·일정·항공·준비물이 그 여행 기준으로 바뀝니다. 이 기기에서 제거해도 Drive 원본은 삭제되지 않습니다.</div>'+(rows||'<div class="small-muted">저장된 여행이 없습니다.</div>')+'</div>';
 }
+
 function renderSettings(){
   const tp=state.trip; const fz=state.settings.fontScale||115;
   let html='<div class="view"><div class="sec-title">여행 관리</div>';
   html+=renderV4TripManager();
-  html+='<div class="card"><div class="card-title">새 여행 만들기</div><div class="small-muted" style="margin:5px 0 9px">여행 문서 이미지는 기기에서 OCR한 뒤 날짜와 일정을 확인합니다. 텍스트 입력은 파일·이미지 없이도 시작할 수 있습니다.</div><div class="row wrap"><button class="btn btn-pri btn-sm" data-action="trip-image">📷 일정 사진에서 만들기</button><button class="btn btn-soft btn-sm" data-action="trip-text">📝 텍스트로 만들기</button></div></div>';
+  html+='<div class="card"><div class="card-title">새 여행 업데이트하기</div><div class="small-muted" style="margin:5px 0 9px">여행 문서 이미지는 기기에서 OCR한 뒤 날짜와 일정을 확인합니다. 텍스트 입력은 파일·이미지 없이도 시작할 수 있습니다.</div><div class="row wrap"><button class="btn btn-pri btn-sm" data-action="trip-image">🖼️ 이미지로 불러오기</button><button class="btn btn-soft btn-sm" data-action="trip-text">📝 텍스트로 불러오기</button><button class="btn btn-ghost btn-sm" data-action="trip-register">📦 여행 파일 불러오기</button></div></div>';
   html+='<div class="card"><div class="card-title">🕰️ 현장 리허설 시각</div><div class="small-muted" style="margin:6px 0 9px">테스트용 가상 시각을 설정해 여행 중 화면을 미리 볼 수 있습니다. 휴대폰 시계는 바뀌지 않습니다. 리허설 중에는 실시간 날씨·환율 조회를 중지하고 가상 날짜라는 안내를 표시합니다.</div><input id="v4ClockInput" class="f-in" type="datetime-local"><div class="row wrap" style="margin-top:9px"><button class="btn btn-pri btn-sm" data-action="v4-clock-start">이 시각으로 미리 보기</button><button class="btn btn-ghost btn-sm" data-action="v4-clock-stop">실제 현재 시각으로 복귀</button></div><div class="small-muted" style="margin-top:7px">시각은 필라델피아(기기 현지 시간)로 입력하세요.</div></div>';
-  html+='<details class="card"><summary class="stack-summary">현재 일정 코드 보기 ('+supplementEventAnchors().length+') <span class="chev">▶</span></summary><div class="small-muted" style="margin:7px 0">보강자료 JSON의 eventId는 아래 값과 대소문자까지 정확히 같아야 합니다. 중복된 코드는 자동 연결하지 않습니다.</div><div style="max-height:230px;overflow:auto">'+supplementEventAnchors().map(a=>'<div class="small-muted" style="border-top:1px solid var(--line);padding:6px 0"><b>'+esc(a.eventId)+'</b> · '+esc(a.day||'')+' · '+esc(a.time||'')+' '+esc(a.title||'')+'</div>').join('')+'</div></details>';
+  html+='<details class="card"><summary class="stack-summary">고급: 일정 코드·보강자료 연결 <span class="chev">▶</span></summary><div class="small-muted" style="margin:8px 0">일정 코드는 JSON 보강자료를 정확한 일정에 연결할 때만 필요한 내부 식별자입니다. 평소 여행에서는 볼 필요가 없습니다.</div><div class="small-muted">현재 여행 코드: <code>'+esc(v4TripId(state))+'</code><br>일정별 코드: '+supplementEventAnchors().map(a=>'<div style="padding:5px 0;border-top:1px solid var(--line)">'+esc(a.eventId)+' · '+esc(a.day||'')+' · '+esc(a.title||'')+'</div>').join('')+'</div></details>';
   html+='<div class="card"><div class="card-title">일정에 자료 연결</div><div class="small-muted" style="margin:6px 0 9px">일정 원문은 유지합니다. 보강자료 JSON은 고정 일정 코드가 정확히 일치하는 경우에만 연결하고, 모르는 코드는 적용하지 않습니다.</div><div class="kv"><div class="k">현재 여행 코드</div><div class="v" style="font-size:12px;word-break:break-all">'+esc(v4TripId(state))+'</div></div><div class="row wrap" style="margin-top:9px"><button class="btn btn-pri btn-sm" data-action="supplement-paste">추가 텍스트 연결</button><button class="btn btn-soft btn-sm" data-action="supplement-image">일정에 사진 연결</button><button class="btn btn-ghost btn-sm" data-action="supplement-json">보강자료 JSON/ZIP 가져오기</button></div><div class="small-muted" style="margin-top:8px">텍스트는 날짜·일정 위치를 직접 골라 붙입니다. 사진은 일정 선택 후 기기에서 연결합니다. ZIP 자동 사진 추출은 아직 시험 중입니다.</div></div>';
   if((state.unmatchedSupplements||[]).length){html+='<details class="card"><summary class="stack-summary">미연결 보강자료 '+state.unmatchedSupplements.length+'건 보류됨 <span class="chev">▶</span></summary><div class="notice warn" style="margin-top:10px">일정 코드가 없거나 현재 일정에서 유일하게 일치하지 않아 연결하지 않았습니다. 일정의 eventId를 확인한 뒤 수정된 JSON을 다시 가져오세요.</div>'+(state.unmatchedSupplements||[]).map(x=>'<div class="small-muted" style="border-top:1px solid var(--line);padding:8px 0">코드: '+esc(x.eventId||'(없음)')+' · '+esc(x.title||x.text||x.body||'자료 제목 없음')+'</div>').join('')+'<button class="btn btn-ghost btn-sm" data-action="supp-unmatched-clear">보류 목록 비우기</button></details>';}
-  html+='<div class="card"><div class="card-title">현재 여행</div>'+(tp?(infoKV('이름',tp.name||'(이름 없음)')+infoKV('기간',(tp.start?fmtFull(tp.start):'')+(tp.end?' ~ '+fmtFull(tp.end):''))+infoKV('여행지',tp.destSummary||state.destinations.map(d=>d.city).filter(Boolean).join(' · ')||'(미설정)')):'<div class="small-muted">등록된 여행이 없습니다.</div>')+'<div class="row wrap" style="margin-top:12px"><button class="btn btn-pri btn-sm" data-action="trip-register">✈️ 여행등록</button><button class="btn btn-soft btn-sm" data-action="trip-edit">여행 정보 수정</button><button class="btn btn-ghost btn-sm" data-action="dest-manage">도시·시간대 설정</button></div></div>';
-  html+='<details class="card"><summary class="stack-summary">🛫 공항·이동 안내 <span class="chev">▶</span></summary><div style="margin-top:12px">'+renderAirportSection()+'</div></details>';
+  html+='<div class="card"><div class="card-title">선택한 여행</div>'+(tp?(infoKV('이름',tp.name||'(이름 없음)')+infoKV('기간',(tp.start?fmtFull(tp.start):'')+(tp.end?' ~ '+fmtFull(tp.end):''))+infoKV('여행지',tp.destSummary||state.destinations.map(d=>d.city).filter(Boolean).join(' · ')||'(미설정)')):'<div class="small-muted">등록된 여행이 없습니다.</div>')+'<div class="row wrap" style="margin-top:12px"><button class="btn btn-soft btn-sm" data-action="trip-edit">여행 정보 수정</button><button class="btn btn-ghost btn-sm" data-action="dest-manage">도시·시간대 설정</button></div></div>';
   html+="<div class=\"card\"><div class=\"card-title\">🚨 긴급·개인 정보</div><div class=\"small-muted\" style=\"margin:6px 0 10px\">예약·보험 등 민감한 정보는 보강자료와 분리해 관리하세요.</div><button class=\"btn btn-pri btn-block\" data-action=\"nav\" data-id=\"important\">긴급 연락처·중요 정보 열기</button></div>";
   html+=renderLocationDiagnosticsCard();
   html+='<div class="card"><div class="card-title" style="margin-bottom:7px">백업·복원</div><div class="small-muted" style="margin-bottom:11px">새 여행으로 바꾸기 전에 현재 여행을 먼저 백업합니다. 백업에 실패하면 기존 여행은 지워지지 않습니다.</div><div class="row wrap"><button class="btn btn-soft btn-sm" data-action="backup-options">⬇️ 파일로 백업</button><button class="btn btn-yellow btn-sm" data-action="drive-backup">☁️ Google Drive 백업</button><button class="btn btn-ghost btn-sm" data-action="restore-file">⬆️ 파일에서 복원</button><button class="btn btn-ghost btn-sm" data-action="drive-restore">Drive에서 복원</button><button class="btn btn-dark btn-sm" data-action="drive-config">Drive 연결 설정</button></div><div class="small-muted" style="margin-top:9px">Drive 상태: '+(state.settings.driveClientId?'Client ID 설정됨 · 폴더 “'+esc(state.settings.driveFolderName||'SK-여행 백업')+'”':'아직 연결 설정이 필요합니다')+'</div></div>';
@@ -3558,15 +3562,15 @@ function newTripFromText(raw,meta,sourceLabel){
   pendingImport={kind:'package',fileName:sourceLabel,fragment:f,warnings:['OCR/텍스트 추출 초안입니다. 날짜·시각·장소를 원본과 대조한 뒤 등록하세요. 날씨·지도 연결에는 목적지 위도·경도 확인이 필요합니다.'],summary:{name,start,end:f.trip.end,days:days.length,destinations:destinations.length,tips:0,airports:0,hotels:0,important:0}};return true;
 }
 function openNewTripText(){
-  const body=fField('새 여행 이름','name','','text','예: 스위스 열차 여행')+fField('시작 날짜','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+fArea('일정 텍스트','schedule','','날짜와 시각이 포함된 원문을 붙여 넣으세요')+'<button type="button" class="btn btn-pri btn-block" id="v4TripTextCreate" style="margin-top:10px">검토용 새 여행 만들기</button>';
-  openCustomSheet('텍스트에서 새 여행 만들기',body,()=>{document.getElementById('v4TripTextCreate').onclick=()=>{const v=v4ReadIntakeFields();if(!newTripFromText(v.schedule,v,'붙여넣은 새 여행 일정'))return;closeSheet();openImportPreview();};});
+  const body=fField('새 여행 이름','name','','text','예: 스위스 열차 여행')+fField('시작 날짜','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+fArea('일정 텍스트','schedule','','날짜와 시각이 포함된 원문을 붙여 넣으세요')+'<button type="button" class="btn btn-pri btn-block" id="v4TripTextCreate" style="margin-top:10px">내용 검토 후 여행 업데이트</button>';
+  openCustomSheet('텍스트로 여행 정보 불러오기',body,()=>{document.getElementById('v4TripTextCreate').onclick=()=>{const v=v4ReadIntakeFields();if(!newTripFromText(v.schedule,v,'붙여넣은 새 여행 일정'))return;closeSheet();openImportPreview();};});
 }
 function openNewTripPhoto(){
   const body=fField('새 여행 이름','name','','text','예: 스위스 열차 여행')+fField('시작 날짜','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+'<div class="small-muted" style="margin:6px 0 9px">사진은 이 기기에서 OCR 처리합니다. 처음에는 인터넷으로 OCR 엔진을 내려받을 수 있습니다. OCR 초안을 꼭 원본 일정과 대조하세요.</div><input id="v4TripImages" type="file" accept="image/*" multiple class="f-in"><div id="ocrStatus" style="font-size:14px;color:var(--skyDark);font-weight:800;line-height:1.6;margin-top:10px"></div><div class="bar" id="ocrBarWrap" style="display:none;margin-top:6px"><i id="ocrBar" style="width:0%"></i></div><textarea class="ta" id="ocrText" style="margin-top:10px" placeholder="사진에서 읽은 일정이 여기에 표시됩니다. 인식 오류를 고쳐 주세요."></textarea><button type="button" class="btn btn-soft btn-block" id="v4TripOcrBtn" style="margin-top:8px">사진에서 일정 텍스트 읽기</button><button type="button" class="btn btn-pri btn-block" id="v4TripCreateBtn" style="margin-top:8px">OCR 초안을 검토용 여행으로 만들기</button>';
-  openCustomSheet('일정 사진에서 새 여행 만들기',body,()=>{const fileInput=document.getElementById('v4TripImages');document.getElementById('v4TripOcrBtn').onclick=()=>{const files=[...(fileInput.files||[])];if(!files.length){toast('일정 사진을 선택하세요.');return;}runOcrFiles(files);};document.getElementById('v4TripCreateBtn').onclick=()=>{const v=v4ReadIntakeFields();if(!newTripFromText(document.getElementById('ocrText').value,v,'사진 OCR 새 여행 초안'))return;closeSheet();openImportPreview();};});
+  openCustomSheet('이미지로 여행 정보 불러오기',body,()=>{const fileInput=document.getElementById('v4TripImages');document.getElementById('v4TripOcrBtn').onclick=()=>{const files=[...(fileInput.files||[])];if(!files.length){toast('일정 사진을 선택하세요.');return;}runOcrFiles(files);};document.getElementById('v4TripCreateBtn').onclick=()=>{const v=v4ReadIntakeFields();if(!newTripFromText(document.getElementById('ocrText').value,v,'사진 OCR 새 여행 초안'))return;closeSheet();openImportPreview();};});
 }
 function openTripRegister(){
-  openCustomSheet('여행등록','<div style="font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:13px">현재 여행은 미리보기에서 먼저 백업할 수 있습니다. 안드로이드 파일 선택 화면에서는 휴대폰 파일과 Google Drive 파일을 모두 고를 수 있어요.</div><button class="btn btn-pri btn-block" id="regFileBtn">📁 파일 가져오기 (.json .html .md .txt)</button><button class="btn btn-soft btn-block" id="regPasteBtn" style="margin-top:8px">📝 JSON/텍스트 붙여넣기</button><button class="btn btn-ghost btn-block" id="regManualBtn" style="margin-top:8px">✏️ 직접 여행 만들기</button>',()=>{
+  openCustomSheet('여행등록','<div style="font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:13px">현재 여행은 미리보기에서 먼저 백업할 수 있습니다. 안드로이드 파일 선택 화면에서는 휴대폰 파일과 Google Drive 파일을 모두 고를 수 있어요.</div><button class="btn btn-pri btn-block" id="regFileBtn">📁 파일 가져오기 (.json .html .md .txt)</button><button class="btn btn-soft btn-block" id="regPasteBtn" style="margin-top:8px">📝 JSON/텍스트 붙여넣기</button><button class="btn btn-ghost btn-block" id="regManualBtn" style="margin-top:8px">✏️ 직접 일정 입력</button>',()=>{
     $('#regFileBtn').onclick=()=>{closeSheet(); pickTripFile();};
     $('#regPasteBtn').onclick=()=>openTripPaste();
     $('#regManualBtn').onclick=()=>openTripEdit();
@@ -3781,7 +3785,7 @@ const actions={
   'jump'(id){ const el=document.getElementById(id); if(el)el.scrollIntoView({behavior:'smooth',block:'start'}); },
   'refresh-live'(){ Promise.allSettled([refreshLiveData(true),refreshInfoUpdates(true)]).then(()=>toast(navigator.onLine?'날씨·환율·정보 업데이트를 확인했어요':'오프라인이라 마지막 정보를 보여줍니다')); },
   'weekly-weather'(id){ openWeeklyWeather(+id||0,false); },
-  'nav-air-section'(id){ ui.airHotelSection=['flights','airports','hotels'].includes(id)?id:'flights'; goTab('airport'); },
+  'nav-air-section'(id){ ui.airHotelSection=['flights','airports','hotels','transfer'].includes(id)?id:'flights'; goTab('airport'); },
   'trip-register'(){ openTripRegister(); },
   'trip-manual'(){ openTripEdit(); },
   'trip-edit'(){ openTripEdit(); },
@@ -3869,7 +3873,7 @@ const actions={
     state.days=state.days.map(normalizeDay).sort((a,b)=>(a.date||'9999')<(b.date||'9999')?-1:1); save(); renderMain(); toast('일정으로 변환했어요');
   },
   // 항공·공항·호텔
-  'airhotel-section'(id){ ui.airHotelSection=['flights','airports','hotels'].includes(id)?id:'flights'; renderMain(); },
+  'airhotel-section'(id){ ui.airHotelSection=['flights','airports','hotels','transfer'].includes(id)?id:'flights'; renderMain(); },
   'flight-toggle'(id){ ui.openFlight.has(id)?ui.openFlight.delete(id):ui.openFlight.add(id); keepScroll(renderMain); },
   'secret-toggle'(id){ ui.revealed.has(id)?ui.revealed.delete(id):ui.revealed.add(id); keepScroll(renderMain); },
   'flight-copy'(id){ const r=getReservationInfo(); let val=''; if(id==='booking')val=r.bookingRef; else if(String(id).startsWith('eticket-')){ const p=(r.passengers||[])[+String(id).slice(8)]; val=p?p.eTicket:''; } if(val)copyText(val); else toast('복사할 번호가 없어요'); },
@@ -3904,6 +3908,7 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('change',e=>{
   const id=e.target.id;
+  if(id==='v4TripPicker'&&e.target.value)v4SwitchTrip(e.target.value);
   if(id==='tripFile'){ handleTripFile(e.target.files[0]); e.target.value=''; }
   if(id==='backupFile'){ handleBackupFile(e.target.files[0]); e.target.value=''; }
   if(id==='camInput'||id==='imgInput'){ runOcrFiles(Array.from(e.target.files||[])); e.target.value=''; }

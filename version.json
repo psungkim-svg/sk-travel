@@ -1,7 +1,7 @@
 {
   "app": "SK-여행",
-  "version": "v4.1.1",
-  "releasedAt": "2026-10-29",
-  "releaseDate": "2026-10-29",
-  "notes": "Packing sections remain fixed; individual tasks support add, reorder, cross-section move, and delete. Exact-ID supplements and rehearsal mode retained."
+  "version": "v4.1.2",
+  "releasedAt": "2026-11-10",
+  "releaseDate": "2026-11-10",
+  "notes": "Added global trip selector, clarified per-device trip list and controls, moved airport transfers to aviation, simplified trip intake labels, and added trip-specific nested notes in packing section 7."
 }

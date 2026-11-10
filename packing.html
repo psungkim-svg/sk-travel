@@ -53,7 +53,7 @@ font-family: inherit; resize: vertical;
 }
 .memo-input-area .btn-row { display: flex; gap: 6px; margin-top: 6px; }
 .saved-memos { margin-top: 10px; }
-.saved-memo-item {
+.memo-subnotes{margin:6px 0 8px}.memo-subnote{padding:5px 8px;margin:4px 0;border-radius:7px;background:#f3f7ff;font-size:13px}.memo-subnote button{float:right;border:0;background:transparent;color:#a33;font-weight:900}.memo-sub-add{border:0;background:transparent;color:#3566a8;font-size:12px;padding:4px 0}.saved-memo-item {
 display: flex; justify-content: space-between; align-items: flex-start;
 background: #eef6ff; border: 1px solid #cce0ff; border-radius: 8px;
 padding: 10px; margin-bottom: 6px; font-size: 16px; font-weight: 600;
@@ -403,6 +403,7 @@ body.v4-drag-active .check-grid .item:not(.task-dragging) { transition:box-shado
 <!-- ==================== 7. 여행용 메모 (입력 기능 포함) ==================== -->
 <details>
 <summary>7️⃣ 여행용 메모</summary>
+<div class="small-muted" style="padding:8px 12px 0">기존 메모 제목(예: 공항 복장)을 두 번 누르면 그 아래에 여행별 메모를 추가할 수 있어요.</div>
 <div class="content">
 <div class="note">
 <strong>👕 공항 복장</strong>
@@ -440,7 +441,15 @@ body.v4-drag-active .check-grid .item:not(.task-dragging) { transition:box-shado
 // v4: item template is shared; completion keys are namespaced per trip.
 let activeV4TripKey='default';
 function v4PackCheckKey(id){let trip=activeV4TripKey;try{trip=window.parent.__SK_V4_TRIP_ID||trip}catch(e){}return 'travel_v4_check_'+encodeURIComponent(trip)+'_'+id;}
-window.setV4TripId=function(id){activeV4TripKey=String(id||'default');document.querySelectorAll('details:nth-of-type(-n+5) .content input[type=\"checkbox\"][data-id]').forEach(chk=>{chk.checked=localStorage.getItem(v4PackCheckKey(chk.dataset.id))==='1';});};
+window.setV4TripId=function(id){activeV4TripKey=String(id||'default');renderMemoSubnotes();document.querySelectorAll('details:nth-of-type(-n+5) .content input[type=\"checkbox\"][data-id]').forEach(chk=>{chk.checked=localStorage.getItem(v4PackCheckKey(chk.dataset.id))==='1';});};
+// 7번 여행용 메모: 기존 제목(예: 공항 복장)을 두 번 눌러 해당 박스 아래에 여행별 메모를 추가합니다.
+function memoSubKey(title){return 'travel_v4_memo_sub_'+encodeURIComponent(activeV4TripKey)+'_'+encodeURIComponent(title);}
+function memoSection(){return [...document.querySelectorAll('details')].find(d=>d.querySelector('summary')?.textContent.includes('여행용 메모'));}
+function renderMemoSubnotes(){const section=memoSection();if(!section)return;section.querySelectorAll('.note>strong').forEach((head,idx)=>{const title=head.textContent.trim();let box=head.parentElement.querySelector('.memo-subnotes');if(!box){box=document.createElement('div');box.className='memo-subnotes';head.insertAdjacentElement('afterend',box);}let rows=[];try{rows=JSON.parse(localStorage.getItem(memoSubKey(title))||'[]')}catch(e){}box.innerHTML=rows.map((x,i)=>'<div class="memo-subnote">'+escapeHtmlMemo(x)+' <button type="button" aria-label="메모 삭제" data-memo-sub-del="'+i+'" data-memo-title="'+escapeAttrMemo(title)+'">×</button></div>').join('')+'<button type="button" class="memo-sub-add" data-memo-sub-add="1" data-memo-title="'+escapeAttrMemo(title)+'">＋ 이 메모에 추가</button>';head.title='두 번 눌러 이 메모 아래에 내용을 추가';head.style.cursor='pointer';});}
+function escapeHtmlMemo(x){const d=document.createElement('div');d.textContent=String(x);return d.innerHTML}function escapeAttrMemo(x){return String(x).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function addMemoSub(title){const text=prompt('“'+title+'” 아래에 추가할 내용을 입력하세요.');if(text===null||!text.trim())return;const k=memoSubKey(title);let rows=[];try{rows=JSON.parse(localStorage.getItem(k)||'[]')}catch(e){}rows.push(text.trim());localStorage.setItem(k,JSON.stringify(rows));renderMemoSubnotes();}
+document.addEventListener('dblclick',e=>{const h=e.target.closest('.note>strong');if(h&&memoSection()?.contains(h))addMemoSub(h.textContent.trim());});
+document.addEventListener('click',e=>{const add=e.target.closest('[data-memo-sub-add]');if(add){addMemoSub(add.dataset.memoTitle);return;}const del=e.target.closest('[data-memo-sub-del]');if(del){const k=memoSubKey(del.dataset.memoTitle);let rows=[];try{rows=JSON.parse(localStorage.getItem(k)||'[]')}catch(e){}rows.splice(+del.dataset.memoSubDel,1);localStorage.setItem(k,JSON.stringify(rows));renderMemoSubnotes();}});
 // 체크박스 저장
 const checks = document.querySelectorAll('input[type="checkbox"]');
 checks.forEach(chk => {
