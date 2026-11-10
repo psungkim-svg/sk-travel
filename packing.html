@@ -64,6 +64,31 @@ background: #d9534f; color: white; border: none; border-radius: 6px;
 padding: 4px 10px; font-size: 13px; font-weight: bold; cursor: pointer;
 flex-shrink: 0; margin-left: 8px;
 }
+
+.task-editable { position:relative; padding-right:30px; }
+.task-label { flex:1; min-width:48px; }
+.task-delete-btn { position:absolute; top:4px; right:4px; width:21px; height:21px; padding:0; display:grid; place-items:center; border-radius:50%; background:#fff0f0; color:#a52d2d; border:1px solid #efc5c5; font-size:17px; line-height:1; font-weight:800; }
+.task-dragging { outline:2px solid #2368cb; box-shadow:0 12px 28px #174b9166; z-index:20; will-change:transform; }
+.task-drop-placeholder { display:flex; align-items:center; justify-content:center; border:2px dashed #3d82e8 !important; background:#eaf3ff !important; color:#265b9b; font-size:12px; font-weight:800; border-radius:8px; opacity:.78; transition:background .14s ease,border-color .14s ease; }
+.task-group-controls { margin-top:7px; }
+.task-add-btn { background:#fff; color:#1f6feb; border:1px dashed #9cc0ff; padding:7px 10px; font-size:13px; }
+.v4-delete-overlay { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; padding:18px; background:#10203b77; }
+.v4-delete-box { width:min(100%,390px); border-radius:16px; background:#fff; box-shadow:0 20px 55px #0004; padding:20px; color:#17233b; font-family:inherit; }
+.v4-delete-title { font-size:19px; font-weight:900; margin-bottom:10px; }
+.v4-delete-message { font-size:15px; line-height:1.55; }
+.v4-delete-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:18px; }
+.v4-delete-actions button { padding:9px 16px; border-radius:9px; font:800 14px inherit; }
+.v4-cancel-delete { background:#eef2f7; color:#26354c; }
+.v4-confirm-delete { background:#c93535; color:#fff; }
+.v4-drag-hint { position:fixed; z-index:9998; left:50%; bottom:16px; transform:translateX(-50%); width:max-content; max-width:calc(100% - 24px); padding:9px 12px; border-radius:11px; background:#123c79; color:white; box-shadow:0 5px 18px #0003; font:700 13px/1.35 sans-serif; text-align:center; }
+body.v4-drag-active { user-select:none; cursor:grabbing; }
+body.v4-drag-active .check-grid .item:not(.task-dragging) { transition:box-shadow .12s ease; }
+@media (max-width:520px) {
+  .check-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap:6px; }
+  .span-2, .span-3, .span-4 { grid-column: span 2; }
+  .span-1 { grid-column: span 1; }
+}
+
 </style>
 </head>
 <body>
@@ -412,10 +437,14 @@ flex-shrink: 0; margin-left: 8px;
 <div class="footer"></div>
 </div>
 <script>
+// v4: item template is shared; completion keys are namespaced per trip.
+let activeV4TripKey='default';
+function v4PackCheckKey(id){let trip=activeV4TripKey;try{trip=window.parent.__SK_V4_TRIP_ID||trip}catch(e){}return 'travel_v4_check_'+encodeURIComponent(trip)+'_'+id;}
+window.setV4TripId=function(id){activeV4TripKey=String(id||'default');document.querySelectorAll('details:nth-of-type(-n+5) .content input[type=\"checkbox\"][data-id]').forEach(chk=>{chk.checked=localStorage.getItem(v4PackCheckKey(chk.dataset.id))==='1';});};
 // 체크박스 저장
 const checks = document.querySelectorAll('input[type="checkbox"]');
 checks.forEach(chk => {
-const key = 'travel_v4_' + chk.dataset.id;
+const key = v4PackCheckKey(chk.dataset.id);
 chk.checked = localStorage.getItem(key) === '1';
 chk.addEventListener('change', () => {
 localStorage.setItem(key, chk.checked ? '1' : '0');
@@ -426,9 +455,9 @@ document.querySelectorAll('details').forEach(d => d.open = open);
 }
 function resetChecks() {
 if (!confirm('체크한 항목을 모두 초기화할까요?')) return;
-checks.forEach(chk => {
+document.querySelectorAll('details:nth-of-type(-n+5) .content input[type="checkbox"][data-id]').forEach(chk => {
 chk.checked = false;
-localStorage.removeItem('travel_v4_' + chk.dataset.id);
+localStorage.removeItem(v4PackCheckKey(chk.dataset.id));
 });
 }
 // 메모 기능
@@ -480,70 +509,95 @@ renderMemos();
 }
 renderMemos();
 
- // ----- 사용자 추가 항목 (섹션 1~5) -----
+ // ----- 개별 준비물/할 일 편집: 섹션은 고정, 안의 항목만 추가·이동·삭제 -----
  const EX_KEY = 'travel_v4_extras';
- function getEx(){ try { return JSON.parse(localStorage.getItem(EX_KEY)) || {}; } catch(e){ return {}; } }
- function saveEx(o){ localStorage.setItem(EX_KEY, JSON.stringify(o)); }
+ const ITEM_LAYOUT_KEY = 'travel_v4_item_layout';
+ const ITEM_ORDER_KEY = 'travel_v4_item_order';
+ const ITEM_DELETED_KEY = 'travel_v4_deleted_items';
+ function getEx(){try{return JSON.parse(localStorage.getItem(EX_KEY))||{};}catch(e){return {};}}
+ function saveEx(o){localStorage.setItem(EX_KEY,JSON.stringify(o));}
+ function getObj(k){try{return JSON.parse(localStorage.getItem(k))||{};}catch(e){return {};}}
+ function getDeleted(){try{return JSON.parse(localStorage.getItem(ITEM_DELETED_KEY))||[];}catch(e){return [];}}
+ function getTaskGroups(){
+  const out=[];
+  [...document.querySelectorAll('details')].slice(0,5).forEach((d,si)=>{
+   [...d.querySelectorAll('.content > .group:not(.extras):not(.legacy-extras)')].forEach((g,gi)=>{
+    const key='s'+si+'g'+gi;g.dataset.taskGroup=key;
+    const h=g.querySelector('h3');out.push({key,section:d.querySelector('summary').textContent.trim(),label:(h?h.textContent.trim():'할 일 목록'),group:g,grid:g.querySelector('.check-grid')});
+   });
+  });
+  return out;
+ }
+ function allTaskCheckboxes(){return [...document.querySelectorAll('details:nth-of-type(-n+5) .content .item:not([data-custom-task="1"]) input[type="checkbox"][data-id]')];}
+ function taskId(row){const c=row.querySelector('input[type="checkbox"][data-id]');return c?String(c.dataset.id):'';}
+ function bindTaskCheckbox(cb){if(cb.dataset.v4Bound==='1')return;cb.dataset.v4Bound='1';cb.addEventListener('change',()=>localStorage.setItem(v4PackCheckKey(cb.dataset.id),cb.checked?'1':'0'));}
+ function normalizeTaskRow(row){row.classList.add('task-editable');const cb=row.querySelector('input[type="checkbox"][data-id]');if(!cb)return;bindTaskCheckbox(cb);cb.checked=localStorage.getItem(v4PackCheckKey(cb.dataset.id))==='1';let text=row.querySelector('.task-label');if(!text){const node=[...row.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());if(node){text=document.createElement('span');text.className='task-label';text.textContent=node.textContent.trim();node.replaceWith(text);}}}
+ function makeTaskDelete(row){
+  row.querySelector('.task-delete-btn')?.remove();row.classList.add('task-editable');const id=taskId(row),b=document.createElement('button');b.type='button';b.className='task-delete-btn';b.textContent='×';b.title='항목 삭제';b.setAttribute('aria-label','삭제: '+(row.querySelector('.task-label')?.textContent||'항목'));b.onclick=e=>{e.preventDefault();e.stopPropagation();showDeleteTaskDialog(row);};row.appendChild(b);
+ }
+ function showDeleteTaskDialog(row){
+  document.querySelector('.v4-delete-overlay')?.remove();const overlay=document.createElement('div');overlay.className='v4-delete-overlay';overlay.setAttribute('role','presentation');
+  const box=document.createElement('div');box.className='v4-delete-box';box.setAttribute('role','alertdialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-labelledby','v4DeleteTitle');
+  const title=document.createElement('div');title.id='v4DeleteTitle';title.className='v4-delete-title';title.textContent='준비물 삭제';
+  const msg=document.createElement('div');msg.className='v4-delete-message';msg.textContent='“'+(row.querySelector('.task-label')?.textContent||'이 항목')+'”을 삭제할까요? 공통 준비물 틀에서 삭제되어 모든 여행에 반영됩니다.';
+  const actions=document.createElement('div');actions.className='v4-delete-actions';const cancel=document.createElement('button');cancel.type='button';cancel.className='v4-cancel-delete';cancel.textContent='취소';const del=document.createElement('button');del.type='button';del.className='v4-confirm-delete';del.textContent='삭제';
+  const close=()=>{overlay.remove();document.removeEventListener('keydown',onKey);};const onKey=e=>{if(e.key==='Escape')close();};cancel.onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};del.onclick=()=>{const id=taskId(row);if(id){if(row.dataset.customTask==='1')removeCustomItem(id);else{const d=getDeleted();if(!d.includes(id)){d.push(id);localStorage.setItem(ITEM_DELETED_KEY,JSON.stringify(d));}}localStorage.removeItem(v4PackCheckKey(id));}close();renderExtras();setTimeout(renderExtras,0);};
+  actions.append(cancel,del);box.append(title,msg,actions);overlay.appendChild(box);document.body.appendChild(overlay);document.addEventListener('keydown',onKey);del.focus();
+ }
+ let v4ActiveDrag=null;
+ function flipGrid(grid,mutate){
+  if(!grid){mutate();return;}const nodes=[...grid.querySelectorAll('.item:not(.task-dragging):not(.task-drop-placeholder)')],before=new Map(nodes.map(n=>[n,n.getBoundingClientRect()]));mutate();
+  nodes.forEach(n=>{if(!n.isConnected)return;const a=before.get(n),b=n.getBoundingClientRect(),dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)+Math.abs(dy)>1)n.animate([{transform:`translate3d(${dx}px,${dy}px,0)`},{transform:'translate3d(0,0,0)'}],{duration:170,easing:'cubic-bezier(.2,.75,.25,1)'});});
+ }
+ function finishTaskDrag(){
+  const d=v4ActiveDrag;if(!d)return;clearTimeout(d.timer);document.removeEventListener('pointermove',onTaskPointerMove);document.removeEventListener('pointerup',onTaskPointerUp);document.removeEventListener('pointercancel',onTaskPointerUp);document.body.classList.remove('v4-drag-active');document.querySelector('.v4-drag-hint')?.remove();v4ActiveDrag=null;
+  if(!d.dragging)return;const id=taskId(d.row),target=d.placeholder?.closest('[data-task-group]')?.dataset.taskGroup||d.startGroup;if(!id||!target){d.placeholder?.remove();return;}
+  d.row.classList.remove('task-dragging');d.row.style.position='';d.row.style.left='';d.row.style.top='';d.row.style.width='';d.row.style.height='';d.row.style.margin='';d.row.style.zIndex='';d.row.style.opacity='';d.row.style.pointerEvents='';d.row.style.transform='';d.row.style.transition='';if(d.placeholder&&d.placeholder.parentNode)d.placeholder.replaceWith(d.row);
+  if(target!==d.startGroup){if(d.row.dataset.customTask==='1'){const o=getEx();let item=null;Object.keys(o).forEach(k=>{if(Array.isArray(o[k])){const i=o[k].findIndex(x=>String(x.id)===id);if(i>=0)item=o[k].splice(i,1)[0];}});if(item){(o[target]=o[target]||[]).push(item);saveEx(o);}}else{const l=getObj(ITEM_LAYOUT_KEY);l[id]=target;localStorage.setItem(ITEM_LAYOUT_KEY,JSON.stringify(l));}}
+  const orders=getObj(ITEM_ORDER_KEY);[d.startGroup,target].forEach(key=>{const grid=document.querySelector('[data-task-group="'+CSS.escape(key)+'"] .check-grid');if(grid)orders[key]=[...grid.querySelectorAll('.item')].map(taskId).filter(Boolean);});localStorage.setItem(ITEM_ORDER_KEY,JSON.stringify(orders));renderExtras();setTimeout(()=>{renderExtras();const landed=[...document.querySelectorAll('.item')].find(x=>taskId(x)===id);if(landed)landed.animate([{transform:'scale(.97)',opacity:.8},{transform:'scale(1)',opacity:1}],{duration:150,easing:'ease-out'});},0);
+ }
+ function onTaskPointerMove(e){
+  const d=v4ActiveDrag;if(!d)return;if(!d.dragging){if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>12)clearTimeout(d.timer);return;}
+  e.preventDefault();d.row.style.transform=`translate3d(${e.clientX-d.x}px,${e.clientY-d.y}px,0) scale(1.025)`;const under=document.elementFromPoint(e.clientX,e.clientY);if(!under)return;let grid=under.closest('.check-grid'),container=under.closest('[data-task-group]');if(!grid&&container)grid=container.querySelector('.check-grid');if(!grid)return;container=grid.closest('[data-task-group]');if(!container)return;const groups=getTaskGroups();if(!groups.some(g=>g.key===container.dataset.taskGroup)){const legacy=document.querySelector('.legacy-extras[data-task-group="'+CSS.escape(container.dataset.taskGroup)+'"]');if(!legacy)return;}
+  const target=under.closest('.item'),currentGrid=d.placeholder?.parentElement;if(!d.placeholder)return;
+  const movePlaceholder=()=>{if(target&&target!==d.row&&target!==d.placeholder&&target.parentElement===grid){const r=target.getBoundingClientRect(),before=e.clientY<r.top+r.height/2;if(before){if(d.placeholder.nextElementSibling!==target)grid.insertBefore(d.placeholder,target);}else if(target.nextElementSibling!==d.placeholder)grid.insertBefore(d.placeholder,target.nextSibling);}else if(d.placeholder.parentElement!==grid||d.placeholder!==grid.lastElementChild)grid.appendChild(d.placeholder);};
+  if(currentGrid!==grid){flipGrid(currentGrid,()=>{});flipGrid(grid,movePlaceholder);}else{const prev=d.placeholder.previousElementSibling,next=d.placeholder.nextElementSibling;let noop=false;if(target&&target===prev&&target.isConnected&&e.clientY>target.getBoundingClientRect().top+target.getBoundingClientRect().height/2)noop=true;if(target&&target===next&&target.isConnected&&e.clientY<target.getBoundingClientRect().top+target.getBoundingClientRect().height/2)noop=true;if(!noop)flipGrid(grid,movePlaceholder);}
+ }
+ function onTaskPointerUp(){if(v4ActiveDrag&&v4ActiveDrag.pointerType!=='touch')finishTaskDrag();}
+ function activateTaskDrag(d){if(!d||v4ActiveDrag!==d||d.dragging)return;const r=d.row.getBoundingClientRect(),grid=d.row.parentElement,ph=document.createElement('div');ph.className=d.row.className+' task-drop-placeholder';ph.classList.remove('task-dragging');ph.textContent='놓을 위치';ph.style.height=r.height+'px';ph.style.gridColumn=getComputedStyle(d.row).gridColumn;d.placeholder=ph;grid.insertBefore(ph,d.row);d.row.classList.add('task-dragging');d.row.style.position='fixed';d.row.style.left=r.left+'px';d.row.style.top=r.top+'px';d.row.style.width=r.width+'px';d.row.style.height=r.height+'px';d.row.style.margin='0';d.row.style.zIndex='10000';d.row.style.pointerEvents='none';d.row.style.opacity='.96';d.row.style.transform='scale(1.025)';d.row.style.transition='transform 90ms cubic-bezier(.2,.75,.25,1),box-shadow 120ms ease';d.dragging=true;document.body.classList.add('v4-drag-active');const hint=document.createElement('div');hint.className='v4-drag-hint';hint.textContent='누른 채 원하는 목록이나 항목 위로 끌어 이동 · 놓으면 저장';document.body.appendChild(hint);if(navigator.vibrate)navigator.vibrate(25);}
+ function onTaskTouchMove(e){const d=v4ActiveDrag;if(!d||d.pointerType!=='touch')return;const t=e.touches&&e.touches[0];if(!t)return;if(!d.dragging){if(Math.hypot(t.clientX-d.x,t.clientY-d.y)>12)clearTimeout(d.timer);return;}e.preventDefault();onTaskPointerMove({clientX:t.clientX,clientY:t.clientY,preventDefault:()=>e.preventDefault()});}
+ function onTaskTouchEnd(){if(v4ActiveDrag&&v4ActiveDrag.pointerType==='touch'){if(v4ActiveDrag.dragging)v4ActiveDrag.row.dataset.suppressClick='1';finishTaskDrag();setTimeout(()=>document.querySelectorAll('.task-editable[data-suppress-click="1"]').forEach(x=>x.dataset.suppressClick='0'),500);}}
+ function bindTaskLongPress(row){
+  if(row.dataset.longPressBound==='1')return;row.dataset.longPressBound='1';
+  row.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.button!==0||e.target.closest('.task-delete-btn')||e.target.closest('input'))return;if(v4ActiveDrag)finishTaskDrag();const d={row,x:e.clientX,y:e.clientY,startGroup:row.closest('[data-task-group]')?.dataset.taskGroup||'',dragging:false,pointerType:'mouse',timer:null};v4ActiveDrag=d;d.timer=setTimeout(()=>activateTaskDrag(d),520);document.addEventListener('pointermove',onTaskPointerMove,{passive:false});document.addEventListener('pointerup',onTaskPointerUp);document.addEventListener('pointercancel',onTaskPointerUp);},{passive:true});
+  row.addEventListener('touchstart',e=>{if(e.target.closest('.task-delete-btn')||e.target.closest('input')||!e.touches||e.touches.length!==1)return;if(v4ActiveDrag)finishTaskDrag();const t=e.touches[0],d={row,x:t.clientX,y:t.clientY,startGroup:row.closest('[data-task-group]')?.dataset.taskGroup||'',dragging:false,pointerType:'touch',timer:null};v4ActiveDrag=d;d.timer=setTimeout(()=>activateTaskDrag(d),520);},{passive:true});
+  if(!window.__v4TouchTaskListeners){window.__v4TouchTaskListeners=true;document.addEventListener('touchmove',onTaskTouchMove,{passive:false});document.addEventListener('touchend',onTaskTouchEnd,{passive:true});document.addEventListener('touchcancel',onTaskTouchEnd,{passive:true});}
+  row.addEventListener('click',e=>{if(row.dataset.suppressClick==='1'){e.preventDefault();e.stopPropagation();row.dataset.suppressClick='0';}},true);
+  row.addEventListener('pointerup',()=>{if(v4ActiveDrag&&v4ActiveDrag.row===row&&v4ActiveDrag.dragging&&v4ActiveDrag.pointerType==='mouse'){row.dataset.suppressClick='1';setTimeout(()=>row.dataset.suppressClick='0',500);}},true);
+ }
+ function removeCustomItem(id){const o=getEx();Object.keys(o).forEach(k=>{if(Array.isArray(o[k]))o[k]=o[k].filter(x=>String(x.id)!==id);});saveEx(o);}
+ function addTask(group){const text=prompt('“'+group.label+'”에 추가할 준비물/할 일을 입력하세요.','');if(text==null||!text.trim())return;const id='x_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);const o=getEx();(o[group.key]=o[group.key]||[]).push({id,text:text.trim()});saveEx(o);renderExtras();}
  function renderExtras(){
-  document.querySelectorAll('details').forEach((d, idx) => {
-   if (idx > 4) return;
-   const content = d.querySelector('.content'); if (!content) return;
-   const old = content.querySelector('.extras'); if (old) old.remove();
-   const wrap = document.createElement('div');
-   wrap.className = 'extras group';
-   const list = getEx()[String(idx)] || [];
-   if (list.length){
-    const grid = document.createElement('div');
-    grid.className = 'check-grid';
-    list.forEach((it, i) => {
-     const lb = document.createElement('label');
-     lb.className = 'item span-2';
-     const cb = document.createElement('input');
-     cb.type = 'checkbox'; cb.dataset.id = it.id;
-     cb.checked = localStorage.getItem('travel_v4_' + it.id) === '1';
-     cb.addEventListener('change', () => { localStorage.setItem('travel_v4_' + it.id, cb.checked ? '1' : '0'); });
-     lb.appendChild(cb);
-     const sp = document.createElement('span'); sp.textContent = it.text;
-     lb.appendChild(sp);
-     const del = document.createElement('button');
-     del.type = 'button'; del.textContent = '✕'; del.title = '삭제';
-     del.style.cssText = 'margin-left:auto;background:none;border:none;color:#aab3c5;font-size:12px;padding:2px 2px 2px 6px;cursor:pointer;flex:none;font-weight:bold';
-     del.onclick = e => { e.preventDefault();
-      const o = getEx(); o[String(idx)].splice(i, 1); saveEx(o); renderExtras(); };
-     lb.appendChild(del);
-     grid.appendChild(lb);
-    });
-    wrap.appendChild(grid);
-   }
-   const btn = document.createElement('button');
-   btn.type = 'button'; btn.textContent = '＋ 항목 추가';
-   btn.style.cssText = 'width:100%;margin-top:8px;background:#fff;color:#1f6feb;border:1.5px dashed #9cc0ff;padding:9px;font-size:14px';
-   const form = document.createElement('div');
-   form.style.cssText = 'display:none;margin-top:8px;gap:6px';
-   const input = document.createElement('input');
-   input.type = 'text'; input.placeholder = '추가할 준비물 이름';
-   input.style.cssText = 'flex:1;border:1px solid #cce0ff;border-radius:8px;padding:9px;font-size:14px';
-   const sv = document.createElement('button');
-   sv.type = 'button'; sv.textContent = '저장'; sv.className = 'small';
-   sv.onclick = () => {
-    const txt = input.value.trim(); if (!txt) return;
-    const o = getEx(); const k = String(idx);
-    (o[k] = o[k] || []).push({ id: 'x' + idx + '_' + Date.now(), text: txt });
-    saveEx(o); renderExtras();
-   };
-   input.addEventListener('keydown', e => { if (e.key === 'Enter') sv.click(); });
-   btn.onclick = () => {
-    const open = form.style.display === 'flex';
-    form.style.display = open ? 'none' : 'flex';
-    if (!open) input.focus();
-   };
-   form.appendChild(input); form.appendChild(sv);
-   wrap.appendChild(btn); wrap.appendChild(form);
-   content.appendChild(wrap);
+  const allGroups=getTaskGroups();if(!allGroups.length)return;const ex=getEx(),layout=getObj(ITEM_LAYOUT_KEY),deleted=new Set(getDeleted()),groups=new Map(allGroups.map(g=>[g.key,g]));
+  // Restore/migrate old section-level additions into a separate list within that same expanded section.
+  [...document.querySelectorAll('details')].slice(0,5).forEach((d,si)=>{
+   const oldList=Array.isArray(ex[String(si)])?ex[String(si)]:[];const key='s'+si+'legacy',newList=Array.isArray(ex[key])?ex[key]:[];let legacy=d.querySelector('.legacy-extras');if(!oldList.length&&!newList.length){if(legacy)legacy.remove();return;}if(!legacy){legacy=document.createElement('div');legacy.className='group legacy-extras';legacy.dataset.taskGroup=key;legacy.innerHTML='<h3>내가 추가한 항목</h3><div class="check-grid"></div>';d.querySelector('.content').appendChild(legacy);}
+   const group={key,section:d.querySelector('summary').textContent.trim(),label:'내가 추가한 항목',group:legacy,grid:legacy.querySelector('.check-grid')};groups.set(key,group);
+  });
+  // Original items are preserved by default; saved item-level moves/deletions affect only rows.
+  const builtIn=new Map();allTaskCheckboxes().forEach(cb=>{const row=cb.closest('.item'),id=String(cb.dataset.id);if(!row)return;if(deleted.has(id)){row.remove();return;}builtIn.set(id,row);});
+  builtIn.forEach((row,id)=>{const current=row.closest('[data-task-group]')?.dataset.taskGroup;const targetKey=groups.has(layout[id])?layout[id]:current;const target=groups.get(targetKey)||allGroups[0];if(target.grid&&row.parentElement!==target.grid)target.grid.appendChild(row);});
+  // Recreate user-added rows from the shared template, but leave checked state trip-specific.
+  groups.forEach(group=>{group.grid.querySelectorAll('.item[data-custom-task="1"]').forEach(x=>x.remove());});
+  Object.keys(ex).forEach(k=>{if(!Array.isArray(ex[k]))return;let targetKey=k;if(/^\d+$/.test(k))targetKey='s'+k+'legacy';const group=groups.get(targetKey);if(!group)return;ex[k].forEach(it=>{if(!it||!it.id||builtIn.has(String(it.id)))return;const row=document.createElement('label');row.className='item span-4';row.dataset.customTask='1';const cb=document.createElement('input');cb.type='checkbox';cb.dataset.id=String(it.id);cb.checked=localStorage.getItem(v4PackCheckKey(cb.dataset.id))==='1';bindTaskCheckbox(cb);const span=document.createElement('span');span.className='task-label';span.textContent=String(it.text||'');row.append(cb,span);group.grid.appendChild(row);});});
+  // Apply a persistent order within each checklist grid.
+  const orders=getObj(ITEM_ORDER_KEY);groups.forEach(group=>{const order=Array.isArray(orders[group.key])?orders[group.key]:[];const rows=new Map([...group.grid.querySelectorAll('.item')].map(r=>[taskId(r),r]));order.forEach(id=>{const row=rows.get(String(id));if(row)group.grid.appendChild(row);});});
+  groups.forEach(group=>{
+   [...group.grid.querySelectorAll('.item')].forEach(row=>{normalizeTaskRow(row);makeTaskDelete(row);bindTaskLongPress(row);});
+   let controls=group.group.querySelector('.task-group-controls');if(!controls){controls=document.createElement('div');controls.className='task-group-controls';group.group.appendChild(controls);}controls.replaceChildren();const add=document.createElement('button');add.type='button';add.className='task-add-btn';add.textContent='＋ 이 목록에 할 일 추가';add.onclick=()=>addTask(group);controls.appendChild(add);
   });
  }
  renderExtras();
-
  function startVoice() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) { alert('이 브라우저에서는 음성 입력이 안 돼요. 크롬에서 열어 보세요.'); return; }
