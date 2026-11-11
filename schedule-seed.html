@@ -20,16 +20,16 @@ h1{font-size:24px;line-height:1.3;margin:6px 0 4px}
 .bar button{flex:1;font:inherit;font-size:16px;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;cursor:pointer}
 .next{background:var(--acbg);border-radius:12px;padding:12px 14px;margin:0 0 14px;font-weight:500}
 details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:0 0 10px;overflow:hidden}
-summary{list-style:none;cursor:pointer;padding:14px;display:flex;gap:12px;align-items:center;min-height:64px}
+summary{list-style:none;cursor:pointer;padding:8px 10px;display:flex;gap:9px;align-items:center;min-height:48px}
 summary::-webkit-details-marker{display:none}
 summary:focus-visible,.bar button:focus-visible,a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-.dt{flex:none;width:62px;text-align:center;background:var(--acbg);color:var(--ac);border-radius:10px;padding:4px 0;font-weight:700;line-height:1.25}
+.dt{flex:none;width:53px;text-align:center;background:var(--acbg);color:var(--ac);border-radius:10px;padding:4px 0;font-weight:700;line-height:1.25}
 .dt small{display:block;font-weight:500;font-size:13px}
 .tt{flex:1;min-width:0}
-.tt b{display:block;font-size:19px;line-height:1.35}
-.tt span{color:var(--sub);font-size:15px}
-.chev{flex:none;width:12px;height:12px;border-right:3px solid var(--sub);border-bottom:3px solid var(--sub);transform:rotate(45deg);transition:transform .2s}
-details[open] .chev{transform:rotate(-135deg)}
+.tt b{display:block;font-size:15.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt span{color:var(--sub);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chev{flex:none;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid var(--sub);transform:rotate(0);transition:transform .18s ease}
+details[open] .chev{transform:rotate(90deg)}
 details[open]{border-color:var(--ac)}
 .body{padding:2px 16px 16px;border-top:1px solid var(--line)}
 .body ul{margin:10px 0;padding-left:20px}
@@ -57,11 +57,11 @@ h2{font-size:18px;margin:22px 0 10px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--chkbg:#4a2220;--chkink:#f5b9b2}}
 :root[data-theme="dark"]{--chkbg:#4a2220;--chkink:#f5b9b2}
 body{background:linear-gradient(180deg,var(--bg),color-mix(in srgb,#7048e8 8%,var(--bg)))}
-.hero{background:linear-gradient(135deg,#3b2f8f 0%,#c2255c 58%,#f76707 100%);color:#fff;border-radius:20px;padding:20px 18px 16px;margin:0 0 14px;box-shadow:0 6px 18px rgba(60,30,120,.25)}
+.hero{background:linear-gradient(125deg,#123d5a 0%,#167d83 58%,#56a7a2 100%);color:#fff;border-radius:20px;padding:20px 18px 16px;margin:0 0 14px;box-shadow:0 6px 18px rgba(17,72,91,.22)}
 .hero h1{color:#fff;font-size:26px;margin:8px 0}
 .hero .lead{color:rgba(255,255,255,.92);margin:0;font-size:15px}
 .route{display:flex;gap:6px;overflow-x:auto;padding:12px 0 2px}
-.route span{white-space:nowrap;background:rgba(255,255,255,.22);border-radius:999px;padding:3px 11px;font-size:14px}
+.route button{white-space:nowrap;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:4px 11px;color:#fff;font-family:inherit;font-size:13px;font-weight:700;line-height:1.25;cursor:pointer}.route button:active{background:rgba(255,255,255,.36);transform:scale(.97)}
 .next{background:color-mix(in srgb,#c2255c 12%,var(--card));border:2px solid color-mix(in srgb,#c2255c 40%,var(--card));font-size:17px}
 h2{border-bottom:3px solid #c2255c;padding-bottom:4px;display:inline-block}
 details.day{border-left:7px solid var(--cc);box-shadow:0 2px 8px rgba(0,0,0,.06)}
@@ -83,9 +83,9 @@ details.webcard{border-left-color:#f59f00}
 </head>
 <body>
 <main>
-<div class="hero"><div class="lead">🇪🇸 스페인 · 🇵🇹 포르투갈 9박 10일</div><h1>가우디의 도시에서<br>안달루시아의 낭만까지</h1><div class="lead">2026.10.22(목) ~ 10.31(토) · 필라하나관광 215-935-2500</div><div class="route"><span>바르셀로나</span><span>몬세라트</span><span>마드리드</span><span>톨레도</span><span>코르도바</span><span>그라나다</span><span>론다</span><span>세비야</span><span>리스본</span><span>신트라</span></div></div>
+<div class="hero"><div class="lead">🇪🇸 스페인 · 🇵🇹 포르투갈 9박 10일</div><h1>가우디의 도시에서<br>안달루시아의 낭만까지</h1><div class="lead">2026.10.22(목) ~ 10.31(토) · 필라하나관광 215-935-2500</div><nav class="route" aria-label="도시별 일정 바로가기"><button type="button" data-city="바르셀로나">바르셀로나</button><button type="button" data-city="몬세라트">몬세라트</button><button type="button" data-city="마드리드">마드리드</button><button type="button" data-city="톨레도">톨레도</button><button type="button" data-city="코르도바">코르도바</button><button type="button" data-city="그라나다">그라나다</button><button type="button" data-city="론다">론다</button><button type="button" data-city="세비야">세비야</button><button type="button" data-city="리스본">리스본</button><button type="button" data-city="신트라">신트라</button></nav></div>
 <div class="legend"><span>흰색: 종이 안내문(기준)</span><span class="y">노란색: 웹사이트에만 있거나 다른 내용</span><span class="r">분홍색: 확인 필요</span></div>
-<div class="bar"><button id="openAll">모두 펼치기</button><button id="closeAll">모두 접기</button></div>
+
 <div class="next" id="next"></div>
 <div id="app"></div>
 <p class="foot">상기 일정은 현지사정에 따라 변동될수 있습니다. 감사합니다. 멋진 여행이 되시기를 바랍니다. (필라델피아 하나관광 제공)</p>
@@ -170,8 +170,7 @@ var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
 if(today<start){var dd=Math.round((start-today)/864e5);nx.textContent="출발까지 D-"+dd+"일 (10/22 오후 3:30 필라하나관광 집결)"}
 else if(today<=end){idx=Math.round((today-start)/864e5);nx.textContent="오늘은 "+DAYS[idx].d+" "+DAYS[idx].t+" 일정입니다.";var el=document.getElementById("d"+idx);if(el)el.open=true}
 else nx.textContent="여행이 끝났습니다. 즐거운 추억이 되셨길 바랍니다.";
-document.getElementById("openAll").onclick=function(){app.querySelectorAll("details").forEach(function(d){d.open=true})};
-document.getElementById("closeAll").onclick=function(){app.querySelectorAll("details").forEach(function(d){d.open=false})};
+document.querySelectorAll('.route [data-city]').forEach(function(btn){btn.addEventListener('click',function(){var city=btn.dataset.city;var idx=DAYS.findIndex(function(day){return day.t.indexOf(city)>=0});if(idx<0&&city==='신트라')idx=DAYS.findIndex(function(day){return day.t.indexOf('리스본')>=0});var day=idx>=0?document.getElementById('d'+idx):null;if(day){day.open=true;day.scrollIntoView({behavior:'smooth',block:'start'});}})});
 </script>
 </body>
 </html>

@@ -238,6 +238,37 @@ a{color:var(--skyDark)}
 
 .field-progress-control{margin:10px 0 12px;padding:11px;border:1px solid #cfe0fa;border-radius:15px;background:#f6f9ff}.field-progress-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px;color:#173a71}.field-progress-head span{font-size:11px;color:#687b99;text-align:right}.field-progress-buttons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:9px}.field-progress-buttons button{min-height:42px;border:1px solid #bfd1eb;border-radius:11px;background:#fff;color:#173a71;font-weight:850;font-size:14px}.field-progress-buttons button:disabled{opacity:.42}.field-progress-active,.field-progress-preview{margin-top:9px;padding-top:8px;border-top:1px solid #dce7f6;font-size:12.5px;font-weight:750;color:#33425a}.field-progress-active{display:flex;justify-content:space-between;align-items:center;gap:8px}.field-progress-active .btn,.field-progress-preview .btn{white-space:nowrap}.toilet-action{margin:10px 0!important}.toilet-list{display:grid;gap:9px;margin-top:10px}.toilet-item{padding:12px;border:1px solid var(--line);border-radius:13px;background:#fff;line-height:1.55}.toilet-item b{display:block;color:var(--ink);font-size:15px}.toilet-item>div{margin-top:4px;font-size:13px}.toilet-distance{display:inline-block;margin-top:4px;color:var(--skyDark);font-size:12px;font-weight:850}
 @media(max-width:420px){.field-progress-head{align-items:flex-start;flex-direction:column}.field-progress-head span{text-align:left}.field-progress-active{align-items:flex-start;flex-direction:column}}
+
+/* Compact, consistent mobile hierarchy */
+.h-actions{display:flex;align-items:center;gap:8px}.trip-picker-btn{max-width:min(48vw,230px);display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.28);border-radius:13px;background:rgba(255,255,255,.16);color:#fff;padding:7px 11px;font-size:13px;font-weight:850}.trip-picker-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.trip-picker-option{width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:12px;margin:6px 0;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}.trip-picker-option.selected{border-color:var(--sky);background:#f0f7ff}.trip-pick-check{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#e8f1ff;color:#1762b1;font-weight:900}.trip-picker-option small{display:block;color:var(--ink2);margin-top:3px}.view{padding:10px 10px 16px}.card{padding:13px;margin-bottom:8px}.card-title{font-size:16.5px}.sec-title{margin:7px 2px 3px;font-size:22px}.sec-desc{margin:0 2px 9px;line-height:1.45}.acc{border-radius:12px;margin-bottom:7px}.acc-head{flex-wrap:nowrap;align-items:center;gap:8px;padding:8px 10px}.acc-head .daybadge{order:1}.acc-head .grow{order:2;flex:1 1 auto;width:auto;min-width:0;margin:0}.acc-head .chev{order:3;margin-left:2px}.daybadge{width:42px;height:42px;border-radius:10px}.daybadge b{font-size:14px}.daybadge small{font-size:10px;margin-top:2px}.acc-title{font-size:15.5px;line-height:1.25;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.acc-sub{font-size:12px;line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chev{font-size:13px}.airhotel-tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:3px;margin:2px 0 9px}.airhotel-tabs button{padding:8px 1px;font-size:12.5px;font-weight:850}.flight-route{font-size:17px}.stay-row{padding:9px 0}.stay-date{padding:7px 9px;margin-bottom:5px}.note-box{margin:7px 0;padding:9px 10px}
+/* v4.1.5 home: one itinerary selector controls one rich, event-matched field card */
+.home-rehearsal-banner{margin:0 0 8px;padding:8px 10px;border-radius:10px;background:#fff0d6;border:1px solid #e9b64e;color:#744400;font-size:12px;font-weight:900;text-align:center}
+.home-schedule-controls{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px;margin:8px 0 10px;box-shadow:var(--shadow)}
+.home-schedule-control-title{font-size:14px;font-weight:950;margin:0 1px 8px}
+.home-schedule-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.home-schedule-button{min-width:0;min-height:67px;border:1px solid #d9e3eb;border-radius:12px;background:#f8fafc;color:var(--ink);padding:7px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.home-schedule-button.selected{background:#eaf6f3;border:2px solid #137f7b;color:#075b59}
+.home-schedule-button:disabled{opacity:.43}
+.home-sched-icon{font-size:14px;color:#167e79;line-height:1.1}.home-schedule-button b{font-size:12px}.home-schedule-button small{width:100%;font-size:10px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-selected-event{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin:0 0 11px;box-shadow:var(--shadow)}
+.home-event-heading{padding:0 0 10px;border-bottom:1px solid #e8edf1;margin-bottom:9px}
+.home-event-kicker{font-size:11px;color:var(--teal);font-weight:900;margin-bottom:4px}
+.home-event-heading h2{font-size:18px;line-height:1.35;margin:0;font-weight:950;color:var(--ink);word-break:keep-all}
+.home-event-place{font-size:12px;color:var(--ink2);margin-top:5px}
+.home-original-info{white-space:pre-wrap;font-size:13px;line-height:1.6;padding:9px;background:#f6f8fa;border-radius:10px;margin:8px 0}
+.home-original-info b{display:block;font-size:11px;color:var(--ink2);margin-bottom:3px}
+.home-empty-guide{font-size:12px;color:var(--ink2);padding:12px 10px;background:#f6f8fa;border-radius:10px}
+.home-photo-info{margin:10px 0 14px;border:1px solid #e1e8ef;border-radius:12px;overflow:hidden;background:#fff}
+.home-supp-photo{display:block;width:100%;height:auto;max-height:360px;object-fit:contain;background:#edf1f5}
+.home-photo-caption{padding:9px 10px 5px;font-size:13px;line-height:1.58;white-space:pre-wrap;word-break:keep-all}
+.home-photo-caption b{display:block;font-size:13px;margin-bottom:3px}
+.home-source{font-size:10px;color:#657586;padding:4px 10px 9px;line-height:1.4;word-break:break-word}
+.home-photo-info.needs-review{border:2px solid #c8342a;background:#fff4f2}.home-photo-info.needs-review .home-source{color:#a42620}
+.home-info-accordion{margin:8px 0;border:1px solid #e1e8ef;border-radius:11px;overflow:hidden}
+.home-info-accordion summary{list-style:none;cursor:pointer;font-size:13px;font-weight:900;padding:11px 10px;background:#f7f9fb}.home-info-accordion summary::-webkit-details-marker{display:none}.home-info-accordion .chev{float:right;color:#63788a}.home-info-accordion[open] .chev{transform:rotate(90deg)}
+.home-info-body{padding:0 10px}.home-info-text{padding:10px 0;border-top:1px solid #edf1f4;white-space:pre-wrap;line-height:1.6;font-size:13px}.home-info-text .home-source{padding:5px 0 0}.review-label{color:#b42318}
+.home-before-card{padding:11px;border-radius:14px;background:#fff6df;border:1px solid #f0d48e;margin:8px 0}.home-before-title{font-size:14px;font-weight:950;color:#714600;margin-bottom:4px}.home-prep-line{font-size:12px;line-height:1.55;margin:5px 0 8px}.home-prep-line b{display:block}
+@media(max-width:360px){.home-schedule-button{min-height:63px;padding:6px 2px}
 </style>
 </head>
 <body>
@@ -253,7 +284,7 @@ a{color:var(--skyDark)}
 
 <script>
 "use strict";
-const APP_VERSION = 'v4.1.2';
+const APP_VERSION = 'v4.1.5';
 const VERSION_FILE = 'version.json';
 const LS_V3 = 'sk-travel.v3';
 const LS_CACHE = 'sk-travel.cache.v3';
@@ -1569,13 +1600,9 @@ function renderLocationStrip(ctx){
   const pending=!!(supported&&fieldEnabledNow()&&(ui.geoBusy||ui.geoRefreshPending||(!ui.geo&&!ui.geoLastErrorCode)));
   const status=pending?'확인 중':(fresh?'작동 중':'작동 불가');
   const cls=pending?'info':(fresh?'ok':'bad');
-  const mapHref=fresh
-    ?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(String(ui.geo.lat)+','+String(ui.geo.lon))
-    :'https://www.google.com/maps/@?api=1&map_action=map';
   return '<section class="loc-strip '+cls+'" role="status" aria-live="polite" aria-atomic="true" aria-label="현재 위치 응답 상태">'
     +'<span class="loc-dot" aria-hidden="true"></span><div class="loc-main"><div class="loc-title">위치 · '+status+'</div></div>'
     +'<div class="loc-actions"><button class="loc-icon-btn" type="button" data-action="field-refresh" title="위치 새로 확인" aria-label="위치 새로 확인" '+(ui.geoRefreshPending?'disabled aria-busy="true"':'')+'>'+(ui.geoRefreshPending?'…':'↻')+'</button>'
-    +'<a class="loc-map-btn" href="'+mapHref+'" title="현재 좌표가 있으면 좌표를 Google Maps로 전달합니다.">Google 지도</a>'
     +'<button class="loc-icon-btn soft" type="button" data-action="loc-diag-open" title="위치 진단 열기" aria-label="위치 진단 열기">i</button></div></section>';
 }
 function fieldQuickStatusHTML(ctx){ return renderLocationStrip(ctx); }
@@ -1964,11 +1991,15 @@ function nextPrepItem(){
 /* ---------- 렌더 공통 ---------- */
 const BAG_SVG='<svg width="31" height="31" viewBox="0 0 100 100" style="flex:none;border-radius:8px" aria-hidden="true"><rect width="100" height="100" rx="20" fill="#FFCB05"/><rect x="42" y="23" width="16" height="11" rx="5" fill="#262a3d"/><rect x="46" y="26.5" width="8" height="6" rx="3" fill="#FFCB05"/><rect x="26" y="34" width="48" height="46" rx="10" fill="#262a3d"/><rect x="38" y="50" width="24" height="24" rx="7" fill="#3a4163"/><rect x="38" y="54.5" width="24" height="3" fill="#FFCB05"/><circle cx="50" cy="56" r="2.2" fill="#FFCB05"/></svg>';
 function renderHeader(){
-  const cur=TABS.find(t=>t.id===ui.tab);
-  const inHome=ui.tab==='home';
-  const activeTrip=v4TripEntries.find(t=>t.id===v4ActiveTripId);const tripPicker='<div class="trip-switch-bar"><span>여행</span><select aria-label="집중할 여행 선택" id="v4TripPicker">'+v4TripEntries.map(t=>'<option value="'+esc(t.id)+'" '+(t.id===v4ActiveTripId?'selected':'')+'>'+esc(t.name||'여행')+(t.start?' · '+esc(t.start):'')+'</option>').join('')+'</select><button data-action="trip-image" aria-label="여행 추가">＋</button></div>';
-  $('#header').innerHTML='<div class="h-row"><div class="h-brand">'+BAG_SVG+(inHome?'<div class="h-title">SK-여행</div>':'<button class="h-back" data-action="nav" data-id="home">‹ 홈</button><div class="h-title">'+esc((ui.tab==='settings'||ui.tab==='manage')?'관리':(cur?cur.lb:''))+'</div>')+'</div><button class="h-gear" data-action="nav-gear" aria-label="설정">⚙️</button></div>'+(v4TripEntries.length>1?tripPicker:'<div class="trip-switch-bar"><span>현재 여행</span><b>'+esc(activeTrip?.name||state.trip?.name||'여행 미등록')+'</b><button data-action="trip-image" aria-label="여행 업데이트 또는 추가">＋</button></div>');
+ const cur=TABS.find(t=>t.id===ui.tab),inHome=ui.tab==='home',activeTrip=v4TripEntries.find(t=>t.id===v4ActiveTripId);
+ const switchBtn=inHome?'<button class="trip-picker-btn" data-action="trip-picker" aria-label="여행 선택"><span class="trip-picker-label">'+esc(activeTrip?.name||state.trip?.name||'여행 선택')+'</span><span aria-hidden="true">▾</span></button>':'';
+ $('#header').innerHTML='<div class="h-row"><div class="h-brand">'+BAG_SVG+(inHome?'<div class="h-title">SK-여행</div>':'<button class="h-back" data-action="nav" data-id="home">‹ 홈</button><div class="h-title">'+esc((ui.tab==='settings'||ui.tab==='manage')?'관리':(cur?cur.lb:''))+'</div>')+'</div><div class="h-actions">'+switchBtn+'<button class="h-gear" data-action="nav-gear" aria-label="설정">⚙️</button></div></div>';
 }
+function openTripPicker(){
+ const active=v4ActiveTripId;const rows=v4TripEntries.map(t=>'<button class="trip-picker-option '+(t.id===active?'selected':'')+'" data-action="trip-pick" data-id="'+esc(t.id)+'"><span class="trip-pick-check">'+(t.id===active?'✓':'')+'</span><span class="grow"><b>'+esc(t.name||'여행')+'</b><small>'+esc((t.start||'날짜 미입력')+(t.end?' ~ '+t.end:''))+'</small></span></button>').join('');
+ openCustomSheet('여행 선택',rows||'<div class="small-muted">이 기기에 저장된 여행이 없습니다.</div>');
+}
+
 function renderTabbar(){
   $('#tabbar').innerHTML=TABS.map(t=>'<button class="tab'+(ui.tab===t.id?' on':'')+'" data-action="nav" data-id="'+t.id+'" aria-current="'+(ui.tab===t.id?'page':'false')+'"><span class="ic">'+t.ic+'</span><span class="lb">'+t.lb+'</span></button>').join('');
 }
@@ -2865,26 +2896,92 @@ function renderHomeTips(){
     +(feedbackHiddenCount()?'<button class="btn btn-ghost btn-block" style="margin-top:10px" data-action="feedback-reset">숨긴 안내 다시 보기</button>':'')
     +'</section>';
 }
-function renderHome(){
-  const ph=tripPhase(); let html='<div class="view home-view">';
-  html+=renderHomeTopBoard();
-  const homeCtx=detectFieldContext(Date.now());
-  html+=renderLocationStrip(homeCtx);
-  html+=renderNowCard();
-  html+=renderHomeContextCard(ui.lastNowData||{fieldContext:homeCtx});
-  if(ph.phase==='none'){
-    html+='<div class="card"><div class="card-title" style="margin-bottom:7px">✈️ 여행 업데이트하기</div><div style="font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:12px">AI가 만든 JSON 여행 패키지를 가져오면 날짜·도시·일정·팁이 자동으로 정리됩니다. HTML·MD·텍스트 문서도 가져올 수 있어요.</div><button class="btn btn-pri btn-block" data-action="trip-register">여행 정보 불러오기</button><button class="btn btn-soft btn-block" style="margin-top:8px" data-action="trip-manual">직접 일정 입력</button></div>';
-  } else {
-    html+=renderNextCard();
-    html+=renderTomorrowCard();
-    html+=renderHomeTips();
-    html+=renderEmergencyCard();
-  }
-  if(updateAvailable()) html+='<div class="upd-banner" data-action="do-update">🆕 '+(updateVersionText()?('새 버전 '+esc(updateVersionText())+'가 나왔습니다. '):'새 버전이 준비됐어요. ')+'새 버전을 업데이트할 수 있습니다. 여기를 눌러 업데이트하세요.</div>';
-  html+='<div class="small-muted" style="text-align:center;padding:16px 0 2px">SK-여행 '+APP_VERSION+'</div></div>';
-  return html;
+function renderHomeSupplementCard(){
+ const ph=tripPhase(),today=(ph.todayDay&&ph.todayDay.date)||ph.start||dateInTz(Date.now(),HOME.tz);let chosen=null,items=[];
+ for(const day of sortedDays().filter(d=>!d.date||d.date>=today)){for(const ev of (day.events||[])){const xs=(state.supplements||[]).filter(x=>String(x.eventId)===String(ev.eventId));if(xs.length){chosen={day,event:ev};items=xs;break;}}if(chosen)break;}
+ if(!chosen)return '';const uncertain=x=>/미확인|낮음|불확실|확인 필요|low|uncertain/i.test(String(x.confidence||''));
+ return '<section class="card home-next-card"><div class="card-title">🧭 일정에 맞춘 참고자료</div><div class="small-muted" style="margin:3px 0 8px">'+esc(fmtDate(chosen.day.date)+' · '+(chosen.day.city||''))+' · '+esc(chosen.event.title||'일정')+'</div>'+items.map(x=>'<div style="margin:7px 0;padding:9px;border-radius:10px;background:'+(uncertain(x)?'#fff0f0':'#f2f7ff')+';border-left:4px solid '+(uncertain(x)?'#d33':'#4f86c6')+';color:'+(uncertain(x)?'#9b1c1c':'#183550')+'"><b>'+(uncertain(x)?'확인 필요 · ':'')+esc(x.title||'참고 정보')+'</b>'+(x.text?'<div style="margin-top:4px;white-space:pre-wrap">'+esc(x.text)+'</div>':'')+(x.imageUrl?'<img alt="일정 참고 사진" loading="lazy" src="'+esc(x.imageUrl)+'" style="display:block;max-width:100%;max-height:190px;object-fit:cover;border-radius:8px;margin-top:7px">':'')+(x.source?'<div class="small-muted" style="margin-top:5px">출처: '+esc(x.source)+(x.verifiedAt?' · 확인 '+esc(x.verifiedAt):'')+'</div>':'')+'</div>').join('')+'<button class="btn btn-soft btn-sm" data-action="nav" data-id="schedule">일정에서 자세히 보기</button></section>';
 }
+function homeSegmentChoices(){
+ const now=Date.now(),st=scheduleState(now),segs=(st.segments||[]).filter(x=>x.kind!=='flight').sort((a,b)=>a.startMs-b.startMs);
+ const previous=[...segs].reverse().find(x=>x.endMs<=now)||null;
+ const active=segs.find(x=>x.startMs<=now&&now<x.endMs+15*60000)||null;
+ const future=segs.filter(x=>x.startMs>now);
+ const today=dateInTz(now,(st.current&&st.current.tz)||HOME.tz);
+ const todaySeg=segs.find(x=>x.day&&x.day.date===today)||null;
+ const current=active||(tripPhase().phase==='before'?segs[0]:todaySeg||future[0]||previous);
+ const next=current?segs.find(x=>x.startMs>current.startMs)||null:future[0]||null;
+ return {st,selected:{previous,current,next}};
+}
+function homeSelectedSegment(){
+ const {selected}=homeSegmentChoices();let mode=ui.homeSegmentMode||'current',seg=selected[mode];
+ if(!seg){mode=selected.current?'current':(selected.next?'next':'previous');seg=selected[mode];ui.homeSegmentMode=mode;}
+ return {mode,seg,selected};
+}
+function setHomeSegment(mode){ui.homeSegmentMode=mode;renderMain();}
+function homeEventSupplementHTML(seg){
+ if(!seg||!seg.event)return '';
+ const event=seg.event,day=seg.day||{},supp=(state.supplements||[]).filter(x=>String(x.eventId)===String(event.eventId||event.id));
+ let html='';
+ const place=event.place||event.location||'';
+ const original=[event.description,event.note,event.details].filter(Boolean).join('\n');
+ if(!supp.length){
+  if(original)html+='<div class="home-original-info"><b>일정 원문에 있는 정보</b><div>'+esc(original)+'</div></div>';
 
+  html+='<div class="home-empty-guide">이 일정에 연결된 보강자료가 없습니다. 자료를 추가하면 사진과 장소 정보가 여기에 표시됩니다.</div>';
+  return html;
+ }
+ const uncertain=x=>/미확인|낮음|불확실|확인 필요|low|uncertain/i.test(String(x.confidence||''));
+ const photos=supp.filter(x=>x.imageUrl),texts=supp.filter(x=>!x.imageUrl);
+ // Photo-first pairs: every photo is rendered before its caption/associated explanation.
+ photos.forEach(x=>{
+  const red=uncertain(x);
+  html+='<article class="home-photo-info'+(red?' needs-review':'')+'">'
+   +'<img class="home-supp-photo" loading="lazy" alt="'+esc(x.title||'일정 참고 사진')+'" src="'+esc(x.imageUrl)+'">'
+   +((x.title||x.text)?'<div class="home-photo-caption">'+(x.title?'<b>'+esc(x.title)+'</b>':'')+(x.text?'<div>'+esc(x.text)+'</div>':'')+'</div>':'')
+   +(x.source||x.verifiedAt?'<div class="home-source">'+(red?'<b>확인 필요 · </b>':'')+(x.source?'출처: '+esc(x.source):'')+(x.verifiedAt?' · 확인일: '+esc(x.verifiedAt):'')+'</div>':'')+'</article>';
+ });
+ if(texts.length){
+  const grouped={};texts.forEach(x=>{const key=x.title||'현장 정보';(grouped[key]||(grouped[key]=[])).push(x);});
+  Object.keys(grouped).forEach((title,i)=>{const list=grouped[title],red=list.some(uncertain);html+='<details class="home-info-accordion" '+(i===0?'open':'')+'><summary>'+(red?'<b class="review-label">확인 필요 · </b>':'')+esc(title)+'<span class="chev">›</span></summary><div class="home-info-body">'+list.map(x=>'<div class="home-info-text">'+esc(x.text||'')+(x.source||x.verifiedAt?'<div class="home-source">'+(x.source?'출처: '+esc(x.source):'')+(x.verifiedAt?' · 확인일: '+esc(x.verifiedAt):'')+'</div>':'')+'</div>').join('')+'</div></details>';});
+ }
+ if(original)html+='<div class="home-original-info"><b>일정 원문에 있는 정보</b><div>'+esc(original)+'</div></div>';
+ return html;
+}
+function homeSelectedEventCard(){
+ const chosen=homeSelectedSegment(),seg=chosen.seg;if(!seg)return '<section class="home-selected-event"><div class="home-no-event">일정이 아직 없습니다. 여행 일정이 등록되면 선택한 일정의 장소 정보가 여기에 표시됩니다.</div></section>';
+ const ev=seg.event||{},day=seg.day||{},mode=chosen.mode;
+ const labels={previous:'이전 일정',current:'현재 일정',next:'다음 일정'};
+ const when=ev.time|| (seg.startMs?fmtDate(day.date)+' '+segmentWhenText(seg):'시간 미정');
+ const place=ev.place||ev.location||'';
+ return '<section class="home-selected-event" aria-live="polite"><div class="home-event-heading"><div class="home-event-kicker">'+esc(labels[mode]||'선택한 일정')+' · '+esc(day.city||segmentCity(seg)||'')+'</div><h2>'+esc(when)+' · '+esc(cleanSegmentTitle(ev.title||seg.title||'일정'))+'</h2>'+(place?'<div class="home-event-place">📍 '+esc(place)+'</div>':'')+'</div>'+homeEventSupplementHTML(seg)+'</section>';
+}
+function renderHomeTripPreparation(ph){
+ if(!ph||ph.phase!=='before')return '';
+ const act=nextPreTripAction(),prep=nextPrepItem();let body='';
+ if(act)body+='<div class="home-prep-line"><b>먼저 확인할 준비</b><div>'+esc(act.title||'여행 준비 항목')+(act.due?' · '+esc(fmtDate(String(act.due).slice(0,10)))+'까지':'')+'</div></div>';
+ else if(prep&&!prep.done)body+='<div class="home-prep-line"><b>다음 준비 하나</b><div>'+esc(prep.item.text)+' · '+esc(prep.section)+'</div></div>';
+ else body+='<div class="home-prep-line">등록된 출발 전 준비 항목을 확인해 주세요.</div>';
+ return '<section class="home-before-card"><div class="home-before-title">🧳 출발 전 준비</div>'+body+'<button class="btn btn-soft btn-sm" data-action="nav" data-id="packing">준비물 탭에서 확인</button></section>';
+}
+function renderHomeScheduleControls(){
+ const {selected}=homeSegmentChoices(),chosen=homeSelectedSegment(),mode=chosen.mode;
+ const labels=[['previous','이전 일정','‹'],['current','현재 일정','●'],['next','다음 일정','›']];
+ return '<section class="home-schedule-controls" aria-label="일정 선택"><div class="home-schedule-control-title">일정 선택</div><div class="home-schedule-buttons">'+labels.map(([key,label,icon])=>{const seg=selected[key],disabled=!seg;const sub=seg?(seg.event.time?seg.event.time+' · ':'')+cleanSegmentTitle(seg.event.title||seg.title):'일정 없음';return '<button type="button" class="home-schedule-button '+(mode===key?'selected':'')+'" '+(disabled?'disabled':'onclick="setHomeSegment(\''+key+'\')"')+'><span class="home-sched-icon">'+icon+'</span><b>'+label+'</b><small>'+esc(sub)+'</small></button>';}).join('')+'</div></section>';
+}
+function renderHome(){
+ const ph=tripPhase();let html='<div class="view home-view">';
+ if(window.__SK_V4_NOW!=null)html+='<div class="home-rehearsal-banner" role="status">현장 리허설 중 · 실제 현재 시각/날씨가 아닙니다</div>';
+ html+=renderHomeTopBoard(); // Philadelphia/actual destination clocks and weather stay once, at the top.
+ const ctx=detectFieldContext(Date.now());
+ html+=renderLocationStrip(ctx);
+ if(ph.phase==='before')html+=renderHomeTripPreparation(ph);
+ html+=renderHomeScheduleControls();
+ html+=homeSelectedEventCard();
+ html+=renderEmergencyCard();
+ if(updateAvailable())html+='<div class="upd-banner" data-action="do-update">🆕 '+(updateVersionText()?('새 버전 '+esc(updateVersionText())+'가 나왔습니다. '):'새 버전이 준비됐어요. ')+'새 버전을 업데이트할 수 있습니다. 여기를 눌러 업데이트하세요.</div>';
+ html+='<div class="small-muted" style="text-align:center;padding:12px 0 2px">SK-여행 '+APP_VERSION+'</div></div>';return html;
+}
 
 /* ---------- 일정 ---------- */
 function sanitizeGuideHtml(html){
@@ -2912,12 +3009,12 @@ function renderSchedule(){
 }
 function supplementHtmlForEvent(ev){
   const list=(state.supplements||[]).filter(x=>String(x.eventId)===String(ev.eventId));
-  return list.map(x=>'<div class="note-box" style="background:#eef6ff;color:#193a5a"><b>추가 자료</b>'+(x.title?'<div style="font-weight:900;margin-top:4px">'+esc(x.title)+'</div>':'')+(x.text?'<div style="white-space:pre-wrap;margin-top:4px">'+esc(x.text)+'</div>':'')+(x.imageUrl?'<img alt="일정 보강 사진" loading="lazy" src="'+esc(x.imageUrl)+'" style="display:block;max-width:100%;border-radius:12px;margin-top:8px">':'')+(x.source?'<div class="small-muted">출처: '+esc(x.source)+(x.verifiedAt?' · 확인 '+esc(x.verifiedAt):'')+'</div>':'')+'<button class="btn btn-ghost btn-sm" style="margin-top:7px" data-action="supp-remove" data-id="'+esc(x.id||'')+'">이 보강자료 삭제</button></div>').join('');
+  return list.map(x=>{const uncertain=/미확인|낮음|불확실|확인 필요|low|uncertain/i.test(String(x.confidence||''));return '<div class="note-box" style="background:'+(uncertain?'#fff0f0':'#eef6ff')+';color:'+(uncertain?'#9b1c1c':'#193a5a')+';border-left:4px solid '+(uncertain?'#d33':'#4f86c6')+'"><b>'+(uncertain?'확인 필요 · ':'')+'추가 자료</b>'+(x.title?'<div style="font-weight:900;margin-top:4px">'+esc(x.title)+'</div>':'')+(x.text?'<div style="white-space:pre-wrap;margin-top:4px">'+esc(x.text)+'</div>':'')+(x.imageUrl?'<img alt="일정 보강 사진" loading="lazy" src="'+esc(x.imageUrl)+'" style="display:block;max-width:100%;border-radius:12px;margin-top:8px">':'')+(x.source?'<div class="small-muted">출처: '+esc(x.source)+(x.verifiedAt?' · 확인 '+esc(x.verifiedAt):'')+'</div>':'')+'<button class="btn btn-ghost btn-sm" style="margin-top:7px" data-action="supp-remove" data-id="'+esc(x.id||'')+'">이 보강자료 삭제</button></div>';}).join('');
 }
 function supplementEventAnchors(){return sortedDays().flatMap(d=>(d.events||[]).map((e,i)=>({eventId:e.eventId,day:d.date,title:e.title||'',place:e.place||'',time:e.time||''})));}
 function renderScheduleEdit(){
   let html='<div class="view"><div class="sec-title">📆 일정</div><div class="sec-desc">등록된 여행 일정을 날짜별로 보여줍니다. 그날 장소에 맞는 팁은 일정 아래에 함께 표시됩니다.</div>'+scheduleModeBar();
-  html+='<div class="row" style="margin-bottom:13px"><button class="btn btn-pri" style="flex:1" data-action="trip-register">＋ 여행등록 / 파일 가져오기</button><button class="btn btn-soft" style="flex:1" data-action="sch-day-add">날짜 추가</button></div>';
+  html+='<div class="row" style="margin-bottom:13px"><button class="btn btn-pri" style="flex:1" data-action="trip-register">＋ 일정 불러오기</button><button class="btn btn-soft" style="flex:1" data-action="sch-day-add">날짜 추가</button></div>';
   const legacy=lsGet('sk_sched_html');
   if(!state.days.length&&!state.documents.length&&legacy){
     html+='<div class="notice">이전 버전에서 저장한 일정 문서를 발견했어요. 새 구조로 정리하려면 여행 패키지(JSON)를 등록해 주세요. 아래 문서는 지우지 않고 그대로 보여드립니다.</div><iframe class="doc-frame" sandbox="allow-scripts" srcdoc="'+esc(legacy)+'"></iframe><button class="btn btn-danger btn-block" style="margin-top:10px" data-action="legacy-remove">이전 일정 문서 삭제</button>';
@@ -3151,27 +3248,21 @@ function renderV4TripManager(){
 }
 
 function renderSettings(){
-  const tp=state.trip; const fz=state.settings.fontScale||115;
-  let html='<div class="view"><div class="sec-title">여행 관리</div>';
-  html+=renderV4TripManager();
-  html+='<div class="card"><div class="card-title">새 여행 업데이트하기</div><div class="small-muted" style="margin:5px 0 9px">여행 문서 이미지는 기기에서 OCR한 뒤 날짜와 일정을 확인합니다. 텍스트 입력은 파일·이미지 없이도 시작할 수 있습니다.</div><div class="row wrap"><button class="btn btn-pri btn-sm" data-action="trip-image">🖼️ 이미지로 불러오기</button><button class="btn btn-soft btn-sm" data-action="trip-text">📝 텍스트로 불러오기</button><button class="btn btn-ghost btn-sm" data-action="trip-register">📦 여행 파일 불러오기</button></div></div>';
-  html+='<div class="card"><div class="card-title">🕰️ 현장 리허설 시각</div><div class="small-muted" style="margin:6px 0 9px">테스트용 가상 시각을 설정해 여행 중 화면을 미리 볼 수 있습니다. 휴대폰 시계는 바뀌지 않습니다. 리허설 중에는 실시간 날씨·환율 조회를 중지하고 가상 날짜라는 안내를 표시합니다.</div><input id="v4ClockInput" class="f-in" type="datetime-local"><div class="row wrap" style="margin-top:9px"><button class="btn btn-pri btn-sm" data-action="v4-clock-start">이 시각으로 미리 보기</button><button class="btn btn-ghost btn-sm" data-action="v4-clock-stop">실제 현재 시각으로 복귀</button></div><div class="small-muted" style="margin-top:7px">시각은 필라델피아(기기 현지 시간)로 입력하세요.</div></div>';
-  html+='<details class="card"><summary class="stack-summary">고급: 일정 코드·보강자료 연결 <span class="chev">▶</span></summary><div class="small-muted" style="margin:8px 0">일정 코드는 JSON 보강자료를 정확한 일정에 연결할 때만 필요한 내부 식별자입니다. 평소 여행에서는 볼 필요가 없습니다.</div><div class="small-muted">현재 여행 코드: <code>'+esc(v4TripId(state))+'</code><br>일정별 코드: '+supplementEventAnchors().map(a=>'<div style="padding:5px 0;border-top:1px solid var(--line)">'+esc(a.eventId)+' · '+esc(a.day||'')+' · '+esc(a.title||'')+'</div>').join('')+'</div></details>';
-  html+='<div class="card"><div class="card-title">일정에 자료 연결</div><div class="small-muted" style="margin:6px 0 9px">일정 원문은 유지합니다. 보강자료 JSON은 고정 일정 코드가 정확히 일치하는 경우에만 연결하고, 모르는 코드는 적용하지 않습니다.</div><div class="kv"><div class="k">현재 여행 코드</div><div class="v" style="font-size:12px;word-break:break-all">'+esc(v4TripId(state))+'</div></div><div class="row wrap" style="margin-top:9px"><button class="btn btn-pri btn-sm" data-action="supplement-paste">추가 텍스트 연결</button><button class="btn btn-soft btn-sm" data-action="supplement-image">일정에 사진 연결</button><button class="btn btn-ghost btn-sm" data-action="supplement-json">보강자료 JSON/ZIP 가져오기</button></div><div class="small-muted" style="margin-top:8px">텍스트는 날짜·일정 위치를 직접 골라 붙입니다. 사진은 일정 선택 후 기기에서 연결합니다. ZIP 자동 사진 추출은 아직 시험 중입니다.</div></div>';
-  if((state.unmatchedSupplements||[]).length){html+='<details class="card"><summary class="stack-summary">미연결 보강자료 '+state.unmatchedSupplements.length+'건 보류됨 <span class="chev">▶</span></summary><div class="notice warn" style="margin-top:10px">일정 코드가 없거나 현재 일정에서 유일하게 일치하지 않아 연결하지 않았습니다. 일정의 eventId를 확인한 뒤 수정된 JSON을 다시 가져오세요.</div>'+(state.unmatchedSupplements||[]).map(x=>'<div class="small-muted" style="border-top:1px solid var(--line);padding:8px 0">코드: '+esc(x.eventId||'(없음)')+' · '+esc(x.title||x.text||x.body||'자료 제목 없음')+'</div>').join('')+'<button class="btn btn-ghost btn-sm" data-action="supp-unmatched-clear">보류 목록 비우기</button></details>';}
-  html+='<div class="card"><div class="card-title">선택한 여행</div>'+(tp?(infoKV('이름',tp.name||'(이름 없음)')+infoKV('기간',(tp.start?fmtFull(tp.start):'')+(tp.end?' ~ '+fmtFull(tp.end):''))+infoKV('여행지',tp.destSummary||state.destinations.map(d=>d.city).filter(Boolean).join(' · ')||'(미설정)')):'<div class="small-muted">등록된 여행이 없습니다.</div>')+'<div class="row wrap" style="margin-top:12px"><button class="btn btn-soft btn-sm" data-action="trip-edit">여행 정보 수정</button><button class="btn btn-ghost btn-sm" data-action="dest-manage">도시·시간대 설정</button></div></div>';
-  html+="<div class=\"card\"><div class=\"card-title\">🚨 긴급·개인 정보</div><div class=\"small-muted\" style=\"margin:6px 0 10px\">예약·보험 등 민감한 정보는 보강자료와 분리해 관리하세요.</div><button class=\"btn btn-pri btn-block\" data-action=\"nav\" data-id=\"important\">긴급 연락처·중요 정보 열기</button></div>";
-  html+=renderLocationDiagnosticsCard();
-  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">백업·복원</div><div class="small-muted" style="margin-bottom:11px">새 여행으로 바꾸기 전에 현재 여행을 먼저 백업합니다. 백업에 실패하면 기존 여행은 지워지지 않습니다.</div><div class="row wrap"><button class="btn btn-soft btn-sm" data-action="backup-options">⬇️ 파일로 백업</button><button class="btn btn-yellow btn-sm" data-action="drive-backup">☁️ Google Drive 백업</button><button class="btn btn-ghost btn-sm" data-action="restore-file">⬆️ 파일에서 복원</button><button class="btn btn-ghost btn-sm" data-action="drive-restore">Drive에서 복원</button><button class="btn btn-dark btn-sm" data-action="drive-config">Drive 연결 설정</button></div><div class="small-muted" style="margin-top:9px">Drive 상태: '+(state.settings.driveClientId?'Client ID 설정됨 · 폴더 “'+esc(state.settings.driveFolderName||'SK-여행 백업')+'”':'아직 연결 설정이 필요합니다')+'</div></div>';
-  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">정보 업데이트</div><div class="small-muted" style="margin-bottom:11px">항공 지연·관광지 휴무·파업·교통 통제·가이드 공지는 <b>sk-travel-update JSON</b>이 같은 서버의 trip-updates.json이나 설정한 주소에 올라오면 앱이 자동으로 확인합니다. 파일/붙여넣기로도 가져올 수 있어요.</div><div class="kv"><div class="k">현재 상태</div><div class="v">활성 업데이트 '+activeInfoUpdates().length+'건 · 현장 장소 '+(state.contextPlaces||[]).length+'곳 · 위치 '+(ui.geo?'좌표 응답 수신':(state.settings.fieldModeEnabled?'확인 중':'작동 불가'))+' · 숨긴 안내 '+feedbackHiddenCount()+'건<br>주소: '+esc(state.settings.updateFeedUrl||'trip-updates.json')+'</div></div><div class="row wrap" style="margin-top:11px"><button class="btn btn-pri btn-sm" data-action="update-refresh">🔔 지금 확인</button><button class="btn btn-soft btn-sm" data-action="update-config">업데이트 주소 설정</button><button class="btn btn-ghost btn-sm" data-action="feedback-reset">숨긴 안내 다시 보기</button><button class="btn btn-soft btn-sm" data-action="field-refresh">📍 위치 확인</button></div>'+(state.liveSources&&state.liveSources.length?'<div class="f-lbl">공식 확인 링크</div><div class="row wrap">'+state.liveSources.map(x=>x.url?'<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.label||x.category||'공식 확인')+'</a>':'').join('')+'</div>':'')+'</div>';
-  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">화면</div><div class="kv"><div class="k">본문 크기</div><div class="v"><b id="fzVal" style="color:var(--skyDark)">'+fz+'%</b><br>준비물 체크리스트에는 적용되지 않습니다.</div></div><input type="range" id="fontRange" min="100" max="140" step="5" value="'+fz+'" style="margin-top:10px"><div class="set-row" data-action="set-start" style="margin-top:6px"><div class="ic">🗂️</div><div class="grow"><div class="tt">앱 시작 화면</div><div class="dd">현재: '+esc((TABS.find(t=>t.id===state.settings.startTab)||TABS[0]).lb)+'</div></div><span class="ch">❯</span></div><div class="set-row" data-action="set-install"><div class="ic">📲</div><div class="grow"><div class="tt">홈 화면에 앱 설치</div><div class="dd">안드로이드 크롬에서 SK-여행 앱으로 설치</div></div><span class="ch">❯</span></div></div>';
-  html+='<div class="card"><div class="card-title" style="margin-bottom:7px">AI 여행 패키지</div><div class="small-muted">다음 여행을 준비할 때 AI에게 이 형식을 알려 주면 앱이 날짜·날씨·환율·팁을 정확히 연결할 수 있습니다.</div><button class="btn btn-soft btn-block" style="margin-top:11px" data-action="schema-show">🧩 JSON 여행 패키지 형식 보기/복사</button></div>';
-  html+='<div class="card"><div class="card-title" style="margin-bottom:9px">데이터 정리</div><button class="btn btn-ghost btn-block" data-action="clear-trip">현재 여행만 지우기 (체크리스트 유지)</button><button class="btn btn-danger btn-block" style="margin-top:8px" data-action="data-reset">앱 데이터 전체 초기화</button><div class="small-muted" style="margin-top:8px">전체 초기화에서도 체크리스트 기록은 별도로 선택하지 않으면 지우지 않습니다.</div></div>';
-  if(!updateAvailable()) html+='<button class="btn btn-ghost btn-block" data-action="check-update">🔄 최신 버전인지 확인</button>';
-  html+=renderVersionFooter();
-  html+='</div>'; return html;
+ const fz=state.settings.fontScale||115;let html='<div class="view"><div class="sec-title">여행 관리</div>';
+ html+=renderV4TripManager();
+ html+='<div class="card"><div class="card-title">여행 일정 가져오기</div><div class="small-muted" style="margin:5px 0 9px">다른 AI가 정리한 일정 텍스트를 붙여 넣는 것이 기본 방법입니다. 앱이 일정·항공·공항 이동·숙소를 구분해 검토용으로 가져옵니다.</div><div class="row wrap"><button class="btn btn-pri btn-sm" data-action="trip-text">텍스트 붙여넣기</button><button class="btn btn-soft btn-sm" data-action="trip-image">사진에서 읽기</button><button class="btn btn-ghost btn-sm" data-action="trip-register">정리된 일정 파일</button></div><button class="btn btn-ghost btn-sm" style="margin-top:8px" data-action="copy-travel-prompt">AI에게 줄 텍스트 형식 복사</button></div>';
+ html+='<div class="card"><div class="card-title">AI 보강자료 ZIP 불러오기</div><div class="small-muted" style="margin:5px 0 9px">선택한 여행 일정에 맞춰 AI가 만든 현장 설명·사진 묶음을 가져옵니다. ZIP 안에 사람이 읽을 수 있는 보강자료 텍스트와 사진을 넣으면 됩니다. Google Drive에 저장한 ZIP도 휴대폰 파일 선택기에서 선택할 수 있습니다.</div><div class="row wrap"><button class="btn btn-pri btn-sm" data-action="supplement-zip">ZIP 파일 선택</button><button class="btn btn-ghost btn-sm" data-action="copy-supplement-prompt">AI 요청 형식 복사</button></div><div class="row wrap" style="margin-top:7px"><button class="btn btn-soft btn-sm" data-action="supplement-paste">메모 직접 추가</button><button class="btn btn-ghost btn-sm" data-action="supplement-image">사진 직접 추가</button></div></div>';
+ if((state.unmatchedSupplements||[]).length){html+='<details class="card"><summary class="stack-summary">확인 대기 자료 '+state.unmatchedSupplements.length+'개 <span class="chev">▶</span></summary><div class="notice warn" style="margin-top:8px">날짜나 일정이 하나로 정해지지 않아 자동 연결하지 않은 자료입니다. 해당 일정과 맞는지 확인한 뒤 다시 준비해 주세요.</div>'+(state.unmatchedSupplements||[]).map(x=>'<div class="small-muted" style="border-top:1px solid var(--line);padding:8px 0">'+esc([x.date,x.city,x.activity,x.title||x.text||x.body].filter(Boolean).join(' · ')||'자료 연결 대기')+(x.reason?' — '+esc(x.reason):'')+'</div>').join('')+'<button class="btn btn-ghost btn-sm" data-action="supp-unmatched-clear">대기 목록 비우기</button></details>';}
+ html+='<div class="card"><div class="card-title">긴급·개인 정보</div><div class="small-muted" style="margin:5px 0 8px">긴급 연락처와 여행 중 꼭 확인할 정보를 엽니다.</div><button class="btn btn-pri btn-sm" data-action="nav" data-id="important">긴급 정보 열기</button></div>';
+ html+='<div class="card"><div class="card-title">백업·복원</div><div class="small-muted" style="margin:5px 0 9px">여행을 추가하거나 기기를 바꾸기 전 현재 정보를 백업하세요.</div><div class="row wrap"><button class="btn btn-soft btn-sm" data-action="backup-options">파일 백업</button><button class="btn btn-yellow btn-sm" data-action="drive-backup">Google Drive 백업</button><button class="btn btn-ghost btn-sm" data-action="restore-file">파일 복원</button><button class="btn btn-ghost btn-sm" data-action="drive-restore">Drive 복원</button></div><div class="small-muted" style="margin-top:6px">'+(state.settings.driveClientId?'Drive 연결 설정됨':'Drive 직접 연동에는 계정 설정이 필요합니다.')+'</div></div>';
+ const clock='<div class="card"><div class="card-title">🕰️ 현장 리허설 시각</div><div class="small-muted" style="margin:6px 0 9px">여행 날짜의 화면을 미리 봅니다. 휴대폰 시계는 바뀌지 않으며 리허설 중 실시간 날씨·환율은 표시하지 않습니다.</div><input id="v4ClockInput" class="f-in" type="datetime-local"><div class="row wrap" style="margin-top:8px"><button class="btn btn-pri btn-sm" data-action="v4-clock-start">미리 보기</button><button class="btn btn-ghost btn-sm" data-action="v4-clock-stop">실제 시각으로 복귀</button></div></div>';
+ const advanced='<div class="card"><div class="card-title">고급 데이터 형식</div><div class="small-muted">JSON은 앱이 읽는 구조화 파일 형식입니다. 여행 코드와 일정 코드는 앱 안에서 자료를 맞춰 붙이는 표식입니다. 일반 텍스트·사진·ZIP 불러오기에는 직접 필요하지 않습니다.</div><div class="row wrap" style="margin-top:8px"><button class="btn btn-ghost btn-sm" data-action="schema-show">개발용 형식 보기</button><button class="btn btn-ghost btn-sm" data-action="supplement-json">구조화 보강자료 가져오기</button></div><details style="margin-top:8px"><summary class="stack-summary">내부 일정 코드 보기</summary>'+supplementEventAnchors().map(a=>'<div class="small-muted" style="padding:5px 0;border-top:1px solid var(--line)">'+esc(a.eventId)+' · '+esc(a.day||'')+' · '+esc(a.title||'')+'</div>').join('')+'</details></div>';
+ const screen='<div class="card"><div class="card-title">화면</div><div class="kv"><div class="k">본문 글자 크기</div><div class="v"><b id="fzVal">'+fz+'%</b></div></div><input type="range" id="fontRange" min="100" max="140" step="5" value="'+fz+'"><div class="set-row" data-action="set-start"><div class="grow"><div class="tt">앱 시작 화면</div><div class="dd">현재: '+esc((TABS.find(t=>t.id===state.settings.startTab)||TABS[0]).lb)+'</div></div><span class="ch">❯</span></div><div class="set-row" data-action="set-install"><div class="grow"><div class="tt">홈 화면에 앱 설치</div><div class="dd">Android Chrome에서 앱처럼 사용</div></div><span class="ch">❯</span></div></div>';
+ const live='<div class="card"><div class="card-title">현장 안내·업데이트</div><div class="small-muted">외부 교통·휴무 안내를 확인합니다. 인터넷과 공식 정보 제공처 상태에 따라 달라질 수 있습니다.</div><div class="row wrap" style="margin-top:8px"><button class="btn btn-pri btn-sm" data-action="update-refresh">업데이트 확인</button><button class="btn btn-ghost btn-sm" data-action="field-refresh">위치 확인</button></div></div>'+renderLocationDiagnosticsCard();
+ const clean='<div class="card"><div class="card-title">데이터 정리</div><button class="btn btn-ghost btn-sm" data-action="clear-trip">선택한 여행만 지우기</button><button class="btn btn-danger btn-sm" data-action="data-reset">앱 데이터 전체 초기화</button></div>';
+ html+='<details class="card"><summary class="stack-summary">기타 설정 <span class="chev">▶</span></summary>'+clock+live+screen+advanced+clean+'</details>';
+ if(!updateAvailable())html+='<button class="btn btn-ghost btn-block" data-action="check-update">버전 확인</button>';html+=renderVersionFooter();return html+'</div>';
 }
-
 /* ---------- 폼들 ---------- */
 function openTripEdit(){
   const t=state.trip||{name:'',destSummary:'',start:'',end:''};
@@ -3390,7 +3481,7 @@ function mdToHtml(md){
     return '<p>'+inline(line.trim())+'</p>';
   }).join('\n');
 }
-function docToHtml(kind,text){ if(kind==='html')return text; if(kind==='md')return '<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;padding:20px 17px;background:#fff;color:#23284a;font-family:sans-serif;font-size:16px;line-height:1.75}h1{font-size:22px}h2{font-size:19px}h3{font-size:17px;color:#2463d8}code{background:#f2f4f8;padding:1px 5px;border-radius:5px}</style></head><body>'+mdToHtml(text)+'</body></html>'; return textDoc(text); }
+function docToHtml(kind,text){ if(kind==='html')return text; if(kind==='md')return '<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;padding:20px 17px;background:#fff;color:#23284a;font-family:sans-serif;font-size:16px;line-height:1.75}</style></head><body>'+mdToHtml(text)+'</body></html>'; return textDoc(text); }
 async function readSupplementZip(file){
   const buf=await file.arrayBuffer(),dv=new DataView(buf),u8=new Uint8Array(buf),dec=new TextDecoder('utf-8');
   let eocd=-1;for(let i=u8.length-22;i>=Math.max(0,u8.length-65557);i--){if(dv.getUint32(i,true)===0x06054b50){eocd=i;break;}}
@@ -3398,7 +3489,7 @@ async function readSupplementZip(file){
   for(let n=0;n<total;n++){if(dv.getUint32(pos,true)!==0x02014b50)throw new Error('ZIP 목록이 손상되었습니다.');const method=dv.getUint16(pos+10,true),csize=dv.getUint32(pos+20,true),nlen=dv.getUint16(pos+28,true),elen=dv.getUint16(pos+30,true),clen=dv.getUint16(pos+32,true),lo=dv.getUint32(pos+42,true),name=dec.decode(u8.slice(pos+46,pos+46+nlen));pos+=46+nlen+elen+clen;if(name.endsWith('/'))continue;if(csize>25*1024*1024)throw new Error('ZIP 안의 한 파일이 25 MB를 넘습니다.');
     const ln=dv.getUint16(lo+26,true),le=dv.getUint16(lo+28,true),start=lo+30+ln+le,compressed=u8.slice(start,start+csize);let raw;
     if(method===0)raw=compressed;else if(method===8){if(typeof DecompressionStream==='undefined')throw new Error('이 브라우저는 ZIP 압축 해제를 지원하지 않습니다. ZIP을 해제하거나 Store 방식으로 다시 압축하세요.');const ds=new DecompressionStream('deflate-raw');raw=new Uint8Array(await new Response(new Blob([compressed]).stream().pipeThrough(ds)).arrayBuffer());}else throw new Error('지원하지 않는 ZIP 압축 방식입니다: '+method);
-    totalRaw+=raw.length;if(raw.length>50*1024*1024||totalRaw>50*1024*1024)throw new Error('ZIP 압축 해제 총량은 50 MB까지입니다.');const blob=new Blob([raw],{type:/\.(png|jpe?g|webp|gif)$/i.test(name)?('image/'+name.split('.').pop().toLowerCase().replace('jpg','jpeg')):'application/octet-stream'});let text=null;if(/\.json$/i.test(name))text=dec.decode(raw);out.push({name,blob,text});
+    totalRaw+=raw.length;if(raw.length>50*1024*1024||totalRaw>50*1024*1024)throw new Error('ZIP 압축 해제 총량은 50 MB까지입니다.');const blob=new Blob([raw],{type:/\.(png|jpe?g|webp|gif)$/i.test(name)?('image/'+name.split('.').pop().toLowerCase().replace('jpg','jpeg')):'application/octet-stream'});let text=null;if(/\.(json|txt|md|markdown)$/i.test(name))text=dec.decode(raw);out.push({name,blob,text});
   }return out;
 }
 function eventChoiceOptions(){const all=supplementEventAnchors(),counts=new Map();all.forEach(a=>counts.set(a.eventId,(counts.get(a.eventId)||0)+1));return all.filter(a=>counts.get(a.eventId)===1).map(a=>({v:a.eventId,t:(a.day||'날짜 미정')+' · '+(a.time?a.time+' · ':'')+a.title}));}
@@ -3422,17 +3513,36 @@ async function applySupplementPackage(pkg,files=new Map()){
   const expected=v4TripId(state), supplied=String(pkg.tripId||'');
   if(!supplied||supplied!==expected)throw new Error('보강자료 JSON에는 관리 화면의 현재 여행 코드를 tripId로 정확히 넣어야 합니다. 다른 여행의 자료는 적용하지 않았습니다.');
   const idCounts=new Map();supplementEventAnchors().forEach(x=>idCounts.set(x.eventId,(idCounts.get(x.eventId)||0)+1));const matched=[],unknown=[];
-  for(const row of pkg.items){const eventId=String(row.eventId||'');if(!eventId||idCounts.get(eventId)!==1){unknown.push(row);continue;}const imagePath=String(row.imagePath||'').replace(/^\.\//,'');const imageBlob=imagePath?files.get(imagePath):null;const imageKey=imageBlob?'zip-'+uid()+'/'+imagePath:'';matched.push({id:uid(),eventId,title:String(row.title||''),text:String(row.text||row.body||''),source:String(row.source||row.sourceName||''),verifiedAt:String(row.verifiedAt||''),imagePath:imageBlob?imagePath:'',imageKey,imageUrl:''});if(imageBlob)matched[matched.length-1]._imageBlob=imageBlob;}
+  for(const row of pkg.items){const eventId=String(row.eventId||'');if(!eventId||idCounts.get(eventId)!==1){unknown.push(row);continue;}const imagePath=String(row.imagePath||'').replace(/^\.\//,'');const imageBlob=imagePath?files.get(imagePath):null;const imageKey=imageBlob?'zip-'+uid()+'/'+imagePath:'';matched.push({id:uid(),eventId,title:String(row.title||''),text:String(row.text||row.body||''),source:String(row.source||row.sourceName||''),verifiedAt:String(row.verifiedAt||''),confidence:String(row.confidence||''),imagePath:imageBlob?imagePath:'',imageKey,imageUrl:''});if(imageBlob)matched[matched.length-1]._imageBlob=imageBlob;}
   for(const item of matched){if(item._imageBlob){const blob=item._imageBlob;delete item._imageBlob;await putV4Asset(v4ActiveTripId+'/'+item.imageKey,blob);item.imageUrl=URL.createObjectURL(blob);}}state.supplements.push(...matched);state.unmatchedSupplements=[...(state.unmatchedSupplements||[]),...unknown];save();restoreSupplementAssets().then(()=>{if(ui.tab==='schedule')keepScroll(renderMain)});
   toast(matched.length+'개를 일정 코드로 연결했습니다. 연결할 일정이 없던 '+unknown.length+'개는 보류했습니다.');
   return {matched:matched.length,unknown:unknown.length};
+}
+function parsePlainSupplementText(raw){
+ const chunks=String(raw||'').replace(/\r/g,'').split(/\n\s*---\s*\n/).map(x=>x.trim()).filter(Boolean),out=[];
+ for(const chunk of chunks){const rec={date:'',city:'',activity:'',title:'',text:'',imagePath:'',source:'',verifiedAt:'',confidence:''};let active='';for(const line of chunk.split('\n')){const m=line.match(/^\s*([^:：]+)\s*[:：]\s*(.*)$/);if(!m){if(active==='내용'&&line.trim())rec.text+=(rec.text?'\n':'')+line.trim();continue;}const key=m[1].trim().toLowerCase(),v=m[2].trim();active='';if(['날짜','일자','date'].includes(key))rec.date=v.match(/20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}/)?.[0].replace(/[/.]/g,'-')||'';else if(['도시','city'].includes(key))rec.city=v;else if(['일정','활동','연결할 일정','activity'].includes(key))rec.activity=v;else if(['제목','title'].includes(key))rec.title=v;else if(['내용','설명','정보','text'].includes(key)){rec.text=v;active='내용';}else if(['사진','이미지','image'].includes(key))rec.imagePath=v;else if(['출처','source'].includes(key))rec.source=v;else if(['확인일','확인 날짜','verifiedat'].includes(key))rec.verifiedAt=v;else if(['확실도','신뢰도','confidence'].includes(key))rec.confidence=v;}
+  if(rec.date&&(rec.title||rec.text||rec.imagePath))out.push(rec);
+ }
+ return out;
+}
+function normMatchText(s){return String(s||'').toLocaleLowerCase().replace(/[\s·.,:：()（）\-_/]/g,'');}
+async function applyPlainSupplementArchive(text,files){
+ const rows=parsePlainSupplementText(text),matched=[],unknown=[];if(!rows.length)throw new Error('보강자료.txt에서 날짜/제목/내용 항목을 찾지 못했습니다.');
+ for(const row of rows){let days=state.days.filter(d=>d.date===row.date);if(row.city)days=days.filter(d=>!d.city||normMatchText(d.city).includes(normMatchText(row.city))||normMatchText(row.city).includes(normMatchText(d.city)));let event=null;
+  if(days.length===1){const day=days[0],all=day.events||[];if(row.activity){const q=normMatchText(row.activity);const hits=all.filter(e=>normMatchText(e.title+' '+e.place).includes(q)||q.includes(normMatchText(e.title)));if(hits.length===1)event=hits[0];}else if(all.length===1)event=all[0];}
+  if(!event){unknown.push({...row,reason:'날짜·도시·일정이 하나로 특정되지 않음'});continue;}
+  const paths=row.imagePath.split(/[;,，]/).map(x=>x.trim()).filter(Boolean),blobs=paths.map(path=>({path,blob:files.get(path)||files.get(path.split('/').pop())})).filter(x=>x.blob);
+  const base={eventId:event.eventId,title:row.title||'AI 보강 정보',text:row.text,source:row.source,verifiedAt:row.verifiedAt,confidence:row.confidence};
+  if(blobs.length){for(const im of blobs){const imageKey='ai-'+uid()+'/'+im.path;await putV4Asset(v4ActiveTripId+'/'+imageKey,im.blob);matched.push({...base,id:uid(),imagePath:im.path,imageKey,imageUrl:URL.createObjectURL(im.blob)});}}else if(row.text||row.title)matched.push({...base,id:uid(),imagePath:'',imageKey:'',imageUrl:''});
+ }
+ state.supplements.push(...matched);state.unmatchedSupplements=[...(state.unmatchedSupplements||[]),...unknown];save();return {matched:matched.length,unmatched:unknown.length};
 }
 async function handleTripFile(file){
   if(!file)return;
   const isZip=/\.zip$/i.test(file.name||'');if(file.size>(isZip?20_000_000:2_500_000)){toast(isZip?'ZIP이 너무 큽니다. 20 MB 이하로 나눠 주세요.':'파일이 너무 큽니다. 2.5MB 이하로 나눠 주세요.');return;}
   toast('여행 파일을 읽는 중…');
   try{
-    if(isZip){const entries=await readSupplementZip(file);const manifest=entries.find(x=>/^(supplement\.json|manifest\.json)$/i.test(x.name.split('/').pop())&&x.text);if(!manifest)throw new Error('ZIP 안에 supplement.json 또는 manifest.json이 없습니다.');const pkg=safeJsonParse(manifest.text);if(!pkg)throw new Error('ZIP 보강자료 JSON을 읽지 못했습니다.');if(pkg.format!=='sk-travel-supplement')throw new Error('ZIP manifest는 sk-travel-supplement 형식이어야 합니다.');const files=new Map(entries.filter(x=>x.blob).map(x=>[x.name.replace(/^\.\//,''),x.blob]));await applySupplementPackage(pkg,files);return;}
+    if(isZip){const entries=await readSupplementZip(file);const manifest=entries.find(x=>/^(supplement\.json|manifest\.json)$/i.test(x.name.split('/').pop())&&x.text);const files=new Map();entries.filter(x=>x.blob).forEach(x=>{const path=x.name.replace(/^\.\//,'');files.set(path,x.blob);files.set(path.split('/').pop(),x.blob);});if(manifest){const pkg=safeJsonParse(manifest.text);if(!pkg)throw new Error('ZIP 안의 보강자료 JSON을 읽지 못했습니다.');if(pkg.format!=='sk-travel-supplement')throw new Error('지원하지 않는 구조화 ZIP 형식입니다.');await applySupplementPackage(pkg,files);return;}const txt=entries.find(x=>/^(보강자료|supplement|ai-update)\.(txt|md|markdown)$/i.test(x.name.split('/').pop())&&x.text);if(!txt)throw new Error('ZIP 안에 “보강자료.txt”와 사진 파일을 넣어 주세요.');const result=await applyPlainSupplementArchive(txt.text,files);toast(result.matched+'개 자료를 일정에 연결했습니다'+(result.unmatched?' · 확인할 자료 '+result.unmatched+'개':'')+'.');if(ui.tab==='schedule')keepScroll(renderMain);return;}
     const text=await readFileText(file); const ext=(file.name.split('.').pop()||'').toLowerCase();
     const maybeJson=ext==='json'||text.trim().startsWith('{');
     if(maybeJson){
@@ -3442,22 +3552,23 @@ async function handleTripFile(file){
       pendingImport=normalizePackage(parsed,file.name);
     }else{
       const kind=(ext==='html'||ext==='htm')?'html':(ext==='md'||ext==='markdown')?'md':'txt';
-      const parsedDays=kind==='html'?[]:parseScheduleText(text,state.trip?state.trip.start:'');
-      pendingImport={kind:'document',fileName:file.name,fragment:{documents:[{id:uid(),name:file.name,html:docToHtml(kind,text),text:kind==='txt'?text:''}],days:parsedDays},warnings:[kind==='html'?'HTML 문서는 보기 전용으로 가져옵니다. 날짜·날씨 연결은 JSON 패키지가 정확합니다.':'텍스트에서 일정 '+parsedDays.length+'일을 찾았습니다. 미리보기에서 확인해 주세요.'],summary:{name:file.name,days:parsedDays.length,destinations:0,tips:0,airports:0,hotels:0,important:0}};
+      const bundle=parseTravelTextBundle(text,{});if(kind!=='html'&&bundle.name&&bundle.start&&bundle.days.length){if(!newTripFromText(text,{},file.name))return;}
+      else{const parsedDays=kind==='html'?[]:parseScheduleText(text,state.trip?state.trip.start:'');pendingImport={kind:'document',fileName:file.name,fragment:{documents:[{id:uid(),name:file.name,html:docToHtml(kind,text),text:kind==='txt'?text:''}],days:parsedDays},warnings:[kind==='html'?'HTML 문서는 보기 전용으로 가져옵니다. 날짜·날씨 연결은 AI 일정 텍스트 형식(.txt/.md)을 사용하세요.':'일반 문서로 가져옵니다. 각 탭에 나누려면 관리의 “AI 요청용 텍스트 형식”대로 [여행 정보]/[일정]/[항공] 등을 구분해 주세요.'],summary:{name:file.name,days:parsedDays.length,destinations:0,tips:0,airports:0,hotels:0,important:0}};}
     }
     openImportPreview();
   }catch(e){ pendingImport=null; toast('가져오지 못했어요: '+e.message); }
 }
 function openImportPreview(){
   const p=pendingImport; if(!p)return; const s=p.summary;
-  const body='<div style="font-size:13.5px;line-height:1.75"><b>'+esc(s.name||p.fileName)+'</b>'+(s.start?'<br>'+esc(fmtFull(s.start))+(s.end?' ~ '+esc(fmtFull(s.end)):''):'')+'<br>일정 '+s.days+'일 · 도시 '+s.destinations+'곳 · 팁 '+s.tips+'개'+(s.fieldAdvice?' · 현장 조언 '+s.fieldAdvice+'개':'')+(s.contextPlaces?' · 현장 장소 '+s.contextPlaces+'곳':'')+(s.amenities?' · 화장실/편의시설 '+s.amenities+'곳':'')+' · 공항 '+s.airports+'개 · 숙소 '+s.hotels+'개'+(s.important?'<br>중요 정보 '+s.important+'개 포함':'')+'</div>'
+  const body='<div style="font-size:13.5px;line-height:1.75"><b>'+esc(s.name||p.fileName)+'</b>'+(s.start?'<br>'+esc(fmtFull(s.start))+(s.end?' ~ '+esc(fmtFull(s.end)):''):'')+'<br>일정 '+s.days+'일 · 도시 '+s.destinations+'곳 · 팁 '+s.tips+'개'+(s.fieldAdvice?' · 현장 조언 '+s.fieldAdvice+'개':'')+(s.contextPlaces?' · 현장 장소 '+s.contextPlaces+'곳':'')+(s.amenities?' · 화장실/편의시설 '+s.amenities+'곳':'')+' · 항공 '+(s.flights||0)+'편 · 티켓 '+(s.tickets||0)+'개 · 공항 '+s.airports+'개 · 숙소 '+s.hotels+'개'+(s.important?'<br>중요 정보 '+s.important+'개 포함':'')+'</div>'
     +(p.warnings.length?'<div class="notice" style="margin-top:12px">'+p.warnings.map(esc).join('<br>')+'</div>':'')
+    +(p.reviewFlags&&p.reviewFlags.length?'<div class="notice" style="margin-top:8px;background:#fff0f0;border-color:#e7a5a5;color:#9b1c1c"><b>빨간색 · 원문 확인 필요 ('+p.reviewFlags.length+'개)</b><br>'+p.reviewFlags.map(esc).join('<br>')+'</div>':'<div class="small-muted" style="margin-top:7px;color:#263238">검정색 · 형식에 맞게 읽힌 정보</div>')
     +fSelect('바꾸기 전에 현재 여행 백업','backupMode','download',[{v:'download',t:'파일로 먼저 백업 (추천)'},{v:'drive',t:'Google Drive로 먼저 백업'},{v:'none',t:'백업 없이 바꾸기'}])
     +fCheck('백업에 중요 정보 포함','includeImportant',true,'현재 회의 결정에 따라 기본값은 포함입니다. 공유용 백업이면 끄세요.')
     +fSelect('기존 중요 정보','importantMode','merge',[{v:'merge',t:'기존 정보 유지 + 새 정보 추가'},{v:'replace',t:'새 여행 정보로 교체'},{v:'keep',t:'파일의 중요 정보는 가져오지 않기'}])
     +'<div class="small-muted" style="margin-top:12px">백업을 선택했는데 백업에 실패하면 여행은 바뀌지 않습니다. 준비물 체크리스트는 어떤 경우에도 건드리지 않습니다.</div>'
-    +'<div class="row btns"><button class="btn btn-pri" id="applyImportBtn" style="flex:1;padding:14px">확인하고 새 여행으로 바꾸기</button></div>';
-  openCustomSheet('여행등록 미리보기',body,()=>{
+    +'<div class="row btns"><button class="btn btn-pri" id="applyImportBtn" style="flex:1;padding:14px">검토 후 여행 목록에 추가하고 열기</button></div>';
+  openCustomSheet('가져올 여행 정보 검토',body,()=>{
     $('#applyImportBtn').onclick=async()=>{
       const mode=document.querySelector('select[name="backupMode"]').value;
       const includeImportant=document.querySelector('input[name="includeImportant"]').checked;
@@ -3553,24 +3664,54 @@ function openTripPaste(){
   },'미리보기');
 }
 function v4ReadIntakeFields(){const out={};document.querySelectorAll('#sheetWrap [name]').forEach(x=>out[x.name]=x.value);return out;}
-function newTripFromText(raw,meta,sourceLabel){
-  const name=String(meta.name||'').trim(),start=String(meta.start||'').slice(0,10),city=String(meta.city||'').trim(),country=String(meta.country||'').trim(),tz=String(meta.tz||'').trim(),currency=String(meta.currency||'').trim().toUpperCase();
-  if(!name||!start){toast('여행 이름과 시작 날짜를 입력하세요.');return false;}const days=parseScheduleText(String(raw||''),start);if(!days.length){toast('일정으로 인식한 날짜가 없습니다. 날짜가 포함된 문장을 확인하세요.');return false;}
-  days.forEach(d=>{if(city)d.city=city;if(country)d.country=country;if(tz)d.tz=tz;if(currency)d.currency=currency;});
-  const destinations=city?[{id:uid(),city,country,tz,currency,lat:null,lon:null,from:days[0].date,to:days[days.length-1].date}]:[];
-  const f={trip:{id:'intake-'+uid(),name,destSummary:[city,country].filter(Boolean).join(' · '),start,end:days[days.length-1].date||start,flights:[],departureSteps:[],preTripActions:[]},destinations,days,tips:[],expertInfo:[],contextPlaces:[],amenities:[],airports:[],transfers:[],hotels:[],important:[],guides:[],documents:[],infoFeed:[],guideNotes:[],liveSources:[]};
-  pendingImport={kind:'package',fileName:sourceLabel,fragment:f,warnings:['OCR/텍스트 추출 초안입니다. 날짜·시각·장소를 원본과 대조한 뒤 등록하세요. 날씨·지도 연결에는 목적지 위도·경도 확인이 필요합니다.'],summary:{name,start,end:f.trip.end,days:days.length,destinations:destinations.length,tips:0,airports:0,hotels:0,important:0}};return true;
+function parseTravelTextBundle(raw,meta={}){
+ const lines=String(raw||'').replace(/\r/g,'').split('\n'),sections={},aliases={'여행 정보':'trip','여행':'trip','기본 정보':'trip','trip':'trip','일정':'schedule','schedule':'schedule','항공':'flights','항공편':'flights','flights':'flights','공항':'airport','공항 안내':'airport','airport':'airport','공항 이동':'transfer','이동':'transfer','transfer':'transfer','숙소':'hotel','호텔':'hotel','hotel':'hotel','티켓':'tickets','예약':'tickets','tickets':'tickets'};let sec='schedule';
+ for(const line of lines){const h=line.trim().match(/^\[([^\]]+)\]$/);if(h){sec=aliases[h[1].trim().toLowerCase()]||aliases[h[1].trim()]||'other';if(!sections[sec])sections[sec]=[];continue;}if(!sections[sec])sections[sec]=[];sections[sec].push(line);}
+ const textOf=k=>(sections[k]||[]).join('\n').trim();
+ const all=textOf('trip')+'\n'+String(raw||'');
+ const val=(src,keys)=>{for(const line of String(src||'').split('\n')){const m=line.match(/^\s*([^:：|]+)\s*[:：]\s*(.*?)\s*$/);if(m&&keys.some(k=>m[1].trim().toLowerCase()===k.toLowerCase())&&m[2])return m[2].trim();}return '';};
+ const dateVal=v=>{const m=String(v||'').match(/(20\d{2})[-/.년]\s*(\d{1,2})[-/.월]\s*(\d{1,2})/);return m?m[1]+'-'+m[2].padStart(2,'0')+'-'+m[3].padStart(2,'0'):'';};
+ const name=String(meta.name||val(all,['여행 이름','여행명','trip name'])).trim();
+ let start=String(meta.start||val(all,['시작 날짜','여행 시작','출발 날짜','여행 기간','기간','start date'])).trim();start=dateVal(start)||String(meta.start||'').slice(0,10);const end=dateVal(val(all,['종료 날짜','여행 종료','end date']));
+ const city=String(meta.city||val(all,['주요 도시','도시','목적지','city'])).trim(),country=String(meta.country||val(all,['국가','country'])).trim(),tz=String(meta.tz||val(all,['시간대','목적지 시간대','timezone'])).trim(),currency=String(meta.currency||val(all,['통화','currency'])).trim().toUpperCase();
+ // 일정 구역은 ISO 날짜 파이프 구문을 먼저 읽고, 나머지는 자연어 일정 파서에 보냅니다.
+ const scheduleLines=textOf('schedule').split('\n').map(x=>x.trim()).filter(Boolean),days=[],unparsed=[];
+ for(const line of scheduleLines){const cols=line.split('|').map(x=>x.trim());if(cols.length>=4&&dateVal(cols[0])){const date=dateVal(cols[0]),cityName=cols[1]||city,time=/^\d{1,2}:\d{2}$/.test(cols[2]||'')?normalizeTimeToken(cols[2]):'',title=cols[3]||'일정',place=cols[4]||'',note=cols[5]||'',dayTz=cols[6]&&validIanaTimeZone(cols[6])?cols[6]:tz;let d=days.find(x=>x.date===date);if(!d){d=normalizeDay({date,city:cityName,country,tz:dayTz,currency,events:[]});days.push(d);}d.events.push({id:uid(),time,title,place,note,city:cityName});}else unparsed.push(line);}
+ if(unparsed.length){const parsed=parseScheduleText(unparsed.join('\n'),start);for(const x of parsed){let d=days.find(y=>(x.date&&y.date===x.date)||(!x.date&&y.label===x.label));if(!d)days.push(x);else d.events.push(...x.events);}}
+ if(!days.length){const candidate=String(raw||'').split('\n').filter(line=>!/^\s*\[[^\]]+\]\s*$/.test(line)&&!/^\s*(여행 이름|여행명|시작 날짜|여행 시작|주요 도시|목적지|도시|국가|시간대|통화)\s*[:：]/i.test(line));days.push(...parseScheduleText(candidate.join('\n'),start));}
+ days.sort((a,b)=>(a.date||'9999')<(b.date||'9999')?-1:1);
+ // 항공 구역: 비민감 일정정보만 자동 분배합니다. 개인명/예약번호는 이 자유문 템플릿에서 자동 수집하지 않습니다.
+ const fl=textOf('flights'),flights=[];for(const block of fl.split(/\n\s*---\s*\n/).filter(x=>x.trim())){const f={airline:val(block,['항공사']),flightNo:val(block,['편명','항공편']),from:val(block,['출발 공항','출발지','from']),to:val(block,['도착 공항','도착지','to']),direction:val(block,['구간','방향']),terminalFrom:val(block,['출발 터미널']),terminalTo:val(block,['도착 터미널']),note:val(block,['참고','메모'])};f.departAt=val(block,['출발 날짜와 시각','출발 시각','출발']);f.arriveAt=val(block,['도착 날짜와 시각','도착 시각','도착']);if(Object.values(f).some(Boolean))flights.push(f);}
+ const hotels=[];const ht=textOf('hotel');for(const block of ht.split(/\n\s*---\s*\n/).filter(x=>x.trim())){const h={id:uid(),name:val(block,['숙소 이름','호텔 이름','숙소','호텔']),city:val(block,['도시']),checkin:val(block,['체크인']),checkout:val(block,['체크아웃']),address:val(block,['주소']),phone:'',note:val(block,['참고','메모'])};if(h.name)hotels.push(h);}
+ const transfers=[];const tr=textOf('transfer');if(tr){const t={id:uid(),name:val(tr,['이동 이름','구간'])||'공항 이동',mode:val(tr,['교통수단','수단']),where:val(tr,['출발지와 목적지','경로','타는 곳']),duration:val(tr,['소요시간']),cost:val(tr,['비용']),note:val(tr,['참고','메모'])};if(Object.values(t).some(Boolean))transfers.push(t);}
+ const airports=[];const ap=textOf('airport');if(ap){const a={id:uid(),name:val(ap,['공항명','공항']),code:val(ap,['공항 코드','코드']),type:'dep',terminal:val(ap,['터미널']),checkin:val(ap,['체크인']),procedure:val(ap,['절차','공항에서 할 일']),tips:val(ap,['참고','메모'])};if(a.name||a.code)airports.push(a);}
+ // 티켓은 해당 날짜의 일정에 부가 항목으로 배치합니다. 표에 없는 날/장소는 추측하지 않습니다.
+ const tk=textOf('tickets');if(tk){for(const line of tk.split('\n').map(x=>x.trim()).filter(Boolean)){const cols=line.split('|').map(x=>x.trim());let day='',tCity='',time='',title='',place='',details='';if(cols.length>=4&&dateVal(cols[0]))[day,tCity,time,title,place,details]=[dateVal(cols[0]),cols[1],cols[2],cols[3],cols[4]||'',cols.slice(5).join(' · ')];else{day=dateVal(val(line,['날짜','일자']));tCity=val(line,['도시']);time=val(line,['시간']);title=val(line,['티켓 이름','티켓','예약 종류']);place=val(line,['장소']);details=val(line,['참고','설명','상태']);}if(!day||!title)continue;let d=days.find(x=>x.date===day);if(!d){d=normalizeDay({date:day,city:tCity||city,country,tz,currency,events:[]});days.push(d);}d.events.push({id:uid(),time:/^\d{1,2}:\d{2}$/.test(time)?normalizeTimeToken(time):'',title:'🎟 '+title,place,note:details,city:d.city});}}
+ return {name,start,end,city,country,tz,currency,days,flights,hotels,transfers,airports,sections};
 }
+function newTripFromText(raw,meta,sourceLabel){
+ const parsed=parseTravelTextBundle(raw,meta),name=parsed.name,start=parsed.start,city=parsed.city,country=parsed.country,tz=parsed.tz,currency=parsed.currency;
+ if(!name||!start){toast('여행 이름과 시작 날짜가 필요합니다. 텍스트에 “여행 이름:”과 “시작 날짜:”를 적거나 위 입력칸에 넣어 주세요.');return false;}const days=parsed.days;
+ if(!days.length){toast('날짜와 일정 항목을 찾지 못했습니다. 날짜가 들어간 일정 줄을 확인하세요.');return false;}
+ days.forEach(d=>{if(city&&!d.city)d.city=city;if(country&&!d.country)d.country=country;if(tz&&!d.tz)d.tz=tz;if(currency&&!d.currency)d.currency=currency;});
+ const destNames=[...new Set([city,...days.map(d=>d.city)].filter(Boolean))];const firstDate=days.find(d=>d.date)?.date||start,lastDate=days.filter(d=>d.date).slice(-1)[0]?.date||start;const destinations=destNames.map(c=>({id:uid(),city:c,country,tz,currency,lat:null,lon:null,from:firstDate,to:lastDate}));
+ const f={trip:{id:'',name,destSummary:destNames.join(' · '),start,end:parsed.end||lastDate,flights:parsed.flights,departureSteps:[],preTripActions:[]},destinations,days,tips:[],expertInfo:[],contextPlaces:[],amenities:[],airports:parsed.airports,transfers:parsed.transfers,hotels:parsed.hotels,important:[],guides:[],documents:[],infoFeed:[],guideNotes:[],liveSources:[]};
+ const reviewFlags=[];if(String(sourceLabel||'').includes('사진')&&v4OcrLowConfidence)reviewFlags.push('사진 OCR 전체 인식 신뢰도가 낮음 ('+(v4OcrScore==null?'미확인':v4OcrScore+'%')+')');const unknownLines=String(raw||'').split(/\n/).filter(line=>/미확인|확인 필요|불확실|판독 어려움/i.test(line));unknownLines.forEach(line=>reviewFlags.push('원문 표시: '+line.trim()));parsed.flights.forEach((fl,i)=>{[['항공편 '+(i+1)+' 항공사',fl.airline],['항공편 '+(i+1)+' 편명',fl.flightNo],['항공편 '+(i+1)+' 출발 공항',fl.from],['항공편 '+(i+1)+' 도착 공항',fl.to],['항공편 '+(i+1)+' 출발 시각',fl.departAt],['항공편 '+(i+1)+' 도착 시각',fl.arriveAt]].forEach(([label,value])=>{if(!value||/미확인|확인 필요/i.test(value))reviewFlags.push(label+' 확인 필요');});});parsed.hotels.forEach((h,i)=>{[['숙소 '+(i+1)+' 체크인',h.checkin],['숙소 '+(i+1)+' 체크아웃',h.checkout]].forEach(([label,value])=>{if(!value||/미확인|확인 필요/i.test(value))reviewFlags.push(label+' 확인 필요');});});
+ pendingImport={kind:'package',fileName:sourceLabel,fragment:f,reviewFlags:[...new Set(reviewFlags)],warnings:['텍스트를 구역별로 자동 분류한 검토용 초안입니다. 검정 글씨는 형식에 맞게 읽힌 항목, 빨간 표시만 원문 확인이 필요한 항목입니다. 저장 전 원문과 대조해 주세요.'],summary:{name,start,end:f.trip.end,days:days.length,destinations:destinations.length,tips:0,airports:f.airports.length,hotels:f.hotels.length,flights:parsed.flights.length,tickets:days.reduce((n,d)=>n+d.events.filter(e=>String(e.title||'').startsWith('🎟 ')).length,0),important:0}};return true;
+}
+const TRAVEL_AI_TEXT_PROMPT=`아래 여행 자료를 SK-여행 앱에 넣기 쉬운 일반 텍스트로 정리해 주세요. JSON은 쓰지 마세요. 자료에 없는 사실은 만들지 말고 “미확인”이라고 적으세요. 예약번호·여권번호·여행자 이름·개인 연락처는 포함하지 마세요. 날짜는 YYYY-MM-DD, 시각은 24시간제로 쓰세요. 일정은 한 줄에 하나씩 아래 파이프 형식으로 출력하세요.\n\n[여행 정보]\n여행 이름: \n시작 날짜: YYYY-MM-DD\n종료 날짜: YYYY-MM-DD\n주요 도시: \n국가: \n목적지 시간대: IANA 표기 또는 미확인\n통화: \n\n[일정]\nYYYY-MM-DD | 도시 | HH:MM 또는 미확인 | 일정/장소 제목 | 장소 | 원문 참고 | 시간대(IANA, 선택)\n\n[항공]\n항공사: \n편명: \n출발 날짜와 시각: YYYY-MM-DD HH:MM\n출발 공항: \n도착 날짜와 시각: YYYY-MM-DD HH:MM\n도착 공항: \n참고: \n여러 항공편은 항공 구역에서 항공편 사이에 --- 한 줄을 넣어 구분\n\n[공항 이동]\n교통수단: \n출발지와 목적지: \n소요시간: \n참고: \n\n[공항 안내]\n공항명: \n공항 코드: \n터미널: \n체크인/절차: \n\n[숙소]\n숙소 이름: \n도시: \n체크인: YYYY-MM-DD\n체크아웃: YYYY-MM-DD\n주소: \n참고: \n여러 숙소는 숙소 사이에 --- 한 줄을 넣어 구분\n\n[티켓]\nYYYY-MM-DD | 도시 | HH:MM 또는 미확인 | 티켓 이름 | 장소 | 참고\n같은 종류 정보가 여러 개면 항목을 반복하고, 일정이 불확실하면 미확인으로 남겨 주세요.`;
+const SUPPLEMENT_AI_TEXT_PROMPT=`아래 여행 일정에 맞춘 현장 보강자료를 만들어 주세요. 출력은 ZIP 한 개로 만들고, ZIP 안에는 “보강자료.txt”와 “images” 폴더를 넣어 주세요. JSON은 쓰지 마세요. 보강자료에는 일정표의 날짜와 도시, 연결할 일정 제목을 정확히 적고, 사진이 있으면 파일 경로를 씁니다. 공공 화장실/편의시설은 위치·이용 조건·운영시간을 확인 가능한 출처로 확인하고, 불확실하면 “확인 필요”라고 표시하세요. 없는 정보는 만들지 말고 예약번호·여행자 이름·개인 연락처는 넣지 마세요. 이미지가 AI 생성이면 사진이 아니라 “AI 생성 이미지”라고 표시하세요.\n\n보강자료.txt 예시(각 자료 사이에 --- 한 줄):\n날짜: 2026-10-23\n도시: Barcelona\n일정: 원래 일정의 항목 이름을 그대로\n제목: 가까운 공공 화장실\n내용: 위치와 실제 이용 조건. 확인되지 않은 점은 확인 필요라고 표시.\n사진: images/barcelona-restroom.jpg\n출처: 공식 또는 신뢰할 수 있는 출처 URL\n확인일: YYYY-MM-DD\n확실도: 확실 또는 확인 필요`;
+function openSupplementZipPicker(){const input=$('#tripFile');if(!input){toast('파일 선택기를 열 수 없습니다.');return;}input.value='';input.click();}
 function openNewTripText(){
-  const body=fField('새 여행 이름','name','','text','예: 스위스 열차 여행')+fField('시작 날짜','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+fArea('일정 텍스트','schedule','','날짜와 시각이 포함된 원문을 붙여 넣으세요')+'<button type="button" class="btn btn-pri btn-block" id="v4TripTextCreate" style="margin-top:10px">내용 검토 후 여행 업데이트</button>';
+  const body='<div class="notice" style="margin:4px 0 10px">AI에게 형식을 복사해 요청하면 일정·항공·공항 이동·숙소를 앱이 구역별로 분류합니다. 여행 이름/날짜 라벨은 텍스트에서 읽고, 누락되면 입력칸을 채워 주세요. 확인이 필요한 내용은 미리보기에서 검토합니다.</div>'+fField('여행 이름 (필수)','name','','text','예: 스위스 열차 여행')+fField('시작 날짜 (필수)','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+fArea('여행 텍스트','schedule','','[여행 정보]와 [일정], [항공], [공항 이동], [숙소], [티켓] 구역이 있는 텍스트를 붙여 넣으세요. 상단 AI 요청용 형식을 복사해 사용할 수 있습니다.')+'<button type="button" class="btn btn-pri btn-block" id="v4TripTextCreate" style="margin-top:10px">텍스트를 일정 정보로 분류</button>';
   openCustomSheet('텍스트로 여행 정보 불러오기',body,()=>{document.getElementById('v4TripTextCreate').onclick=()=>{const v=v4ReadIntakeFields();if(!newTripFromText(v.schedule,v,'붙여넣은 새 여행 일정'))return;closeSheet();openImportPreview();};});
 }
 function openNewTripPhoto(){
-  const body=fField('새 여행 이름','name','','text','예: 스위스 열차 여행')+fField('시작 날짜','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+'<div class="small-muted" style="margin:6px 0 9px">사진은 이 기기에서 OCR 처리합니다. 처음에는 인터넷으로 OCR 엔진을 내려받을 수 있습니다. OCR 초안을 꼭 원본 일정과 대조하세요.</div><input id="v4TripImages" type="file" accept="image/*" multiple class="f-in"><div id="ocrStatus" style="font-size:14px;color:var(--skyDark);font-weight:800;line-height:1.6;margin-top:10px"></div><div class="bar" id="ocrBarWrap" style="display:none;margin-top:6px"><i id="ocrBar" style="width:0%"></i></div><textarea class="ta" id="ocrText" style="margin-top:10px" placeholder="사진에서 읽은 일정이 여기에 표시됩니다. 인식 오류를 고쳐 주세요."></textarea><button type="button" class="btn btn-soft btn-block" id="v4TripOcrBtn" style="margin-top:8px">사진에서 일정 텍스트 읽기</button><button type="button" class="btn btn-pri btn-block" id="v4TripCreateBtn" style="margin-top:8px">OCR 초안을 검토용 여행으로 만들기</button>';
+  const body=fField('여행 이름 (필수)','name','','text','예: 스위스 열차 여행')+fField('시작 날짜 (필수)','start','','date')+fField('주요 도시 (선택)','city','','text','Interlaken')+fField('국가 (선택)','country','','text','Switzerland')+fField('목적지 시간대 (선택)','tz','','text','Europe/Zurich')+fField('통화 (선택)','currency','','text','CHF')+'<div class="notice" style="margin:6px 0 9px">① 사진을 고르고 ② ‘사진에서 일정 텍스트 읽기’를 누르면 글자를 추출합니다. 사진만으로 여행 이름·시작일·도시까지 모두 자동 확정되지는 않습니다. 여행 이름과 시작일은 입력하고, 일정 내용은 아래에서 원본과 대조해 고쳐 주세요. OCR은 기기에서 처리합니다(처음엔 인터넷으로 엔진을 받을 수 있음).</div><input id="v4TripImages" type="file" accept="image/*" multiple class="f-in"><div id="ocrStatus" style="font-size:14px;color:var(--skyDark);font-weight:800;line-height:1.6;margin-top:10px"></div><div class="bar" id="ocrBarWrap" style="display:none;margin-top:6px"><i id="ocrBar" style="width:0%"></i></div><textarea class="ta" id="ocrText" style="margin-top:10px" placeholder="사진에서 읽은 일정이 여기에 표시됩니다. 인식 오류를 고쳐 주세요."></textarea><button type="button" class="btn btn-soft btn-block" id="v4TripOcrBtn" style="margin-top:8px">사진에서 일정 텍스트 읽기</button><button type="button" class="btn btn-pri btn-block" id="v4TripCreateBtn" style="margin-top:8px">읽은 내용 확인하기</button>';
   openCustomSheet('이미지로 여행 정보 불러오기',body,()=>{const fileInput=document.getElementById('v4TripImages');document.getElementById('v4TripOcrBtn').onclick=()=>{const files=[...(fileInput.files||[])];if(!files.length){toast('일정 사진을 선택하세요.');return;}runOcrFiles(files);};document.getElementById('v4TripCreateBtn').onclick=()=>{const v=v4ReadIntakeFields();if(!newTripFromText(document.getElementById('ocrText').value,v,'사진 OCR 새 여행 초안'))return;closeSheet();openImportPreview();};});
 }
 function openTripRegister(){
-  openCustomSheet('여행등록','<div style="font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:13px">현재 여행은 미리보기에서 먼저 백업할 수 있습니다. 안드로이드 파일 선택 화면에서는 휴대폰 파일과 Google Drive 파일을 모두 고를 수 있어요.</div><button class="btn btn-pri btn-block" id="regFileBtn">📁 파일 가져오기 (.json .html .md .txt)</button><button class="btn btn-soft btn-block" id="regPasteBtn" style="margin-top:8px">📝 JSON/텍스트 붙여넣기</button><button class="btn btn-ghost btn-block" id="regManualBtn" style="margin-top:8px">✏️ 직접 일정 입력</button>',()=>{
+  openCustomSheet('여행 파일 불러오기','<div class="notice" style="margin:0 0 12px">이 옵션은 이미 정리된 여행 패키지 파일(JSON)이나 일정 문서(HTML/MD/TXT)를 넣을 때 사용합니다. 일정 사진 한 장이나 일반 텍스트를 넣는 기능은 아니며, 그런 자료는 앞의 이미지/텍스트 불러오기를 사용하세요. 파일을 고른 뒤 미리보기에서 내용을 확인하고 적용합니다.</div><button class="btn btn-pri btn-block" id="regFileBtn">📁 파일 가져오기 (.json .html .md .txt)</button><button class="btn btn-soft btn-block" id="regPasteBtn" style="margin-top:8px">📝 JSON/텍스트 붙여넣기</button><button class="btn btn-ghost btn-block" id="regManualBtn" style="margin-top:8px">✏️ 직접 일정 입력</button>',()=>{
     $('#regFileBtn').onclick=()=>{closeSheet(); pickTripFile();};
     $('#regPasteBtn').onclick=()=>openTripPaste();
     $('#regManualBtn').onclick=()=>openTripEdit();
@@ -3730,6 +3871,7 @@ async function resizeImageFile(file){
     return await new Promise(resolve=>canvas.toBlob(b=>resolve(b||file),'image/jpeg',0.9));
   }catch(e){return file;}
 }
+let v4OcrLowConfidence=false,v4OcrScore=null;
 async function runOcrFiles(files){
   if(!files.length)return;
   try{
@@ -3737,13 +3879,13 @@ async function runOcrFiles(files){
     await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js');
     if(typeof Tesseract==='undefined')throw new Error('OCR 엔진을 불러오지 못했습니다.');
     const worker=await Tesseract.createWorker('kor+eng',1,{logger:m=>{ if(m.status==='recognizing text')setOcrStatus('글자를 읽는 중…',m.progress); else if(m.status)setOcrStatus('준비 중… '+m.status,null); }});
-    const texts=[];
+    const texts=[],scores=[];
     try{
-      for(let i=0;i<files.length;i++){ setOcrStatus((i+1)+'/'+files.length+'장 읽는 중…',0); const prepared=await resizeImageFile(files[i]); const ret=await worker.recognize(prepared); texts.push((ret.data.text||'').trim()); }
+      for(let i=0;i<files.length;i++){ setOcrStatus((i+1)+'/'+files.length+'장 읽는 중…',0); const prepared=await resizeImageFile(files[i]); const ret=await worker.recognize(prepared); texts.push((ret.data.text||'').trim()); if(Number.isFinite(Number(ret.data.confidence)))scores.push(Number(ret.data.confidence)); }
     }finally{ await worker.terminate(); }
     const ta=$('#ocrText'); if(ta)ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+texts.filter(Boolean).join('\n');
-    setOcrStatus('인식이 끝났어요. 틀린 글자를 고친 뒤 “일정으로 변환”을 눌러 주세요.',1); toast('글자 인식 완료');
-  }catch(e){ setOcrStatus('인식에 실패했어요. 인터넷 연결과 사진 선명도를 확인하거나 텍스트를 직접 붙여넣어 주세요.',null); }
+    v4OcrScore=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):null;v4OcrLowConfidence=v4OcrScore!=null&&v4OcrScore<72;const status=$('#ocrStatus');if(status)status.style.color=v4OcrLowConfidence?'#b42318':'#172b4d';setOcrStatus(v4OcrLowConfidence?'빨간색 확인 필요 · 글자 인식 신뢰도가 낮습니다. 원본 사진과 대조하고 고쳐 주세요.':'검정색 · 글자 인식은 비교적 선명합니다. 이름·날짜·항공·숙소는 원본과 대조해 주세요.',1); toast(v4OcrLowConfidence?'인식 완료 · 원본 대조 필요':'글자 인식 완료');
+  }catch(e){ setOcrStatus('인식에 실패했어요. 인터넷 연결과 사진 선명도를 확인하거나 텍스트를 붙여넣어 주세요.',null); }
 }
 
 /* ---------- 액션 ---------- */
@@ -3753,7 +3895,7 @@ function currentAppNavState(seq){
 function applyAppNavState(st){
   if(!st||!st.tab||!(TABS.some(t=>t.id===st.tab)||st.tab==='settings'))return;
   ui.tab=st.tab;
-  if(['flights','airports','hotels'].includes(st.airHotelSection))ui.airHotelSection=st.airHotelSection;
+  if(['flights','airports','hotels','transfer'].includes(st.airHotelSection))ui.airHotelSection=st.airHotelSection;
   if(['original','edit'].includes(st.scheduleMode))ui.scheduleMode=st.scheduleMode;
   ui.revealed.clear(); renderAll();
   if(ui.tab==='home'){ refreshLiveData(false); maybeAutoStartFieldLocation(); }
@@ -3770,6 +3912,11 @@ function initAppHistory(){
 const actions={
   'nav'(id){ goTab(id); },
   'v4-trip-open'(id){v4SwitchTrip(id);},
+  'trip-picker'(){openTripPicker();},
+  'copy-travel-prompt'(){copyText(TRAVEL_AI_TEXT_PROMPT);toast('AI 요청용 텍스트 형식을 복사했습니다.');},
+  'copy-supplement-prompt'(){copyText(SUPPLEMENT_AI_TEXT_PROMPT);toast('AI 보강자료 ZIP 요청 형식을 복사했습니다.');},
+  'supplement-zip'(){openSupplementZipPicker();},
+  'trip-pick'(id){closeSheet();v4SwitchTrip(id);},
   'trip-image'(){openNewTripPhoto();},
   'trip-text'(){openNewTripText();},
   'v4-clock-start'(){v4ClockStart();},

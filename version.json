@@ -1,7 +1,7 @@
 {
   "app": "SK-여행",
-  "version": "v4.1.2",
-  "releasedAt": "2026-11-10",
-  "releaseDate": "2026-11-10",
-  "notes": "Added global trip selector, clarified per-device trip list and controls, moved airport transfers to aviation, simplified trip intake labels, and added trip-specific nested notes in packing section 7."
+  "version": "v4.1.5",
+  "releasedAt": "2026-11-09",
+  "releaseDate": "2026-11-09",
+  "notes": "Home redesigned around Philadelphia and destination local clocks/weather, visible field-location status, previous/current/next itinerary controls, and exact-event-matched photos and supplemental information. Photos precede captions; ambiguous matches remain withheld. Original itinerary is not changed by supplements."
 }
