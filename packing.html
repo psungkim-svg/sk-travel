@@ -100,7 +100,7 @@ details{background:#fff;border:1px solid #dfe7ee;border-radius:13px;margin:7px 0
 details>summary{background:#eaf2ff!important;color:#18334b!important;border-bottom:1px solid #d8e3ef!important;padding:11px 13px!important;font-weight:900!important}
 details:nth-of-type(2)>summary{background:#eaf7f0!important}details:nth-of-type(3)>summary{background:#fff3df!important}details:nth-of-type(4)>summary{background:#f2edff!important}details:nth-of-type(5)>summary{background:#e6f5f4!important}details:nth-of-type(6)>summary{background:#fff0ee!important}details:nth-of-type(7)>summary{background:#e9f1fc!important}
 .note{background:#fffdf5!important;border:1px solid #eadfbf!important;border-left:4px solid #e6ba50!important;border-radius:11px;padding:10px 11px;margin:8px 0;box-shadow:0 2px 7px rgba(70,55,20,.06)}
-.note>strong{font-size:14px;color:#3d4652}.memo-note-editor{display:block;width:100%;min-height:100px;margin-top:7px;padding:10px 11px;border:1px solid #e4d7ac;border-radius:9px;background:#fffefa;color:#243447;font:15px/1.65 system-ui,sans-serif;resize:vertical;box-sizing:border-box;outline:none}.memo-note-editor:focus{border-color:#c49b32;box-shadow:0 0 0 3px #f5e8bf}
+.note>strong{font-size:14px;color:#3d4652}.memo-note-editor{display:block;width:100%;min-height:100px;margin-top:7px;padding:10px 11px;border:1px solid #e4d7ac;border-radius:9px;background:#fffefa;color:#243447;font:15px/1.65 system-ui,sans-serif;resize:none;overflow:hidden;box-sizing:border-box;outline:none}.memo-note-editor:focus{border-color:#c49b32;box-shadow:0 0 0 3px #f5e8bf}
 .memo-editor-label{font-size:10px;color:#77808b;margin-top:5px}
 </style>
 </head>
@@ -458,20 +458,17 @@ window.setV4TripId=function(id){activeV4TripKey=String(id||'default');renderMemo
 // 7번 여행용 메모: 기존 제목(예: 공항 복장)을 두 번 눌러 해당 박스 아래에 여행별 메모를 추가합니다.
 function memoSubKey(title){return 'travel_v4_memo_sub_'+encodeURIComponent(activeV4TripKey)+'_'+encodeURIComponent(title);}
 function memoSection(){return [...document.querySelectorAll('details')].find(d=>d.querySelector('summary')?.textContent.includes('여행용 메모'));}
+function fitMemoEditor(editor){editor.style.height='auto';editor.style.height=Math.max(100,editor.scrollHeight)+'px';}
 function renderMemoSubnotes(){
  const section=memoSection();if(!section)return;
- section.querySelectorAll('.note').forEach((box,idx)=>{
+ section.querySelectorAll('.note').forEach(box=>{
   const head=box.querySelector(':scope > strong');if(!head)return;const title=head.textContent.trim();
+  const old=box.querySelector('ul.memo-list');const initial=old?[...old.querySelectorAll('li')].map(li=>li.textContent.trim()).join('\n'):'';
+  if(old)old.hidden=true;
   let editor=box.querySelector('.memo-note-editor');
-  if(!editor){
-   const old=box.querySelector('ul.memo-list');const initial=old?[...old.querySelectorAll('li')].map(li=>li.textContent.trim()).join('\n'):'';
-   if(old)old.hidden=true;
-   editor=document.createElement('textarea');editor.className='memo-note-editor';editor.setAttribute('aria-label',title+' 메모');editor.placeholder='여기를 눌러 메모를 계속 작성하세요.';box.appendChild(editor);
-   let saved=null;try{saved=localStorage.getItem(memoSubKey(title));}catch(e){}
-   editor.value=saved===null?initial:saved;
-   editor.addEventListener('input',()=>{try{localStorage.setItem(memoSubKey(title),editor.value);}catch(e){}});
-  }
-  head.style.cursor='default';head.removeAttribute('title');
+  if(!editor){editor=document.createElement('textarea');editor.className='memo-note-editor';editor.setAttribute('aria-label',title+' 메모');editor.placeholder='여기를 눌러 메모를 계속 작성하세요.';box.appendChild(editor);editor.addEventListener('input',()=>{try{localStorage.setItem(memoSubKey(title),editor.value);}catch(e){}fitMemoEditor(editor);});}
+  if(editor.dataset.memoTrip!==activeV4TripKey){let saved=null;try{saved=localStorage.getItem(memoSubKey(title));}catch(e){}editor.value=saved===null?initial:saved;editor.dataset.memoTrip=activeV4TripKey;}
+  head.style.cursor='default';head.removeAttribute('title');fitMemoEditor(editor);
  });
 }
 function escapeHtmlMemo(x){const d=document.createElement('div');d.textContent=String(x);return d.innerHTML}function escapeAttrMemo(x){return String(x).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
