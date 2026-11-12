@@ -1,7 +1,1 @@
-{
-  "app": "SK-여행",
-  "version": "v4.2.0",
-  "releasedAt": "2026-11-09",
-  "releaseDate": "2026-11-09",
-  "notes": "Home: compact location status; single-line exchange rate and rate date beside itinerary selector; half-height previous/current/next buttons. Packing uses pale pastel sections and editable per-trip memo text areas. Manage imports trips from one plain-text field, removing photo OCR and structured-file intake buttons. Each imported trip is stored as a separate selectable trip; matching dated flights/hotels also appear in the relevant schedule day while detailed air/hotel sections remain available."
-}
+{"version":"v0.1.2","releasedAt":"2026-11-12","notes":"Readable text controls, import review fix, calmer packing movement, history navigation."}
