@@ -155,7 +155,7 @@ function render(){
   if(x.c)b+="<div class='chk'><b>⚠️ 확인 필요</b><br>"+x.c.map(esc).join("<br>")+"</div>";
   if(x.w)b+="<div class='note'><b>🟡 웹사이트에만 있거나 다른 내용</b><br>"+x.w.map(esc).join("<br>")+"</div>";
   if(x.h)b+="<div class='hotel'>🏨 "+esc(x.h.n)+"<br>전화: <a href='tel:"+x.h.p+"'>"+x.h.p+"</a></div>";
-  h+="<details class='day' id='d"+k+"' style='--cc:"+COL[k]+"'><summary><div class='dt'>"+x.d+"<small>"+x.wd+"</small></div><div class='tt'><b>"+EM[k]+" "+esc(x.t)+"</b><span>"+esc(x.s)+"</span></div><i class='chev'></i></summary><div class='body'>"+b+"</div></details>";
+  h+="<details class='day' id='d"+k+"' style='--cc:"+COL[k%COL.length]+"'><summary><div class='dt'>"+x.d+"<small>"+x.wd+"</small></div><div class='tt'><b>"+EM[k%EM.length]+" "+esc(x.t)+"</b><span>"+esc(x.s)+"</span></div><i class='chev'></i></summary><div class='body'>"+b+"</div></details>";
  });
  h+="<h2>📄 종이 안내문 전체</h2>";
  INFO.forEach(function(x,k){
@@ -171,6 +171,35 @@ if(today<start){var dd=Math.round((start-today)/864e5);nx.textContent="출발까
 else if(today<=end){idx=Math.round((today-start)/864e5);nx.textContent="오늘은 "+DAYS[idx].d+" "+DAYS[idx].t+" 일정입니다.";var el=document.getElementById("d"+idx);if(el)el.open=true}
 else nx.textContent="여행이 끝났습니다. 즐거운 추억이 되셨길 바랍니다.";
 document.querySelectorAll('.route [data-city]').forEach(function(btn){btn.addEventListener('click',function(){var city=btn.dataset.city;var idx=DAYS.findIndex(function(day){return day.t.indexOf(city)>=0});if(idx<0&&city==='신트라')idx=DAYS.findIndex(function(day){return day.t.indexOf('리스본')>=0});var day=idx>=0?document.getElementById('d'+idx):null;if(day){day.open=true;day.scrollIntoView({behavior:'smooth',block:'start'});}})});
+</script>
+<script>
+/* Bridge: keep the supplied document, CSS and render() intact; swap only editable data. */
+const ORIGINAL_DAYS=structuredClone(DAYS), ORIGINAL_INFO=structuredClone(INFO);
+window.addEventListener('message',ev=>{
+ if(ev.origin!==location.origin||ev.data?.type!=='SK_SCHEDULE')return;
+ const trip=ev.data.trip||{},days=trip.days||[],original=trip.start==='2026-10-22'&&String(trip.name||'').includes('스페인');
+ const clean=x=>String(x??'');
+ DAYS=days.map((day,i)=>{
+  const base=original?ORIGINAL_DAYS.find(x=>x.d===String(Number(day.date.slice(5,7)))+'/'+String(Number(day.date.slice(8,10)))):null;
+  const date=new Date(day.date+'T12:00:00Z');const d=(date.getUTCMonth()+1)+'/'+date.getUTCDate();
+  const wd=['일','월','화','수','목','금','토'][date.getUTCDay()]||'';
+  const lines=(day.events||[]).map(e=>[e.time||'',e.title||'제목 미입력',e.place||'',e.note||'',e.transfer?'이동 '+e.transfer:'',e.ticket?'티켓 '+e.ticket:''].filter(Boolean).join(' · '));
+  return {d,wd,t:base?.t||day.city||'도시 미입력',s:base?.s||'등록된 일정',i:lines.length?lines:['입력된 정보 없음'],m:[],h:null};
+ });
+ // Document headings remain the supplied headings. Never show Spain-specific notices on another trip.
+ INFO=original?structuredClone(ORIGINAL_INFO):ORIGINAL_INFO.map(x=>[x[0],'<p>입력된 정보 없음</p>',x[2]]);
+ const flights=days.flatMap(day=>(day.events||[]).filter(e=>e.flight||e.ticket).map(e=>[e.flight,e.ticket].filter(Boolean).map(clean).join(' · ')));
+ if(flights.length)INFO[2][1]='<ul>'+flights.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+ document.querySelector('.hero .lead').textContent=clean(trip.name||'여행 일정');
+ document.querySelector('.hero h1').textContent=clean(trip.name||'여행 일정');
+ document.querySelector('.hero .lead:last-of-type').textContent=clean(trip.start||'날짜 미입력');
+ const route=document.querySelector('.hero .route');if(route&&!original)route.remove();
+ const legend=document.querySelector('.legend');if(legend&&!original)legend.remove();
+ const next=document.getElementById('next');if(next)next.textContent='날짜별 일정을 눌러 내용을 확인하세요.';
+ const foot=document.querySelector('.foot');if(foot&&!original)foot.textContent='이 일정은 관리 탭에서 수정할 수 있습니다.';
+ render();
+});
+parent.postMessage({type:'SK_SCHEDULE_READY'},location.origin);
 </script>
 </body>
 </html>
