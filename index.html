@@ -22,4 +22,17 @@
 .top-cell.wx .top-value{font-size:clamp(14px,4vw,17px);letter-spacing:-.75px}
 .top-sub{font-size:12px;font-weight:800;line-height:1.2;margin-top:0;opacity:.84;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.6px}
 
+.wx7{border:1px solid #dbeafe;border-radius:16px;overflow:hidden;background:#fff}
+.wx7-head{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#eff6ff;color:var(--skyDark);font-size:12.5px;font-weight:950;line-height:1.35;padding:8px 10px;white-space:nowrap}
+.wx7-row{display:grid;grid-template-columns:62px 32px minmax(0,1fr) auto;gap:7px;align-items:center;padding:8px 10px;border-top:1px solid #e5edf7;background:#fff;min-height:44px}
+.wx7-row.today{background:#fff8d6}
+.wx7-date{font-size:13.5px;font-weight:950;line-height:1.25;white-space:nowrap}
+.wx7-icon{font-size:25px;line-height:1;text-align:center}
+.wx7-main{font-size:14.5px;font-weight:850;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.wx7-pop{font-size:12.5px;font-weight:900;color:#2775a6;margin-left:4px;white-space:nowrap}
+.wx7-temp{font-size:14.5px;font-weight:950;line-height:1.25;white-space:nowrap;text-align:right;letter-spacing:-.3px}
+.wx7-temp .lo{color:#2563eb}.wx7-temp .hi{color:#dc2626}.wx7-temp .sep{color:#9aa6bb;margin:0 2px}
+
+.notice{background:#fff7d6;border:1px solid #ffe08a;color:#5f4700;border-radius:14px;padding:13px 14px;font-size:14.5px;line-height:1.7;margin-bottom:13px}
+.modal.weather-sheet{background:rgba(10,15,28,.5);backdrop-filter:blur(2px)}.modal.weather-sheet .modalBody{position:absolute;left:0;right:0;bottom:0;max-width:600px;min-height:0;max-height:86dvh;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom,0px) + 20px);overflow-y:auto}.modal.weather-sheet .modalHead{background:#fff}
 </style></head><body><main><div class="top"><b>SK 여행</b><button id="tripTop" onclick="tab='manage';render()">여행 선택</button></div><div id="app"></div></main><nav class="tabbar" id="tabs"></nav><div id="modal" class="modal hidden"><div class="modalBody"><div class="modalHead row"><b id="modalTitle"></b><button class="soft" onclick="closeModal()">닫기 ✕</button></div><div id="modalContent"></div></div></div><script src="app.js"></script></body></html>
