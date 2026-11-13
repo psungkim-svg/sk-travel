@@ -179,7 +179,7 @@ window.addEventListener('message',ev=>{
  if(ev.origin!==location.origin||ev.data?.type!=='SK_SCHEDULE')return;
  const trip=ev.data.trip||{},days=trip.days||[],original=trip.start==='2026-10-22'&&String(trip.name||'').includes('스페인');
  const clean=x=>String(x??'');
- DAYS=original&&!trip.edited?structuredClone(ORIGINAL_DAYS):days.map((day,i)=>{
+ DAYS=original?structuredClone(ORIGINAL_DAYS):days.map((day,i)=>{
   const base=original?ORIGINAL_DAYS.find(x=>x.d===String(Number(day.date.slice(5,7)))+'/'+String(Number(day.date.slice(8,10)))):null;
   const date=new Date(day.date+'T12:00:00Z');const d=(date.getUTCMonth()+1)+'/'+date.getUTCDate();
   const wd=['일','월','화','수','목','금','토'][date.getUTCDay()]||'';
@@ -187,9 +187,11 @@ window.addEventListener('message',ev=>{
   return {d,wd,t:base?.t||day.city||'도시 미입력',s:base?.s||'등록된 일정',i:lines.length?lines:['입력된 정보 없음'],m:[],h:null};
  });
  // Document headings remain the supplied headings. Never show Spain-specific notices on another trip.
+ if(original&&trip.edited){days.forEach(day=>{let base=DAYS.find(x=>x.d===String(Number(day.date.slice(5,7)))+'/'+String(Number(day.date.slice(8,10))));if(base){base.w=base.w||[];base.w.push('관리에서 변경한 현재 일정:');(day.events||[]).forEach(e=>base.w.push([e.time,e.title,e.place,e.note,e.transfer?'다음 이동 '+e.transfer:''].filter(Boolean).join(' · ')))}})}
  INFO=original?structuredClone(ORIGINAL_INFO):ORIGINAL_INFO.map(x=>[x[0],'<p>입력된 정보 없음</p>',x[2]]);
  const flights=days.flatMap(day=>(day.events||[]).filter(e=>e.flight||e.ticket).map(e=>[e.flight,e.ticket].filter(Boolean).map(clean).join(' · ')));
- if(flights.length&&(!original||trip.edited))INFO[2][1]='<ul>'+flights.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+ if(flights.length&&!original)INFO[2][1]='<ul>'+flights.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
+ if(original){let last=DAYS.find(x=>x.d==='10/31');if(last){last.c=last.c||[];if(!last.c.some(x=>x.includes('10:55')))last.c.push('귀국편 출발 시각: 일정표 11:05 / 항공권 10:55 — 항공사에서 확인 필요')}}
  if(!original){document.querySelector('.hero .lead').textContent=clean(trip.name||'여행 일정');
  document.querySelector('.hero h1').textContent=clean(trip.name||'여행 일정');
  document.querySelector('.hero .lead:last-of-type').textContent=clean(trip.start||'날짜 미입력');}
