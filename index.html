@@ -35,4 +35,15 @@
 
 .notice{background:#fff7d6;border:1px solid #ffe08a;color:#5f4700;border-radius:14px;padding:13px 14px;font-size:14.5px;line-height:1.7;margin-bottom:13px}
 .modal.weather-sheet{background:rgba(10,15,28,.5);backdrop-filter:blur(2px)}.modal.weather-sheet .modalBody{position:absolute;left:0;right:0;bottom:0;max-width:600px;min-height:0;max-height:86dvh;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom,0px) + 20px);overflow-y:auto}.modal.weather-sheet .modalHead{background:#fff}
+
+/* Compact GPS response strip: blue=recent position, green=checking, red=failed/stale. */
+.location-strip{display:flex;align-items:center;gap:7px;width:100%;min-height:29px;height:33px;padding:2px 7px;margin:6px 0 7px;border:1px solid #dbe7f6;border-radius:10px;background:#fff;white-space:nowrap;overflow:hidden;box-shadow:0 2px 5px #20344b0b}
+.location-dot{display:block;flex:none;width:17px;height:17px;border-radius:50%;background:#94a3b8;box-shadow:0 0 0 2px #94a3b826}
+.location-strip.ok .location-dot{background:#0b5ed7;box-shadow:0 0 0 2px #0b5ed733;animation:location-breathe 2.2s ease-in-out infinite}
+.location-strip.checking .location-dot{background:#16a34a;animation:location-blink .85s ease-in-out infinite}
+.location-strip.error .location-dot{background:#e11d48;box-shadow:0 0 0 2px #e11d4822}
+.location-label{font-size:13px;font-weight:900;flex:none;color:#172033}.location-status{font-size:12px;font-weight:750;color:#516174;min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis}.location-refresh{flex:none;width:26px;height:26px;padding:0;border:1px solid #cfe3ff;border-radius:8px;background:#f4f9ff;color:#084298;font-size:19px;font-weight:850;line-height:1}
+@keyframes location-breathe{0%,100%{transform:scale(.85);opacity:.78}50%{transform:scale(1.18);opacity:1}}
+@keyframes location-blink{0%,100%{opacity:1}50%{opacity:.27}}
+@media(prefers-reduced-motion:reduce){.location-strip .location-dot{animation:none!important}}
 </style></head><body><main><div class="top"><b>SK 여행</b><button id="tripTop" onclick="tab='manage';render()">여행 선택</button></div><div id="app"></div></main><nav class="tabbar" id="tabs"></nav><div id="modal" class="modal hidden"><div class="modalBody"><div class="modalHead row"><b id="modalTitle"></b><button class="soft" onclick="closeModal()">닫기 ✕</button></div><div id="modalContent"></div></div></div><script src="app.js"></script></body></html>
