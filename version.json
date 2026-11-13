@@ -1,1 +1,1 @@
-{"version": "v0.2.3", "releasedAt": "2026-11-12", "notes": "Dated original itinerary styling, flight cards, live checklist reordering and Drive backup download fallback."}
+{"version": "v0.2.4", "releasedAt": "2026-11-12", "notes": "Reuse colored schedule layout for new trips; compact original heading and flight rows; explicit share action; password-free local reservation memo with legacy migration."}
