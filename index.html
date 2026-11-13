@@ -64,9 +64,16 @@ main{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 /* Readable body default. Source schedule headings/cards keep their hierarchy. */
 #app p,#app .fact,#app .next,#app .muted,#app .source-day,#app .source-brief,#app .home-original,#modalContent p,#modalContent textarea{font-size:var(--type-body);font-weight:550;letter-spacing:var(--type-spacing);line-height:var(--type-line-height)}
 #app h1,#app h2,#app h3,#app summary,#modalContent h2,#modalContent summary{line-height:var(--type-line-height)}
-.home-original{margin-top:22px;padding-top:16px;border-top:3px solid #bed5cc;white-space:pre-line}
-.home-original h2{color:#185a48;margin-bottom:12px}
-.home-original>div{padding:7px 0;border-bottom:1px solid #e4ece8}
-.source-day{margin-top:13px;background:#f5f8f7;border-radius:12px;padding:12px}
-.source-day ul{padding-left:23px;margin:9px 0}.source-day li{margin:7px 0}
-</style></head><body><main><div class="top"><b>SK 여행</b><button id="tripTop" onclick="tab='manage';render()">여행 선택</button></div><div id="app"></div></main><nav class="tabbar" id="tabs"></nav><div id="modal" class="modal hidden"><div class="modalBody"><div class="modalHead row"><b id="modalTitle"></b><button class="soft" onclick="closeModal()">닫기 ✕</button></div><div id="modalContent"></div></div></div><script src="app.js"></script></body></html>
+
+.home-original{margin-top:22px;padding-top:16px;border-top:3px solid #bed5cc;white-space:normal}
+.source-day{margin-top:0;background:#fff;border:1px solid #dae4df;border-left:7px solid var(--source-color,#1c7ed6);border-radius:14px;padding:0;overflow:hidden;box-shadow:0 2px 8px #0000000d}
+.source-day h2{display:block;font-size:var(--type-subtitle);padding:13px 14px;margin:0;background:color-mix(in srgb,var(--source-color,#1c7ed6) 14%,white);color:#19354b;border:0}
+.source-day-heading{padding:9px 13px;color:var(--source-color,#1c7ed6);font-weight:850}
+.source-day ul{padding:0 13px 0 32px;margin:0}.source-day li{padding:9px 4px;border-bottom:1px solid #e7eceb;font-size:var(--type-body);font-weight:550;line-height:var(--type-line-height);letter-spacing:0}
+.source-meals{display:flex;gap:6px;flex-wrap:wrap;padding:10px 13px}.source-meals span{background:#e8efff;border-radius:8px;padding:5px 9px}.source-meals .meal-1{background:#e4f6e9}.source-meals .meal-2{background:#f2e7ff}
+.source-hotel,.source-warning,.source-note{margin:9px 13px;padding:10px;border-radius:9px;background:color-mix(in srgb,var(--source-color,#1c7ed6) 12%,white);font-size:var(--type-body);line-height:var(--type-line-height)}.source-warning{background:#ffe3e0;color:#862d20}.source-note{background:#fff3d9}
+.source-event{padding:11px 13px;margin-top:12px;border:1px solid #dbe9e2;border-radius:12px;background:#f5faf7;white-space:pre-line}.source-event>div{margin-top:7px}
+.flight-section{border-left:6px solid #197199}.flight-section summary{font-size:var(--type-subtitle)}.flight-entry{padding:12px 0;border-top:1px solid #e8ecee}.flight-entry-title{font-size:var(--type-body);font-weight:800;margin-bottom:8px}.flight-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.flight-chip{padding:10px;border-radius:11px;background:#e8f2fb;min-width:0;overflow-wrap:anywhere;font-size:var(--type-body);font-weight:550;line-height:var(--type-line-height)}.flight-chip small{display:block;font-size:13px;font-weight:800;color:#164e76;margin-bottom:4px}.flight-chip.chip-1{background:#e7f5ea}.flight-chip.chip-2{background:#fff0db}.flight-chip.chip-3{background:#f0eafa}
+@media(max-width:350px){.flight-fields{grid-template-columns:1fr}}
+</style><style>html,body,body *{line-height:var(--type-line-height,1.2)!important}#app .source-day li,#app .flight-chip,#app .source-hotel,#app .source-warning,#app .source-note{letter-spacing:var(--type-spacing,0px)!important}</style>
+</head><body><main><div class="top"><b>SK 여행</b><button id="tripTop" onclick="tab='manage';render()">여행 선택</button></div><div id="app"></div></main><nav class="tabbar" id="tabs"></nav><div id="modal" class="modal hidden"><div class="modalBody"><div class="modalHead row"><b id="modalTitle"></b><button class="soft" onclick="closeModal()">닫기 ✕</button></div><div id="modalContent"></div></div></div><script src="app.js"></script></body></html>
