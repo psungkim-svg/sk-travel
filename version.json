@@ -1,1 +1,1 @@
-{"version":"v0.2.1","releasedAt":"2026-11-13","notes":"Fixed five-tab navigation; saved hotel JSON rendered as text; GPS map address; larger clock cards; slower blue status pulse; line spacing control."}
+{"version":"v0.2.2","releasedAt":"2026-11-13","notes":"Readable body typography across tabs; home guide first and full dated original itinerary details below."}
