@@ -1,1 +1,1 @@
-{"version":"v0.2.0","releasedAt":"2026-11-13","notes":"Original itinerary preservation on edits, readable text, fixed tabs, private encrypted vault, complete checklist backups, hotel display."}
+{"version":"v0.2.1","releasedAt":"2026-11-13","notes":"Fixed five-tab navigation; saved hotel JSON rendered as text; GPS map address; larger clock cards; slower blue status pulse; line spacing control."}
