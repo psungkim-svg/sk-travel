@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>스페인·포르투갈 9박 10일 일정</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light">
 <style>
+/* ===== Galaxy S24 최적화 (v0.2.6): 구글 폰트 제거, 시스템 폰트 사용 ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{word-break:keep-all;overflow-wrap:anywhere;-webkit-tap-highlight-color:rgba(31,90,122,.14);font-family:system-ui,-apple-system,"Noto Sans KR","Samsung Sans",Roboto,"Malgun Gothic",sans-serif!important}
+button,summary,label,details,.day{min-height:44px;touch-action:manipulation}
 :root{--bg:#f2f5f7;--card:#fff;--ink:#14262e;--sub:#4a5d66;--line:#d5dee3;--ac:#1f5a7a;--acbg:#e3eff5;--warn:#fff3d6;--warnink:#6b4a00;--m:#e8f3ea;--minK:#245c33;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a20;--card:#18262e;--ink:#eaf1f4;--sub:#a6b9c2;--line:#2d414b;--ac:#7cc0e3;--acbg:#1f3a48;--warn:#3a2f10;--warnink:#f3d98a;--m:#1d3324;--minK:#9bd6aa}}
@@ -23,7 +27,7 @@ details{background:var(--card);border:1px solid var(--line);border-radius:12px;m
 summary{list-style:none;cursor:pointer;padding:8px 10px;display:flex;gap:9px;align-items:center;min-height:48px}
 summary::-webkit-details-marker{display:none}
 summary:focus-visible,.bar button:focus-visible,a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-.dt{flex:none;width:53px;text-align:center;background:var(--acbg);color:var(--ac);border-radius:10px;padding:4px 0;font-weight:700;line-height:1.25}
+.dt{flex:none;width:auto;min-width:74px;text-align:center;background:var(--acbg);color:var(--ac);border-radius:10px;padding:4px 8px;font-weight:700;line-height:1.25;white-space:nowrap;font-variant-numeric:tabular-nums}
 .dt small{display:block;font-weight:500;font-size:13px}
 .tt{flex:1;min-width:0}
 .tt b{display:block;font-size:15.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -72,7 +76,7 @@ details.day .hotel{background:color-mix(in srgb,var(--cc) 13%,var(--card));borde
 details.day .hotel a{color:var(--cc)}
 details.day .chev{border-color:var(--cc)}
 details.info{border-left:7px solid #0b7285}
-details.info .dt{background:color-mix(in srgb,#0b7285 16%,var(--card));font-size:26px;padding:6px 0}
+details.info .dt{background:color-mix(in srgb,#0b7285 16%,var(--card));font-size:22px;padding:6px 8px}
 details.info[open] summary{background:color-mix(in srgb,#0b7285 12%,var(--card))}
 details.webcard{border-left-color:#f59f00}
 .meals span.mb{background:color-mix(in srgb,#3b82f6 22%,var(--card));color:var(--ink)}
@@ -178,12 +182,14 @@ document.querySelectorAll('.route [data-city]').forEach(function(btn){btn.addEve
 </script>
 <script>
 /* Bridge: keep the supplied document, CSS and render() intact; swap only editable data. */
-const ORIGINAL_DAYS=structuredClone(DAYS), ORIGINAL_INFO=structuredClone(INFO);
+/* structuredClone 미지원 기기(iOS 15.3 이하) 폴백 */
+function skClone(o){try{return typeof structuredClone==='function'?structuredClone(o):JSON.parse(JSON.stringify(o))}catch(e){return JSON.parse(JSON.stringify(o))}}
+const ORIGINAL_DAYS=skClone(DAYS), ORIGINAL_INFO=skClone(INFO);
 window.addEventListener('message',ev=>{
  if(ev.origin!==location.origin||ev.data?.type!=='SK_SCHEDULE')return;
  const trip=ev.data.trip||{},days=trip.days||[],original=trip.start==='2026-10-22'&&String(trip.name||'').includes('스페인');
  const clean=x=>String(x??'');
- DAYS=original?structuredClone(ORIGINAL_DAYS):days.map((day,i)=>{
+ DAYS=original?skClone(ORIGINAL_DAYS):days.map((day,i)=>{
   const base=original?ORIGINAL_DAYS.find(x=>x.d===String(Number(day.date.slice(5,7)))+'/'+String(Number(day.date.slice(8,10)))):null;
   const date=new Date(day.date+'T12:00:00Z');const d=(date.getUTCMonth()+1)+'/'+date.getUTCDate();
   const wd=['일','월','화','수','목','금','토'][date.getUTCDay()]||'';
@@ -194,7 +200,7 @@ window.addEventListener('message',ev=>{
  // All trips use the original accordion and color-card template; Spain retains its exact source content.
  // Document headings remain the supplied headings. Never show Spain-specific notices on another trip.
  if(original&&trip.edited){days.forEach(day=>{let base=DAYS.find(x=>x.d===String(Number(day.date.slice(5,7)))+'/'+String(Number(day.date.slice(8,10))));if(base){base.w=base.w||[];base.w.push('관리에서 변경한 현재 일정:');(day.events||[]).forEach(e=>base.w.push([e.time,e.title,e.place,e.note,e.transfer?'다음 이동 '+e.transfer:''].filter(Boolean).join(' · ')))}})}
- INFO=original?structuredClone(ORIGINAL_INFO):ORIGINAL_INFO.map(x=>[x[0],'<p>입력된 정보 없음</p>',x[2]]);
+ INFO=original?skClone(ORIGINAL_INFO):ORIGINAL_INFO.map(x=>[x[0],'<p>입력된 정보 없음</p>',x[2]]);
  const flights=days.flatMap(day=>(day.events||[]).filter(e=>e.flight||e.ticket).map(e=>[e.flight,e.ticket].filter(Boolean).map(clean).join(' · ')));
  if(flights.length&&!original)INFO[2][1]='<ul>'+flights.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
  if(original){let last=DAYS.find(x=>x.d==='10/31');if(last){last.c=last.c||[];if(!last.c.some(x=>x.includes('10:55')))last.c.push('귀국편 출발 시각: 일정표 11:05 / 항공권 10:55 — 항공사에서 확인 필요')}}

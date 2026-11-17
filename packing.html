@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+<meta name="color-scheme" content="light" />
 
 <title>SK-여행 체크리스트 v1.3.0 — 붙여넣기용</title>
 <style>
@@ -94,6 +95,21 @@ body.v4-drag-active .check-grid .item:not(.task-dragging) { transition:box-shado
 summary{padding:10px 13px;font-size:16px;line-height:1.3}summary::after{right:13px;top:10px}.content{padding:0 10px 11px}.group{padding-top:9px;margin-top:8px}.group h3{font-size:15px;margin-bottom:6px}.item{padding:5px 5px;font-size:15px;min-height:32px;line-height:1.2}.item input[type="checkbox"]{transform:scale(1.15)}details{margin-bottom:7px}
 
 /* Calm pastel checklist palette; fixed section order/content stays intact. */
+/* ===== Galaxy S24 터치 최적화 (v0.2.6) ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{word-break:keep-all;overflow-wrap:anywhere;overscroll-behavior-y:contain;-webkit-tap-highlight-color:rgba(31,111,235,.14)}
+button,summary,label,.item,input[type="checkbox"]{touch-action:manipulation}
+.item{min-height:46px!important;padding:8px 8px!important;font-size:16.5px!important;line-height:1.3!important;gap:9px!important}
+.item input[type="checkbox"]{transform:scale(1.45);margin-right:3px}
+summary{min-height:56px;padding-top:15px;padding-bottom:15px}
+button{min-height:44px}
+button.small{min-height:42px;font-size:15px}
+.task-label{padding:2px 0}
+.wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!important}
+.memo-input-area textarea,.memo-note-editor{font-size:16.5px!important;line-height:1.6!important}
+.saved-memo-item{font-size:16px;line-height:1.45}
+.saved-memo-item .del-btn{min-height:40px;padding:8px 12px;font-size:14px}
+.footer{height:40px}
 body{background:#f7f7fb!important}
 #app,.container,.main{background:linear-gradient(180deg,#f5f8ff 0%,#f8fbf8 52%,#fff9f0 100%)!important}
 details{background:#fff;border:1px solid #dfe7ee;border-radius:13px;margin:7px 0;overflow:hidden;box-shadow:0 2px 8px rgba(35,58,83,.05)}
@@ -442,7 +458,7 @@ html,body,body *{line-height:var(--type-line-height,1.2)!important}
 <div class="group">
 <h3>✏️ 내 메모 추가</h3>
 <div class="memo-input-area">
-<textarea id="memoInput" placeholder="여기에 메모를 입력하세요..."></textarea>
+<textarea id="memoInput" placeholder="여기에 메모를 입력하세요..." autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done"></textarea>
 <div class="btn-row">
 <button class="small" onclick="addMemo()">저장</button>
            <button class="small" id="micBtn" onclick="startVoice()" style="background:#5c667a">🎤 말로 입력</button>
@@ -459,7 +475,7 @@ html,body,body *{line-height:var(--type-line-height,1.2)!important}
 // v4: item template is shared; completion keys are namespaced per trip.
 let activeV4TripKey='default';
 function v4PackCheckKey(id){let trip=activeV4TripKey;try{trip=window.parent.__SK_V4_TRIP_ID||trip}catch(e){}return 'travel_v4_check_'+encodeURIComponent(trip)+'_'+id;}
-window.setV4TripId=function(id){activeV4TripKey=String(id||'default');renderMemoSubnotes();document.querySelectorAll('details:nth-of-type(-n+5) .content input[type=\"checkbox\"][data-id]').forEach(chk=>{chk.checked=localStorage.getItem(v4PackCheckKey(chk.dataset.id))==='1';});};
+window.setV4TripId=function(id){activeV4TripKey=String(id||'default');renderMemoSubnotes();document.querySelectorAll('details .content input[type=\"checkbox\"][data-id]').forEach(chk=>{chk.checked=localStorage.getItem(v4PackCheckKey(chk.dataset.id))==='1';});};
 // 7번 여행용 메모: 기존 제목(예: 공항 복장)을 두 번 눌러 해당 박스 아래에 여행별 메모를 추가합니다.
 function memoSubKey(title){return 'travel_v4_memo_sub_'+encodeURIComponent(activeV4TripKey)+'_'+encodeURIComponent(title);}
 function memoSection(){return [...document.querySelectorAll('details')].find(d=>d.querySelector('summary')?.textContent.includes('여행용 메모'));}
@@ -484,6 +500,7 @@ const key = v4PackCheckKey(chk.dataset.id);
 chk.checked = localStorage.getItem(key) === '1';
 chk.addEventListener('change', () => {
 localStorage.setItem(key, chk.checked ? '1' : '0');
+try { navigator.vibrate && navigator.vibrate(chk.checked ? 12 : 6); } catch(e) {}
 });
 });
 function toggleAll(open) {
@@ -491,7 +508,7 @@ document.querySelectorAll('details').forEach(d => d.open = open);
 }
 function resetChecks() {
 if (!confirm('체크한 항목을 모두 초기화할까요?')) return;
-document.querySelectorAll('details:nth-of-type(-n+5) .content input[type="checkbox"][data-id]').forEach(chk => {
+document.querySelectorAll('details .content input[type="checkbox"][data-id]').forEach(chk => {
 chk.checked = false;
 localStorage.removeItem(v4PackCheckKey(chk.dataset.id));
 });
@@ -500,7 +517,8 @@ localStorage.removeItem(v4PackCheckKey(chk.dataset.id));
 const MEMO_KEY = 'travel_v4_memos';
 function getMemos() {
 try {
-return JSON.parse(localStorage.getItem(MEMO_KEY)) || [];
+const raw = JSON.parse(localStorage.getItem(MEMO_KEY));
+return Array.isArray(raw) ? raw.filter(x => typeof x === 'string').slice(0, 300) : [];
 } catch(e) {
 return [];
 }
@@ -517,7 +535,7 @@ return;
 }
 container.innerHTML = memos.map((m, i) =>
 '<div class="saved-memo-item">' +
-'<span>' + m + '</span>' +
+'<span>' + escapeHtmlMemo(m) + '</span>' +
 '<button class="del-btn" onclick="deleteMemo(' + i + ')">삭제</button>' +
 '</div>'
 ).join('');
@@ -564,7 +582,7 @@ renderMemos();
   });
   return out;
  }
- function allTaskCheckboxes(){return [...document.querySelectorAll('details:nth-of-type(-n+5) .content .item:not([data-custom-task="1"]) input[type="checkbox"][data-id]')];}
+ function allTaskCheckboxes(){return [...document.querySelectorAll('details .content .item:not([data-custom-task="1"]) input[type="checkbox"][data-id]')];}
  function taskId(row){const c=row.querySelector('input[type="checkbox"][data-id]');return c?String(c.dataset.id):'';}
  function bindTaskCheckbox(cb){if(cb.dataset.v4Bound==='1')return;cb.dataset.v4Bound='1';cb.addEventListener('change',()=>localStorage.setItem(v4PackCheckKey(cb.dataset.id),cb.checked?'1':'0'));}
  function normalizeTaskRow(row){row.classList.add('task-editable');const cb=row.querySelector('input[type="checkbox"][data-id]');if(!cb)return;bindTaskCheckbox(cb);cb.checked=localStorage.getItem(v4PackCheckKey(cb.dataset.id))==='1';let text=row.querySelector('.task-label');if(!text){const node=[...row.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());if(node){text=document.createElement('span');text.className='task-label';text.textContent=node.textContent.trim();node.replaceWith(text);}}}
