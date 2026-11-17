@@ -427,7 +427,7 @@ function render() {
 const DAY_COLORS = ['#5f3dc4', '#e8590c', '#d6336c', '#1c7ed6', '#7048e8', '#0ca678', '#2f9e44', '#1098ad', '#ae3ec9', '#3b5bdb'];
 
 function dayOriginalDetail(t, date) {
-  if (!t?.isSpainSeed) return '';
+  if (!(t?.start === '2026-10-22' && t?.name?.includes('스페인'))) return '';
   let index = seedDaySource.findIndex(x => {
     let m = x.d?.split('/').map(Number);
     return m && date.endsWith('-' + String(m[0]).padStart(2, '0') + '-' + String(m[1]).padStart(2, '0'))
@@ -475,9 +475,12 @@ ${renderGuideBlock(t, e)}
 async function changePhoto(k, src) {
   let t = trip();
   let gAll = t?.guides?.[all()[selectedIndex()]?.e.id] || {};
-  if (!src && gAll.legacy) src = 'legacy';
-  if (!src && Object.keys(gAll).length) src = Object.keys(gAll)[0];
-  let g = gAll[src] || gAll;
+  let isLegacy = (gAll.highlights !== undefined || gAll.history !== undefined || gAll.route !== undefined || gAll.photos !== undefined);
+  let g = gAll;
+  if (!isLegacy) {
+    if (!src && Object.keys(gAll).length) src = Object.keys(gAll)[0];
+    g = src ? gAll[src] : {};
+  }
   let p = g?.photos?.[k];
   if (p) {
     let hero = $("#heroPhoto");
@@ -823,7 +826,7 @@ function flight() {
     ticket: '비행기 티켓',
     hotel: '호텔'
   };
-  return `<h2>항공 · 공항 · 숙소</h2>${t.isSpainSeed?'<div class="alert">🔴 귀국편 리스본 출발 시각 확인 필요: 일정표 11:05 / 전자항공권 10:55. 어느 쪽도 확정하지 않았습니다. 항공사에서 확인하세요.</div>':''}${['flight','airport','ticket','hotel'].map(k=>`<details class="flight-section" open><summary>${names[k]}</summary>${all().filter(x=>x.e[k]).map(x=>`<div class="flight-entry"><div class="flight-entry-title">${safe(x.d.date)} · ${safe(x.e.title)}</div>${flightFields(k,x.e[k])}</div>`).join('')||'<p class="muted">입력된 정보 없음</p>'}</details>`).join('')}`
+  return `<h2>항공 · 공항 · 숙소</h2>${(t?.start === '2026-10-22' && t?.name?.includes('스페인'))?'<div class="alert">🔴 귀국편 리스본 출발 시각 확인 필요: 일정표 11:05 / 전자항공권 10:55. 어느 쪽도 확정하지 않았습니다. 항공사에서 확인하세요.</div>':''}${['flight','airport','ticket','hotel'].map(k=>`<details class="flight-section" open><summary>${names[k]}</summary>${all().filter(x=>x.e[k]).map(x=>`<div class="flight-entry"><div class="flight-entry-title">${safe(x.d.date)} · ${safe(x.e.title)}</div>${flightFields(k,x.e[k])}</div>`).join('')||'<p class="muted">입력된 정보 없음</p>'}</details>`).join('')}`
 }
 
 function flightFields(kind, value) {
@@ -1189,7 +1192,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v0.3.0";
+const APP_VERSION = "v0.3.1";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -2433,6 +2436,12 @@ async function init() {
 async function migratePhotos() {
   let changed = false;
   for (let t of db.trips) {
+    if (t.start === '2026-10-22' && t.name?.includes('스페인')) {
+      if (t.days[0] && t.days[0].events[0] && !t.days[0].events[0].flight) {
+        t.days[0].events[0].flight = "AA742 · PHL 출발 19:25 · BCN 도착 09:05 · 터미널 PHL Terminal A-West\n\nAA259 · LIS 출발 10:55 · PHL 도착 14:50 · 터미널 LIS Terminal 1";
+        changed = true;
+      }
+    }
     if (!t.guides) continue;
     for (let eid in t.guides) {
       let g = t.guides[eid];
@@ -2803,19 +2812,29 @@ function setGuideSource(src) {
 
 function renderGuideBlock(t, e) {
   let gAll = t?.guides?.[e?.id] || {};
-  let sources = Object.keys(gAll);
   
-  if (sources.length === 0) {
-    // maybe it's legacy data structure where guides are direct properties
-    if (gAll.highlights || (gAll.photos && gAll.photos.length)) {
-      gAll = { 'legacy': gAll };
-      sources = ['legacy'];
-    }
+  // Check if this is a legacy guide (properties directly on the object instead of grouped by source)
+  let isLegacy = false;
+  if (gAll.highlights !== undefined || gAll.history !== undefined || gAll.route !== undefined || 
+      gAll.photoPoint !== undefined || gAll.toilet !== undefined || gAll.details !== undefined || 
+      gAll.photos !== undefined) {
+    isLegacy = true;
+  }
+  
+  let sources = [];
+  let guidesBySource = {};
+  
+  if (isLegacy) {
+    guidesBySource['기존 자료'] = gAll;
+    sources.push('기존 자료');
+  } else {
+    guidesBySource = gAll;
+    sources = Object.keys(gAll);
   }
 
   let src = window.activeGuideSource;
-  if (!src || !sources.includes(src)) src = sources[0];
-  let g = gAll[src] || {};
+  if (!src || !sources.includes(src)) src = sources.length ? sources[0] : null;
+  let g = src ? guidesBySource[src] : {};
 
   let chipHtml = sources.length > 0 ? `<div class="toolbar" style="margin-bottom:10px">` + sources.map(s => `<button class="${s===src?'primary':'soft'}" onclick="setGuideSource('${s}')">[${s}]</button>`).join('') + `</div>` : '';
 

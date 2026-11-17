@@ -48,7 +48,7 @@
 @media(prefers-reduced-motion:reduce){.location-strip .location-dot{animation:none!important}}
 
 /* Fixed bottom navigation: five equal slots in every tab, including the flight panel. */
-html,body{max-width:100%;overflow-x:hidden}
+body{max-width:100%;overflow-x:clip}
 .tabbar{position:fixed!important;inset:auto 0 0 0!important;width:100vw!important;max-width:100vw!important;box-sizing:border-box!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;overflow:hidden!important;z-index:1000!important;transform:translateZ(0);background:#fff}
 .tabbar button{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;font-size:clamp(11px,3.3vw,15px)!important;line-height:1.25!important}
 main{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
