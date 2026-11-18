@@ -833,20 +833,52 @@ function flightFields(kind, value) {
   let text = kind === 'hotel' ? formatHotel(value) : String(value || '');
   let chunks = text.split(/\s*·\s*/).map(s => s.trim()).filter(Boolean);
   if (!chunks.length) return '<div class="flight-chip">입력된 정보 없음</div>';
-  return '<div class="flight-fields">' + chunks.map((part, i) => {
-    let label = '안내';
-    if (/출발|LV:/.test(part)) label = '출발';
-    else if (/도착|AR:/.test(part)) label = '도착';
-    else if (/터미널|Terminal/.test(part)) label = '터미널';
-    else if (/항공|Airlines/.test(part)) label = '항공사';
-    else if (/전화/.test(part)) label = '전화';
-    else if (/체크인/.test(part)) label = '체크인';
-    else if (/체크아웃/.test(part)) label = '체크아웃';
-    else if (kind === 'flight' && i === 1) label = '편명';
-    else if (kind === 'hotel' && i === 0) label = '숙소';
-    else if (kind === 'airport') label = '공항';
-    else if (kind === 'ticket') label = '티켓';
-    return '<div class="flight-chip chip-' + (i % 4) + '"><small>' + label + '</small><span>' + safe(part) + '</span></div>'
+  
+  let mergedChunks = [];
+  let currentCombo = null;
+  
+  for (let i = 0; i < chunks.length; i++) {
+    let part = chunks[i];
+    let isDept = /출발|LV:/.test(part);
+    let isArr = /도착|AR:/.test(part);
+    
+    if (isDept || isArr) {
+      if (!currentCombo) {
+        currentCombo = { label: '일정', parts: [part] };
+      } else {
+        currentCombo.parts.push(part);
+      }
+      // If we got both dept and arr, push to mergedChunks
+      let hasDept = currentCombo.parts.some(p => /출발|LV:/.test(p));
+      let hasArr = currentCombo.parts.some(p => /도착|AR:/.test(p));
+      if (hasDept && hasArr) {
+        mergedChunks.push({ label: '출발·도착', text: currentCombo.parts.join(' ➔ ') });
+        currentCombo = null;
+      }
+    } else {
+      if (currentCombo) {
+        mergedChunks.push({ label: currentCombo.parts.some(p=>/출발/.test(p)) ? '출발' : '도착', text: currentCombo.parts.join(' ') });
+        currentCombo = null;
+      }
+      let label = '안내';
+      if (/터미널|Terminal/.test(part)) label = '터미널';
+      else if (/항공|Airlines/.test(part)) label = '항공사';
+      else if (/전화/.test(part)) label = '전화';
+      else if (/체크인/.test(part)) label = '체크인';
+      else if (/체크아웃/.test(part)) label = '체크아웃';
+      else if (kind === 'flight' && i === 1) label = '편명';
+      else if (kind === 'hotel' && i === 0) label = '숙소';
+      else if (kind === 'airport') label = '공항';
+      else if (kind === 'ticket') label = '티켓';
+      mergedChunks.push({ label, text: part });
+    }
+  }
+  if (currentCombo) {
+    mergedChunks.push({ label: currentCombo.parts.some(p=>/출발/.test(p)) ? '출발' : '도착', text: currentCombo.parts.join(' ') });
+  }
+
+  return '<div class="flight-fields">' + mergedChunks.map((item, i) => {
+    return '<div class="flight-chip chip-' + (i % 4) + '"><small>' + item.label + '</small><span>' + safe(item.text) + '</span></div>'
   }).join('') + '</div>'
 }
 
@@ -932,8 +964,8 @@ function manage() {
   <input id="backupInput" type="file" accept=".json,application/json,text/plain,*/*" multiple hidden onchange="restoreFiles(this.files)">
 </div>
 
-<details class="card">
-  <summary><b>고급 설정</b> (글자 설정, 리허설, 앱 버전 등)</summary>
+<h2>고급 설정</h2>
+<div class="card">
   
   <div style="margin-top:15px">
     <b>글자 보기 설정</b>
@@ -963,8 +995,7 @@ function manage() {
     <div class="muted" id="versionNotice">업데이트 확인 중…</div>
     <button class="soft" onclick="checkVersion()">새 버전 확인</button>
   </div>
-</details>`;
-  setTimeout(checkVersion, 0)
+</div>`;
 }
 
 function activate(i) {
@@ -1192,7 +1223,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v0.3.1";
+const APP_VERSION = "v0.3.2";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -1639,8 +1670,44 @@ function saveReview() {
 
 function editTrip(i) {
   editing = clone(db.trips.find(x => x.id === i));
-  pending = null;
-  showReview(editing)
+  let rawText = editing.sourceText || JSON.stringify(editing, null, 2);
+  openModal('여행 전체 정보 편집 (원문)', `
+    <div class="alert">원본 텍스트나 JSON을 직접 수정합니다. 잘못 수정하면 오류가 발생할 수 있습니다.</div>
+    <label class="field">여행 원문 데이터
+      <textarea id="editTripRaw" style="min-height: 60vh; font-family: monospace; white-space: pre; overflow-wrap: normal; overflow-x: auto;">${safe(rawText)}</textarea>
+    </label>
+    <div class="toolbar">
+      <button class="primary" onclick="saveTripRaw('${safe(i)}')">저장</button>
+    </div>
+  `);
+}
+
+function saveTripRaw(id) {
+  let raw = $('#editTripRaw').value;
+  try {
+    let t = JSON.parse(raw);
+    let idx = db.trips.findIndex(x => x.id === id);
+    if (idx >= 0) {
+      // Preserve ID to avoid breaking references
+      t.id = id;
+      db.trips[idx] = t;
+      persist();
+      closeModal();
+      render();
+    }
+  } catch(e) {
+    // If it's not JSON, maybe it's just raw text they pasted. 
+    // We can't simply re-parse raw text easily into the full object here without calling `previewImport()`.
+    // Let's assume they know they are editing the JSON if it was imported that way.
+    if (editing && editing.sourceText) {
+      editing.sourceText = raw;
+      // Re-run normalize/convert? That's too complex. 
+      // Let's just try to parse JSON, if it fails, show error.
+      alert('JSON 형식이 아닙니다. 형식을 확인해주세요: ' + e.message);
+    } else {
+      alert('JSON 형식이 올바르지 않습니다: ' + e.message);
+    }
+  }
 }
 
 function startRehearsal() {
@@ -1892,7 +1959,20 @@ async function buildBackup(ids, includePacking) {
 function backupChoose(preId) {
   if (!db.trips.length) return alert('저장된 여행이 없습니다.');
   let pre = preId || db.active;
-  openModal('백업할 여행 고르기', `<div class="alert">백업 파일은 암호화되지 않습니다. 예약 정보가 들어 있으면 Drive 보관 위치에 주의하세요.</div><div class="card"><h3>1. 여행 선택</h3>${db.trips.map(t=>`<label class="field" style="display:flex;gap:10px;align-items:center"><input type="checkbox" class="bkpTrip" value="${safe(t.id)}" ${t.id===pre?'checked':''} style="width:24px;height:24px;flex:none"><span>${safe(t.name)}<br><span class="small">${safe(t.start||'날짜 없음')} · ${safe(t.city||'')}</span></span></label>`).join('')}<button class="soft" onclick="toggleAllBackup()">전체 선택 / 해제</button></div><div class="card"><h3>2. 함께 담을 내용</h3><label class="field" style="display:flex;gap:10px;align-items:center"><input id="bkpPacking" type="checkbox" checked style="width:24px;height:24px;flex:none"><span>준비물 체크·메모 포함</span></label></div><div class="card"><h3>3. 보낼 방법</h3><div class="toolbar"><button class="primary" onclick="doShareBackup()">공유 (Drive·카톡·메일)</button><button class="soft" onclick="doSaveBackup()">기기에 파일로 저장</button></div><div id="backupHelp" class="small">공유창에서 <b>Google Drive</b>를 고르면 Drive 앱이 열리고, 원하는 폴더를 직접 정해 저장할 수 있습니다. 공유창이 안 뜨면 「기기에 파일로 저장」 후 파일 앱에서 Drive로 옮기세요.</div></div>`)
+  openModal('백업할 여행 고르기', `<div class="alert">백업 파일은 암호화되지 않습니다. 예약 정보가 들어 있으면 Drive 보관 위치에 주의하세요.</div>
+<div class="card">
+  <h3>1. 여행 선택</h3>
+  ${db.trips.map(t=>`<label class="field" style="display:flex;gap:10px;align-items:center"><input type="checkbox" class="bkpTrip" value="${safe(t.id)}" ${t.id===pre?'checked':''} style="width:24px;height:24px;flex:none"><span>${safe(t.name)}<br><span class="small">${safe(t.start||'날짜 없음')} · ${safe(t.city||'')}</span></span></label>`).join('')}
+  <button class="soft" onclick="toggleAllBackup()">전체 선택 / 해제</button>
+</div>
+<div class="card">
+  <h3>2. 보낼 방법</h3>
+  <div class="toolbar">
+    <button class="primary" onclick="doShareBackup()">Google 드라이브로 내보내기</button>
+    <button class="soft" onclick="doSaveBackup()">기기에 파일로 저장</button>
+  </div>
+  <div id="backupHelp" class="small" style="margin-top:10px;">공유창에서 <b>Google Drive</b>를 고르면 폴더를 직접 정해 저장할 수 있습니다.</div>
+</div>`)
 }
 
 function selectedBackupIds() {
@@ -2417,20 +2497,27 @@ function initialTab() {
 
 async function init() {
   tab = initialTab();
-  try {
-    let r = await fetch('schedule-day-source.json');
-    if (r.ok) seedDaySource = await r.json()
-  } catch {}
-  await seedTrips();
-  await migratePhotos();
+  // Do critical UI first
   render();
-  syncHistory();
-  checkStorage();
-  try {
-    wakeWanted = localStorage.getItem('sk-wake') === '1'
-  } catch {}
-  if (wakeWanted) acquireWake();
-  registerSW()
+  
+  // Non-blocking initialization
+  setTimeout(async () => {
+    try {
+      let r = await fetch('schedule-day-source.json');
+      if (r.ok) seedDaySource = await r.json()
+    } catch {}
+    await seedTrips();
+    await migratePhotos();
+    if (db.trips.length > 0) render(); // re-render if trips were seeded or photos migrated
+    
+    syncHistory();
+    checkStorage();
+    try {
+      wakeWanted = localStorage.getItem('sk-wake') === '1'
+    } catch {}
+    if (wakeWanted) acquireWake();
+    registerSW();
+  }, 10);
 }
 
 async function migratePhotos() {
