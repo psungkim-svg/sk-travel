@@ -1229,7 +1229,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v1.2.0";
+const APP_VERSION = "v1.3.0";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -2091,32 +2091,91 @@ async function doSaveBackup() {
   refreshBackupPrebuild();
 }
 
-/* 공유: 안드로이드에서 Drive가 뜨도록 파일 형식은 미리 canShare로 고릅니다.
-   doShareBackup은 동기 함수로 남겨 두었습니다 — 버튼을 누른 그 자리에서 곧바로 share()를 호출해야
-   Android Chrome이 파일 공유를 허용합니다(중간에 await가 끼면 NotAllowedError). */
+/* 공유: 안드로이드에서 Drive가 뜨도록 시도합니다.
+   누르면 공유창(공유 아이콘)이 열리는 것이 목표입니다.
+   차례대로: ① 미리 만들어 둔 파일로 파일 공유 → ② 다른 형식(application/octet-stream)으로 파일 공유 재시도
+   → ③ 백업 내용을 텍스트로 담아 공유창 열기. 모두 거부되면 솔직하게 안내합니다.
+   (계속 실패하는 기기에서는 웹앱으로 공유창을 강제할 방법이 없습니다.) */
 
 function shareBackupTips(m) {
   let el = $('#backupHelp');
   if (el) el.innerHTML = m;
 }
 
-function finishShareResult(p, tips) {
-  if (p && typeof p.then === 'function') {
-    p.then(() => {
+function startShareSequence(d) {
+  let tips = shareBackupTips,
+    title = 'SK 여행 백업',
+    okFile = () => {
       haptic(15);
-      tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 저장되지 않았다면 「로컬 저장」을 눌러 주세요.');
-    }).catch(e => {
-      let name = e && e.name || '';
-      if (name === 'AbortError') {
-        tips('공유를 취소했습니다. 다시 「드라이브 저장」를 누르면 공유창이 다시 열립니다.');
-        return;
+      tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 필요하면 「로컬 저장」으로 한 번 더 저장해 두세요.');
+    },
+    okText = () => {
+      haptic(15);
+      tips('<b>텍스트로 공유</b>되었습니다. Drive에 저장했다면, 나중에 내려받아 「백업 파일 가져오기」로 다시 넣을 수 있습니다. 확실히 하려면 「로컬 저장」도 함께 사용하세요.');
+    },
+    cancel = () => tips('공유를 취소했습니다. 다시 「드라이브 저장」을 누르면 공유창이 다시 열립니다.'),
+    hardFail = (name) => tips('이 기기에서는 공유창을 열 수 없습니다(' + safe(name || '오류') + '). 웹앱이 할 수 있는 방법은 모두 시도했습니다. 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+
+  let tier3 = () => {
+    try {
+      let p3 = navigator.share({
+        title: title,
+        text: d.text
+      });
+      Promise.resolve(p3).then(okText).catch(e3 => {
+        if (e3 && e3.name === 'AbortError') return cancel();
+        hardFail(e3 && e3.name);
+      });
+    } catch (e3) {
+      if (e3 && e3.name === 'AbortError') return cancel();
+      hardFail(e3 && e3.name);
+    }
+  };
+
+  let tier2 = () => {
+    try {
+      let f2 = new File([d.text], d.filename, {
+        type: 'application/octet-stream'
+      });
+      if (navigator.canShare && !navigator.canShare({ files: [f2] })) return tier3();
+      let p2 = navigator.share({
+        files: [f2],
+        title: title,
+        text: 'SK 여행 백업 파일입니다.'
+      });
+      Promise.resolve(p2).then(okFile).catch(e2 => {
+        if (e2 && e2.name === 'AbortError') return cancel();
+        tier3();
+      });
+    } catch (e2) {
+      tier3();
+    }
+  };
+
+  try {
+    let f1 = d.file;
+    if (!f1) {
+      try {
+        f1 = new File([d.text], d.filename, {
+          type: 'text/plain'
+        });
+      } catch (e) {
+        f1 = null;
       }
-      if (name === 'NotAllowedError') {
-        tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
-        return;
-      }
-      tips('공유가 되지 않았습니다(' + safe(name || '오류') + '). 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+    }
+    if (!f1) return tier2();
+    let p1 = navigator.share({
+      files: [f1],
+      title: title,
+      text: 'SK 여행 백업 파일입니다.'
     });
+    Promise.resolve(p1).then(okFile).catch(e1 => {
+      if (e1 && e1.name === 'AbortError') return cancel();
+      tier2();
+    });
+  } catch (e1) {
+    if (e1 && e1.name === 'AbortError') return cancel();
+    tier2();
   }
 }
 
@@ -2146,28 +2205,8 @@ function doShareBackup() {
     refreshBackupPrebuild();
     return;
   }
-  let file = backupPrebuild.file;
-  if (!file) {
-    download(backupPrebuild.filename, backupPrebuild.text);
-    tips('이 기기에서는 파일 공유를 지원하지 않아 <b>기기에 저장</b>했습니다.');
-    return;
-  }
-  try {
-    /* 여기가 이번 수정의 핵심: 버튼 탭에서 share()까지 기다림이 없습니다. */
-    finishShareResult(navigator.share({
-      files: [file],
-      title: 'SK 여행 백업',
-      text: 'SK 여행 백업 파일입니다.'
-    }), tips);
-  } catch (e) {
-    let name = e && e.name || '';
-    if (name === 'NotAllowedError') {
-      tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
-      return;
-    }
-    download(backupPrebuild.filename, backupPrebuild.text);
-    tips('공유가 되지 않아 <b>기기에 저장</b>했습니다(' + safe(name || '오류') + '). 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
-  }
+  /* 버튼을 누른 그 자리에서 바로 공유를 시도합니다. */
+  startShareSequence(backupPrebuild);
 }
 
 /* ---------- 복원: 파일을 고르고, 그 안의 여행을 다시 선택 ---------- */
