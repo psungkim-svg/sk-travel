@@ -1223,7 +1223,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v0.3.3";
+const APP_VERSION = "v0.3.4";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -2033,9 +2033,28 @@ async function shareTextFile(filename, text) {
 }
 
 async function doShareBackup() {
+  let btn = document.querySelector('button[onclick="doShareBackup()"]');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '파일 만드는 중... (잠시만 기다려주세요)';
+  }
   let d = await currentBackupDraft();
-  if (!d) return;
-  await shareTextFile(d.filename, d.text)
+  if (!d) {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Google 드라이브로 내보내기';
+    }
+    return;
+  }
+  
+  if (btn) {
+    btn.textContent = '완료! 여기를 눌러 공유창 열기';
+    btn.disabled = false;
+    btn.onclick = () => shareTextFile(d.filename, d.text);
+  } else {
+    // Fallback if button is not found
+    await shareTextFile(d.filename, d.text);
+  }
 }
 
 /* ---------- 복원: 파일을 고르고, 그 안의 여행을 다시 선택 ---------- */
