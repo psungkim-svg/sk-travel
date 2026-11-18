@@ -1223,7 +1223,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v0.3.2";
+const APP_VERSION = "v0.3.3";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -1670,44 +1670,8 @@ function saveReview() {
 
 function editTrip(i) {
   editing = clone(db.trips.find(x => x.id === i));
-  let rawText = editing.sourceText || JSON.stringify(editing, null, 2);
-  openModal('여행 전체 정보 편집 (원문)', `
-    <div class="alert">원본 텍스트나 JSON을 직접 수정합니다. 잘못 수정하면 오류가 발생할 수 있습니다.</div>
-    <label class="field">여행 원문 데이터
-      <textarea id="editTripRaw" style="min-height: 60vh; font-family: monospace; white-space: pre; overflow-wrap: normal; overflow-x: auto;">${safe(rawText)}</textarea>
-    </label>
-    <div class="toolbar">
-      <button class="primary" onclick="saveTripRaw('${safe(i)}')">저장</button>
-    </div>
-  `);
-}
-
-function saveTripRaw(id) {
-  let raw = $('#editTripRaw').value;
-  try {
-    let t = JSON.parse(raw);
-    let idx = db.trips.findIndex(x => x.id === id);
-    if (idx >= 0) {
-      // Preserve ID to avoid breaking references
-      t.id = id;
-      db.trips[idx] = t;
-      persist();
-      closeModal();
-      render();
-    }
-  } catch(e) {
-    // If it's not JSON, maybe it's just raw text they pasted. 
-    // We can't simply re-parse raw text easily into the full object here without calling `previewImport()`.
-    // Let's assume they know they are editing the JSON if it was imported that way.
-    if (editing && editing.sourceText) {
-      editing.sourceText = raw;
-      // Re-run normalize/convert? That's too complex. 
-      // Let's just try to parse JSON, if it fails, show error.
-      alert('JSON 형식이 아닙니다. 형식을 확인해주세요: ' + e.message);
-    } else {
-      alert('JSON 형식이 올바르지 않습니다: ' + e.message);
-    }
-  }
+  pending = null;
+  showReview(editing);
 }
 
 function startRehearsal() {
@@ -2005,12 +1969,13 @@ async function currentBackupDraft() {
 }
 
 async function doSaveBackup() {
+  if (!confirm('기기에 파일로 저장하시겠습니까?')) return;
   let d = await currentBackupDraft();
   if (!d) return;
   download(d.filename, d.text);
   haptic(12);
   let info = $('#backupHelp');
-  if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하고, Drive로 옮기려면 그 파일을 길게 눌러 <b>공유 → Drive</b>를 고르세요.'
+  if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하세요.';
 }
 
 /* 공유: 안드로이드에서 Drive가 뜨도록 파일 형식을 text/plain부터 시도합니다. */
