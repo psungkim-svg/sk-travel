@@ -1229,7 +1229,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v1.0.0";
+const APP_VERSION = "v1.1.0";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -1921,7 +1921,11 @@ function backupChoose(preId) {
     <button class="soft" onclick="doSaveBackup()">기기에 파일로 저장</button>
   </div>
   <div id="backupHelp" class="small" style="margin-top:10px;">버튼을 누르면 <b>공유창</b>이 열립니다. <b>Drive</b>를 고르면 'Drive에 업로드' 화면으로 이동합니다.</div>
-</div>`)
+</div>`);
+  let photos = $('#bkpPhotos');
+  document.querySelectorAll('.bkpTrip').forEach(x => x.addEventListener('change', refreshBackupPrebuild));
+  if (photos) photos.addEventListener('change', refreshBackupPrebuild);
+  refreshBackupPrebuild();
 }
 
 function selectedBackupIds() {
@@ -1953,6 +1957,101 @@ async function currentBackupDraft() {
   }
 }
 
+/* 공유는 '버튼을 누르는 그 순간'에 준비가 되어 있어야 합니다.
+   Android Chrome은 탭 이벤트 흐름(사용자 동작)이 끊기면 파일 공유를 NotAllowedError로 거부합니다.
+   그래서 모달을 열거나 선택이 바뀔 때 미리 백업을 만들어 두고, 버튼은 기다림 없이 바로 share()를 호출합니다. */
+let backupPrebuild = {
+  key: '',
+  filename: '',
+  text: '',
+  file: null,
+  building: false
+};
+let prebuildToken = 0;
+
+function backupKey() {
+  let p = $('#bkpPhotos');
+  return selectedBackupIds().join(',') + '|' + (p && p.checked ? '1' : '0');
+}
+
+function backupShareButton() {
+  return document.querySelector('button[onclick="doShareBackup()"]');
+}
+
+async function refreshBackupPrebuild() {
+  let btn = backupShareButton(),
+    key = backupKey(),
+    token = ++prebuildToken;
+  if (!selectedBackupIds().length) {
+    backupPrebuild = {
+      key: '',
+      filename: '',
+      text: '',
+      file: null,
+      building: false
+    };
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '여행을 하나 이상 선택하세요';
+    }
+    return;
+  }
+  backupPrebuild.building = true;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '백업 준비 중…';
+  }
+  let d = await currentBackupDraft();
+  if (token !== prebuildToken) return; /* 그사이 선택이 바뀌면 최신 요청만 채택 */
+  backupPrebuild.building = false;
+  if (!d) {
+    backupPrebuild = {
+      key: '',
+      filename: '',
+      text: '',
+      file: null,
+      building: false
+    };
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '백업을 만들지 못했습니다';
+    }
+    return;
+  }
+  let file = null;
+  for (let type of ['text/plain', 'application/octet-stream', 'application/json']) {
+    try {
+      let f = new File([d.text], d.filename, {
+        type
+      });
+      if (!navigator.canShare || navigator.canShare({
+          files: [f]
+        })) {
+        file = f;
+        break;
+      }
+    } catch (e) {}
+  }
+  if (!file) {
+    try {
+      file = new File([d.text], d.filename, {
+        type: 'text/plain'
+      });
+    } catch (e) {}
+  }
+  backupPrebuild = {
+    key: key,
+    filename: d.filename,
+    text: d.text,
+    file: file,
+    building: false
+  };
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = 'Google 드라이브로 내보내기';
+  }
+}
+
 async function doSaveBackup() {
   if (!confirm('기기에 파일로 저장하시겠습니까?')) return;
   let d = await currentBackupDraft();
@@ -1963,86 +2062,82 @@ async function doSaveBackup() {
   if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하세요.';
 }
 
-/* 공유: 안드로이드에서 Drive가 뜨도록 파일 형식을 text/plain부터 시도합니다. */
-async function shareTextFile(filename, text) {
-  let tips = m => {
-    let el = $('#backupHelp');
-    if (el) el.innerHTML = m
-  };
-  if (!navigator.share) {
-    download(filename, text);
-    tips('이 브라우저는 공유창을 지원하지 않아 <b>기기에 저장</b>했습니다. 내 파일 → 다운로드에서 Drive로 옮겨 주세요.');
-    return
-  }
-  let file = null;
-  for (let type of ['text/plain', 'application/octet-stream', 'application/json']) {
-    try {
-      let f = new File([text], filename, {
-        type
-      });
-      if (!navigator.canShare || navigator.canShare({
-          files: [f]
-        })) {
-        file = f;
-        break
+/* 공유: 안드로이드에서 Drive가 뜨도록 파일 형식은 미리 canShare로 고릅니다.
+   doShareBackup은 동기 함수로 남겨 두었습니다 — 버튼을 누른 그 자리에서 곧바로 share()를 호출해야
+   Android Chrome이 파일 공유를 허용합니다(중간에 await가 끼면 NotAllowedError). */
+
+function shareBackupTips(m) {
+  let el = $('#backupHelp');
+  if (el) el.innerHTML = m;
+}
+
+function finishShareResult(p, tips) {
+  if (p && typeof p.then === 'function') {
+    p.then(() => {
+      haptic(15);
+      tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 저장되지 않았다면 「기기에 파일로 저장」을 눌러 주세요.');
+    }).catch(e => {
+      let name = e && e.name || '';
+      if (name === 'AbortError') {
+        tips('공유를 취소했습니다. 다시 「Google 드라이브로 내보내기」를 누르면 공유창이 다시 열립니다.');
+        return;
       }
-    } catch {}
-  }
-  if (!file) {
-    try {
-      file = new File([text], filename, {
-        type: 'text/plain'
-      })
-    } catch {
-      download(filename, text);
-      tips('이 기기에서는 파일 공유를 지원하지 않아 <b>기기에 저장</b>했습니다.');
-      return
-    }
-  }
-  try {
-    await navigator.share({
-      files: [file],
-      title: 'SK 여행 백업',
-      text: 'SK 여행 백업 파일입니다.'
+      if (name === 'NotAllowedError') {
+        tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+        return;
+      }
+      tips('공유가 되지 않았습니다(' + safe(name || '오류') + '). 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
     });
-    haptic(15);
-    tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 저장되지 않았다면 「기기에 파일로 저장」을 눌러 주세요.')
-  } catch (e) {
-    if (e.name === 'AbortError') {
-      tips('공유를 취소했습니다. 다시 「Google 드라이브로 내보내기」를 누르면 공유창이 다시 열립니다.');
-      return
-    }
-    if (e.name === 'NotAllowedError') {
-      tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
-      return
-    }
-    download(filename, text);
-    tips('공유가 되지 않아 <b>기기에 저장</b>했습니다(형식: ' + (e.name || '오류') + '). 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.')
   }
 }
 
-async function doShareBackup() {
-  let btn = document.querySelector('button[onclick="doShareBackup()"]');
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = '백업 만드는 중... (잠시만 기다려주세요)';
+function doShareBackup() {
+  let tips = shareBackupTips;
+  if (!selectedBackupIds().length) {
+    alert('여행을 하나 이상 선택하세요.');
+    return;
+  }
+  let key = backupKey();
+  if (!navigator.share) {
+    if (backupPrebuild.key === key && backupPrebuild.text) {
+      download(backupPrebuild.filename, backupPrebuild.text);
+      tips('이 브라우저는 공유창을 지원하지 않아 <b>기기에 저장</b>했습니다. 내 파일 → 다운로드에서 Drive로 옮겨 주세요.');
+    } else {
+      tips('백업을 준비하는 중입니다. 잠시만 기다렸다가 다시 눌러 주세요.');
+      refreshBackupPrebuild();
+    }
+    return;
+  }
+  if (backupPrebuild.building) {
+    tips('백업을 준비하는 중입니다. 잠시만 기다렸다가 다시 눌러 주세요.');
+    return;
+  }
+  if (backupPrebuild.key !== key || !backupPrebuild.text) {
+    tips('백업을 다시 준비하는 중입니다. 잠시만 기다렸다가 다시 눌러 주세요.');
+    refreshBackupPrebuild();
+    return;
+  }
+  let file = backupPrebuild.file;
+  if (!file) {
+    download(backupPrebuild.filename, backupPrebuild.text);
+    tips('이 기기에서는 파일 공유를 지원하지 않아 <b>기기에 저장</b>했습니다.');
+    return;
   }
   try {
-    let d = await currentBackupDraft();
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = 'Google 드라이브로 내보내기';
-    }
-    if (!d) return;
-    /* 같은 손가락 탭 안에서 바로 공유창을 열어야 Android Chrome이 파일 공유를 허용합니다. */
-    await shareTextFile(d.filename, d.text);
+    /* 여기가 이번 수정의 핵심: 버튼 탭에서 share()까지 기다림이 없습니다. */
+    finishShareResult(navigator.share({
+      files: [file],
+      title: 'SK 여행 백업',
+      text: 'SK 여행 백업 파일입니다.'
+    }), tips);
   } catch (e) {
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = 'Google 드라이브로 내보내기';
+    let name = e && e.name || '';
+    if (name === 'NotAllowedError') {
+      tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+      return;
     }
-    let info = $('#backupHelp');
-    if (info) info.innerHTML = '백업을 만들지 못했습니다: ' + safe(e?.message || e);
+    download(backupPrebuild.filename, backupPrebuild.text);
+    tips('공유가 되지 않아 <b>기기에 저장</b>했습니다(' + safe(name || '오류') + '). 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
   }
 }
 
@@ -2812,6 +2907,34 @@ function setGuideSource(src) {
   render();
 }
 
+/* ===== 현장 가이드 표시: 원문은 그대로, 표현만 '훑어보기 쉬운' 단위로 정리 (v1.1) ===== */
+function guideChips(text, warn) {
+  let s = String(text || '').trim();
+  if (!s) return [];
+  return s.split(/\s*·\s*/).map(x => x.trim()).filter(Boolean).map(x => `<span${warn ? ' class="warn"' : ''}>${safe(x)}</span>`);
+}
+function guideRouteItems(text) {
+  let raw = String(text || ''),
+    lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  /* 개행 없이 '1. ' '2. '가 여러 개인 한 줄이면 마커 기준으로 쪼갠다 */
+  if (lines.length <= 1 && /(?:^|\s)2[.\)]\s/.test(raw)) {
+    lines = raw.split(/(?=(?:^|\s)\d+[.\)]\s)/).map(l => l.trim()).filter(Boolean);
+  }
+  return lines.map(l => l.replace(/^(?:\d+[.\)]|[①-⑳])\s*/, '')).filter(Boolean);
+}
+function guideDetailRows(text) {
+  /* guideFromBrief가 만든 '라벨: 값 / 값 / 값' 줄들을 키-값 행으로 변환 */
+  return String(text || '').split('\n').map(l => l.trim()).filter(Boolean).map(line => {
+    let m = /^([^:：]{1,40})[:：]\s*(.*)$/.exec(line);
+    if (!m) return { k: '기타', vals: [line], warn: false };
+    let vals = m[2].split(' / ').map(x => x.trim()).filter(Boolean);
+    return { k: m[1], vals: vals.length ? vals : [m[2]], warn: /^(주의|위험|환승 주의|확인 필요)/.test(m[1]) };
+  });
+}
+function guideLine(label, inner) {
+  return `<div class="guide-item"><div class="guide-label">${label}</div>${inner}</div>`;
+}
+
 function renderGuideBlock(t, e) {
   let gAll = t?.guides?.[e?.id] || {};
   
@@ -2827,8 +2950,8 @@ function renderGuideBlock(t, e) {
   let guidesBySource = {};
   
   if (isLegacy) {
-    guidesBySource['기존 자료'] = gAll;
-    sources.push('기존 자료');
+    guidesBySource['AI 조사 자료'] = gAll;
+    sources.push('AI 조사 자료');
   } else {
     guidesBySource = gAll;
     sources = Object.keys(gAll);
@@ -2860,13 +2983,18 @@ function renderGuideBlock(t, e) {
     photosHtml = `<div class="emptyPhoto">가이드 사진 자료가 없습니다.</div>`;
   }
 
+  let hg = guideChips(g.highlights);
+  let routeItems = guideRouteItems(g.route);
+  let detailRows = guideDetailRows(g.details);
+  let miss = `<p class="muted" style="margin-top:6px">가이드 자료 미입력</p>`;
   let textHtml = `
-    <div class="fact"><b>꼭 볼 것</b><br>${safe(g.highlights||'가이드 자료 미입력')}</div>
-    <div class="fact"><b>왜 중요한가</b><br>${safe(g.history||'가이드 자료 미입력')}</div>
-    <div class="fact"><b>보는 순서</b><br>${safe(g.route||'가이드 자료 미입력')}</div>
-    <div class="fact"><b>사진 포인트</b><br>${safe(g.photoPoint||'가이드 자료 미입력')}</div>
-    <div class="fact"><b>🚻 화장실</b><br>${safe(g.toilet||'가이드 자료 미입력')}</div>
-    <div class="fact"><b>알아둘 정보</b><br>${safe(g.details||'가이드 자료 미입력')}</div>
+    ${guideLine('👀 꼭 볼 것', hg.length ? `<div class="guide-chips">${hg.join('')}</div>` : miss)}
+    ${guideLine('💡 왜 중요한가', (g.history||'').trim() ? `<p>${safe(String(g.history).trim())}</p>` : miss)}
+    ${guideLine('🧭 보는 순서', routeItems.length ? `<ol>${routeItems.map(x => `<li>${safe(x)}</li>`).join('')}</ol>` : miss)}
+    ${guideLine('📷 사진 포인트', (g.photoPoint||'').trim() ? `<p>${safe(String(g.photoPoint).trim())}</p>` : miss)}
+    ${guideLine('🚻 화장실', (g.toilet||'').trim() ? `<p>${safe(String(g.toilet).trim())}</p>` : miss)}
+    ${detailRows.length ? `<details class="guide-more"><summary>알아둘 정보 자세히 보기</summary><dl class="guide-kv">${detailRows.map(r => `<dt>${safe(r.k)}</dt><dd><div class="guide-chips" style="margin-top:0">${r.vals.map(v => `<span${r.warn ? ' class="warn"' : ''}>${safe(v)}</span>`).join('')}</div></dd>`).join('')}</dl></details>` : ''}
+    <div class="guide-source">출처: ${safe(g.source || '미확인')} · 화면의 구분·순서만 정리했고, 내용은 원자료 그대로입니다.</div>
   `;
 
   return chipHtml + photosHtml + textHtml;
