@@ -123,17 +123,37 @@ body.v4-drag-active .item:not(.task-dragging){transition:none!important}
 .task-drop-target:not(.task-dragging){outline:3px solid #17644e!important;outline-offset:2px;background:#e2f5e9!important;transition:background-color .16s ease,outline-color .16s ease!important}
 body.v4-drag-active{overflow-anchor:none!important}body.v4-drag-active details,body.v4-drag-active .check-grid{overflow-anchor:none!important}
 html,body,body *{line-height:var(--type-line-height,1.2)!important}
+
+/* ===== v1.1.0: 홈 '원본 일정'과 같은 기본 글자(system-ui, 18px)로 통일하고 작은 글자를 키웠습니다 ===== */
+body { font-size:18px; }
+.toolbar { display:flex; flex-wrap:nowrap; gap:5px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; margin-bottom:10px; }
+.toolbar button { flex:0 0 auto; white-space:nowrap; padding:10px 10px; font-size:13px; min-height:44px; border-radius:9px; }
+summary { font-size:19px!important; padding:14px 15px!important; min-height:56px; }
+.group h3 { font-size:18px!important; margin-bottom:8px!important; }
+.item { font-size:17.5px!important; }
+.note { font-size:17px!important; line-height:1.55!important; padding:11px 12px!important; }
+.note>strong { font-size:16px!important; }
+.memo-subnote { font-size:16px!important; line-height:1.5!important; padding:8px 10px!important; }
+.memo-sub-add { font-size:15px!important; padding:6px 0!important; }
+.memo-note-editor { font-size:17px!important; line-height:1.65!important; }
+.memo-editor-label { font-size:13px!important; }
+.saved-memo-item { font-size:17px!important; line-height:1.5!important; }
+.saved-memo-item .del-btn { font-size:14px!important; }
+.memo-input-area textarea { font-size:17px!important; }
+.task-add-btn { font-size:15px!important; }
+.task-delete-btn { font-size:18px!important; }
+.memo-list { font-size:17px; line-height:1.55; }
+h1 { font-size:26px; }
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>여행 체크리스트</h1>
 <div class="toolbar">
-<button onclick="toggleAll(true)">전체 펼치기</button>
 <button class="secondary" onclick="toggleAll(false)">전체 접기</button>
-<button class="danger" onclick="resetChecks()">체크 초기화</button>
-<button class="secondary" onclick="exportPacking()">준비물 백업 저장</button>
-<button class="secondary" onclick="document.getElementById('packingImportFile').click()">준비물 백업 불러오기</button>
+<button class="danger" onclick="resetChecks()">전체 초기화</button>
+<button class="secondary" onclick="exportPacking()">백업 저장</button>
+<button class="secondary" onclick="document.getElementById('packingImportFile').click()">백업 불러오기</button>
 <input type="file" id="packingImportFile" accept=".json,application/json" hidden>
 </div>
 <!-- ==================== 1. 여행 1주일 전 ==================== -->

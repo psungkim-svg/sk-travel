@@ -1229,7 +1229,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v1.1.0";
+const APP_VERSION = "v1.2.0";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -1917,8 +1917,8 @@ function backupChoose(preId) {
   <h3>2. 보낼 방법</h3>
   <label class="field" style="display:flex;gap:10px;align-items:center;margin:0 0 10px"><input type="checkbox" id="bkpPhotos" checked style="width:24px;height:24px;flex:none"><span>사진 포함<br><span class="small">꺼두면 파일이 작아져 Drive 공유가 잘 됩니다. 실패하면 체크를 해제하세요.</span></span></label>
   <div class="toolbar">
-    <button class="primary" onclick="doShareBackup()">Google 드라이브로 내보내기</button>
-    <button class="soft" onclick="doSaveBackup()">기기에 파일로 저장</button>
+    <button class="primary" onclick="doShareBackup()">드라이브 저장</button>
+    <button class="soft" onclick="doSaveBackup()">로컬 저장</button>
   </div>
   <div id="backupHelp" class="small" style="margin-top:10px;">버튼을 누르면 <b>공유창</b>이 열립니다. <b>Drive</b>를 고르면 'Drive에 업로드' 화면으로 이동합니다.</div>
 </div>`);
@@ -1936,6 +1936,24 @@ function toggleAllBackup() {
   let all = [...document.querySelectorAll('.bkpTrip')],
     on = all.every(x => x.checked);
   all.forEach(x => x.checked = !on)
+}
+
+/* 로컬 저장(다운로드) — 예전 버전에서 사라진 전역 함수를 복원했습니다.
+   이게 없으면 doSaveBackup()이 ReferenceError로 죽기만 하고 아무 일도 일어나지 않았습니다. */
+function download(name, text, type = 'application/json') {
+  let a = document.createElement('a'),
+    url = URL.createObjectURL(new Blob([text], {
+      type
+    }));
+  a.href = url;
+  a.download = name;
+  a.style.display = 'none';
+  document.body.appendChild(a); /* 화면에 붙여 둔 채 눌러야 일부 브라우저에서 파일 이름이 유지됩니다 */
+  a.click();
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+    a.remove();
+  }, 3000)
 }
 
 async function currentBackupDraft() {
@@ -2048,18 +2066,29 @@ async function refreshBackupPrebuild() {
   };
   if (btn) {
     btn.disabled = false;
-    btn.textContent = 'Google 드라이브로 내보내기';
+    btn.textContent = '드라이브 저장';
   }
 }
 
 async function doSaveBackup() {
-  if (!confirm('기기에 파일로 저장하시겠습니까?')) return;
+  if (!confirm('로컬 저장하시겠습니까?')) return;
+  let key = backupKey(),
+    info = $('#backupHelp');
+  /* 미리 만들어 둔 게 그대로 유효하면 기다림 없이 바로 저장합니다. */
+  if (backupPrebuild.key === key && backupPrebuild.text && !backupPrebuild.building) {
+    download(backupPrebuild.filename, backupPrebuild.text);
+    haptic(12);
+    if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하세요.';
+    return;
+  }
+  /* 선택을 방금 바꾼 경우: 다시 만들고 나서 저장합니다(다운로드는 공유와 달리 await를 써도 됩니다). */
+  if (info) info.innerHTML = '백업을 만드는 중입니다…';
   let d = await currentBackupDraft();
   if (!d) return;
   download(d.filename, d.text);
   haptic(12);
-  let info = $('#backupHelp');
   if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하세요.';
+  refreshBackupPrebuild();
 }
 
 /* 공유: 안드로이드에서 Drive가 뜨도록 파일 형식은 미리 canShare로 고릅니다.
@@ -2075,18 +2104,18 @@ function finishShareResult(p, tips) {
   if (p && typeof p.then === 'function') {
     p.then(() => {
       haptic(15);
-      tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 저장되지 않았다면 「기기에 파일로 저장」을 눌러 주세요.');
+      tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 저장되지 않았다면 「로컬 저장」을 눌러 주세요.');
     }).catch(e => {
       let name = e && e.name || '';
       if (name === 'AbortError') {
-        tips('공유를 취소했습니다. 다시 「Google 드라이브로 내보내기」를 누르면 공유창이 다시 열립니다.');
+        tips('공유를 취소했습니다. 다시 「드라이브 저장」를 누르면 공유창이 다시 열립니다.');
         return;
       }
       if (name === 'NotAllowedError') {
-        tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+        tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
         return;
       }
-      tips('공유가 되지 않았습니다(' + safe(name || '오류') + '). 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+      tips('공유가 되지 않았습니다(' + safe(name || '오류') + '). 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
     });
   }
 }
@@ -2133,7 +2162,7 @@ function doShareBackup() {
   } catch (e) {
     let name = e && e.name || '';
     if (name === 'NotAllowedError') {
-      tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>기기에 파일로 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
+      tips('이 휴대폰/브라우저가 파일 공유를 거부했습니다(NotAllowedError). ① 위의 <b>사진 포함을 꺼고</b> 다시 눌러 보세요. ② 그래도 안 되면 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
       return;
     }
     download(backupPrebuild.filename, backupPrebuild.text);

@@ -33,7 +33,7 @@
 .wx7-temp{font-size:14.5px;font-weight:950;line-height:1.25;white-space:nowrap;text-align:right;letter-spacing:-.3px}
 .wx7-temp .lo{color:#2563eb}.wx7-temp .hi{color:#dc2626}.wx7-temp .sep{color:#9aa6bb;margin:0 2px}
 
-.notice{background:#fff7d6;border:1px solid #ffe08a;color:#5f4700;border-radius:14px;padding:13px 14px;font-size:14.5px;line-height:1.7;margin-bottom:13px}
+.notice{background:#fff7d6;border:1px solid #ffe08a;color:#5f4700;border-radius:14px;padding:13px 14px;font-size:16px;line-height:1.7;margin-bottom:13px}
 .modal.weather-sheet{background:rgba(10,15,28,.5);backdrop-filter:blur(2px)}.modal.weather-sheet .modalBody{position:absolute;left:0;right:0;bottom:0;max-width:600px;min-height:0;max-height:86dvh;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom,0px) + 20px);overflow-y:auto}.modal.weather-sheet .modalHead{background:#fff}
 
 /* Compact GPS response strip: blue=recent position, green=checking, red=failed/stale. */
@@ -107,21 +107,21 @@ textarea{line-height:1.55}
 /* v1.1: 현장 가이드 — 원본 일정처럼 훑어보기 쉽게 */
 .guide-item{background:#f5faf7;border:1px solid #e2eee7;border-radius:12px;padding:10px 12px;margin-top:8px}
 .guide-item:first-child{margin-top:0}
-.guide-label{font-size:11.5px;font-weight:850;color:#17644e;letter-spacing:-.3px;display:flex;align-items:center;gap:5px}
+.guide-label{font-size:15px;font-weight:850;color:#17644e;letter-spacing:-.3px;display:flex;align-items:center;gap:5px}
 .guide-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-.guide-chips span{background:#e8efff;border:1px solid #d5e2fb;border-radius:8px;padding:4px 9px;font-size:14px;font-weight:650;line-height:1.35;max-width:100%;overflow-wrap:anywhere}
+.guide-chips span{background:#e8efff;border:1px solid #d5e2fb;border-radius:8px;padding:5px 10px;font-size:16.5px;font-weight:650;line-height:1.35;max-width:100%;overflow-wrap:anywhere}
 .guide-chips span.warn{background:#ffe3e0;border-color:#f3c1ba;color:#862d20}
-.guide-item p{margin:6px 0 0;font-size:15px;line-height:1.5;letter-spacing:0}
+.guide-item p{margin:6px 0 0;font-size:var(--type-body);line-height:1.5;letter-spacing:0}
 .guide-item ol{margin:7px 0 0;padding-left:23px}
-.guide-item ol li{padding:3px 0;font-size:15px;line-height:1.5;letter-spacing:0}
-.guide-source{margin-top:10px;font-size:12px;color:var(--muted)}
+.guide-item ol li{padding:3px 0;font-size:var(--type-body);line-height:1.5;letter-spacing:0}
+.guide-source{margin-top:10px;font-size:14px;color:var(--muted)}
 .guide-more{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 13px;overflow:hidden}
-.guide-more>summary{min-height:44px;display:flex;align-items:center;font-weight:800;font-size:15px;color:#17644e;cursor:pointer;list-style:none}
+.guide-more>summary{min-height:48px;display:flex;align-items:center;font-weight:800;font-size:17px;color:#17644e;cursor:pointer;list-style:none}
 .guide-more>summary::-webkit-details-marker{display:none}
 .guide-more>summary::before{content:'▸';margin-right:8px;transition:transform .18s ease;display:inline-block}
 .guide-more[open]>summary::before{transform:rotate(90deg)}
 .guide-kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;padding:4px 0 12px;border-top:1px solid #e8efeb}
-.guide-kv dt{color:#195947;font-weight:800;font-size:13.5px;white-space:nowrap;padding-top:2px}
-.guide-kv dd{margin:0;font-size:14.5px;line-height:1.45}
+.guide-kv dt{color:#195947;font-weight:800;font-size:15px;white-space:nowrap;padding-top:2px}
+.guide-kv dd{margin:0;font-size:16.5px;line-height:1.45}
 </style>
-</head><body><main><div class="top"><b>SK 여행</b><button id="tripTop" onclick="tab='manage';render()">여행 선택</button></div><div id="app"></div></main><nav class="tabbar" id="tabs"></nav><div id="modal" class="modal hidden"><div class="modalBody"><div class="modalHead row"><b id="modalTitle"></b><button class="soft" onclick="closeModal()">닫기 ✕</button></div><div id="modalContent"></div></div></div><script src="jszip.min.js"></script><script src="app.js?v=1.1.0"></script></body></html>
+</head><body><main><div class="top"><b>SK 여행</b><button id="tripTop" onclick="tab='manage';render()">여행 선택</button></div><div id="app"></div></main><nav class="tabbar" id="tabs"></nav><div id="modal" class="modal hidden"><div class="modalBody"><div class="modalHead row"><b id="modalTitle"></b><button class="soft" onclick="closeModal()">닫기 ✕</button></div><div id="modalContent"></div></div></div><script src="jszip.min.js"></script><script src="app.js?v=1.2.0"></script></body></html>
