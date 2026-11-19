@@ -938,7 +938,7 @@ function manage() {
   let t = trip();
   return `<h2>내 여행 <span class="small">· 최대 4개</span></h2>
 <div class="card">
-  ${db.trips.map(x=>`<div class="trip ${x.id===db.active?'active':''}"><div class="row"><b>${safe(x.name)}</b><button class="${x.id===db.active?'primary':'soft'}" onclick="activate('${safe(x.id)}')">${x.id===db.active?'✓ 선택됨':'선택'}</button></div><div class="small">${safe(x.start||'시작일 미정')} · ${safe(x.city||'도시 미입력')}</div><div class="actions"><button onclick="editTrip('${safe(x.id)}')">전체 정보 편집</button><button onclick="backupChoose('${safe(x.id)}')">백업·공유</button><button class="danger" onclick="deleteTrip('${safe(x.id)}')">삭제</button></div></div>`).join('')||'<p class="muted">저장된 여행이 없습니다.</p>'}
+  ${db.trips.map(x=>`<div class="trip ${x.id===db.active?'active':''}"><div class="row"><b>${safe(x.name)}</b><button class="${x.id===db.active?'primary':'soft'}" onclick="activate('${safe(x.id)}')">${x.id===db.active?'✓ 선택됨':'선택'}</button></div><div class="small">${safe(x.start||'시작일 미정')} · ${safe(x.city||'도시 미입력')}</div><div class="actions"><button onclick="editTrip('${safe(x.id)}')">전체 정보 편집</button><button onclick="backupChoose('${safe(x.id)}')">백업</button><button class="danger" onclick="deleteTrip('${safe(x.id)}')">삭제</button></div></div>`).join('')||'<p class="muted">저장된 여행이 없습니다.</p>'}
 </div>
 
 <h2>일정 넣기</h2>
@@ -959,9 +959,9 @@ function manage() {
   <button class="soft" onclick="openVault()">개인 예약정보 열기</button>
 </div>
 
-<h2>백업 · 복원 (Google Drive)</h2>
+<h2>백업 · 복원</h2>
 <div class="card">
-  <p class="muted">원하는 여행을 파일로 만들고, 기기에 저장하거나 공유합니다.</p>
+  <p class="muted">원하는 여행을 파일로 만들어 기기에 저장합니다.</p>
   <div class="toolbar">
     <button class="primary" onclick="backupChoose()">백업 만들기</button>
     <button class="soft" onclick="openBackupImport()">백업 파일 가져오기</button>
@@ -1229,7 +1229,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v1.4.0";
+const APP_VERSION = "v1.6.0";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -1855,7 +1855,7 @@ async function saveGuide() {
   guideForm()
 }
 
-/* ============ 백업 · 공유 · 복원 (v0.2.7, 여행 선택식) ============ */
+/* ============ 백업 · 복원 (여행 선택식) ============ */
 function backupFileName(name, label) {
   let base = String(name || 'SK여행').replace(/[\\/:*?"<>|\s]+/g, '_').slice(0, 28) || 'SK여행',
     d = new Date(),
@@ -1903,24 +1903,23 @@ async function buildBackup(ids, includePhotos = true) {
   }
 }
 
-/* 백업 화면: 여행을 골라서 Drive 등으로 보냅니다. */
+/* 백업 화면: 여행을 골라서 파일로 저장합니다. */
 function backupChoose(preId) {
   if (!db.trips.length) return alert('저장된 여행이 없습니다.');
   let pre = preId || db.active;
-  openModal('백업할 여행 고르기', `<div class="alert">백업 파일은 암호화되지 않습니다. 예약 정보가 들어 있으면 Drive 보관 위치에 주의하세요.</div>
+  openModal('백업할 여행 고르기', `<div class="alert">백업 파일은 암호화되지 않습니다. 예약 정보가 들어 있으니 보관하는 사람만 접근할 수 있게 주의하세요.</div>
 <div class="card">
   <h3>1. 여행 선택</h3>
   ${db.trips.map(t=>`<label class="field" style="display:flex;gap:10px;align-items:center"><input type="checkbox" class="bkpTrip" value="${safe(t.id)}" ${t.id===pre?'checked':''} style="width:24px;height:24px;flex:none"><span>${safe(t.name)}<br><span class="small">${safe(t.start||'날짜 없음')} · ${safe(t.city||'')}</span></span></label>`).join('')}
   <button class="soft" onclick="toggleAllBackup()">전체 선택 / 해제</button>
 </div>
 <div class="card">
-  <h3>2. 보낼 방법</h3>
-  <label class="field" style="display:flex;gap:10px;align-items:center;margin:0 0 10px"><input type="checkbox" id="bkpPhotos" checked style="width:24px;height:24px;flex:none"><span>사진 포함<br><span class="small">꺼두면 파일이 작아져 Drive 공유가 잘 됩니다. 실패하면 체크를 해제하세요.</span></span></label>
+  <h3>2. 저장 방법</h3>
+  <label class="field" style="display:flex;gap:10px;align-items:center;margin:0 0 10px"><input type="checkbox" id="bkpPhotos" checked style="width:24px;height:24px;flex:none"><span>사진 포함<br><span class="small">꺼두면 사진 없이 파일만 작아집니다.</span></span></label>
   <div class="toolbar">
-    <button class="primary" onclick="doShareBackup()">드라이브 저장</button>
-    <button class="soft" onclick="doSaveBackup()">로컬 저장</button>
+    <button class="primary" onclick="doSaveBackup()">로컬 저장</button>
   </div>
-  <div id="backupHelp" class="small" style="margin-top:10px;">버튼을 누르면 <b>공유창</b>이 열립니다. <b>Drive</b>를 고르면 'Drive에 업로드' 화면으로 이동합니다.</div>
+  <div id="backupHelp" class="small" style="margin-top:10px;">버튼을 누르면 <b>백업 파일(JSON)</b>을 기기에 저장합니다. <b>내 파일 → 다운로드</b>에서 확인하세요.</div>
 </div>`);
   let photos = $('#bkpPhotos');
   document.querySelectorAll('.bkpTrip').forEach(x => x.addEventListener('change', refreshBackupPrebuild));
@@ -1975,9 +1974,8 @@ async function currentBackupDraft() {
   }
 }
 
-/* 공유는 '버튼을 누르는 그 순간'에 준비가 되어 있어야 합니다.
-   Android Chrome은 탭 이벤트 흐름(사용자 동작)이 끊기면 파일 공유를 NotAllowedError로 거부합니다.
-   그래서 모달을 열거나 선택이 바뀔 때 미리 백업을 만들어 두고, 버튼은 기다림 없이 바로 share()를 호출합니다. */
+/* 백업은 모달을 열거나 선택이 바뀔 때 미리 만들어 둡니다.
+   「로컬 저장」을 누르면 확인창 직후 기다림 없이 바로 저장됩니다. */
 let backupPrebuild = {
   key: '',
   filename: '',
@@ -1992,13 +1990,8 @@ function backupKey() {
   return selectedBackupIds().join(',') + '|' + (p && p.checked ? '1' : '0');
 }
 
-function backupShareButton() {
-  return document.querySelector('button[onclick="doShareBackup()"]');
-}
-
 async function refreshBackupPrebuild() {
-  let btn = backupShareButton(),
-    key = backupKey(),
+  let key = backupKey(),
     token = ++prebuildToken;
   if (!selectedBackupIds().length) {
     backupPrebuild = {
@@ -2008,18 +2001,15 @@ async function refreshBackupPrebuild() {
       file: null,
       building: false
     };
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = '여행을 하나 이상 선택하세요';
-    }
     return;
   }
   backupPrebuild.building = true;
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = '백업 준비 중…';
+  let d = null;
+  try {
+    d = await currentBackupDraft();
+  } catch (err) {
+    console.error('백업 만들기 실패:', err);
   }
-  let d = await currentBackupDraft();
   if (token !== prebuildToken) return; /* 그사이 선택이 바뀌면 최신 요청만 채택 */
   backupPrebuild.building = false;
   if (!d) {
@@ -2030,44 +2020,15 @@ async function refreshBackupPrebuild() {
       file: null,
       building: false
     };
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = '백업을 만들지 못했습니다';
-    }
     return;
-  }
-  let file = null;
-  for (let type of ['text/plain', 'application/octet-stream', 'application/json']) {
-    try {
-      let f = new File([d.text], d.filename, {
-        type
-      });
-      if (!navigator.canShare || navigator.canShare({
-          files: [f]
-        })) {
-        file = f;
-        break;
-      }
-    } catch (e) {}
-  }
-  if (!file) {
-    try {
-      file = new File([d.text], d.filename, {
-        type: 'text/plain'
-      });
-    } catch (e) {}
   }
   backupPrebuild = {
     key: key,
     filename: d.filename,
     text: d.text,
-    file: file,
+    file: null,
     building: false
   };
-  if (btn) {
-    btn.disabled = false;
-    btn.textContent = '드라이브 저장';
-  }
 }
 
 async function doSaveBackup() {
@@ -2081,7 +2042,7 @@ async function doSaveBackup() {
     if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하세요.';
     return;
   }
-  /* 선택을 방금 바꾼 경우: 다시 만들고 나서 저장합니다(다운로드는 공유와 달리 await를 써도 됩니다). */
+  /* 선택을 방금 바꾼 경우: 다시 만들고 나서 저장합니다(확인창 뒤라서 await를 써도 됩니다). */
   if (info) info.innerHTML = '백업을 만드는 중입니다…';
   let d = await currentBackupDraft();
   if (!d) return;
@@ -2089,124 +2050,6 @@ async function doSaveBackup() {
   haptic(12);
   if (info) info.innerHTML = '파일을 기기에 저장했습니다. <b>내 파일 → 다운로드</b>에서 확인하세요.';
   refreshBackupPrebuild();
-}
-
-/* 공유: 안드로이드에서 Drive가 뜨도록 시도합니다.
-   누르면 공유창(공유 아이콘)이 열리는 것이 목표입니다.
-   차례대로: ① 미리 만들어 둔 파일로 파일 공유 → ② 다른 형식(application/octet-stream)으로 파일 공유 재시도
-   → ③ 백업 내용을 텍스트로 담아 공유창 열기. 모두 거부되면 솔직하게 안내합니다.
-   (계속 실패하는 기기에서는 웹앱으로 공유창을 강제할 방법이 없습니다.) */
-
-function shareBackupTips(m) {
-  let el = $('#backupHelp');
-  if (el) el.innerHTML = m;
-}
-
-function startShareSequence(d) {
-  let tips = shareBackupTips,
-    title = 'SK 여행 백업',
-    okFile = () => {
-      haptic(15);
-      tips('공유창을 닫았습니다. Drive를 골랐다면 <b>Drive 앱에서 저장 위치를 확인</b>하세요. 필요하면 「로컬 저장」으로 한 번 더 저장해 두세요.');
-    },
-    okText = () => {
-      haptic(15);
-      tips('<b>텍스트로 공유</b>되었습니다. Drive에 저장했다면, 나중에 내려받아 「백업 파일 가져오기」로 다시 넣을 수 있습니다. 확실히 하려면 「로컬 저장」도 함께 사용하세요.');
-    },
-    cancel = () => tips('공유를 취소했습니다. 다시 「드라이브 저장」을 누르면 공유창이 다시 열립니다.'),
-    hardFail = (name) => tips('이 기기에서는 공유창을 열 수 없습니다(' + safe(name || '오류') + '). 웹앱이 할 수 있는 방법은 모두 시도했습니다. 「<b>로컬 저장</b>」을 누른 뒤, 내 파일 → 다운로드 → 길게 눌러 공유 → Drive를 이용하세요.');
-
-  let tier3 = () => {
-    try {
-      let p3 = navigator.share({
-        title: title,
-        text: d.text
-      });
-      Promise.resolve(p3).then(okText).catch(e3 => {
-        if (e3 && e3.name === 'AbortError') return cancel();
-        hardFail(e3 && e3.name);
-      });
-    } catch (e3) {
-      if (e3 && e3.name === 'AbortError') return cancel();
-      hardFail(e3 && e3.name);
-    }
-  };
-
-  let tier2 = () => {
-    try {
-      let f2 = new File([d.text], d.filename, {
-        type: 'application/octet-stream'
-      });
-      if (navigator.canShare && !navigator.canShare({ files: [f2] })) return tier3();
-      let p2 = navigator.share({
-        files: [f2],
-        title: title,
-        text: 'SK 여행 백업 파일입니다.'
-      });
-      Promise.resolve(p2).then(okFile).catch(e2 => {
-        if (e2 && e2.name === 'AbortError') return cancel();
-        tier3();
-      });
-    } catch (e2) {
-      tier3();
-    }
-  };
-
-  try {
-    let f1 = d.file;
-    if (!f1) {
-      try {
-        f1 = new File([d.text], d.filename, {
-          type: 'text/plain'
-        });
-      } catch (e) {
-        f1 = null;
-      }
-    }
-    if (!f1) return tier2();
-    let p1 = navigator.share({
-      files: [f1],
-      title: title,
-      text: 'SK 여행 백업 파일입니다.'
-    });
-    Promise.resolve(p1).then(okFile).catch(e1 => {
-      if (e1 && e1.name === 'AbortError') return cancel();
-      tier2();
-    });
-  } catch (e1) {
-    if (e1 && e1.name === 'AbortError') return cancel();
-    tier2();
-  }
-}
-
-function doShareBackup() {
-  let tips = shareBackupTips;
-  if (!selectedBackupIds().length) {
-    alert('여행을 하나 이상 선택하세요.');
-    return;
-  }
-  let key = backupKey();
-  if (!navigator.share) {
-    if (backupPrebuild.key === key && backupPrebuild.text) {
-      download(backupPrebuild.filename, backupPrebuild.text);
-      tips('이 브라우저는 공유창을 지원하지 않아 <b>기기에 저장</b>했습니다. 내 파일 → 다운로드에서 Drive로 옮겨 주세요.');
-    } else {
-      tips('백업을 준비하는 중입니다. 잠시만 기다렸다가 다시 눌러 주세요.');
-      refreshBackupPrebuild();
-    }
-    return;
-  }
-  if (backupPrebuild.building) {
-    tips('백업을 준비하는 중입니다. 잠시만 기다렸다가 다시 눌러 주세요.');
-    return;
-  }
-  if (backupPrebuild.key !== key || !backupPrebuild.text) {
-    tips('백업을 다시 준비하는 중입니다. 잠시만 기다렸다가 다시 눌러 주세요.');
-    refreshBackupPrebuild();
-    return;
-  }
-  /* 버튼을 누른 그 자리에서 바로 공유를 시도합니다. */
-  startShareSequence(backupPrebuild);
 }
 
 /* ---------- 복원: 파일을 고르고, 그 안의 여행을 다시 선택 ---------- */
