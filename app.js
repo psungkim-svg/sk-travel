@@ -397,8 +397,7 @@ window.addEventListener('popstate', e => {
 
 function render() {
   let t = trip();
-  $('#tripTop').textContent = t ? '여행 ▾' : '여행 선택';
-  $('#tripTop').title = t?.name || '여행 선택';
+  /* tripTop(홈 상단 '여행 선택' 버튼)은 v1.7.0에서 제거되었습니다. */
   $('#tabs').innerHTML = ['홈', '일정', '항공', '준비물', '관리'].map((x, i) => `<button class="${tab===['home','schedule','flight','packing','manage'][i]?'on':''}" aria-current="${tab===['home','schedule','flight','packing','manage'][i]?'page':'false'}" onclick="go('${['home','schedule','flight','packing','manage'][i]}')">${x}</button>`).join('');
   $('#app').innerHTML = ({
     home: home,
@@ -470,7 +469,7 @@ function home() {
       tripState = `<div class="notice">여행 준비 중 · <b>${safe(t.start)}</b> 출발까지 <b>D-${ddays}</b></div>`;
     }
   }
-  return `${rehearsal?`<div class="banner">🧪 현장 리허설 중 · 실제 현재 시각 아님 <button class="soft" onclick="rehearsal=null;reset()">종료</button></div>`:''}${tripState}<section class="home-top-board" aria-label="필라델피아와 여행지 정보"><div id="phlCell" class="top-cell home"><div class="top-label">출발지</div><div class="top-value" id="phlClock"></div><div class="top-sub" id="phlDate"></div></div><div id="destCell" class="top-cell dest"><div class="top-swap"><div class="top-label" id="destLabel">${safe(destCityName())}</div><div class="top-value" id="destClock"></div><div class="top-sub" id="destDate"></div></div></div><button type="button" class="top-cell wx" aria-label="여행지 2주 날씨" onclick="openWeeklyWeather()"><div class="top-swap"><div class="top-label">날씨</div><div class="top-value" id="weatherNow">${rehearsal?'리허설 · 실제 예보 아님':(weatherDays.length?(wxTodayCell()):'확인 중')}</div><div class="top-sub">${rehearsal?'리허설 · 실제 예보 아님':(weatherDays.length?wxTodayPop():'날씨 확인')}</div></div></button></section><div class="location-strip ${rehearsal?'idle':geoState==='checking'?'checking':geoState==='ok'&&geo&&Date.now()-geo.at<180000?'ok':geoState==='error'||geoState==='ok'?'error':'idle'}" role="status" aria-live="polite"><span class="location-dot" aria-hidden="true"></span><span class="location-label">현재 위치</span><span class="location-status">${safe(rehearsal?'리허설 중':geoState==='checking'?'확인 중':geoState==='ok'&&geo&&Date.now()-geo.at<180000?'수신 · 약 '+Math.round(geo.accuracy)+'m':geoState==='ok'?'오래된 위치':geoState==='error'?geoMessage:'확인 전')}</span><button type="button" class="location-refresh" onclick="locate()" aria-label="현재 위치 새로고침" title="위치 새로고침">↻</button></div><div class="geo-address" aria-live="polite">${safe(rehearsal?'리허설 중 실제 주소 미표시':geoAddress||'주소 미확인 · 위치를 갱신하세요')}</div>${!t?'<div class="card"><h1>여행을 준비해 볼까요?</h1><p>관리에서 여행 일정을 넣고 검토한 뒤 홈에서 확인하세요.</p><button class="primary" onclick="go(&#39;manage&#39;)">관리 열기</button></div>':!e?'<div class="card">아직 일정이 없습니다. 관리에서 날짜별 일정을 입력하세요.</div>':`<div class="card"><span class="eyebrow">${viewId?'다른 일정 미리 보기 · 10분 후 자동 복귀':'현지 시각 기준 · 현재 예정된 일정'}</span><h1>${safe(e.title||'제목 없는 일정')}</h1><div class="muted">${safe(a[i].d.date)} · ${safe(e.time||'시간 미정')} ${e.endTime?'– '+safe(e.endTime):''} · ${safe(a[i].d.city||t.city||'')}</div><div class="nav"><button onclick="move(-1)">← 이전 일정</button><button onclick="reset()">● 현재 일정</button><button onclick="move(1)">다음 일정 →</button></div>
+  return `${rehearsal?`<div class="banner">🧪 현장 리허설 중 · 실제 현재 시각 아님 <button class="soft" onclick="rehearsal=null;reset()">종료</button></div>`:''}${tripState}<section class="home-top-board" aria-label="필라델피아와 여행지 정보"><div id="phlCell" class="top-cell home"><div class="top-label">필라델피아</div><div class="top-value" id="phlClock"></div><div class="top-sub" id="phlDate"></div></div><div id="destCell" class="top-cell dest"><div class="top-swap"><div class="top-label" id="destLabel">${safe(destCityName())}</div><div class="top-value" id="destClock"></div><div class="top-sub" id="destDate"></div></div></div><button type="button" class="top-cell wx" onclick="openWeeklyWeather()"><div class="top-swap"><div class="top-label">${safe(destCityName())}</div><div class="top-value" id="weatherNow">${rehearsal?'리허설 · 실제 예보 아님':(weatherDays.length?(wxTodayCell()):'확인 중')}</div><div class="top-sub">${rehearsal?'리허설 · 실제 예보 아님':(weatherDays.length?wxTodayPop():'날씨 확인')}</div></div></button></section><div class="location-strip ${rehearsal?'idle':geoState==='checking'?'checking':geoState==='ok'&&geo&&Date.now()-geo.at<180000?'ok':geoState==='error'||geoState==='ok'?'error':'idle'}" role="status" aria-live="polite"><span class="location-dot" aria-hidden="true"></span><span class="location-label">현재 위치</span><span class="location-status">${safe(rehearsal?'리허설 중':geoState==='checking'?'확인 중':geoState==='ok'&&geo&&Date.now()-geo.at<180000?'수신 · 약 '+Math.round(geo.accuracy)+'m':geoState==='ok'?'오래된 위치':geoState==='error'?geoMessage:'확인 전')}</span><button type="button" class="location-refresh" onclick="locate()" aria-label="현재 위치 새로고침" title="위치 새로고침">↻</button></div><div class="geo-address" aria-live="polite">${safe(rehearsal?'리허설 중 실제 주소 미표시':geoAddress||'주소 미확인 · 위치를 갱신하세요')}</div>${!t?'<div class="card"><h1>여행을 준비해 볼까요?</h1><p>관리에서 여행 일정을 넣고 검토한 뒤 홈에서 확인하세요.</p><button class="primary" onclick="go(&#39;manage&#39;)">관리 열기</button></div>':!e?'<div class="card">아직 일정이 없습니다. 관리에서 날짜별 일정을 입력하세요.</div>':`<div class="card"><span class="eyebrow">${viewId?'다른 일정 미리 보기 · 10분 후 자동 복귀':'현지 시각 기준 · 현재 예정된 일정'}</span><h1>${safe(e.title||'제목 없는 일정')}</h1><div class="muted">${safe(a[i].d.date)} · ${safe(e.time||'시간 미정')} ${e.endTime?'– '+safe(e.endTime):''} · ${safe(a[i].d.city||t.city||'')}</div><div class="nav"><button onclick="move(-1)">← 이전 일정</button><button onclick="reset()">● 현재 일정</button><button onclick="move(1)">다음 일정 →</button></div>
 
 ${renderGuideBlock(t, e)}
 
@@ -831,7 +830,7 @@ function flight() {
     ticket: '비행기 티켓',
     hotel: '호텔'
   };
-  return `<h2>항공 · 공항 · 숙소</h2>${isSeedTrip(t)?'<div class="alert">🔴 귀국편 리스본 출발 시각 확인 필요: 일정표 11:05 / 전자항공권 10:55. 어느 쪽도 확정하지 않았습니다. 항공사에서 확인하세요.</div>':''}${['flight','airport','ticket','hotel'].map(k=>`<details class="flight-section" open><summary>${names[k]}</summary>${all().filter(x=>x.e[k]).map(x=>`<div class="flight-entry"><div class="flight-entry-title">${safe(x.d.date)} · ${safe(x.e.title)}</div>${flightFields(k,x.e[k])}</div>`).join('')||'<p class="muted">입력된 정보 없음</p>'}</details>`).join('')}`
+  return `<h2>항공 · 공항 · 숙소</h2>${isSeedTrip(t)?'<div class="alert">🔴 귀국편 리스본 출발 시각 확인 필요: 일정표 11:05 / 전자항공권 10:55. 어느 쪽도 확정하지 않았습니다. 항공사에서 확인하세요.</div>':''}${['flight','airport','ticket','hotel'].map(k=>`<details class="flight-section" data-kind="${k}" open><summary>${names[k]}</summary>${all().filter(x=>x.e[k]).map(x=>`<div class="flight-entry"><div class="flight-entry-title${/집결|집합|셔틀|주차장|출발 장소/.test((x.e.title||'') + ' ' + (x.e.note||'')) ? ' kind-gather' : ''}">${safe(x.d.date)} · ${safe(x.e.title)}</div>${flightFields(k,x.e[k])}</div>`).join('')||'<p class="muted">입력된 정보 없음</p>'}</details>`).join('')}`
 }
 
 function flightFields(kind, value) {
@@ -949,8 +948,8 @@ function manage() {
     <button class="soft" onclick="$('#guideZipFile').click()">가이드 가져오기(ZIP)</button>
     <button class="soft" onclick="openImport()">텍스트 붙여넣기</button>
   </div>
-  <input id="scheduleImportFile" type="file" accept=".json,application/json" hidden onchange="handleScheduleImport(this.files[0])">
-  <input id="guideZipFile" type="file" accept=".zip,application/zip" hidden onchange="handleGuideZipImport(this.files[0])">
+  <input id="scheduleImportFile" type="file" accept="*" hidden onchange="handleScheduleImport(this.files[0])">
+  <input id="guideZipFile" type="file" accept="*" hidden onchange="handleGuideZipImport(this.files[0])">
 </div>
 
 <h2>개인 예약정보</h2>
@@ -966,7 +965,7 @@ function manage() {
     <button class="primary" onclick="backupChoose()">백업 만들기</button>
     <button class="soft" onclick="openBackupImport()">백업 파일 가져오기</button>
   </div>
-  <input id="backupInput" type="file" accept=".json,application/json,text/plain,*/*" multiple hidden onchange="restoreFiles(this.files)">
+  <input id="backupInput" type="file" accept="*" multiple hidden onchange="restoreFiles(this.files)">
 </div>
 
 <h2>고급 설정</h2>
@@ -1058,7 +1057,7 @@ function area(k, label, v = '') {
 
 function openImport() {
   pending = null;
-  openModal('새 여행 일정 넣기', `<p class="muted">웹사이트에서 복사한 일정을 아래에 붙여넣으세요. 여행 이름·날짜·도시·통화는 원문에서 찾은 내용을 다음 검토 화면에 표시하며, 확실하지 않으면 비워 둡니다.</p><div class="alert">사진·스캔·PDF 자동 인식은 아직 지원하지 않습니다. 인식되는 것처럼 안내하지 않겠습니다. 해당 자료는 텍스트로 복사한 뒤 붙여 넣으세요.</div><input type="file" accept=".txt,.md,.json,text/plain,application/json" onchange="loadImportFile(this.files[0])">${area('raw','여행 일정 전체 텍스트','')}<button class="primary" onclick="previewImport()">전체 화면에서 일정 검토</button>`)
+  openModal('새 여행 일정 넣기', `<p class="muted">웹사이트에서 복사한 일정을 아래에 붙여넣으세요. 여행 이름·날짜·도시·통화는 원문에서 찾은 내용을 다음 검토 화면에 표시하며, 확실하지 않으면 비워 둡니다.</p><div class="alert">사진·스캔·PDF 자동 인식은 아직 지원하지 않습니다. 인식되는 것처럼 안내하지 않겠습니다. 해당 자료는 텍스트로 복사한 뒤 붙여 넣으세요.</div><input type="file" accept="*" onchange="loadImportFile(this.files[0])">${area('raw','여행 일정 전체 텍스트','')}<button class="primary" onclick="previewImport()">전체 화면에서 일정 검토</button>`)
 }
 async function loadImportFile(f) {
   if (!f) return;
@@ -1229,7 +1228,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v1.6.0";
+const APP_VERSION = "v1.7.0";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',
@@ -1742,7 +1741,7 @@ function makePrompt() {
 function importGuide() {
   let t = trip();
   if (!t) return alert('여행을 선택하세요.');
-  openModal('AI 가이드 자료 가져오기', `<p class="muted">요청서로 받은 JSON 파일을 선택하세요. 일정 ID가 일치하는 자료만 검토 화면에 표시합니다. 사진 URL은 자동 다운로드하지 않으며, 실제 사진은 직접 첨부하세요.</p><input type="file" accept=".json,application/json" onchange="reviewGuideFile(this.files[0])"><div id="guideReview"></div>`)
+  openModal('AI 가이드 자료 가져오기', `<p class="muted">요청서로 받은 JSON 파일을 선택하세요. 일정 ID가 일치하는 자료만 검토 화면에 표시합니다. 사진 URL은 자동 다운로드하지 않으며, 실제 사진은 직접 첨부하세요.</p><input type="file" accept="*" onchange="reviewGuideFile(this.files[0])"><div id="guideReview"></div>`)
 }
 async function reviewGuideFile(f) {
   if (!f) return;
@@ -2246,7 +2245,7 @@ async function unlockVault() {
 }
 
 function showVaultEditor() {
-  openModal('개인 예약정보', `<div class="alert">비밀번호 없이 바로 열립니다. 이 브라우저에 암호화되지 않은 상태로 저장되므로 기기·브라우저 접근자에게 보일 수 있습니다. 공개 일정·AI 요청서·일반 백업에는 넣지 않습니다. 브라우저 데이터를 지우면 사라질 수 있습니다.</div><label class="field">개인 예약 메모<textarea id="vaultText" style="min-height:48vh">${safe(localStorage.getItem(PRIVATE_NOTE_KEY)||'')}</textarea></label><label class="field">암호로 잠그기 (선택 · 4자 이상)<input type="password" id="vaultPass" placeholder="비워두고 저장하면 암호 없이 저장됩니다" autocomplete="new-password"></label><button class="primary" onclick="saveVault()">암호 없이 저장</button> <button class="soft" onclick="saveVaultSealed()">암호 걸어 저장</button> <button class="soft" onclick="clearPrivateNote()">내용 삭제</button> <button class="soft" onclick="importVault()">예전 암호화 백업 가져오기</button><input id="vaultImport" type="file" accept="application/json,.json" hidden onchange="restoreVault(this.files[0])">`)
+  openModal('개인 예약정보', `<div class="alert">비밀번호 없이 바로 열립니다. 이 브라우저에 암호화되지 않은 상태로 저장되므로 기기·브라우저 접근자에게 보일 수 있습니다. 공개 일정·AI 요청서·일반 백업에는 넣지 않습니다. 브라우저 데이터를 지우면 사라질 수 있습니다.</div><label class="field">개인 예약 메모<textarea id="vaultText" style="min-height:48vh">${safe(localStorage.getItem(PRIVATE_NOTE_KEY)||'')}</textarea></label><label class="field">암호로 잠그기 (선택 · 4자 이상)<input type="password" id="vaultPass" placeholder="비워두고 저장하면 암호 없이 저장됩니다" autocomplete="new-password"></label><button class="primary" onclick="saveVault()">암호 없이 저장</button> <button class="soft" onclick="saveVaultSealed()">암호 걸어 저장</button> <button class="soft" onclick="clearPrivateNote()">내용 삭제</button> <button class="soft" onclick="importVault()">예전 암호화 백업 가져오기</button><input id="vaultImport" type="file" accept="*" hidden onchange="restoreVault(this.files[0])">`)
 }
 
 function saveVault() {

@@ -25,7 +25,7 @@ button.small.danger { background: #d9534f; }
 details { background: white; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
 summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 800; font-size: 20px; position: relative; background: #fff; color: #0b1a3d; }
 summary::-webkit-details-marker { display: none; }
-summary::after { content: "▶"; position: absolute; right: 16px; top: 14px; color: #666; transition: transform .2s ease; }
+summary::after { content: "▶"; position: absolute; right: 16px; top: 14px; color: #666; transition: transform .2s ease; font-size: 80%; }
 details[open] summary::after { transform: rotate(90deg); }
 .content { padding: 0 12px 14px; border-top: 1px solid #eee; }
 .group { padding-top: 14px; margin-top: 12px; border-top: 2px dashed #f0f4f8; }
@@ -143,6 +143,7 @@ summary { font-size:19px!important; padding:14px 15px!important; min-height:56px
 .task-add-btn { font-size:15px!important; }
 .task-delete-btn { font-size:18px!important; }
 .memo-list { font-size:17px; line-height:1.55; }
+summary::after { font-size: 80% !important; }
 h1 { font-size:26px; }
 </style>
 </head>
