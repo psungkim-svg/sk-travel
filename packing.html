@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
 <meta name="color-scheme" content="light" />
 
-<title>SK-여행 체크리스트 v1.8.0 — 붙여넣기용</title>
+<title>SK-여행 체크리스트 v1.9.1 — 붙여넣기용</title>
 <style>
 * { box-sizing: border-box; }
 body {
@@ -145,7 +145,12 @@ summary { font-size:19px!important; padding:14px 15px!important; min-height:56px
 .memo-input-area textarea { font-size:17px!important; }
 .task-add-btn { font-size:15px!important; }
 .memo-list { font-size:17px; line-height:1.55; }
-summary::after { font-size: 80% !important; }
+/* v1.9.1: checklist arrow matches the schedule chevron (8px × 10px) */
+summary::after { content:"" !important; position:absolute; right:13px; top:50%; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:8px solid #666; font-size:0 !important; transform:translateY(-50%); }
+details[open] summary::after { transform:translateY(-50%) rotate(90deg); }
+/* Keep checklist text snug vertically without clipping the checkbox. */
+.item { min-height:0 !important; padding:2px 6px !important; line-height:1 !important; }
+.task-label { padding-top:0 !important; padding-bottom:0 !important; line-height:1 !important; }
 h1 { font-size:26px; }
 </style>
 </head>

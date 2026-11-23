@@ -1228,7 +1228,7 @@ function normalize(t) {
   return out
 }
 
-const APP_VERSION = "v1.9.0";
+const APP_VERSION = "v1.9.1";
 const SEED_FLAG = 'sk-guide-seeded';
 const AIRPORT_TZ = {
   PHL: 'America/New_York',

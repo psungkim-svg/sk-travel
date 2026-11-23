@@ -11,7 +11,7 @@
    - v1.6.0
    - 백업은 '로컬 저장'으로 파일을 받는 방식만 남겼습니다.
    - CACHE 이름이 'sk-guide-1.6.0'으로 바뀌어, 이전 버전 캐시는 자동으로 지워집니다. */
-const CACHE = 'sk-guide-1.9.0';
+const CACHE = 'sk-guide-1.9.1';
 const ASSETS = [
   './',
   './index.html',
