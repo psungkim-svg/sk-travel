@@ -67,6 +67,10 @@ flex-shrink: 0; margin-left: 8px;
 }
 
 .task-label[contenteditable="true"] { outline:2px solid #1f6feb; background:#fff; border-radius:6px; padding:2px 6px; word-break:break-word; }
+.task-move-armed { outline:3px dashed #1f6feb; outline-offset:2px; }
+.v4-menu-btn { display:block; width:100%; text-align:left; padding:12px 14px; margin:7px 0; border-radius:10px; background:#eef2f7; color:#17233b; border:1px solid #d8e0ea; font-size:16px; font-weight:700; cursor:pointer; }
+.v4-menu-btn.v4-menu-danger { background:#c93535; border-color:#a02828; color:#ffffff; }
+.v4-menu-btn.v4-menu-close { background:#ffffff; text-align:center; color:#26354c; }
 .task-label { flex:1; min-width:48px; }
 .task-dragging { outline:2px solid #2368cb; box-shadow:0 12px 28px #174b9166; z-index:20; will-change:transform; }
 .task-drop-placeholder { display:flex; align-items:center; justify-content:center; border:2px dashed #3d82e8 !important; background:#eaf3ff !important; color:#265b9b; font-size:12px; font-weight:800; border-radius:8px; opacity:.78; transition:background .14s ease,border-color .14s ease; }
@@ -668,28 +672,112 @@ renderMemos();
  }
  function bindItemTap(row){
   if(row.dataset.itemTapBound==='1')return;row.dataset.itemTapBound='1';
-  row.title='톡: 가로길이 전환 · 두 번 톡: 내용 수정 · 꾹: 삭제';
+  row.title='톡: 체크 · 꾹: 메뉴(이름 수정 · 크기 전환 · 이동 · 삭제)';
   row.addEventListener('click',e=>{
+   if(window.__v4SwallowClick){window.__v4SwallowClick=false;e.preventDefault();e.stopPropagation();return;}
    if(row.dataset.suppressClick==='1'){e.preventDefault();e.stopPropagation();row.dataset.suppressClick='0';return;}
-   if(e.target.closest('input[type="checkbox"]'))return; /* 체크는 체크박스 톡으로 */
-   if(row.querySelector('.task-label[contenteditable="true"]')){e.stopPropagation();return;}
-   e.preventDefault();e.stopPropagation();
-   const now=Date.now(),last=+(row.dataset.lastTap||0);
-   if(now-last<280){clearTimeout(row.__tapT);row.dataset.lastTap='0';startItemEdit(row);return;}
-   row.dataset.lastTap=String(now);clearTimeout(row.__tapT);
-   row.__tapT=setTimeout(()=>{row.dataset.lastTap='0';toggleItemSpan(row);},285);
+   if(row.querySelector('.task-label[contenteditable="true"]')){e.preventDefault();e.stopPropagation();return; /* 수정 중: 라벨 기본동작(체크) 차단 */}
   },true);
  }
  function bindTaskLongPress(row){
   if(row.dataset.longPressBound==='1')return;row.dataset.longPressBound='1';
   let timer=null,sx=0,sy=0;
-  const start=(x,y)=>{sx=x;sy=y;clearTimeout(timer);timer=setTimeout(()=>{timer=null;if(navigator.vibrate)navigator.vibrate(35);row.dataset.suppressClick='1';showDeleteTaskDialog(row);},450);};
+  const start=(x,y)=>{sx=x;sy=y;clearTimeout(timer);timer=setTimeout(()=>{timer=null;if(navigator.vibrate)navigator.vibrate(35);row.dataset.suppressClick='1';showItemMenu(row);},450);};
   const move=(x,y)=>{if(timer!==null&&Math.hypot(x-sx,y-sy)>12){clearTimeout(timer);timer=null;}};
   const end=()=>{clearTimeout(timer);timer=null;};
   row.addEventListener('pointerdown',e=>{if((e.pointerType==='mouse'&&e.button!==0)||e.target.closest('input'))return;start(e.clientX,e.clientY);},{passive:true});
   row.addEventListener('pointermove',e=>move(e.clientX,e.clientY),{passive:true});
   ['pointerup','pointercancel','pointerleave'].forEach(ev=>row.addEventListener(ev,end,{passive:true}));
   row.addEventListener('contextmenu',e=>e.preventDefault());
+ }
+
+ /* 꾹 누르기 메뉴: 이름 수정 / 크기 전환 / 이동하기 / 삭제 */
+ let moveArmed=null;
+ function showItemMenu(row){
+  document.querySelector('.v4-delete-overlay')?.remove();
+  const overlay=document.createElement('div');overlay.className='v4-delete-overlay';overlay.setAttribute('role','presentation');
+  const box=document.createElement('div');box.className='v4-delete-box';box.setAttribute('role','menu');box.setAttribute('aria-label','항목 메뉴');
+  const name=(row.querySelector('.task-label')?.textContent||'이 항목').trim();
+  const title=document.createElement('div');title.className='v4-delete-title';title.textContent='“'+name+'”';
+  const mk=(label,cls,fn)=>{const b=document.createElement('button');b.type='button';b.className='v4-menu-btn'+(cls?' '+cls:'');b.textContent=label;b.setAttribute('role','menuitem');b.onclick=()=>{close();fn();};box.appendChild(b);};
+  const close=()=>{overlay.remove();document.removeEventListener('keydown',onKey);};
+  const onKey=e=>{if(e.key==='Escape')close();};
+  box.appendChild(title);
+  mk('이름 수정','',()=>startItemEdit(row));
+  mk('가로 크기 전환 (반 ↔ 원래)','',()=>toggleItemSpan(row));
+  mk('이동하기 (끌어서 다른 목록으로)','',()=>startMoveMode(row));
+  mk('삭제','v4-menu-danger',()=>showDeleteTaskDialog(row));
+  mk('닫기','v4-menu-close',()=>{});
+  overlay.onclick=e=>{if(e.target===overlay)close();};
+  overlay.appendChild(box);document.body.appendChild(overlay);document.addEventListener('keydown',onKey);
+ }
+ function startMoveMode(row){
+  exitMoveMode();
+  moveArmed=row;row.classList.add('task-move-armed');
+  const hint=document.createElement('div');hint.className='v4-drag-hint';hint.textContent='박스를 손가락으로 끌어서 옮기세요 · 다른 곳을 톡 하면 종료';document.body.appendChild(hint);
+  document.addEventListener('pointerdown',armedCapture,true);
+ }
+ function exitMoveMode(){
+  if(!moveArmed)return;moveArmed.classList.remove('task-move-armed');moveArmed=null;
+  document.removeEventListener('pointerdown',armedCapture,true);
+  document.querySelector('.v4-drag-hint')?.remove();
+ }
+ function armedCapture(e){
+  if(!moveArmed)return;
+  if(moveArmed.contains(e.target)){
+   e.preventDefault();e.stopPropagation();
+   const row=moveArmed;exitMoveMode();beginDrag(row,e);
+  }else{
+   e.preventDefault();e.stopPropagation();window.__v4SwallowClick=true;exitMoveMode();
+  }
+ }
+ function beginDrag(row,pointerEvent){
+  const grid=row.parentElement;if(!grid)return;
+  const r=row.getBoundingClientRect();
+  const ph=document.createElement('div');ph.className=row.className.replace('task-move-armed','').replace('task-dragging','').trim()+' task-drop-placeholder';ph.textContent='여기에 놓기';
+  ph.style.cssText='height:'+r.height+'px;min-height:0;width:'+r.width+'px;grid-column:'+getComputedStyle(row).gridColumn;
+  grid.insertBefore(ph,row);
+  const startGroup=row.closest('[data-task-group]')?.dataset.taskGroup||'';
+  row.classList.add('task-dragging');
+  Object.assign(row.style,{position:'fixed',zIndex:'10000',pointerEvents:'none',opacity:'.96',margin:'0',width:r.width+'px',height:r.height+'px',left:r.left+'px',top:r.top+'px',transition:'none'});
+  document.body.classList.add('v4-drag-active');
+  if(navigator.vibrate)navigator.vibrate(25);
+  const id=taskId(row);
+  const offsetX=pointerEvent.clientX-r.left,offsetY=pointerEvent.clientY-r.top;
+  const onMove=e=>{
+   const src=(e.touches&&e.touches[0])||e;if(!src)return;
+   row.style.left=(src.clientX-offsetX)+'px';row.style.top=(src.clientY-offsetY)+'px';
+   row.style.display='';
+   const under=document.elementFromPoint(src.clientX,src.clientY);if(!under)return;
+   let g=under.closest?under.closest('.check-grid'):null;
+   if(!g){const c=under.closest?under.closest('[data-task-group]'):null;if(c)g=c.querySelector('.check-grid');}
+   if(!g)return;
+   const rows=[...g.querySelectorAll('.item:not(.task-dragging):not(.task-drop-placeholder)')];
+   let nearest=null,best=Infinity;
+   for(const it of rows){const b=it.getBoundingClientRect();const cx=b.left+b.width/2,cy=b.top+b.height/2;const d=Math.abs(src.clientY-cy)*2+Math.abs(src.clientX-cx);if(d<best){best=d;nearest=it;}}
+   let next=null;
+   if(nearest){const b=nearest.getBoundingClientRect();next=src.clientY<b.top+b.height/2?nearest:nearest.nextElementSibling;}
+   if(ph.parentElement!==g||next!==ph){g.insertBefore(ph,next);}
+   if(e.cancelable)e.preventDefault();
+  };
+  const onUp=()=>{
+   document.removeEventListener('pointermove',onMove);document.removeEventListener('pointerup',onUp);document.removeEventListener('pointercancel',onUp);
+   document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onUp);document.removeEventListener('touchcancel',onUp);
+   ph.replaceWith(row);
+   row.classList.remove('task-dragging');
+   ['position','left','top','width','height','margin','zIndex','pointerEvents','opacity','transition'].forEach(k=>row.style[k]='');
+   document.body.classList.remove('v4-drag-active');document.querySelector('.v4-drag-hint')?.remove();
+   const target=row.closest('[data-task-group]')?.dataset.taskGroup||startGroup;
+   if(target!==startGroup&&id){
+    if(row.dataset.customTask==='1'){const o=getEx();let item=null;Object.keys(o).forEach(k=>{if(Array.isArray(o[k])){const i=o[k].findIndex(x=>String(x.id)===id);if(i>=0)item=o[k].splice(i,1)[0];}});if(item){(o[target]=o[target]||[]).push(item);saveEx(o);}}
+    else{const l=getObj(ITEM_LAYOUT_KEY);l[id]=target;localStorage.setItem(ITEM_LAYOUT_KEY,JSON.stringify(l));}
+   }
+   const orders=getObj(ITEM_ORDER_KEY);[startGroup,target].forEach(key=>{const g=document.querySelector('[data-task-group="'+CSS.escape(key)+'"] .check-grid');if(g)orders[key]=[...g.querySelectorAll('.item')].map(taskId).filter(Boolean);});
+   localStorage.setItem(ITEM_ORDER_KEY,JSON.stringify(orders));
+   renderExtras();
+  };
+  document.addEventListener('pointermove',onMove,{passive:false});document.addEventListener('pointerup',onUp);document.addEventListener('pointercancel',onUp);
+  document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onUp);document.addEventListener('touchcancel',onUp);
  }
  function removeCustomItem(id){const o=getEx();Object.keys(o).forEach(k=>{if(Array.isArray(o[k]))o[k]=o[k].filter(x=>String(x.id)!==id);});saveEx(o);}
  function addTask(group){const text=prompt('“'+group.label+'”에 추가할 준비물/할 일을 입력하세요.','');if(text==null||!text.trim())return;const id='x_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);const o=getEx();(o[group.key]=o[group.key]||[]).push({id,text:text.trim()});saveEx(o);renderExtras();}
