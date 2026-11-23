@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
 <meta name="color-scheme" content="light" />
 
-<title>SK-여행 체크리스트 v1.3.0 — 붙여넣기용</title>
+<title>SK-여행 체크리스트 v1.8.0 — 붙여넣기용</title>
 <style>
 * { box-sizing: border-box; }
 body {
@@ -66,9 +66,8 @@ padding: 4px 10px; font-size: 13px; font-weight: bold; cursor: pointer;
 flex-shrink: 0; margin-left: 8px;
 }
 
-.task-editable { position:relative; padding-right:30px; }
+.task-label[contenteditable="true"] { outline:2px solid #1f6feb; background:#fff; border-radius:6px; padding:2px 6px; word-break:break-word; }
 .task-label { flex:1; min-width:48px; }
-.task-delete-btn { position:absolute; top:4px; right:4px; width:21px; height:21px; padding:0; display:grid; place-items:center; border-radius:50%; background:#fff0f0; color:#a52d2d; border:1px solid #efc5c5; font-size:17px; line-height:1; font-weight:800; }
 .task-dragging { outline:2px solid #2368cb; box-shadow:0 12px 28px #174b9166; z-index:20; will-change:transform; }
 .task-drop-placeholder { display:flex; align-items:center; justify-content:center; border:2px dashed #3d82e8 !important; background:#eaf3ff !important; color:#265b9b; font-size:12px; font-weight:800; border-radius:8px; opacity:.78; transition:background .14s ease,border-color .14s ease; }
 .task-group-controls { margin-top:7px; }
@@ -141,7 +140,6 @@ summary { font-size:19px!important; padding:14px 15px!important; min-height:56px
 .saved-memo-item .del-btn { font-size:14px!important; }
 .memo-input-area textarea { font-size:17px!important; }
 .task-add-btn { font-size:15px!important; }
-.task-delete-btn { font-size:18px!important; }
 .memo-list { font-size:17px; line-height:1.55; }
 summary::after { font-size: 80% !important; }
 h1 { font-size:26px; }
@@ -624,10 +622,7 @@ renderMemos();
  function allTaskCheckboxes(){return [...document.querySelectorAll('details .content .item:not([data-custom-task="1"]) input[type="checkbox"][data-id]')];}
  function taskId(row){const c=row.querySelector('input[type="checkbox"][data-id]');return c?String(c.dataset.id):'';}
  function bindTaskCheckbox(cb){if(cb.dataset.v4Bound==='1')return;cb.dataset.v4Bound='1';cb.addEventListener('change',()=>localStorage.setItem(v4PackCheckKey(cb.dataset.id),cb.checked?'1':'0'));}
- function normalizeTaskRow(row){row.classList.add('task-editable');const cb=row.querySelector('input[type="checkbox"][data-id]');if(!cb)return;bindTaskCheckbox(cb);cb.checked=localStorage.getItem(v4PackCheckKey(cb.dataset.id))==='1';let text=row.querySelector('.task-label');if(!text){const node=[...row.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());if(node){text=document.createElement('span');text.className='task-label';text.textContent=node.textContent.trim();node.replaceWith(text);}}}
- function makeTaskDelete(row){
-  row.querySelector('.task-delete-btn')?.remove();row.classList.add('task-editable');const id=taskId(row),b=document.createElement('button');b.type='button';b.className='task-delete-btn';b.textContent='×';b.title='항목 삭제';b.setAttribute('aria-label','삭제: '+(row.querySelector('.task-label')?.textContent||'항목'));b.onclick=e=>{e.preventDefault();e.stopPropagation();showDeleteTaskDialog(row);};row.appendChild(b);
- }
+ function normalizeTaskRow(row){const cb=row.querySelector('input[type="checkbox"][data-id]');if(!cb)return;bindTaskCheckbox(cb);cb.checked=localStorage.getItem(v4PackCheckKey(cb.dataset.id))==='1';let text=row.querySelector('.task-label');if(!text){const node=[...row.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());if(node){text=document.createElement('span');text.className='task-label';text.textContent=node.textContent.trim();node.replaceWith(text);}}}
  function showDeleteTaskDialog(row){
   document.querySelector('.v4-delete-overlay')?.remove();const overlay=document.createElement('div');overlay.className='v4-delete-overlay';overlay.setAttribute('role','presentation');
   const box=document.createElement('div');box.className='v4-delete-box';box.setAttribute('role','alertdialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-labelledby','v4DeleteTitle');
@@ -637,48 +632,64 @@ renderMemos();
   const close=()=>{overlay.remove();document.removeEventListener('keydown',onKey);};const onKey=e=>{if(e.key==='Escape')close();};cancel.onclick=close;overlay.onclick=e=>{if(e.target===overlay)close();};del.onclick=()=>{const id=taskId(row);if(id){if(row.dataset.customTask==='1')removeCustomItem(id);else{const d=getDeleted();if(!d.includes(id)){d.push(id);localStorage.setItem(ITEM_DELETED_KEY,JSON.stringify(d));}}localStorage.removeItem(v4PackCheckKey(id));}close();renderExtras();setTimeout(renderExtras,0);};
   actions.append(cancel,del);box.append(title,msg,actions);overlay.appendChild(box);document.body.appendChild(overlay);document.addEventListener('keydown',onKey);del.focus();
  }
- let v4ActiveDrag=null;
- function flipGrid(grids,mutate){
-  const active=[...new Set((Array.isArray(grids)?grids:[grids]).filter(Boolean))];
-  const rows=active.flatMap(g=>[...g.querySelectorAll('.item:not(.task-dragging):not(.task-drop-placeholder)')]);
-  const before=new Map(rows.map(n=>[n,n.getBoundingClientRect()]));mutate();
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  rows.forEach(n=>{if(!n.isConnected)return;const old=before.get(n),now=n.getBoundingClientRect();const dx=old.left-now.left,dy=old.top-now.top;if(Math.abs(dx)+Math.abs(dy)>2&&Math.abs(dy)<320){n.getAnimations().forEach(a=>a.cancel());n.animate([{transform:`translate3d(${dx}px,${dy}px,0)`},{transform:'translate3d(0,0,0)'}],{duration:230,easing:'cubic-bezier(.2,.75,.2,1)'})}});
- }
 
- function finishTaskDrag(){
-  const d=v4ActiveDrag;if(!d)return;const before=new Map([...document.querySelectorAll('.item:not(.task-dragging):not(.task-drop-placeholder)')].map(row=>[taskId(row),row.getBoundingClientRect()]));const oldScroll=window.scrollY;clearTimeout(d.timer);document.removeEventListener('pointermove',onTaskPointerMove);document.removeEventListener('pointerup',onTaskPointerUp);document.removeEventListener('pointercancel',onTaskPointerUp);document.body.classList.remove('v4-drag-active');document.querySelector('.v4-drag-hint')?.remove();document.querySelectorAll('.task-drop-target').forEach(el=>el.classList.remove('task-drop-target'));v4ActiveDrag=null;
-  if(!d.dragging)return;const id=taskId(d.row),target=d.placeholder?.closest('[data-task-group]')?.dataset.taskGroup||d.startGroup;if(!id||!target){d.placeholder?.remove();return;}
-  d.row.classList.remove('task-dragging');d.row.style.position='';d.row.style.left='';d.row.style.top='';d.row.style.width='';d.row.style.height='';d.row.style.margin='';d.row.style.zIndex='';d.row.style.opacity='';d.row.style.pointerEvents='';d.row.style.transform='';d.row.style.transition='';if(d.placeholder&&d.placeholder.parentNode)d.placeholder.replaceWith(d.row);
-  if(target!==d.startGroup){if(d.row.dataset.customTask==='1'){const o=getEx();let item=null;Object.keys(o).forEach(k=>{if(Array.isArray(o[k])){const i=o[k].findIndex(x=>String(x.id)===id);if(i>=0)item=o[k].splice(i,1)[0];}});if(item){(o[target]=o[target]||[]).push(item);saveEx(o);}}else{const l=getObj(ITEM_LAYOUT_KEY);l[id]=target;localStorage.setItem(ITEM_LAYOUT_KEY,JSON.stringify(l));}}
-  const orders=getObj(ITEM_ORDER_KEY);[d.startGroup,target].forEach(key=>{const grid=document.querySelector('[data-task-group="'+CSS.escape(key)+'"] .check-grid');if(grid)orders[key]=[...grid.querySelectorAll('.item')].map(taskId).filter(Boolean);});localStorage.setItem(ITEM_ORDER_KEY,JSON.stringify(orders));renderExtras();if(window.scrollY!==oldScroll)window.scrollTo(0,oldScroll);if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.item').forEach(row=>{const old=before.get(taskId(row));if(!old)return;const now=row.getBoundingClientRect(),dx=old.left-now.left,dy=old.top-now.top;if(Math.abs(dx)+Math.abs(dy)>2&&Math.abs(dy)<350)row.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'translate(0,0)'}],{duration:280,easing:'cubic-bezier(.2,.7,.2,1)'});});}
+ const SPAN_KEY='travel_v4_item_span';
+ const TEXTS_KEY='travel_v4_item_texts';
+ function getSpanMap(){try{return JSON.parse(localStorage.getItem(SPAN_KEY))||{}}catch(e){return{}}}
+ function getTextMap(){try{return JSON.parse(localStorage.getItem(TEXTS_KEY))||{}}catch(e){return{}}}
+ function stripSpans(row){['span-1','span-2','span-3','span-4'].forEach(c=>row.classList.remove(c));}
+ function currentSpan(row){return ['span-1','span-2','span-3','span-4'].find(c=>row.classList.contains(c))||'span-2';}
+ function applyItemSpan(row){
+  const id=taskId(row);if(!id)return;const m=getSpanMap();const orig=m[id];
+  if(orig){stripSpans(row);row.classList.add('span-1');row.dataset.half='1';row.dataset.origSpan=orig;}
+  else if(row.dataset.half==='1'){stripSpans(row);row.classList.add(row.dataset.origSpan||'span-2');row.dataset.half='0';}
  }
- function onTaskPointerMove(e){
-  const d=v4ActiveDrag;if(!d)return;if(!d.dragging){if(Math.hypot(e.clientX-d.x,e.clientY-d.y)>12)clearTimeout(d.timer);return;}
-  e.preventDefault();d.row.style.transform=`translate3d(${e.clientX-d.x}px,${e.clientY-d.y}px,0)`;const under=document.elementFromPoint(e.clientX,e.clientY);if(!under)return;let grid=under.closest('.check-grid'),container=under.closest('[data-task-group]');if(!grid&&container)grid=container.querySelector('.check-grid');if(!grid)return;container=grid.closest('[data-task-group]');if(!container)return;const groups=getTaskGroups();if(!groups.some(g=>g.key===container.dataset.taskGroup)){const legacy=document.querySelector('.legacy-extras[data-task-group="'+CSS.escape(container.dataset.taskGroup)+'"]');if(!legacy)return;}
-  // Live placeholder: items glide into their final slots before the finger is lifted.
-  const ph=d.placeholder;if(!ph)return;
-  const rows=[...grid.querySelectorAll('.item:not(.task-dragging):not(.task-drop-placeholder)')];
-  let nearest=null,nearestDistance=Infinity;
-  for(const row of rows){const r=row.getBoundingClientRect(),cx=(r.left+r.right)/2,cy=(r.top+r.bottom)/2;const distance=Math.abs(e.clientY-cy)*2+Math.abs(e.clientX-cx);if(distance<nearestDistance){nearestDistance=distance;nearest=row}}
-  let before=false;if(nearest){const r=nearest.getBoundingClientRect();before=e.clientY<r.top+r.height/2;}
-  const next=nearest?(before?nearest:nearest.nextElementSibling):null;
-  if(ph.parentElement===grid&&(next===ph||(!next&&ph===grid.lastElementChild)))return;
-  const previousGrid=ph.parentElement;
-  flipGrid([previousGrid,grid],()=>{grid.insertBefore(ph,next)});
-
+ function applyItemText(row){
+  const id=taskId(row);if(!id)return;const t=getTextMap()[id];const span=row.querySelector('.task-label');
+  if(t!=null&&span&&span.textContent!==t)span.textContent=t;
  }
- function onTaskPointerUp(){if(v4ActiveDrag&&v4ActiveDrag.pointerType!=='touch')finishTaskDrag();}
- function activateTaskDrag(d){if(!d||v4ActiveDrag!==d||d.dragging)return;const r=d.row.getBoundingClientRect(),grid=d.row.parentElement,ph=document.createElement('div');ph.className=d.row.className+' task-drop-placeholder';ph.classList.remove('task-dragging');ph.textContent='여기에 놓기';ph.style.height=r.height+'px';ph.style.minHeight='0';ph.style.width=r.width+'px';ph.style.gridColumn=getComputedStyle(d.row).gridColumn;d.placeholder=ph;grid.insertBefore(ph,d.row);d.row.classList.add('task-dragging');d.row.style.position='fixed';d.row.style.left=r.left+'px';d.row.style.top=r.top+'px';d.row.style.width=r.width+'px';d.row.style.height=r.height+'px';d.row.style.margin='0';d.row.style.zIndex='10000';d.row.style.pointerEvents='none';d.row.style.opacity='.96';d.row.style.transform='scale(1)';d.row.style.transition='none';d.dragging=true;document.body.classList.add('v4-drag-active');const hint=document.createElement('div');hint.className='v4-drag-hint';hint.textContent='원하는 위치로 끌면 다른 항목이 부드럽게 비켜요 · 놓으면 저장';document.body.appendChild(hint);if(navigator.vibrate)navigator.vibrate(25);}
- function onTaskTouchMove(e){const d=v4ActiveDrag;if(!d||d.pointerType!=='touch')return;const t=e.touches&&e.touches[0];if(!t)return;if(!d.dragging){if(Math.hypot(t.clientX-d.x,t.clientY-d.y)>12)clearTimeout(d.timer);return;}e.preventDefault();onTaskPointerMove({clientX:t.clientX,clientY:t.clientY,preventDefault:()=>e.preventDefault()});}
- function onTaskTouchEnd(){if(v4ActiveDrag&&v4ActiveDrag.pointerType==='touch'){if(v4ActiveDrag.dragging)v4ActiveDrag.row.dataset.suppressClick='1';finishTaskDrag();setTimeout(()=>document.querySelectorAll('.task-editable[data-suppress-click="1"]').forEach(x=>x.dataset.suppressClick='0'),500);}}
+ function toggleItemSpan(row){
+  const id=taskId(row);if(!id)return;const m=getSpanMap();
+  if(!m[id]){m[id]=currentSpan(row);localStorage.setItem(SPAN_KEY,JSON.stringify(m));stripSpans(row);row.classList.add('span-1');row.dataset.half='1';row.dataset.origSpan=m[id];}
+  else{const orig=m[id];delete m[id];localStorage.setItem(SPAN_KEY,JSON.stringify(m));stripSpans(row);row.classList.add(orig||'span-2');row.dataset.half='0';}
+ }
+ function startItemEdit(row){
+  const span=row.querySelector('.task-label');if(!span)return;const old=span.textContent;
+  span.contentEditable='true';span.focus();
+  const sel=window.getSelection();if(sel){sel.selectAllChildren(span);const r=document.createRange();r.selectNodeContents(span);r.collapse(false);sel.removeAllRanges();sel.addRange(r);}
+  const kd=e=>{if(e.key==='Enter'){e.preventDefault();span.blur();}};
+  span.addEventListener('keydown',kd);
+  span.addEventListener('blur',function done(){
+   span.removeEventListener('blur',done);span.removeEventListener('keydown',kd);
+   const t=span.textContent.replace(/\s+/g,' ').trim();span.contentEditable='false';
+   if(!t){span.textContent=old;return;}
+   span.textContent=t;const id=taskId(row);if(id){const m=getTextMap();m[id]=t;localStorage.setItem(TEXTS_KEY,JSON.stringify(m));}
+  });
+ }
+ function bindItemTap(row){
+  if(row.dataset.itemTapBound==='1')return;row.dataset.itemTapBound='1';
+  row.title='톡: 가로길이 전환 · 두 번 톡: 내용 수정 · 꾹: 삭제';
+  row.addEventListener('click',e=>{
+   if(row.dataset.suppressClick==='1'){e.preventDefault();e.stopPropagation();row.dataset.suppressClick='0';return;}
+   if(e.target.closest('input[type="checkbox"]'))return; /* 체크는 체크박스 톡으로 */
+   if(row.querySelector('.task-label[contenteditable="true"]')){e.stopPropagation();return;}
+   e.preventDefault();e.stopPropagation();
+   const now=Date.now(),last=+(row.dataset.lastTap||0);
+   if(now-last<280){clearTimeout(row.__tapT);row.dataset.lastTap='0';startItemEdit(row);return;}
+   row.dataset.lastTap=String(now);clearTimeout(row.__tapT);
+   row.__tapT=setTimeout(()=>{row.dataset.lastTap='0';toggleItemSpan(row);},285);
+  },true);
+ }
  function bindTaskLongPress(row){
   if(row.dataset.longPressBound==='1')return;row.dataset.longPressBound='1';
-  row.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.button!==0||e.target.closest('.task-delete-btn')||e.target.closest('input'))return;if(v4ActiveDrag)finishTaskDrag();const d={row,x:e.clientX,y:e.clientY,startGroup:row.closest('[data-task-group]')?.dataset.taskGroup||'',dragging:false,pointerType:'mouse',timer:null};v4ActiveDrag=d;d.timer=setTimeout(()=>activateTaskDrag(d),520);document.addEventListener('pointermove',onTaskPointerMove,{passive:false});document.addEventListener('pointerup',onTaskPointerUp);document.addEventListener('pointercancel',onTaskPointerUp);},{passive:true});
-  row.addEventListener('touchstart',e=>{if(e.target.closest('.task-delete-btn')||e.target.closest('input')||!e.touches||e.touches.length!==1)return;if(v4ActiveDrag)finishTaskDrag();const t=e.touches[0],d={row,x:t.clientX,y:t.clientY,startGroup:row.closest('[data-task-group]')?.dataset.taskGroup||'',dragging:false,pointerType:'touch',timer:null};v4ActiveDrag=d;d.timer=setTimeout(()=>activateTaskDrag(d),520);},{passive:true});
-  if(!window.__v4TouchTaskListeners){window.__v4TouchTaskListeners=true;document.addEventListener('touchmove',onTaskTouchMove,{passive:false});document.addEventListener('touchend',onTaskTouchEnd,{passive:true});document.addEventListener('touchcancel',onTaskTouchEnd,{passive:true});}
-  row.addEventListener('click',e=>{if(row.dataset.suppressClick==='1'){e.preventDefault();e.stopPropagation();row.dataset.suppressClick='0';}},true);
-  row.addEventListener('pointerup',()=>{if(v4ActiveDrag&&v4ActiveDrag.row===row&&v4ActiveDrag.dragging&&v4ActiveDrag.pointerType==='mouse'){row.dataset.suppressClick='1';setTimeout(()=>row.dataset.suppressClick='0',500);}},true);
+  let timer=null,sx=0,sy=0;
+  const start=(x,y)=>{sx=x;sy=y;clearTimeout(timer);timer=setTimeout(()=>{timer=null;if(navigator.vibrate)navigator.vibrate(35);row.dataset.suppressClick='1';showDeleteTaskDialog(row);},450);};
+  const move=(x,y)=>{if(timer!==null&&Math.hypot(x-sx,y-sy)>12){clearTimeout(timer);timer=null;}};
+  const end=()=>{clearTimeout(timer);timer=null;};
+  row.addEventListener('pointerdown',e=>{if((e.pointerType==='mouse'&&e.button!==0)||e.target.closest('input'))return;start(e.clientX,e.clientY);},{passive:true});
+  row.addEventListener('pointermove',e=>move(e.clientX,e.clientY),{passive:true});
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>row.addEventListener(ev,end,{passive:true}));
+  row.addEventListener('contextmenu',e=>e.preventDefault());
  }
  function removeCustomItem(id){const o=getEx();Object.keys(o).forEach(k=>{if(Array.isArray(o[k]))o[k]=o[k].filter(x=>String(x.id)!==id);});saveEx(o);}
  function addTask(group){const text=prompt('“'+group.label+'”에 추가할 준비물/할 일을 입력하세요.','');if(text==null||!text.trim())return;const id='x_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);const o=getEx();(o[group.key]=o[group.key]||[]).push({id,text:text.trim()});saveEx(o);renderExtras();}
@@ -698,7 +709,7 @@ renderMemos();
   // Apply a persistent order within each checklist grid.
   const orders=getObj(ITEM_ORDER_KEY);groups.forEach(group=>{const order=Array.isArray(orders[group.key])?orders[group.key]:[];const rows=new Map([...group.grid.querySelectorAll('.item')].map(r=>[taskId(r),r]));order.forEach(id=>{const row=rows.get(String(id));if(row)group.grid.appendChild(row);});});
   groups.forEach(group=>{
-   [...group.grid.querySelectorAll('.item')].forEach(row=>{normalizeTaskRow(row);makeTaskDelete(row);bindTaskLongPress(row);});
+   [...group.grid.querySelectorAll('.item')].forEach(row=>{normalizeTaskRow(row);applyItemText(row);applyItemSpan(row);bindItemTap(row);bindTaskLongPress(row);});
    let controls=group.group.querySelector('.task-group-controls');if(!controls){controls=document.createElement('div');controls.className='task-group-controls';group.group.appendChild(controls);}controls.replaceChildren();const add=document.createElement('button');add.type='button';add.className='task-add-btn';add.textContent='＋ 이 목록에 할 일 추가';add.onclick=()=>addTask(group);controls.appendChild(add);
   });
  }
